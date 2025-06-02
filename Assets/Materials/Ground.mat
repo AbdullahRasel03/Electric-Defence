@@ -295,8 +295,8 @@ Material:
     - _AnimeColor1: {r: 1, g: 1, b: 1, a: 1}
     - _AnimeColor2: {r: 1.35, g: 1.35, b: 1.35, a: 1}
     - _AnimeColor3: {r: 2, g: 2, b: 2, a: 1}
-    - _BaseColor: {r: 0.8066038, g: 0.96819985, b: 1, a: 1}
-    - _Color: {r: 0.8066038, g: 0.9681998, b: 1, a: 1}
+    - _BaseColor: {r: 0.13207549, g: 0.05453649, b: 0, a: 1}
+    - _Color: {r: 0.13207546, g: 0.054536477, b: 0, a: 1}
     - _DetailColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Emissive: {r: 0, g: 0, b: 0, a: 0}
