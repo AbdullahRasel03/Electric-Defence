@@ -17,7 +17,7 @@ Material:
   - DIFFUSE
   - FOG
   - MATCAP_PERSPECTIVE
-  - OUTLINE
+  - OUTLINE_PASS_DISABLED
   - SHADOWS_ENABLED
   - _DETAILBLEND_MULTIPLY
   - _DETAILUV_UV1
@@ -42,7 +42,8 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - SRPDEFAULTUNLIT
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -240,11 +241,11 @@ Material:
     - _NormalUV: 0
     - _NormalUV2: 0
     - _OcclusionStrength: 1
-    - _Outline: 1
+    - _Outline: 0
     - _OutlineComp: 8
     - _OutlineGroup: 0
     - _OutlinePass: 0
-    - _OutlineWidth: 0.0484
+    - _OutlineWidth: 0
     - _OutlineWidthIndependent: 0
     - _OutlineZPos: 0
     - _Parallax: 0.005
