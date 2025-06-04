@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7554642794039954331
+--- !u!114 &-4411395516558741606
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,19 +20,18 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RedRope
+  m_Name: Head_Metal
   m_Shader: {fileID: 4800000, guid: a2a06e22c08354d9699356710b69ca9c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - AMBIENT
+  - ANIME
   - ANIME_SOFT
   - DIFFUSE
   - FOG
-  - LIGHT_MAP
   - MATCAP_PERSPECTIVE
-  - NORMAL_MAP
-  - OUTLINE_PASS_DISABLED
+  - OUTLINE
   - SHADOWS_ENABLED
   - _DETAILBLEND_MULTIPLY
   - _DETAILUV_UV1
@@ -51,17 +50,13 @@ Material:
   - _RIMBLEND_ADDITIVE
   - _SHADOWOVERLAYANIMATION_SCROLL
   - _SPECULARUV_UV1
-  m_InvalidKeywords:
-  - _EMISSION
-  - _NORMALMAP
-  - _OCCLUSIONMAP
-  m_LightmapFlags: 2
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses:
-  - SRPDEFAULTUNLIT
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -115,12 +110,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LightmapTex:
-        m_Texture: {fileID: 2800000, guid: 665db389e8f1e42acb689114a261cb06, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 4}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCapTex:
         m_Texture: {fileID: 0}
@@ -131,7 +126,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: 1020609c9ac9f4a14a078c1afd37a75e, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex2:
@@ -183,7 +178,7 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _AmbientBrightness: 1
-    - _Anime: 0
+    - _Anime: 1
     - _AnimeSoftness: 0.01
     - _AnimeThreshold1: 0.45
     - _AnimeThreshold2: 0.85
@@ -217,12 +212,11 @@ Material:
     - _DiffuseWrap: 0
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EmissionScaleUI: 0
     - _EnvironmentReflections: 1
     - _Flat: 0
     - _Fog: 1
     - _GlossMapScale: 1
-    - _Glossiness: 0.4
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _HeightColors: 0
     - _HeightColorsAlpha: 1
@@ -254,18 +248,18 @@ Material:
     - _MatCapContrast: 1
     - _MatCapPerspective: 1
     - _MatCapStatic: 0
-    - _Metallic: 0.307
+    - _Metallic: 0
     - _MixedLighting: 0
     - _Mode: 0
     - _NormalStrength: 1
     - _NormalUV: 0
     - _NormalUV2: 0
     - _OcclusionStrength: 1
-    - _Outline: 0
+    - _Outline: 1
     - _OutlineComp: 8
     - _OutlineGroup: 0
     - _OutlinePass: 0
-    - _OutlineWidth: 0.002
+    - _OutlineWidth: 0.0162
     - _OutlineWidthIndependent: 0
     - _OutlineZPos: 0
     - _Parallax: 0.02
@@ -339,12 +333,11 @@ Material:
     - _AnimeColor1: {r: 1, g: 1, b: 1, a: 1}
     - _AnimeColor2: {r: 1.35, g: 1.35, b: 1.35, a: 1}
     - _AnimeColor3: {r: 2, g: 2, b: 2, a: 1}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
+    - _BaseColor: {r: 1, g: 0.67558247, b: 0, a: 1}
+    - _Color: {r: 0.18431371, g: 0.70361465, b: 1, a: 1}
     - _DetailColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionColorUI: {r: 1, g: 1, b: 1, a: 1}
-    - _Emissive: {r: 0, g: 0, b: 0, a: 1}
+    - _Emissive: {r: 0, g: 0, b: 0, a: 0}
     - _HeightColorsColor: {r: 1, g: 1, b: 1, a: 1}
     - _Layer1Color: {r: 1, g: 1, b: 1, a: 1}
     - _Layer2Color: {r: 1, g: 1, b: 1, a: 1}
