@@ -15,6 +15,7 @@ Material:
   - AMBIENT
   - ANIME
   - ANIME_SOFT
+  - BASE_SATURATION
   - DIFFUSE
   - FOG
   - MATCAP_PERSPECTIVE
@@ -269,7 +270,7 @@ Material:
     - _RimBlend: 1
     - _RimContrast: 5
     - _RimInverse: 0
-    - _Saturation: 1
+    - _Saturation: 0
     - _ShadowOverlayAnimation: 0
     - _ShadowOverlayBrightness: 1
     - _ShadowOverlaySpeedU: 0.1

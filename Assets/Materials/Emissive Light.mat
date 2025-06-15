@@ -322,7 +322,7 @@ Material:
     - _Color: {r: 1, g: 0.49267238, b: 0, a: 1}
     - _DetailColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Emissive: {r: 2.4622886, g: 2.1069744, b: 0.6620304, a: 0}
+    - _Emissive: {r: 3.809206, g: 0, b: 0.09971695, a: 0}
     - _HeightColorsColor: {r: 1, g: 1, b: 1, a: 1}
     - _Layer1Color: {r: 1, g: 1, b: 1, a: 1}
     - _Layer2Color: {r: 1, g: 1, b: 1, a: 1}

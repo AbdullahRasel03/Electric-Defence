@@ -2,13 +2,24 @@ using UnityEngine;
 
 public class TurretTargeting : MonoBehaviour
 {
-    [SerializeField] private LayerMask targetMask;
+    [Header("Targeting Settings")]
+    public float targetRangeZ = 12f; // Distance along Z-axis
     [SerializeField] private float targetRefreshRate = 0.5f;
 
-    private Transform _currentTarget;
+    [Header("Debug")]
+    [SerializeField] private Enemy _currentTarget;
     private float _targetSearchCooldown;
 
-    public Transform CurrentTarget => _currentTarget;
+    public Enemy CurrentTarget => _currentTarget;
+
+    private void Start()
+    {
+        if (EnemyManager.Instance == null)
+        {
+            Debug.LogError("EnemyManager instance not found in scene!");
+            enabled = false;
+        }
+    }
 
     private void Update()
     {
@@ -23,29 +34,72 @@ public class TurretTargeting : MonoBehaviour
             return;
         }
 
-        SearchForTargets();
+        // Only search for new target if we don't have a valid current target
+        if (!IsCurrentTargetValid())
+        {
+            FindNewTarget();
+        }
+
         _targetSearchCooldown = targetRefreshRate;
     }
 
-    private void SearchForTargets()
+    private bool IsCurrentTargetValid()
     {
-        Collider[] potentialTargets = Physics.OverlapSphere(transform.position, 50f, targetMask);
+        if (_currentTarget == null) return false;
 
-        if (potentialTargets.Length > 0)
-        {
-            // Simple implementation - just pick the first target
-            // In a real game you might want to find the closest or most dangerous target
-            _currentTarget = potentialTargets[0].transform;
-        }
-        else
-        {
-            _currentTarget = null;
-        }
+        // Check if target is active and in range
+        float zDistance = Mathf.Abs(_currentTarget.transform.position.z - transform.position.z);
+        return _currentTarget.IsActive && zDistance <= targetRangeZ;
     }
 
-    public bool HasActiveTarget(out Transform target)
+    private void FindNewTarget()
     {
-        target = _currentTarget;
-        return target != null;
+        Enemy closestEnemy = null;
+        float closestDistance = targetRangeZ;
+
+        foreach (Enemy enemy in EnemyManager.Instance.ActiveEnemies)
+        {
+            if (!enemy.IsActive) continue;
+
+            float zDistance = Mathf.Abs(enemy.transform.position.z - transform.position.z);
+
+            if (zDistance <= targetRangeZ && zDistance < closestDistance)
+            {
+                closestDistance = zDistance;
+                closestEnemy = enemy;
+            }
+        }
+
+        _currentTarget = closestEnemy;
+    }
+
+    public bool HasActiveTarget()
+    {
+        return IsCurrentTargetValid();
+    }
+
+    // Debug visualization
+    private void OnDrawGizmosSelected()
+    {
+        // Z-axis range markers
+        Gizmos.color = Color.cyan;
+        Vector3 frontMarker = transform.position + Vector3.forward * targetRangeZ;
+        Vector3 backMarker = transform.position - Vector3.forward * targetRangeZ;
+        Gizmos.DrawSphere(frontMarker, 0.3f);
+        Gizmos.DrawSphere(backMarker, 0.3f);
+
+        // Range line
+        Gizmos.DrawLine(frontMarker, backMarker);
+
+        // Current target visualization
+        if (_currentTarget != null)
+        {
+            Gizmos.color = _currentTarget.IsActive ? Color.green : Color.red;
+            Gizmos.DrawLine(transform.position, _currentTarget.transform.position);
+
+            // Draw a sphere around current target
+            Gizmos.color = _currentTarget.IsActive ? Color.green : Color.red;
+            Gizmos.DrawWireSphere(_currentTarget.transform.position, 0.5f);
+        }
     }
 }

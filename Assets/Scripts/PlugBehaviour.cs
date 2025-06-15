@@ -1,45 +1,170 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlugBehaviour : MonoBehaviour
 {
-    private bool isDragging = false;
-    private Vector3 offset;
-    private float fixedYPosition; // Store the initial Y position
+    [Header("Settings")]
+    public float dragSpeed = 15f;
+    public float snapSpeed = 20f;
+    public float selectionRadius = 0.5f;
 
-    void Start()
-    {
-        fixedYPosition = transform.position.y; // Store the initial Y position
-    }
+    [Header("Visual Feedback")]
+    public Color connectedRopeColor = Color.green;
+    public Color disconnectedRopeColor = Color.gray;
+    public float ropeColorChangeSpeed = 5f;
 
-    void Update()
+    [Header("References")]
+    [SerializeField] private MeshRenderer ropeMesh;
+    public PowerPoint ConnectedSocket { get; private set; }
+    public TurretBehaviour connectedTurret;
+
+    public bool IsBeingDragged { get; private set; }
+    public bool JustReleased { get; private set; }
+
+    private Vector3 dragOffset;
+    private Vector3 targetPosition;
+    private Quaternion targetRotation;
+    private bool shouldSnap;
+    private Camera mainCamera;
+    private Material ropeMaterial;
+    private Color targetRopeColor;
+
+    private void Awake()
     {
-        if (isDragging)
+        mainCamera = Camera.main;
+        GetComponent<Rigidbody>().isKinematic = true;
+
+        // Initialize rope material
+        if (ropeMesh != null)
         {
-            // Get the mouse position in world space
-            Vector3 mousePosition = GetMouseWorldPosition();
-            // Apply the offset and keep the Y position fixed
-            transform.position = new Vector3(mousePosition.x - offset.x, fixedYPosition, mousePosition.z - offset.z);
+            ropeMaterial = ropeMesh.material;
+            ropeMaterial.color = disconnectedRopeColor;
+            targetRopeColor = disconnectedRopeColor;
+        }
+        else
+        {
+            Debug.LogWarning("Rope MeshRenderer not assigned!", this);
         }
     }
 
-    void OnMouseDown()
+    private void Update()
     {
-        // Calculate the offset between the object's position and the mouse position
-        Vector3 mousePosition = GetMouseWorldPosition();
-        offset = mousePosition - transform.position;
-        isDragging = true;
+        HandleInput();
+
+        if (shouldSnap)
+        {
+            SmoothSnap();
+        }
+
+        // Update rope color
+        if (ropeMaterial != null && ropeMaterial.color != targetRopeColor)
+        {
+            ropeMaterial.color = Color.Lerp(
+                ropeMaterial.color,
+                targetRopeColor,
+                ropeColorChangeSpeed * Time.deltaTime
+            );
+        }
     }
 
-    void OnMouseUp()
+    private void HandleInput()
     {
-        isDragging = false;
+        if (Input.GetMouseButtonDown(0))
+        {
+            TryStartDrag();
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            EndDrag();
+        }
+
+        if (IsBeingDragged)
+        {
+            UpdateDragPosition();
+        }
+    }
+
+    private void TryStartDrag()
+    {
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 100f))
+        {
+            if (hit.collider.gameObject == gameObject)
+            {
+                StartDrag();
+            }
+        }
+    }
+
+    private void StartDrag()
+    {
+        if (ConnectedSocket != null)
+        {
+            ConnectedSocket.DisconnectPlug();
+        }
+
+        IsBeingDragged = true;
+        JustReleased = false;
+        shouldSnap = false;
+        dragOffset = transform.position - GetMouseWorldPosition();
+        targetRopeColor = disconnectedRopeColor;
+    }
+
+    private void UpdateDragPosition()
+    {
+        Vector3 targetPos = GetMouseWorldPosition() + dragOffset;
+        transform.position = targetPos;
+    }
+
+    private void EndDrag()
+    {
+        IsBeingDragged = false;
+        JustReleased = true;
+    }
+
+    public void ConnectToSocket(PowerPoint socket, Vector3 position, Quaternion rotation)
+    {
+        ConnectedSocket = socket;
+        targetPosition = position;
+        targetRotation = rotation;
+        shouldSnap = true;
+        JustReleased = false;
+        targetRopeColor = connectedRopeColor;
+
+        if (connectedTurret != null)
+        {
+            connectedTurret.InititateTurret();
+        }
+    }
+
+    public void DisconnectFromSocket()
+    {
+        ConnectedSocket = null;
+        shouldSnap = false;
+        targetRopeColor = disconnectedRopeColor;
+        if (connectedTurret != null)
+        {
+            connectedTurret.DeactivateTurret();
+        }
+    }
+
+    private void SmoothSnap()
+    {
+        transform.position = Vector3.Lerp(transform.position, targetPosition, snapSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, snapSpeed * Time.deltaTime);
+
+        if (Vector3.Distance(transform.position, targetPosition) < 0.001f)
+        {
+            transform.position = targetPosition;
+            transform.rotation = targetRotation;
+            shouldSnap = false;
+        }
     }
 
     private Vector3 GetMouseWorldPosition()
     {
-        // Get the mouse position on the screen and convert it to world space
         Vector3 mousePoint = Input.mousePosition;
         mousePoint.z = Camera.main.WorldToScreenPoint(transform.position).z;
         return Camera.main.ScreenToWorldPoint(mousePoint);

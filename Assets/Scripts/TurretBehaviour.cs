@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(TurretTargeting))]
@@ -16,65 +17,254 @@ public class TurretBehaviour : MonoBehaviour
     [SerializeField] private float fireRate = 1f;
     [SerializeField] private float rotationSpeed = 5f;
     [SerializeField] private float projectileSpeed = 10f;
-    [SerializeField] private float attackRange = 25f;
     [SerializeField] private float aimThreshold = 5f;
 
     [Header("State")]
     [SerializeField] private bool isConnectedToGrid = false;
 
     private float _fireCooldown;
-    private bool _hasValidTarget = false;
     private bool _isAimedAtTarget = false;
+    private Enemy _currentTarget;
+    private ObjectPool _bulletPool;
+
+
+    [Header("Activation Settings")]
+    private float activationDelay = 0.5f;
+    private float activationDuration = 0.3f;
+    private float deactivationDuration = 0.2f;
+    [SerializeField] private ParticleSystem activationParticles;
+    [SerializeField] private ParticleSystem deactivationParticles;
+    [SerializeField] private AudioSource activationSound;
+    [SerializeField] private AudioSource deactivationSound;
+    [SerializeField] private MeshRenderer[] turretMeshes;
+    [SerializeField] private float barrelTiltAngle = 15f;
+
+    private bool isActivating = false;
+    private bool isDeactivating = false;
+    private Material[] turretMaterials;
+    private Quaternion initialBarrelRotation;
+    private Quaternion targetBarrelRotation;
+    private float activationProgress;
 
     private void Awake()
     {
-        if (targetingSystem == null) targetingSystem = GetComponent<TurretTargeting>();
+        InitializeComponents();
         ValidateDependencies();
+
+        // Cache initial barrel rotation and calculate target
+        initialBarrelRotation = Quaternion.Euler(barrelTiltAngle, 0f, 0f);
+        targetBarrelRotation = Quaternion.Euler(0f, 0f, 0f); // Target upright rotation
+
+        // Initialize materials
+        if (turretMeshes != null && turretMeshes.Length > 0)
+        {
+            turretMaterials = new Material[turretMeshes.Length];
+            for (int i = 0; i < turretMeshes.Length; i++)
+            {
+                if (turretMeshes[i] != null)
+                {
+                    turretMaterials[i] = turretMeshes[i].material;
+                    // Set initial saturation to 0
+                    turretMaterials[i].SetFloat("_Saturation", 0f);
+                }
+            }
+        }
+    }
+    private void Start()
+    {
+        InitializeBulletPool();
+    }
+    private void Update()
+    {
+        if (isActivating)
+        {
+            UpdateActivationProgress();
+        }
+        else if (isDeactivating)
+        {
+            UpdateDeactivationProgress();
+        }
+
+        if (!isConnectedToGrid || isDeactivating) return;
+
+        UpdateTargetStatus();
+        UpdateCooldown();
+        if (HasValidTarget())
+        {
+            RotateTowardsTarget();
+            AttemptFire();
+        }
+    }
+
+    private void UpdateActivationProgress()
+    {
+        activationProgress += Time.deltaTime / activationDuration;
+        activationProgress = Mathf.Clamp01(activationProgress);
+
+        // Animate saturation from 0 to 1
+        float saturation = Mathf.Lerp(0f, 1f, activationProgress);
+        UpdateMaterialSaturation(saturation);
+
+        // Animate barrel rotation
+        barrel.localRotation = Quaternion.Slerp(
+            initialBarrelRotation,
+            targetBarrelRotation,
+            activationProgress
+        );
+
+        if (activationProgress >= 1f)
+        {
+            isActivating = false;
+            isConnectedToGrid = true;
+        }
+    }
+
+    private void UpdateDeactivationProgress()
+    {
+        activationProgress -= Time.deltaTime / deactivationDuration;
+        activationProgress = Mathf.Clamp01(activationProgress);
+
+        // Animate saturation from current value to 0
+        float saturation = Mathf.Lerp(0f, 1f, activationProgress);
+        UpdateMaterialSaturation(saturation);
+
+        // Animate barrel rotation back to initial position
+        barrel.localRotation = Quaternion.Slerp(
+            initialBarrelRotation,
+            targetBarrelRotation,
+            activationProgress
+        );
+
+        if (activationProgress <= 0f)
+        {
+            isDeactivating = false;
+            isConnectedToGrid = false;
+        }
+    }
+
+    private void UpdateMaterialSaturation(float saturation)
+    {
+        foreach (var mat in turretMaterials)
+        {
+            if (mat != null) mat.SetFloat("_Saturation", saturation);
+        }
+    }
+
+    public void InititateTurret()
+    {
+        if (!isActivating && !isConnectedToGrid && !isDeactivating)
+        {
+            StartCoroutine(ActivateTurretWithDelay());
+        }
+    }
+
+    public void DeactivateTurret()
+    {
+        if (isConnectedToGrid && !isDeactivating && !isActivating)
+        {
+            StartDeactivation();
+        }
+    }
+
+    private IEnumerator ActivateTurretWithDelay()
+    {
+        // Initial delay before activation starts
+        yield return new WaitForSeconds(activationDelay);
+
+        // Start activation sequence
+        isActivating = true;
+        activationProgress = 0f;
+
+        // Play effects
+        if (activationParticles != null) activationParticles.Play();
+        if (activationSound != null) activationSound.Play();
+    }
+
+    private void StartDeactivation()
+    {
+        // Start deactivation sequence
+        isDeactivating = true;
+        activationProgress = 1f;
+
+        // Play effects
+        if (deactivationParticles != null) deactivationParticles.Play();
+        if (deactivationSound != null) deactivationSound.Play();
+
+        // Stop any active targeting/firing
+        _currentTarget = null;
+    }
+    private void InitializeComponents()
+    {
+        if (targetingSystem == null) targetingSystem = GetComponent<TurretTargeting>();
+        if (shootingPosition == null) shootingPosition = barrel;
     }
 
     private void ValidateDependencies()
     {
-        if (barrel == null) Debug.LogError("Barrel transform not assigned!", this);
-        if (shootingPosition == null) shootingPosition = barrel;
-        if (straightBulletPrefab == null) Debug.LogError("Straight bullet prefab not assigned!", this);
-        if (straightBulletPrefab?.GetComponent<Rigidbody>() == null) Debug.LogError("Straight bullet needs Rigidbody!", this);
-      
+        Debug.Assert(barrel != null, "Barrel transform not assigned!", this);
+        Debug.Assert(straightBulletPrefab != null, "Straight bullet prefab not assigned!", this);
+        Debug.Assert(straightBulletPrefab.GetComponent<Rigidbody>() != null,
+                   "Straight bullet needs Rigidbody!", this);
     }
 
-    private void Update()
+    private void InitializeBulletPool()
     {
-        if (!isConnectedToGrid) return;
-
-        UpdateTargeting();
-        UpdateCooldown();
-        AttemptFire();
-    }
-
-    private void UpdateTargeting()
-    {
-        _hasValidTarget = targetingSystem.HasActiveTarget(out var target);
-        if (_hasValidTarget)
+        _bulletPool = ObjectPool.instance;
+        // Pre-warm the bullet pool
+        for (int i = 0; i < 5; i++)
         {
-            RotateTowardsTarget(target);
-            CheckAim(target);
-        }
-        else
-        {
-            _isAimedAtTarget = false;
+            var bullet = Instantiate(straightBulletPrefab);
+            bullet.SetActive(false);
+            _bulletPool.ReturnToPool(bullet);
         }
     }
 
-    private void RotateTowardsTarget(Transform target)
+    private void UpdateTargetStatus()
     {
-        Vector3 direction = target.position - barrel.position;
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        barrel.rotation = Quaternion.Slerp(barrel.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        bool hadTarget = _currentTarget != null;
+        _currentTarget = targetingSystem.CurrentTarget;
+
+        if (!hadTarget && _currentTarget != null)
+        {
+            // New target acquired
+            _fireCooldown = 0; // Allow immediate shot at new target
+        }
     }
 
-    private void CheckAim(Transform target)
+    private bool HasValidTarget()
     {
-        Vector3 targetDirection = (target.position - barrel.position).normalized;
-        _isAimedAtTarget = Vector3.Angle(barrel.forward, targetDirection) <= aimThreshold;
+        return _currentTarget != null &&
+               _currentTarget.IsActive &&
+               IsTargetInRange();
+    }
+
+    private void RotateTowardsTarget()
+    {
+        Vector3 direction = _currentTarget.transform.position - barrel.position;
+
+        // Flatten the direction to only consider Y-axis rotation
+        direction.y = 0;
+
+        // Only rotate if there's meaningful direction (not zero vector)
+        if (direction != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            barrel.rotation = Quaternion.Slerp(barrel.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+
+        // Update aim status (using flattened direction for angle calculation)
+        _isAimedAtTarget = Vector3.Angle(barrel.forward, direction) <= aimThreshold;
+    }
+
+    private bool IsTargetInRange()
+    {
+        if (_currentTarget == null) return false;
+
+        // Only check if target is in front of turret (Z-axis)
+        float zDifference = _currentTarget.transform.position.z - transform.position.z;
+
+        // For negative Z-axis movement (if enemies move toward -Z)
+        return zDifference >= 0 && Mathf.Abs(zDifference) <= targetingSystem.targetRangeZ;
     }
 
     private void UpdateCooldown()
@@ -85,55 +275,35 @@ public class TurretBehaviour : MonoBehaviour
         }
     }
 
-    private bool IsTargetInRange()
-    {
-        if (!targetingSystem.HasActiveTarget(out var target)) return false;
-        float distance = Vector3.Distance(shootingPosition.position, target.position);
-        return distance <= attackRange;
-    }
-
     private void AttemptFire()
     {
-        if (!_hasValidTarget || _fireCooldown > 0 || !IsTargetInRange()) return;
+        if (_fireCooldown > 0) return;
         if (projectileType == ProjectileType.Straight && !_isAimedAtTarget) return;
 
+        //print("Fire");
         Fire();
         _fireCooldown = 1f / fireRate;
     }
 
     private void Fire()
     {
-        var projectileObj = Instantiate(straightBulletPrefab, shootingPosition.position, shootingPosition.rotation);
+        var projectileObj = _bulletPool.GetObject(straightBulletPrefab, true, shootingPosition.position, barrel.rotation);
 
         if (projectileType == ProjectileType.Straight)
         {
             SetupStraightProjectile(projectileObj);
         }
-      
     }
 
     private void SetupStraightProjectile(GameObject projectileObj)
     {
-        Rigidbody rb = projectileObj.GetComponent<Rigidbody>();
+        var rb = projectileObj.GetComponent<Rigidbody>();
         rb.velocity = barrel.forward * projectileSpeed;
-        rb.isKinematic = false;
-        Destroy(projectileObj, 5f);
-    }
 
+    }
 
     public void ConnectToGrid() => isConnectedToGrid = true;
     public void DisconnectFromGrid() => isConnectedToGrid = false;
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(shootingPosition != null ? shootingPosition.position : transform.position, attackRange);
 
-        if (shootingPosition != null)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(shootingPosition.position, 0.1f);
-        }
-    }
 }
-
