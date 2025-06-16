@@ -7,6 +7,7 @@ public class SocketBehaviour : MonoBehaviour
     private bool isDragging = false;
     private Vector3 offset;
     private float fixedYPosition; // Store the initial Y position
+    private SocketManager socketManager;
 
     void Start()
     {
@@ -43,5 +44,23 @@ public class SocketBehaviour : MonoBehaviour
         Vector3 mousePoint = Input.mousePosition;
         mousePoint.z = Camera.main.WorldToScreenPoint(transform.position).z;
         return Camera.main.ScreenToWorldPoint(mousePoint);
+    }
+
+  
+    public void SetSocketManager(SocketManager manager)
+    {
+        socketManager = manager;
+    }
+
+    public void ReturnToPool()
+    {
+        if (socketManager != null)
+        {
+            socketManager.ReturnSocketToPool(this);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
