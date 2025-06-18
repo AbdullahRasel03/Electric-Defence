@@ -1,10 +1,18 @@
 using UnityEngine;
 
+public enum PowerSourceState
+{
+    Ianctive,
+    Active
+}
 public class PowerPoint : MonoBehaviour
 {
+    public PowerSourceState powerState;
+    public float sourceMultiplier = 1;
     [Header("Settings")]
     public Transform plugPoint;
     public LayerMask plugLayer;
+    public LayerMask socketLayer;
     public float connectionThreshold = 0.05f;
     public Color connectedColor = Color.green;
     public Color disconnectedColor = Color.gray;
@@ -14,12 +22,14 @@ public class PowerPoint : MonoBehaviour
 
     [Header("State")]
     public PlugBehaviour connectedPlug;
+    public SocketBehaviour connectedSocket;
     public bool HasConnection => connectedPlug != null;
 
     private Material socketMaterial;
-    private Color targetColor;
+    public Color targetColor;
     private float colorChangeSpeed = 5f;
 
+    
     private void Awake()
     {
         // Initialize socket material
@@ -32,6 +42,10 @@ public class PowerPoint : MonoBehaviour
         else
         {
             Debug.LogWarning("Socket MeshRenderer not assigned!", this);
+        }
+        if (powerState == PowerSourceState.Active)
+        {
+            targetColor = connectedColor;
         }
     }
 
@@ -53,9 +67,18 @@ public class PowerPoint : MonoBehaviour
         if (!HasConnection && IsPlug(other.gameObject))
         {
             PlugBehaviour plug = other.GetComponent<PlugBehaviour>();
-            if (plug != null && !plug.IsBeingDragged && plug.JustReleased)
+            if (plug != null && !plug.IsBeingDragged && plug.JustReleased && !Input.GetMouseButton(0))
             {
                 ConnectPlug(plug);
+            }
+        }
+        else if (!HasConnection && IsSocket(other.gameObject))
+        {
+            SocketBehaviour socket = other.GetComponent<SocketBehaviour>();
+            if (socket != null && !socket.isDragging && socket.JustReleased)
+            {
+                ConnectSocket(socket);
+                print("Is A Socket");
             }
         }
     }
@@ -63,8 +86,23 @@ public class PowerPoint : MonoBehaviour
     private void ConnectPlug(PlugBehaviour plug)
     {
         connectedPlug = plug;
-        plug.ConnectToSocket(this, plugPoint.position, plugPoint.rotation);
-        targetColor = connectedColor; // Change to connected color
+        plug.ConnectToSocket(this, plugPoint.position, plugPoint.rotation, plugPoint, powerState, sourceMultiplier);
+        if (powerState == PowerSourceState.Active)
+        {
+
+            targetColor = connectedColor; // Change to connected color
+        }
+    }
+
+    private void ConnectSocket(SocketBehaviour socket)
+    {
+        connectedSocket = socket;
+        socket.ConnectToPowerPoint(this, plugPoint.position, plugPoint.rotation, plugPoint, powerState, sourceMultiplier);
+        if (powerState == PowerSourceState.Active)
+        {
+
+            targetColor = connectedColor; // Change to connected color
+        }
     }
 
     public void DisconnectPlug()
@@ -81,4 +119,24 @@ public class PowerPoint : MonoBehaviour
     {
         return plugLayer == (plugLayer | (1 << obj.layer));
     }
+    private bool IsSocket(GameObject obj)
+    {
+        return socketLayer == (socketLayer | (1 << obj.layer));
+    }
+    public void SetColorActive()
+    {
+        if (socketMaterial != null)
+        {
+            targetColor = connectedColor;
+        }
+    }
+
+    public void SetColorDeactivated()
+    {
+        if (socketMaterial != null)
+        {
+            targetColor = disconnectedColor;
+        }
+    }
+
 }

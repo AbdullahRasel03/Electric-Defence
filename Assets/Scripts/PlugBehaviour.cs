@@ -7,10 +7,6 @@ public class PlugBehaviour : MonoBehaviour
     public float snapSpeed = 20f;
     public float selectionRadius = 0.5f;
 
-    [Header("Visual Feedback")]
-    public Color connectedRopeColor = Color.green;
-    public Color disconnectedRopeColor = Color.gray;
-    public float ropeColorChangeSpeed = 5f;
 
     [Header("References")]
     [SerializeField] private MeshRenderer ropeMesh;
@@ -37,8 +33,6 @@ public class PlugBehaviour : MonoBehaviour
         if (ropeMesh != null)
         {
             ropeMaterial = ropeMesh.material;
-            ropeMaterial.color = disconnectedRopeColor;
-            targetRopeColor = disconnectedRopeColor;
         }
         else
         {
@@ -55,15 +49,7 @@ public class PlugBehaviour : MonoBehaviour
             SmoothSnap();
         }
 
-        // Update rope color
-        if (ropeMaterial != null && ropeMaterial.color != targetRopeColor)
-        {
-            ropeMaterial.color = Color.Lerp(
-                ropeMaterial.color,
-                targetRopeColor,
-                ropeColorChangeSpeed * Time.deltaTime
-            );
-        }
+      
     }
 
     private void HandleInput()
@@ -109,7 +95,7 @@ public class PlugBehaviour : MonoBehaviour
         JustReleased = false;
         shouldSnap = false;
         dragOffset = transform.position - GetMouseWorldPosition();
-        targetRopeColor = disconnectedRopeColor;
+        
     }
 
     private void UpdateDragPosition()
@@ -124,18 +110,25 @@ public class PlugBehaviour : MonoBehaviour
         JustReleased = true;
     }
 
-    public void ConnectToSocket(PowerPoint socket, Vector3 position, Quaternion rotation)
+    public void ConnectToSocket(PowerPoint socket, Vector3 position, Quaternion rotation, Transform parent, PowerSourceState powerState, float sourceMultiplier)
     {
+        transform.SetParent(parent);
         ConnectedSocket = socket;
         targetPosition = position;
         targetRotation = rotation;
         shouldSnap = true;
         JustReleased = false;
-        targetRopeColor = connectedRopeColor;
 
-        if (connectedTurret != null)
+        if (connectedTurret != null && powerState == PowerSourceState.Active)
         {
+            
             connectedTurret.InititateTurret();
+            connectedTurret.UpdateFireRate(sourceMultiplier);
+        }
+        else
+        {
+            connectedTurret.DeactivateTurret();
+            connectedTurret.ResetFireRate();
         }
     }
 
@@ -143,10 +136,11 @@ public class PlugBehaviour : MonoBehaviour
     {
         ConnectedSocket = null;
         shouldSnap = false;
-        targetRopeColor = disconnectedRopeColor;
+        
         if (connectedTurret != null)
         {
             connectedTurret.DeactivateTurret();
+            connectedTurret.ResetFireRate();
         }
     }
 

@@ -162,15 +162,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59f0dfe2060345744a6168658c3e218d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerState: 0
   plugPoint: {fileID: 5848092092654508801}
   plugLayer:
     serializedVersion: 2
     m_Bits: 2048
+  socketLayer:
+    serializedVersion: 2
+    m_Bits: 4096
   connectionThreshold: 0.05
   connectedColor: {r: 0.504717, g: 1, b: 0.504717, a: 1}
   disconnectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   socketMesh: {fileID: 4482974802274854229}
   connectedPlug: {fileID: 0}
+  connectedSocket: {fileID: 0}
+  targetColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!65 &712126517470383804
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -190,8 +196,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1.5590386}
-  m_Center: {x: 0, y: 0, z: 0.27951932}
+  m_Size: {x: 1, y: 1, z: 1.2531128}
+  m_Center: {x: 0, y: 0, z: 0.1265564}
 --- !u!54 &6901235240582239202
 Rigidbody:
   m_ObjectHideFlags: 0
