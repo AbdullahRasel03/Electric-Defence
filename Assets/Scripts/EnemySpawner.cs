@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         InitializePool();
-        StartSpawning();
+       // StartSpawning();
     }
 
     private void InitializePool()
@@ -39,10 +39,9 @@ public class EnemySpawner : MonoBehaviour
             poolObj.AddComponent<ObjectPool>();
         }
 
-        // Optional: Pre-warm the pool
         foreach (var config in enemyConfigs)
         {
-            for (int i = 0; i < 5; i++) // Pre-create 5 of each type
+            for (int i = 0; i < 5; i++)
             {
                 var obj = ObjectPool.instance.GetObject(config.prefab, false);
                 ObjectPool.instance.ReturnToPool(obj);
@@ -79,6 +78,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
+        if (activeEnemies.Count >= maxActiveEnemies) return;
+
         EnemyConfig config = GetRandomEnemyConfig();
         Transform spawnPoint = GetRandomSpawnPoint();
 
@@ -102,22 +103,19 @@ public class EnemySpawner : MonoBehaviour
     {
         float totalWeight = 0;
         foreach (var config in enemyConfigs)
-        {
             totalWeight += config.spawnWeight;
-        }
 
         float randomPoint = Random.value * totalWeight;
 
         foreach (var config in enemyConfigs)
         {
             if (randomPoint < config.spawnWeight)
-            {
                 return config;
-            }
+
             randomPoint -= config.spawnWeight;
         }
 
-        return enemyConfigs[0];
+        return enemyConfigs[0]; // fallback
     }
 
     private Transform GetRandomSpawnPoint()
@@ -125,7 +123,6 @@ public class EnemySpawner : MonoBehaviour
         return spawnPoints[Random.Range(0, spawnPoints.Length)];
     }
 
-    // Called by enemies when they're defeated
     public void OnEnemyDefeated(Enemy enemy)
     {
         activeEnemies.Remove(enemy);
@@ -143,5 +140,11 @@ public class EnemySpawner : MonoBehaviour
     private void OnDestroy()
     {
         CleanupAllEnemies();
+    }
+
+    // ✅ Public trigger method for manual spawn
+    public void TriggerSpawn()
+    {
+        SpawnEnemy();
     }
 }

@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerState: 0
+  sourceMultiplier: 0.5
   plugPoint: {fileID: 5848092092654508801}
   plugLayer:
     serializedVersion: 2

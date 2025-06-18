@@ -23,11 +23,7 @@ public class EnemyManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        spawner.StartSpawning();
-    }
-
+   
     public void RegisterEnemy(Enemy enemy)
     {
         if (!_activeEnemies.Contains(enemy))

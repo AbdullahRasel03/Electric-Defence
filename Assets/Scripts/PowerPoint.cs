@@ -111,10 +111,17 @@ public class PowerPoint : MonoBehaviour
         {
             connectedPlug.DisconnectFromSocket();
             connectedPlug = null;
+            if (powerState == PowerSourceState.Ianctive)
+            {
+
             targetColor = disconnectedColor; // Revert to disconnected color
+            }
         }
     }
+    public void DisconnectSocket()
+    {
 
+    }
     private bool IsPlug(GameObject obj)
     {
         return plugLayer == (plugLayer | (1 << obj.layer));

@@ -86,14 +86,15 @@ MonoBehaviour:
     type: 3}
   targetingSystem: {fileID: 3502466686025342829}
   projectileType: 0
-  fireRate: 1
+  fireRate: 0
   rotationSpeed: 5
   projectileSpeed: 15
   aimThreshold: 2
   isConnectedToGrid: 0
-  activationDelay: 1
   activationParticles: {fileID: 0}
+  deactivationParticles: {fileID: 0}
   activationSound: {fileID: 0}
+  deactivationSound: {fileID: 0}
   turretMeshes:
   - {fileID: 1226507209478420688}
   - {fileID: 3151461880203078374}
@@ -107,6 +108,11 @@ MonoBehaviour:
   - {fileID: 3186659302983408382}
   - {fileID: 1764116020213619449}
   - {fileID: 337612392367414848}
+  barrelTiltAngle: 15
+  rope: {fileID: 3551852762388154951}
+  electricityVisualPrefab: {fileID: 1406328307305653203, guid: 5e5fa1d37022041fa81290a543ccc7ec,
+    type: 3}
+  electricitySpeed: 0.5
 --- !u!114 &3502466686025342829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3922265d8513a824192492c07a038564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetRangeZ: 15
+  targetRangeZ: 16
   targetRefreshRate: 0.5
   _currentTarget: {fileID: 0}
 --- !u!1 &392870145755978158
@@ -334,9 +340,6 @@ MonoBehaviour:
   dragSpeed: 15
   snapSpeed: 20
   selectionRadius: 0.5
-  connectedRopeColor: {r: 0.48584908, g: 1, b: 0.48584908, a: 1}
-  disconnectedRopeColor: {r: 0.41960788, g: 0.4431373, b: 0.48627454, a: 1}
-  ropeColorChangeSpeed: 5
   ropeMesh: {fileID: 4173376358745678568}
   connectedTurret: {fileID: 406920136571441206}
 --- !u!65 &6866043075241754211
