@@ -197,4 +197,105 @@ public class PowerNode : MonoBehaviour
 
         return totalPower;
     }
+
+    // In PowerNode.cs
+    public bool IsConnectedToPowerSource()
+    {
+        HashSet<PowerNode> visited = new HashSet<PowerNode>();
+        return CheckPowerSourceConnection(visited);
+    }
+
+    protected bool CheckPowerSourceConnection(HashSet<PowerNode> visited)
+    {
+        if (visited.Contains(this)) return false;
+        visited.Add(this);
+
+        // If this is a power source, we found one!
+        if (nodeType == NodeType.PowerSource) return true;
+
+        // Check all connected nodes
+        foreach (var node in connectedNodes)
+        {
+            if (node != null && node.CheckPowerSourceConnection(visited))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public float CalculateEffectivePower()
+    {
+        if (!IsConnectedToPowerSource()) return 0f;
+
+        HashSet<PowerNode> visited = new HashSet<PowerNode>();
+        return CalculatePowerToSource(visited);
+    }
+
+    protected float CalculatePowerToSource(HashSet<PowerNode> visited)
+    {
+        if (visited.Contains(this)) return 0f;
+        visited.Add(this);
+
+        // Power sources terminate the recursion
+        if (nodeType == NodeType.PowerSource)
+        {
+            return powerMultiplier;
+        }
+
+        float totalPower = 0f;
+
+        // Sum power from all paths to sources
+        foreach (var node in connectedNodes)
+        {
+            if (node != null)
+            {
+                totalPower += node.CalculatePowerToSource(visited) * powerMultiplier;
+            }
+        }
+
+        return totalPower;
+    }
+    private void OnGUI()
+    {
+        if (Camera.main != null)
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+            string status = $"Type: {nodeType}\n" +
+                           $"State: {powerState}\n" +
+                           $"Connected to source: {IsConnectedToPowerSource()}\n" +
+                           $"Power: {CalculateEffectivePower()}";
+
+            GUI.Label(new Rect(screenPos.x, Screen.height - screenPos.y, 200, 80), status);
+        }
+    }
+
+    public virtual void DisconnectAllDownstream()
+    {
+        HashSet<PowerNode> visited = new HashSet<PowerNode>();
+        DisconnectDownstreamRecursive(this, visited);
+    }
+
+    protected virtual void DisconnectDownstreamRecursive(PowerNode node, HashSet<PowerNode> visited)
+    {
+        if (visited.Contains(node)) return;
+        visited.Add(node);
+
+        // Create a copy of the list to avoid modification during iteration
+        var nodesToDisconnect = new List<PowerNode>(node.connectedNodes);
+
+        foreach (var connectedNode in nodesToDisconnect)
+        {
+            if (connectedNode != null)
+            {
+                // Only disconnect downstream nodes (not back toward power source)
+                if (connectedNode.nodeType != NodeType.PowerSource)
+                {
+                    node.DisconnectFrom(connectedNode);
+                    connectedNode.DisconnectDownstreamRecursive(connectedNode, visited);
+                }
+            }
+        }
+    }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class Plug : PowerNode
     private Rigidbody plugRb;
     private Transform initialParent; // Stores the original parent
 
+    public TurretBehaviour connectedTurret;
     private void Awake()
     {
         plugRb = GetComponent<Rigidbody>();
@@ -30,8 +32,52 @@ public class Plug : PowerNode
         {
             MoveToPosition(other.plugParent);
         }
-    }
 
+        if (other.powerState == PowerState.Powered)
+        {
+            connectedTurret.UpdateFireRate(CalculatePowerOutput());
+        }
+    }
+    // In Plug.cs
+    protected override void UpdatePowerState(HashSet<PowerNode> visited)
+    {
+        // Skip if already visited
+        if (visited.Contains(this)) return;
+        visited.Add(this);
+
+        // Store previous state
+        PowerState previousState = powerState;
+
+        // Calculate new state
+        bool isPowered = IsConnectedToPowerSource(); // Use the direct check method
+        powerState = connectedNodes.Count > 0
+            ? (isPowered ? PowerState.Powered : PowerState.Connected)
+            : PowerState.Disconnected;
+
+        // Only update if state changed
+        if (powerState != previousState)
+        {
+            UpdateVisuals();
+
+            // Handle turret power
+            if (connectedTurret != null)
+            {
+                if (powerState == PowerState.Powered)
+                {
+                    float totalPower = CalculateEffectivePower();
+                    connectedTurret.InititateTurret();
+                    connectedTurret.UpdateFireRate(totalPower);
+                }
+                else
+                {
+                    connectedTurret.DeactivateTurret();
+                    connectedTurret.ResetFireRate();
+                }
+            }
+
+            PropagatePowerState(visited);
+        }
+    }
     public void MoveToPosition(Transform anchor)
     {
         // Kill any existing tweens
@@ -60,12 +106,11 @@ public class Plug : PowerNode
         }
 
     }
+
     public void DisconnectFromAnchor()
     {
         // Kill any existing tweens
         connectSequence?.Kill();
-
-        print("Kello");
         transform.SetParent(initialParent);
 
         // Re-enable physics

@@ -3,7 +3,7 @@ using DG.Tweening;
 
 public class Socket : PowerNode
 {
-    [Header("DOTween Settings")]
+    [Header("Socket-Specific Settings")]
     public float connectDuration = 0.5f;
     public Ease connectEase = Ease.OutBack;
     public float disconnectDuration = 0.3f;
@@ -12,46 +12,36 @@ public class Socket : PowerNode
 
     private Sequence connectSequence;
     private Rigidbody socketRb;
-    private Transform initialParent; // Stores original parent
+    private Transform initialParent;
 
     private void Awake()
     {
         socketRb = GetComponent<Rigidbody>();
         nodeType = NodeType.Socket;
-        initialParent = transform.parent; // Store initial parent
+        initialParent = transform.parent;
     }
 
     public override void ConnectTo(PowerNode other)
     {
         if (!CanConnectWith(other)) return;
 
-        base.ConnectTo(other);
+        base.ConnectTo(other); // Handles the core connection logic
 
-        if (other.nodeType == NodeType.PowerSource)
+        if (other.nodeType == NodeType.PowerSource || other.nodeType == NodeType.Socket)
         {
-            ConnectToAnchor(other.plugParent);
-        }
-        else if (other.nodeType == NodeType.Socket)
-        {
-            // For socket-to-socket connections
-            ConnectToAnchor(other.plugParent);
+            AnimateConnectionTo(other.plugParent);
         }
     }
 
-    public void ConnectToAnchor(Transform anchor)
+    private void AnimateConnectionTo(Transform anchor)
     {
-        // Kill any existing tweens
         connectSequence?.Kill();
-
-        // Disable physics during connection
         if (socketRb != null) socketRb.isKinematic = true;
 
-        // Create smooth connection sequence
         connectSequence = DOTween.Sequence()
             .Append(transform.DOMove(anchor.position, connectDuration).SetEase(connectEase))
             .Join(transform.DORotateQuaternion(anchor.rotation, connectDuration).SetEase(connectEase))
             .OnComplete(() => {
-                // Finalize connection
                 transform.SetParent(anchor);
                 transform.localPosition = Vector3.zero;
                 transform.localRotation = Quaternion.identity;
@@ -60,39 +50,42 @@ public class Socket : PowerNode
 
     public override void DisconnectFrom(PowerNode other)
     {
-        if (other.nodeType == NodeType.Plug)
+        if (other.nodeType == NodeType.PowerSource)
         {
-            Plug plug = other as Plug;
+            // Handle visual disconnection first
+            AnimateDisconnection(() => {
+                // Then trigger downstream disconnection through PowerNode
+                DisconnectAllDownstream();
+            });
+        }
+        else if (other.nodeType == NodeType.Plug)
+        {
+            var plug = other as Plug;
             plug.DisconnectFromAnchor();
         }
-        else if (other.nodeType == NodeType.PowerSource || other.nodeType == NodeType.Socket)
-        {
-            DisconnectFromAnchor();
-        }
 
-        base.DisconnectFrom(other);
+        base.DisconnectFrom(other); // Handles core disconnection logic
     }
 
-    public void DisconnectFromAnchor()
+    private void AnimateDisconnection(System.Action onComplete = null)
     {
-        // Kill any existing tweens
         connectSequence?.Kill();
 
-        // Calculate disconnect position
         Vector3 disconnectPos = transform.position + transform.forward * disconnectOffset;
 
-         transform.SetParent(initialParent);
-         if (socketRb != null) socketRb.isKinematic = false;
-       
+        connectSequence = DOTween.Sequence()
+            .Append(transform.DOMove(disconnectPos, disconnectDuration).SetEase(disconnectEase))
+            .OnComplete(() => {
+                transform.SetParent(initialParent);
+                if (socketRb != null) socketRb.isKinematic = true;
+                onComplete?.Invoke();
+            });
     }
 
-    // Call this when drag is released without connecting
     public void ReturnToInitialParent()
     {
-        // Kill any existing tweens
         connectSequence?.Kill();
 
-        // Create return sequence
         connectSequence = DOTween.Sequence()
             .Append(transform.DOMove(initialParent.position, disconnectDuration).SetEase(disconnectEase))
             .Join(transform.DORotateQuaternion(initialParent.rotation, disconnectDuration).SetEase(disconnectEase))
@@ -100,17 +93,12 @@ public class Socket : PowerNode
                 transform.SetParent(initialParent);
                 transform.localPosition = Vector3.zero;
                 transform.localRotation = Quaternion.identity;
-
-                if (socketRb != null)
-                {
-                    socketRb.isKinematic = false;
-                }
+                if (socketRb != null) socketRb.isKinematic = true;
             });
     }
 
     private void OnDestroy()
     {
-        // Clean up tweens when destroyed
         connectSequence?.Kill();
     }
 }
