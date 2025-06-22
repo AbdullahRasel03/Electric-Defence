@@ -467,6 +467,7 @@ GameObject:
   - component: {fileID: 8350653399423089560}
   - component: {fileID: 1855009655759419285}
   - component: {fileID: 5379228203757838586}
+  - component: {fileID: 6111217519789512698}
   m_Layer: 11
   m_Name: Plug (1)
   m_TagString: Untagged
@@ -502,14 +503,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c07c3dce965cd545a4c422cca77bcca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragSpeed: 15
-  snapSpeed: 20
-  selectionRadius: 0.5
-  connectedRopeColor: {r: 0.48584908, g: 1, b: 0.48584908, a: 1}
-  disconnectedRopeColor: {r: 0.41960788, g: 0.4431373, b: 0.48627454, a: 1}
-  ropeColorChangeSpeed: 5
-  ropeMesh: {fileID: 0}
-  connectedTurret: {fileID: 0}
+  nodeType: 0
+  powerState: 0
+  powerMultiplier: 1
+  connectableLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  connectionRadius: 0.5
+  disconnectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  connectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  poweredColor: {r: 0, g: 1, b: 0, a: 1}
+  indicatorRenderer: {fileID: 0}
+  connectedNodes: []
+  parentNode: {fileID: 0}
+  plugParent: {fileID: 0}
+  connectDuration: 0.5
+  connectEase: 27
+  disconnectDuration: 0.3
+  disconnectEase: 7
 --- !u!65 &378002145311329731
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -588,6 +599,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kinematicForParticles: 0
+--- !u!114 &6111217519789512698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5923093162701941342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03dc5c72e2f5a493ca0a3954af923d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragSpeed: 15
+  snapSpeed: 20
+  lockYAxis: 1
+  fixedYPosition: 0
+  JustReleased: 0
 --- !u!1 &6947304147362937298
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,8 +628,8 @@ GameObject:
   - component: {fileID: 1230197801516366146}
   - component: {fileID: 9071200438851629627}
   - component: {fileID: 355651167586403823}
-  - component: {fileID: 5595744884521801537}
   - component: {fileID: 5357824797905552760}
+  - component: {fileID: 1296750998800699312}
   m_Layer: 12
   m_Name: Socket Lvl 1
   m_TagString: Untagged
@@ -638,15 +666,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f78fa5d42e1c814f9c9df1ceea5c603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapSpeed: 20
-  connectedColor: {r: 0, g: 1, b: 0, a: 1}
-  disconnectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  colorChangeSpeed: 5
-  socketMesh: {fileID: 0}
-  powerPointLayer:
+  nodeType: 0
+  powerState: 0
+  powerMultiplier: 1
+  connectableLayers:
     serializedVersion: 2
-    m_Bits: 0
-  isDragging: 0
+    m_Bits: 7168
+  connectionRadius: 0.5
+  disconnectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  connectedColor: {r: 0, g: 1, b: 0, a: 1}
+  poweredColor: {r: 0, g: 1, b: 0, a: 1}
+  indicatorRenderer: {fileID: 0}
+  connectedNodes: []
+  parentNode: {fileID: 0}
+  plugParent: {fileID: 2946469383412348809}
+  connectDuration: 0.5
+  connectEase: 27
+  disconnectDuration: 0.3
+  disconnectEase: 7
+  disconnectOffset: 0.2
+  plugAnchor: {fileID: 0}
+  powerSourceAnchor: {fileID: 0}
 --- !u!65 &9071200438851629627
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -695,32 +735,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5595744884521801537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6947304147362937298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f0dfe2060345744a6168658c3e218d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerState: 0
-  plugPoint: {fileID: 2946469383412348809}
-  plugLayer:
-    serializedVersion: 2
-    m_Bits: 2048
-  socketLayer:
-    serializedVersion: 2
-    m_Bits: 4096
-  connectionThreshold: 0.05
-  connectedColor: {r: 0, g: 1, b: 0, a: 1}
-  disconnectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  socketMesh: {fileID: 1423946404439095109}
-  connectedPlug: {fileID: 0}
-  connectedSocket: {fileID: 0}
 --- !u!114 &5357824797905552760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,6 +748,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kinematicForParticles: 0
+--- !u!114 &1296750998800699312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6947304147362937298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03dc5c72e2f5a493ca0a3954af923d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragSpeed: 15
+  snapSpeed: 20
+  lockYAxis: 1
+  fixedYPosition: 0
+  JustReleased: 0
 --- !u!1 &7017000918741135246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,12 +1346,6 @@ PrefabInstance:
 --- !u!4 &255002488163699754 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 699c460ae6b264fd68bc0cafdada9fdb,
-    type: 3}
-  m_PrefabInstance: {fileID: 289156251066821569}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &1423946404439095109 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 699c460ae6b264fd68bc0cafdada9fdb,
     type: 3}
   m_PrefabInstance: {fileID: 289156251066821569}
   m_PrefabAsset: {fileID: 0}

@@ -302,6 +302,7 @@ GameObject:
   - component: {fileID: 7974725267191790870}
   - component: {fileID: 2421176157638673163}
   - component: {fileID: 4161981797010523801}
+  - component: {fileID: 7773141072231780673}
   m_Layer: 11
   m_Name: Plug
   m_TagString: Untagged
@@ -337,11 +338,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c07c3dce965cd545a4c422cca77bcca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragSpeed: 15
-  snapSpeed: 20
-  selectionRadius: 0.5
-  ropeMesh: {fileID: 4173376358745678568}
+  nodeType: 0
+  powerState: 0
+  powerMultiplier: 1
+  connectableLayers:
+    serializedVersion: 2
+    m_Bits: 5120
+  connectionRadius: 0.5
+  disconnectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  connectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  poweredColor: {r: 0, g: 1, b: 0, a: 1}
+  indicatorRenderer: {fileID: 0}
+  connectedNodes: []
+  parentNode: {fileID: 0}
   connectedTurret: {fileID: 406920136571441206}
+  plugConnectionDistance: 0.2
 --- !u!65 &6866043075241754211
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -420,6 +431,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kinematicForParticles: 0
+--- !u!114 &7773141072231780673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465858938397466460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03dc5c72e2f5a493ca0a3954af923d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragSpeed: 15
+  snapSpeed: 20
+  lockYAxis: 1
+  fixedYPosition: 0
+  JustReleased: 0
 --- !u!1 &3422816216194713292
 GameObject:
   m_ObjectHideFlags: 0

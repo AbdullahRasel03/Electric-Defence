@@ -6,15 +6,15 @@ using DG.Tweening;
 public class SocketManager : MonoBehaviour
 {
     [Header("Socket Settings")]
-    public SocketBehaviour[] socketPrefabs;
+    public Socket[] socketPrefabs;
     public Transform[] newSocketSpawnTransforms;
     public int initialPoolSize = 5;
     public float slideInDuration = 0.5f;
     public float delayBetweenSockets = 0.1f;
 
     [Header("Socket Tracking")]
-    [SerializeField] private List<SocketBehaviour> availableSockets = new List<SocketBehaviour>();
-    [SerializeField] private List<SocketBehaviour> activeSockets = new List<SocketBehaviour>();
+    [SerializeField] private List<Socket> availableSockets = new List<Socket>();
+    [SerializeField] private List<Socket> activeSockets = new List<Socket>();
 
     private void Start()
     {
@@ -30,7 +30,7 @@ public class SocketManager : MonoBehaviour
     private IEnumerator RefreshSocketsRoutine()
     {
         // Immediately return all sockets to pool without animation
-        foreach (SocketBehaviour socket in activeSockets.ToArray())
+        foreach (Socket socket in activeSockets.ToArray())
         {
             ReturnSocketToPoolImmediately(socket);
         }
@@ -44,7 +44,7 @@ public class SocketManager : MonoBehaviour
     {
         for (int i = 0; i < initialPoolSize * socketPrefabs.Length; i++)
         {
-            SocketBehaviour randomPrefab = socketPrefabs[Random.Range(0, socketPrefabs.Length)];
+            Socket randomPrefab = socketPrefabs[Random.Range(0, socketPrefabs.Length)];
             CreateNewSocket(randomPrefab);
         }
     }
@@ -59,8 +59,8 @@ public class SocketManager : MonoBehaviour
     {
         foreach (Transform spawnPoint in newSocketSpawnTransforms)
         {
-            SocketBehaviour randomPrefab = socketPrefabs[Random.Range(0, socketPrefabs.Length)];
-            SocketBehaviour socket = GetAvailableSocket(randomPrefab);
+            Socket randomPrefab = socketPrefabs[Random.Range(0, socketPrefabs.Length)];
+            Socket socket = GetAvailableSocket(randomPrefab);
 
             socket.transform.position = spawnPoint.position + (Vector3.left * 5f);
             socket.gameObject.SetActive(true);
@@ -71,7 +71,7 @@ public class SocketManager : MonoBehaviour
         }
     }
 
-    private SocketBehaviour GetAvailableSocket(SocketBehaviour preferredPrefab = null)
+    private Socket GetAvailableSocket(Socket preferredPrefab = null)
     {
         if (preferredPrefab != null)
         {
@@ -79,7 +79,7 @@ public class SocketManager : MonoBehaviour
             {
                 if (availableSockets[i].name.StartsWith(preferredPrefab.name))
                 {
-                    SocketBehaviour socket = availableSockets[i];
+                    Socket socket = availableSockets[i];
                     availableSockets.RemoveAt(i);
                     return socket;
                 }
@@ -88,30 +88,30 @@ public class SocketManager : MonoBehaviour
 
         if (availableSockets.Count > 0)
         {
-            SocketBehaviour socket = availableSockets[0];
+            Socket socket = availableSockets[0];
             availableSockets.RemoveAt(0);
             return socket;
         }
 
-        SocketBehaviour prefabToUse = preferredPrefab != null ?
+        Socket prefabToUse = preferredPrefab != null ?
             preferredPrefab :
             socketPrefabs[Random.Range(0, socketPrefabs.Length)];
 
         return CreateNewSocket(prefabToUse);
     }
 
-    private SocketBehaviour CreateNewSocket(SocketBehaviour prefab)
+    private Socket CreateNewSocket(Socket prefab)
     {
-        SocketBehaviour socket = Instantiate(prefab);
+        Socket socket = Instantiate(prefab);
         socket.name = prefab.name;
         socket.gameObject.SetActive(false);
-        socket.SetSocketManager(this);
+      //  socket.SetSocketManager(this);
         availableSockets.Add(socket);
         return socket;
     }
 
     // New method for immediate return to pool
-    public void ReturnSocketToPoolImmediately(SocketBehaviour socket)
+    public void ReturnSocketToPoolImmediately(Socket socket)
     {
         if (activeSockets.Contains(socket))
         {
@@ -122,7 +122,7 @@ public class SocketManager : MonoBehaviour
     }
 
     // Original method kept in case you want slide-out in other situations
-    public void ReturnSocketToPool(SocketBehaviour socket)
+    public void ReturnSocketToPool(Socket socket)
     {
         if (activeSockets.Contains(socket))
         {
@@ -135,7 +135,7 @@ public class SocketManager : MonoBehaviour
 
     public void ResetAllSockets()
     {
-        foreach (SocketBehaviour socket in activeSockets.ToArray())
+        foreach (Socket socket in activeSockets.ToArray())
         {
             ReturnSocketToPoolImmediately(socket);
         }

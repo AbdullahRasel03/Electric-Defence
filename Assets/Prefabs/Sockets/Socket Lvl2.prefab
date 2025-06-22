@@ -569,8 +569,8 @@ GameObject:
   - component: {fileID: 2789869599980159464}
   - component: {fileID: 5347411051580915485}
   - component: {fileID: 272469415129114330}
-  - component: {fileID: 4505437091667530490}
   - component: {fileID: 1115564204573202531}
+  - component: {fileID: 5437605499486522035}
   m_Layer: 12
   m_Name: Socket Lvl2
   m_TagString: Untagged
@@ -607,12 +607,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f78fa5d42e1c814f9c9df1ceea5c603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snapSpeed: 20
-  socketMesh: {fileID: 0}
-  powerPointLayer:
+  nodeType: 0
+  powerState: 0
+  powerMultiplier: 1
+  connectableLayers:
     serializedVersion: 2
-    m_Bits: 0
-  isDragging: 0
+    m_Bits: 7168
+  connectionRadius: 0.5
+  disconnectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  connectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  poweredColor: {r: 0, g: 1, b: 0, a: 1}
+  indicatorRenderer: {fileID: 0}
+  connectedNodes: []
+  parentNode: {fileID: 0}
+  plugParent: {fileID: 6744484350384280624}
+  connectDuration: 0.5
+  connectEase: 27
+  disconnectDuration: 0.3
+  disconnectEase: 7
+  disconnectOffset: 0.2
 --- !u!65 &272469415129114330
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -634,34 +647,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8945891, y: 0.32606912, z: 1.2345288}
   m_Center: {x: 0, y: 0, z: 0.0039247274}
---- !u!114 &4505437091667530490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2615864815436962569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f0dfe2060345744a6168658c3e218d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerState: 0
-  sourceMultiplier: 2
-  plugPoint: {fileID: 6744484350384280624}
-  plugLayer:
-    serializedVersion: 2
-    m_Bits: 2048
-  socketLayer:
-    serializedVersion: 2
-    m_Bits: 4096
-  connectionThreshold: 0.05
-  connectedColor: {r: 0, g: 1, b: 0, a: 1}
-  disconnectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  socketMesh: {fileID: 1584869224414286047}
-  connectedPlug: {fileID: 0}
-  connectedSocket: {fileID: 0}
-  targetColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!54 &1115564204573202531
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -689,6 +674,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5437605499486522035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2615864815436962569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03dc5c72e2f5a493ca0a3954af923d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragSpeed: 15
+  snapSpeed: 20
+  lockYAxis: 1
+  fixedYPosition: 0
+  JustReleased: 0
 --- !u!1 &3461109240679962360
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,6 +705,7 @@ GameObject:
   - component: {fileID: 3881295100089052517}
   - component: {fileID: 1781438081029343963}
   - component: {fileID: 6129642280967892079}
+  - component: {fileID: 4221330901113809097}
   m_Layer: 11
   m_Name: Plug (1)
   m_TagString: Untagged
@@ -738,11 +741,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c07c3dce965cd545a4c422cca77bcca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragSpeed: 15
-  snapSpeed: 20
-  selectionRadius: 0.5
-  ropeMesh: {fileID: 0}
-  connectedTurret: {fileID: 0}
+  nodeType: 0
+  powerState: 0
+  powerMultiplier: 1
+  connectableLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  connectionRadius: 0.5
+  disconnectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  connectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  poweredColor: {r: 0, g: 1, b: 0, a: 1}
+  indicatorRenderer: {fileID: 0}
+  connectedNodes: []
+  parentNode: {fileID: 0}
+  plugParent: {fileID: 0}
+  connectDuration: 0.5
+  connectEase: 27
+  disconnectDuration: 0.3
+  disconnectEase: 7
 --- !u!65 &3552934235778915304
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -821,6 +837,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kinematicForParticles: 0
+--- !u!114 &4221330901113809097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3461109240679962360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03dc5c72e2f5a493ca0a3954af923d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragSpeed: 15
+  snapSpeed: 20
+  lockYAxis: 1
+  fixedYPosition: 0
+  JustReleased: 0
 --- !u!1 &4957951375929777485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,12 +1325,6 @@ PrefabInstance:
 --- !u!4 &411440502617303984 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 699c460ae6b264fd68bc0cafdada9fdb,
-    type: 3}
-  m_PrefabInstance: {fileID: 161851996172389467}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &1584869224414286047 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 699c460ae6b264fd68bc0cafdada9fdb,
     type: 3}
   m_PrefabInstance: {fileID: 161851996172389467}
   m_PrefabAsset: {fileID: 0}
