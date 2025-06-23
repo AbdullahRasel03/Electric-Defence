@@ -45,6 +45,7 @@ public class PowerNode : MonoBehaviour
     {
         // Basic connection rules
         if (other == this) return false;
+       
         if (connectedNodes.Contains(other)) return false;
 
         // Type-specific rules will be defined in child classes
@@ -62,6 +63,8 @@ public class PowerNode : MonoBehaviour
 
     public virtual void DisconnectFrom(PowerNode other)
     {
+        
+      
         connectedNodes.Remove(other);
         other.connectedNodes.Remove(this);
         UpdatePowerState();
@@ -101,6 +104,8 @@ public class PowerNode : MonoBehaviour
         // Only update visuals and propagate if state changed
         if (powerState != previousState)
         {
+
+            print("Here to");
             UpdateVisuals();
             PropagatePowerState(visited);
         }

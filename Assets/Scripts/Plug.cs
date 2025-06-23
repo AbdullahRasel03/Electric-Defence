@@ -104,7 +104,7 @@ public class Plug : PowerNode
         {
             DisconnectFromAnchor();
         }
-
+        transform.SetParent(initialParent);
     }
 
     public void DisconnectFromAnchor()

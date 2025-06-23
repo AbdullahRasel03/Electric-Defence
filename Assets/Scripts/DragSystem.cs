@@ -83,7 +83,7 @@ public class DragSystem : MonoBehaviour
             if (otherNode != null && powerNode.CanConnectWith(otherNode))
             {
                 powerNode.ConnectTo(otherNode);
-                print(otherNode.gameObject.name);
+         
                 break; // Connect to the first valid node found
             }
 
