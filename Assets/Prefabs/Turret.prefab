@@ -86,7 +86,7 @@ MonoBehaviour:
     type: 3}
   targetingSystem: {fileID: 3502466686025342829}
   projectileType: 0
-  fireRate: 0
+  fireRate: 1
   rotationSpeed: 5
   projectileSpeed: 15
   aimThreshold: 2
@@ -339,9 +339,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assignedGrid: {fileID: 0}
-  socketLayer:
+  connectableLayers:
     serializedVersion: 2
     m_Bits: 5120
+  connectedTurret: {fileID: 406920136571441206}
 --- !u!114 &7773141072231780673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,8 +383,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7999254, y: 0.47413373, z: 0.73914385}
-  m_Center: {x: 0, y: -0.01855135, z: -0.022941828}
+  m_Size: {x: 0.7999254, y: 0.33803454, z: 0.73914385}
+  m_Center: {x: 0, y: 0.07937367, z: -0.022941828}
 --- !u!54 &7974725267191790870
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -495,86 +496,86 @@ MonoBehaviour:
   m_CollisionMaterial: {fileID: 0}
   m_SurfaceCollisions: 0
   m_SelfCollisions: 0
-  restLength_: 1.8952134
+  restLength_: 1.8460131
   elements:
   - particle1: 0
     particle2: 1
-    restLength: 0.11869149
+    restLength: 0.115704805
     constraintForce: 0
     tearResistance: 1
   - particle1: 1
     particle2: 2
-    restLength: 0.117999494
+    restLength: 0.114974886
     constraintForce: 0
     tearResistance: 1
   - particle1: 2
     particle2: 3
-    restLength: 0.11823472
+    restLength: 0.115194894
     constraintForce: 0
     tearResistance: 1
   - particle1: 3
     particle2: 4
-    restLength: 0.11853109
+    restLength: 0.11535825
     constraintForce: 0
     tearResistance: 1
   - particle1: 4
     particle2: 5
-    restLength: 0.11837864
+    restLength: 0.11533246
     constraintForce: 0
     tearResistance: 1
   - particle1: 5
     particle2: 6
-    restLength: 0.118586466
+    restLength: 0.11547446
     constraintForce: 0
     tearResistance: 1
   - particle1: 6
     particle2: 7
-    restLength: 0.11856216
+    restLength: 0.11542179
     constraintForce: 0
     tearResistance: 1
   - particle1: 7
     particle2: 8
-    restLength: 0.118481286
+    restLength: 0.11538748
     constraintForce: 0
     tearResistance: 1
   - particle1: 8
     particle2: 9
-    restLength: 0.118539624
+    restLength: 0.11549769
     constraintForce: 0
     tearResistance: 1
   - particle1: 9
     particle2: 10
-    restLength: 0.11835559
+    restLength: 0.11511506
     constraintForce: 0
     tearResistance: 1
   - particle1: 10
     particle2: 11
-    restLength: 0.118245944
+    restLength: 0.11525136
     constraintForce: 0
     tearResistance: 1
   - particle1: 11
     particle2: 12
-    restLength: 0.118411906
+    restLength: 0.1155344
     constraintForce: 0
     tearResistance: 1
   - particle1: 12
     particle2: 13
-    restLength: 0.11869822
+    restLength: 0.11539671
     constraintForce: 0
     tearResistance: 1
   - particle1: 13
     particle2: 14
-    restLength: 0.118278466
+    restLength: 0.1150768
     constraintForce: 0
     tearResistance: 1
   - particle1: 14
     particle2: 15
-    restLength: 0.118353516
+    restLength: 0.11538678
     constraintForce: 0
     tearResistance: 1
   - particle1: 15
     particle2: 16
-    restLength: 0.11886469
+    restLength: 0.11590511
     constraintForce: 0
     tearResistance: 1
   m_RopeBlueprint: {fileID: 11400000, guid: ea19de95505ae1048bc80b721493b89e, type: 2}
@@ -844,7 +845,7 @@ Transform:
   m_GameObject: {fileID: 6029942566124813490}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: -0.064}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1093,7 +1094,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: f5f82f39657270546b798522b3d2dc96,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 29.355223
+      value: 22.169065
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f5f82f39657270546b798522b3d2dc96,
         type: 3}

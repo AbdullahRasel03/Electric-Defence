@@ -6,7 +6,7 @@ public class Socket : MonoBehaviour
     public List<GameObject> socketCubes;
     public LayerMask gridLayer;
     public List<GridObject> assignedGrids = new List<GridObject>();
-
+    [SerializeField] LayerMask connectableLayers;
 
     public bool IsReleasableByRaycast()
     {
@@ -46,6 +46,10 @@ public class Socket : MonoBehaviour
         assignedGrids = grids;
         return grids;
     }
+    public void PlaceOnGrid(GridObject grid)
+    {
 
-    
+    }
+
+
 }

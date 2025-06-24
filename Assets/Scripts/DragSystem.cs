@@ -83,7 +83,7 @@ public class DragSystem : MonoBehaviour
     {
         IsBeingDragged = false;
         JustReleased = true;
-        CheckForConnections();
+        CheckForGridUnderneath();
     }
 
     private void Update()
@@ -147,7 +147,7 @@ public class DragSystem : MonoBehaviour
         }
     }
 
-    private void CheckForConnections()
+    private void CheckForGridUnderneath()
     {
         if (objectType == DragObjectType.Plug)
         {
