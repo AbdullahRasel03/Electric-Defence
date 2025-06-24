@@ -22,6 +22,12 @@ public class GridLayout : MonoBehaviour
     {
         int totalChildren = transform.childCount;
 
+        float totalWidth = (columns - 1) * (cellSize.x + spacing.x);
+        float totalHeight = (rows - 1) * (cellSize.y + spacing.y);
+
+        float offsetX = totalWidth / 2f;
+        float offsetZ = totalHeight / 2f;
+
         for (int i = 0; i < totalChildren; i++)
         {
             Transform child = transform.GetChild(i);
@@ -33,6 +39,9 @@ public class GridLayout : MonoBehaviour
                 0,
                 -row * (cellSize.y + spacing.y) + column * rowOffset
             );
+
+            newPosition.x -= offsetX;
+            newPosition.z += offsetZ;
 
             child.localPosition = newPosition;
         }

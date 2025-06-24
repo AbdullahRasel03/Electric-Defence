@@ -2,130 +2,84 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class Plug : PowerNode
+public class Plug : MonoBehaviour
 {
-    [Header("DOTween Settings")]
-    public float connectDuration = 0.5f;
-    public Ease connectEase = Ease.OutBack;
-    public float disconnectDuration = 0.3f;
-    public Ease disconnectEase = Ease.InOutQuad;
+    public GridObject assignedGrid;
+    [SerializeField] LayerMask socketLayer;
 
-    private Sequence connectSequence;
-    private Rigidbody plugRb;
-    private Transform initialParent; // Stores the original parent
-
-    public TurretBehaviour connectedTurret;
-    private void Awake()
+    public void PlaceOnGrid(GridObject _assignedGrid)
     {
-        plugRb = GetComponent<Rigidbody>();
-        nodeType = NodeType.Plug;
-        initialParent = transform.parent; // Store initial parent
+        assignedGrid = _assignedGrid;
+        transform.DOLocalMove(Vector3.zero, 0.2f).OnComplete(()=> {
+
+        CheckForSocketsUnderneath();
+        });
     }
 
-    public override void ConnectTo(PowerNode other)
+    private void CheckForSocketsUnderneath()
     {
-        if (!CanConnectWith(other)) return;
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, Vector3.back, 20f, socketLayer);
+        List<Socket> connectedSockets = new List<Socket>();
 
-        base.ConnectTo(other);
-
-        if (other.nodeType == NodeType.PowerSource || other.nodeType == NodeType.Socket)
+        foreach (RaycastHit hit in hits)
         {
-            MoveToPosition(other.plugParent);
-        }
+            Socket socket = hit.collider.GetComponent<Socket>();
+            if (socket == null)
+                continue;
 
-        if (other.powerState == PowerState.Powered)
-        {
-            connectedTurret.UpdateFireRate(CalculatePowerOutput());
-        }
-    }
-    // In Plug.cs
-    protected override void UpdatePowerState(HashSet<PowerNode> visited)
-    {
-        // Skip if already visited
-        if (visited.Contains(this)) return;
-        visited.Add(this);
-
-        // Store previous state
-        PowerState previousState = powerState;
-
-        // Calculate new state
-        bool isPowered = IsConnectedToPowerSource(); // Use the direct check method
-        powerState = connectedNodes.Count > 0
-            ? (isPowered ? PowerState.Powered : PowerState.Connected)
-            : PowerState.Disconnected;
-
-        // Only update if state changed
-        if (powerState != previousState)
-        {
-            UpdateVisuals();
-
-            // Handle turret power
-            if (connectedTurret != null)
+            bool isSocketPlaced = true;
+            foreach (var cube in socket.socketCubes)
             {
-                if (powerState == PowerState.Powered)
+                Ray ray = new Ray(cube.transform.position + Vector3.up * 2f, Vector3.down);
+                if (Physics.Raycast(ray, out RaycastHit cubeHit, 10f, socket.gridLayer))
                 {
-                    float totalPower = CalculateEffectivePower();
-                    connectedTurret.InititateTurret();
-                    connectedTurret.UpdateFireRate(totalPower);
+                    GridObject grid = cubeHit.collider.GetComponent<GridObject>();
+                    if (grid == null || !grid.isOccupied)
+                    {
+                        isSocketPlaced = false;
+                        break;
+                    }
                 }
                 else
                 {
-                    connectedTurret.DeactivateTurret();
-                    connectedTurret.ResetFireRate();
+                    isSocketPlaced = false;
+                    break;
                 }
             }
 
-            PropagatePowerState(visited);
+            if (isSocketPlaced)
+            {
+                connectedSockets.Add(socket);
+                print(connectedSockets.Count);
+            }
+            else
+            {
+                return; // One socket in the chain isn't placed properly
+            }
         }
-    }
-    public void MoveToPosition(Transform anchor)
-    {
-        // Kill any existing tweens
-        connectSequence?.Kill();
 
-        // Disable physics during connection
-        if (plugRb != null) plugRb.isKinematic = true;
-
-        // Create smooth connection sequence
-        connectSequence = DOTween.Sequence()
-            .Append(transform.DOMove(anchor.position, connectDuration).SetEase(connectEase))
-            .Join(transform.DORotateQuaternion(anchor.rotation, connectDuration).SetEase(connectEase))
-            .OnComplete(() => {
-                // Finalize connection
-                transform.SetParent(anchor);
-                transform.localPosition = Vector3.zero;
-                transform.localRotation = Quaternion.identity;
-            });
-    }
-    public override void DisconnectFrom(PowerNode other)
-    {
-        base.DisconnectFrom(other);
-        if (other.nodeType == NodeType.PowerSource || other.nodeType == NodeType.Socket)
+        if (hits.Length > 0)
         {
-            DisconnectFromAnchor();
+            RaycastHit lastHit = hits[hits.Length - 1];
+            Transform lastObj = lastHit.collider.transform;
+
+            if (lastObj.GetComponent<PowerSource>() != null)
+            {
+                ConnectPower(connectedSockets);
+            }
         }
-        transform.SetParent(initialParent);
     }
-
-    public void DisconnectFromAnchor()
+    private void ConnectPower(List<Socket> socketChain)
     {
-        // Kill any existing tweens
-        connectSequence?.Kill();
-        transform.SetParent(initialParent);
+        Debug.Log("POWER CONNECTED! Chain length: " + socketChain.Count);
+        // Do visual or gameplay effect here
 
-        // Re-enable physics
-        if (plugRb != null)
+        // Example: call a method on the PowerPoint
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.back, out hit, 10f, socketLayer))
         {
-            plugRb.isKinematic = true;
+           
         }
-        // Create smooth disconnection sequence
-       
     }
 
-  
-    private void OnDestroy()
-    {
-        // Clean up tweens when destroyed
-        connectSequence?.Kill();
-    }
 }

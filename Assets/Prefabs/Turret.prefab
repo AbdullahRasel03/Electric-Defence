@@ -298,11 +298,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4985136312381335200}
   - component: {fileID: 4645070844188734156}
+  - component: {fileID: 7773141072231780673}
   - component: {fileID: 6866043075241754211}
   - component: {fileID: 7974725267191790870}
   - component: {fileID: 2421176157638673163}
   - component: {fileID: 4161981797010523801}
-  - component: {fileID: 7773141072231780673}
   m_Layer: 11
   m_Name: Plug
   m_TagString: Untagged
@@ -319,7 +319,7 @@ Transform:
   m_GameObject: {fileID: 465858938397466460}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.22, z: -2.43}
+  m_LocalPosition: {x: 0, y: 0.22, z: -2.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -338,21 +338,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c07c3dce965cd545a4c422cca77bcca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeType: 0
-  powerState: 0
-  powerMultiplier: 1
-  connectableLayers:
+  assignedGrid: {fileID: 0}
+  socketLayer:
     serializedVersion: 2
     m_Bits: 5120
-  connectionRadius: 0.5
-  disconnectedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  connectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  poweredColor: {r: 0, g: 1, b: 0, a: 1}
-  indicatorRenderer: {fileID: 0}
-  connectedNodes: []
-  parentNode: {fileID: 0}
-  connectedTurret: {fileID: 406920136571441206}
-  plugConnectionDistance: 0.2
+--- !u!114 &7773141072231780673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465858938397466460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03dc5c72e2f5a493ca0a3954af923d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 0
+  dragSpeed: 15
+  snapSpeed: 20
+  lockYAxis: 1
+  fixedYPosition: 0
+  JustReleased: 0
+  gridLayer:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!65 &6866043075241754211
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -372,8 +382,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.89675146, y: 1.1085982, z: 0.87554216}
-  m_Center: {x: 0, y: 0.2986809, z: 0.04525733}
+  m_Size: {x: 0.7999254, y: 0.47413373, z: 0.73914385}
+  m_Center: {x: 0, y: -0.01855135, z: -0.022941828}
 --- !u!54 &7974725267191790870
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -431,23 +441,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kinematicForParticles: 0
---- !u!114 &7773141072231780673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 465858938397466460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03dc5c72e2f5a493ca0a3954af923d6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dragSpeed: 15
-  snapSpeed: 20
-  lockYAxis: 1
-  fixedYPosition: 0
-  JustReleased: 0
 --- !u!1 &3422816216194713292
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,100 +491,90 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61104f33a3f344db9b7e0d0cda41a9fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  solverIndices: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f000000200000002100000022000000230000002400000025000000260000002700000028000000290000002a0000002b0000002c0000002d0000002e0000002f000000300000003100000032000000330000003400000035000000360000003700000038000000390000003a0000003b0000003c0000003d0000003e0000003f000000400000004100000042000000430000004400000045000000460000004700000048000000490000004a0000004b0000004c0000004d0000004e0000004f000000500000005100000052000000530000005400000055000000560000005700000058000000590000005a0000005b0000005c0000005d0000005e0000005f000000600000006100000062000000630000006400000065000000660000006700000068000000690000006a0000006b0000006c0000006d0000006e0000006f00000070000000710000007200000073000000740000007500000076000000
+  solverIndices: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f000000200000002100000022000000230000002400000025000000260000002700000028000000290000002a0000002b0000002c0000002d0000002e0000002f000000300000003100000032000000330000003400000035000000360000003700000038000000390000003a0000003b0000003c0000003d0000003e0000003f000000400000004100000042000000430000004400000045000000460000004700000048000000490000004a0000004b0000004c0000004d0000004e0000004f000000500000005100000052000000530000005400000055000000560000005700000058000000590000005a0000005b0000005c0000005d0000005e0000005f000000600000006100000062000000630000006400000065000000660000006700000068000000690000006a0000006b0000006c0000006d0000006e0000006f0000007000000071000000720000007300000074000000
   m_CollisionMaterial: {fileID: 0}
   m_SurfaceCollisions: 0
   m_SelfCollisions: 0
-  restLength_: 2.1459646
+  restLength_: 1.8952134
   elements:
   - particle1: 0
     particle2: 1
-    restLength: 0.11907968
+    restLength: 0.11869149
     constraintForce: 0
     tearResistance: 1
   - particle1: 1
     particle2: 2
-    restLength: 0.11902901
+    restLength: 0.117999494
     constraintForce: 0
     tearResistance: 1
   - particle1: 2
     particle2: 3
-    restLength: 0.11920465
+    restLength: 0.11823472
     constraintForce: 0
     tearResistance: 1
   - particle1: 3
     particle2: 4
-    restLength: 0.1190444
+    restLength: 0.11853109
     constraintForce: 0
     tearResistance: 1
   - particle1: 4
     particle2: 5
-    restLength: 0.11929581
+    restLength: 0.11837864
     constraintForce: 0
     tearResistance: 1
   - particle1: 5
     particle2: 6
-    restLength: 0.11942463
+    restLength: 0.118586466
     constraintForce: 0
     tearResistance: 1
   - particle1: 6
     particle2: 7
-    restLength: 0.119292185
+    restLength: 0.11856216
     constraintForce: 0
     tearResistance: 1
   - particle1: 7
     particle2: 8
-    restLength: 0.11921368
+    restLength: 0.118481286
     constraintForce: 0
     tearResistance: 1
   - particle1: 8
     particle2: 9
-    restLength: 0.11926145
+    restLength: 0.118539624
     constraintForce: 0
     tearResistance: 1
   - particle1: 9
     particle2: 10
-    restLength: 0.11926556
+    restLength: 0.11835559
     constraintForce: 0
     tearResistance: 1
   - particle1: 10
     particle2: 11
-    restLength: 0.119249426
+    restLength: 0.118245944
     constraintForce: 0
     tearResistance: 1
   - particle1: 11
     particle2: 12
-    restLength: 0.119237624
+    restLength: 0.118411906
     constraintForce: 0
     tearResistance: 1
   - particle1: 12
     particle2: 13
-    restLength: 0.11925273
+    restLength: 0.11869822
     constraintForce: 0
     tearResistance: 1
   - particle1: 13
     particle2: 14
-    restLength: 0.11921724
+    restLength: 0.118278466
     constraintForce: 0
     tearResistance: 1
   - particle1: 14
     particle2: 15
-    restLength: 0.11906967
+    restLength: 0.118353516
     constraintForce: 0
     tearResistance: 1
   - particle1: 15
     particle2: 16
-    restLength: 0.11909691
-    constraintForce: 0
-    tearResistance: 1
-  - particle1: 16
-    particle2: 17
-    restLength: 0.119220026
-    constraintForce: 0
-    tearResistance: 1
-  - particle1: 17
-    particle2: 18
-    restLength: 0.11950978
+    restLength: 0.11886469
     constraintForce: 0
     tearResistance: 1
   m_RopeBlueprint: {fileID: 11400000, guid: ea19de95505ae1048bc80b721493b89e, type: 2}
@@ -757,9 +740,9 @@ Transform:
   m_GameObject: {fileID: 4150736762314722716}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.147, y: -0.006, z: -0.5244}
-  m_LocalScale: {x: 0.12, y: 0.175616, z: 0.12}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -0.165, y: -0.006, z: -0.505}
+  m_LocalScale: {x: 0.12, y: 0.2142857, z: 0.10285714}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2970335438249129326}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -931,9 +914,9 @@ Transform:
   m_GameObject: {fileID: 9115587772609721960}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.147, y: -0.006, z: -0.5244}
-  m_LocalScale: {x: 0.12, y: 0.175616, z: 0.12}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0.165, y: -0.006, z: -0.505}
+  m_LocalScale: {x: 0.12, y: 0.2142857, z: 0.10285714}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2970335438249129326}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -1099,8 +1082,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f5f82f39657270546b798522b3d2dc96,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f5f82f39657270546b798522b3d2dc96,
+        type: 3}
       propertyPath: m_LocalScale.y
-      value: 41.8489
+      value: 46.49878
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f5f82f39657270546b798522b3d2dc96,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 29.355223
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f5f82f39657270546b798522b3d2dc96,
         type: 3}
@@ -1275,6 +1268,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Turret Lv 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103568039377005942, guid: 0be6f5dc825be784b979a126037337a5,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.39577574
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103568039377005942, guid: 0be6f5dc825be784b979a126037337a5,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.5854663
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103568039377005942, guid: 0be6f5dc825be784b979a126037337a5,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 1.7342594
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103568039377005942, guid: 0be6f5dc825be784b979a126037337a5,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.07463193
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103568039377005942, guid: 0be6f5dc825be784b979a126037337a5,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.49594176
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

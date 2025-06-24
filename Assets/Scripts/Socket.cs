@@ -1,137 +1,51 @@
 using UnityEngine;
-using DG.Tweening;
 using System.Collections.Generic;
-using System.Collections;
 
-public class Socket : PowerNode
+public class Socket : MonoBehaviour
 {
-    [Header("DOTween Settings")]
-    public float connectDuration = 0.5f;
-    public Ease connectEase = Ease.OutBack;
-    public float disconnectDuration = 0.3f;
-    public Ease disconnectEase = Ease.InOutQuad;
-    public float disconnectOffset = 0.2f;
+    public List<GameObject> socketCubes;
+    public LayerMask gridLayer;
+    public List<GridObject> assignedGrids = new List<GridObject>();
 
-    private Sequence connectSequence;
-    private Rigidbody socketRb;
-    public Transform initialParent;
-    private bool isDisconnecting = false;
 
-    private void Start()
+    public bool IsReleasableByRaycast()
     {
-        socketRb = GetComponent<Rigidbody>();
-        nodeType = NodeType.Socket;
-        initialParent = transform.parent;
-    }
-
-    public override void ConnectTo(PowerNode other)
-    {
-       // if (!CanConnectWith(other)) return;
-        base.ConnectTo(other);
-
-
-        if (other.nodeType == NodeType.PowerSource || other.nodeType == NodeType.Socket)
+        foreach (var cube in socketCubes)
         {
-            ConnectToAnchor(other.plugParent);
+            Ray ray = new Ray(cube.transform.position + Vector3.up * 2f, Vector3.down);
+            if (Physics.Raycast(ray, out RaycastHit hit, 10f, gridLayer))
+            {
+                GridObject grid = hit.collider.GetComponent<GridObject>();
+                if (grid == null || grid.isOccupied)
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
         }
+        return true;
     }
 
-    public void ConnectToAnchor(Transform anchor)
+    public List<GridObject> RequiredGridsByRaycast()
     {
-        connectSequence?.Kill();
-        if (socketRb != null) socketRb.isKinematic = true;
+        List<GridObject> grids = new List<GridObject>();
 
-        connectSequence = DOTween.Sequence()
-            .Append(transform.DOMove(anchor.position, connectDuration).SetEase(connectEase))
-            .Join(transform.DORotateQuaternion(anchor.rotation, connectDuration).SetEase(connectEase))
-            .OnComplete(() => {
-                transform.SetParent(anchor);
-                transform.localPosition = Vector3.zero;
-                transform.localRotation = Quaternion.identity;
-            });
-    }
-
-    public override void DisconnectFrom(PowerNode other)
-    {
-        transform.SetParent(null);
-        if (isDisconnecting) return;
-        if (other.nodeType == NodeType.PowerSource)
+        foreach (var cube in socketCubes)
         {
-            // Start cascading disconnection
-            StartCoroutine(CascadeDisconnect());
+            Ray ray = new Ray(cube.transform.position + Vector3.up * 2f, Vector3.down);
+            if (Physics.Raycast(ray, out RaycastHit hit, 10f, gridLayer))
+            {
+                GridObject grid = hit.collider.GetComponent<GridObject>();
+                if (grid != null && !grid.isOccupied && !grids.Contains(grid))
+                {
+                    grids.Add(grid);
+                }
+            }
         }
-        else if (other.nodeType == NodeType.Plug)
-        {
-            Plug plug = other as Plug;
-            plug.DisconnectFromAnchor();
-        }
-        base.DisconnectFrom(other);
-
+        assignedGrids = grids;
+        return grids;
     }
 
-    private IEnumerator CascadeDisconnect()
-    {
-        isDisconnecting = true;
-
-        // First disconnect visually
-        DisconnectFromAnchor();
-
-        // Wait for disconnection animation to complete
-        yield return new WaitForSeconds(0.1f);
-
-        // Now disconnect all downstream nodes
-        DisconnectAllDownstream();
-
-        isDisconnecting = false;
-    }
-
-    public void DisconnectFromAnchor()
-    {
-        connectSequence?.Kill();
-
-
-        transform.SetParent(initialParent);
-        if (socketRb != null) socketRb.isKinematic = true;
-
-    }
-
-    public void ReturnToInitialParent()
-    {
-        connectSequence?.Kill();
-
-        connectSequence = DOTween.Sequence()
-            .Append(transform.DOMove(initialParent.position, disconnectDuration).SetEase(disconnectEase))
-            .Join(transform.DORotateQuaternion(initialParent.rotation, disconnectDuration).SetEase(disconnectEase))
-            .OnComplete(() => {
-                transform.SetParent(initialParent);
-                transform.localPosition = Vector3.zero;
-                transform.localRotation = Quaternion.identity;
-                if (socketRb != null) socketRb.isKinematic = false;
-            });
-    }
-
-    protected override void UpdatePowerState(HashSet<PowerNode> visited)
-    {
-        if (visited.Contains(this)) return;
-        visited.Add(this);
-
-        PowerState previousState = powerState;
-
-        bool isPowered = IsConnectedToPowerSource();
-        powerState = connectedNodes.Count > 0
-            ? (isPowered ? PowerState.Powered : PowerState.Connected)
-            : PowerState.Disconnected;
-
-        if (powerState != previousState)
-        {
-            UpdateVisuals();
-            PropagatePowerState(visited);
-        }
-    }
-
-
-    private void OnDestroy()
-    {
-        connectSequence?.Kill();
-    }
+    
 }
