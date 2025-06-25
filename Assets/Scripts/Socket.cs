@@ -3,10 +3,12 @@ using System.Collections.Generic;
 
 public class Socket : MonoBehaviour
 {
+    public bool hasPower;  // ← Fixed declaration (was missing `;`)
     public List<GameObject> socketCubes;
     public LayerMask gridLayer;
     public List<GridObject> assignedGrids = new List<GridObject>();
     [SerializeField] LayerMask connectableLayers;
+    public float multiplier;
 
     public bool IsReleasableByRaycast()
     {
@@ -46,10 +48,29 @@ public class Socket : MonoBehaviour
         assignedGrids = grids;
         return grids;
     }
-    public void PlaceOnGrid(GridObject grid)
+
+    public void CheckPowerActivation()
     {
+        hasPower = false;
 
+        foreach (var cube in socketCubes)
+        {
+            Ray ray = new Ray(cube.transform.position, -Vector3.forward);
+            if (Physics.Raycast(ray, out RaycastHit hit, 1f, connectableLayers))
+            {
+                if (hit.collider.GetComponent<PowerSource>() != null)
+                {
+                    hasPower = true;
+                    return;
+                }
+
+                Socket otherSocket = hit.collider.GetComponent<Socket>();
+                if (otherSocket != null && otherSocket.hasPower)
+                {
+                    hasPower = true;
+                    return;
+                }
+            }
+        }
     }
-
-
 }

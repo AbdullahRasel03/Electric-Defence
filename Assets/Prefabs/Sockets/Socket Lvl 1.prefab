@@ -204,6 +204,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   assignedGrids: []
+  connectableLayers:
+    serializedVersion: 2
+    m_Bits: 5120
+  multiplier: 1
 --- !u!114 &1296750998800699312
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GridObject : MonoBehaviour
 {
-    
+    public GridManager gridManager;
     public bool isOccupied;
     public LayerMask gridLayer;
     public Transform plugSocketHolder;
@@ -34,17 +34,7 @@ public class GridObject : MonoBehaviour
     }
 
 
-    public void ReleaseToGrid(Socket socket, bool isMainCube)
-    {
-        if (isMainCube)
-        {
-            socket.transform.parent = plugSocketHolder;
-            socket.transform.DOLocalMove(Vector3.zero, 0.2f);
-        }
-        isOccupied = true;
-        this.socket = socket;
-    }
-
+  
     public void ReleaseToGrid(Plug plug)
     {
         plug.transform.parent = plugSocketHolder;

@@ -59,6 +59,7 @@ public class DragSystem : MonoBehaviour
                 plug.assignedGrid.plug = null;
                 plug.assignedGrid = null;
             }
+            plug.connectedTurret.DeactivateTurret();
         }
         else if (objectType == DragObjectType.Socket)
         {
@@ -211,17 +212,24 @@ public class DragSystem : MonoBehaviour
                 Vector3 newSocketPosition = gridWorldPos - socketOffset;
 
                 // Move the whole socket to align first cube
-                socket.transform.DOMove(newSocketPosition, 0.2f);
+                socket.transform.DOMove(newSocketPosition, 0.2f).OnComplete(()=> {
+                    foreach (var pair in cubeGridMap)
+                    {
+                        GridObject grid = pair.Value;
+                        grid.isOccupied = true;
+                        grid.socket = socket;
+                        socket.assignedGrids.Add(grid);
+
+                    }
+                    foreach (var pair in cubeGridMap)
+                    {
+                        pair.Value.gridManager.CheckAllGridsPower();
+                    }
+
+                });
 
                 // Mark all involved grids
-                foreach (var pair in cubeGridMap)
-                {
-                    GridObject grid = pair.Value;
-                    grid.isOccupied = true;
-                    grid.socket = socket;
-                    socket.assignedGrids.Add(grid);
-                }
-
+               
                 return;
             }
 

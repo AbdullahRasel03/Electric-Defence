@@ -4,51 +4,55 @@ using UnityEngine;
 
 public class Plug : MonoBehaviour
 {
+
+    public bool placedOnGrid;
     public GridObject assignedGrid;
     [SerializeField] LayerMask connectableLayers;
     public TurretBehaviour connectedTurret;
+
     public void PlaceOnGrid(GridObject _assignedGrid)
     {
         assignedGrid = _assignedGrid;
         transform.DOLocalMove(Vector3.zero, 0.2f).OnComplete(()=> {
 
-        CheckForSocketsUnderneath();
+            assignedGrid.gridManager.CheckAllGridsPower();
         });
     }
 
-    private void CheckForSocketsUnderneath()
+    public void CheckForSocketsUnderneath()
     {
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, -Vector3.forward, 10f, connectableLayers);
-        List<Socket> connectedSockets = new List<Socket>();
-        print(hits.Length);
-        foreach (RaycastHit hit in hits)
+        Ray ray = new Ray(transform.position, Vector3.back);
+        if (Physics.Raycast(ray, out RaycastHit hit, 1f, connectableLayers))
         {
-            Socket socket = hit.collider.GetComponent<Socket>();
-            if (socket == null)
-                continue;
-            connectedSockets.Add(socket);
-        }
-
-        if (hits.Length > 0)
-        {
-            RaycastHit lastHit = hits[hits.Length - 1];
-            Transform lastObj = lastHit.collider.transform;
-
-            if (lastObj.GetComponent<PowerSource>() != null)
+            if (hit.collider.GetComponent<PowerSource>() != null)
             {
-                ConnectPower(connectedSockets);
+                Debug.Log("Directly connected to power source!");
+                ConnectPower(new List<Socket>()); // no sockets involved
+                return;
+            }
+
+            Socket socket = hit.collider.GetComponent<Socket>();
+            if (socket != null)
+            {
+                if (socket.hasPower)
+                {
+                    ConnectPower(new List<Socket>());
+                }
             }
         }
     }
+
     private void ConnectPower(List<Socket> socketChain)
     {
         Debug.Log("POWER CONNECTED! Chain length: " + socketChain.Count);
         connectedTurret.InititateTurret();
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.back, out hit, 10f, connectableLayers))
+        float fireRate = 1;
+        foreach (var item in socketChain)
         {
-           
+            fireRate += item.multiplier;
         }
+        connectedTurret.UpdateFireRate(fireRate);
     }
+
 
 }

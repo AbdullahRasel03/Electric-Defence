@@ -259,7 +259,7 @@ public class TurretBehaviour : MonoBehaviour
 
     public void ConnectToGrid() => isConnectedToGrid = true;
     public void DisconnectFromGrid() => isConnectedToGrid = false;
-    public void UpdateFireRate(float toAdd) => fireRate += toAdd;
+    public void UpdateFireRate(float toSet) => fireRate = toSet;
     public void ResetFireRate() => fireRate = 0;
 
     private IEnumerator FireWithElectricity()
