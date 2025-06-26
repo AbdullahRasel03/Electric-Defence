@@ -4,22 +4,14 @@ using UnityEngine;
 public class CamController : MonoBehaviour
 {
     [Header("View Settings")]
-    [SerializeField] private float fightViewZ = 3f;
-    [SerializeField] private float shopViewZ = -3f;
     [SerializeField] private float transitionDuration = 1f;
     [SerializeField] private AnimationCurve transitionCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-    private Vector3 fightViewPosition;
-    private Vector3 shopViewPosition;
-    private Coroutine transitionCoroutine;
-    private float initialZ;
+    [Header("View Parents")]
+    [SerializeField] private Transform fightViewParent;
+    [SerializeField] private Transform shopViewParent;
 
-    private void Awake()
-    {
-        initialZ = transform.position.z;
-        fightViewPosition = new Vector3(transform.position.x, transform.position.y, fightViewZ);
-        shopViewPosition = new Vector3(transform.position.x, transform.position.y, shopViewZ);
-    }
+    private Coroutine transitionCoroutine;
 
     public void SetFightView()
     {
@@ -27,7 +19,9 @@ public class CamController : MonoBehaviour
         {
             StopCoroutine(transitionCoroutine);
         }
-        transitionCoroutine = StartCoroutine(TransitionToPosition(fightViewPosition));
+
+        transform.SetParent(fightViewParent);
+        transitionCoroutine = StartCoroutine(TransitionToLocalZero());
     }
 
     public void SetShopView()
@@ -36,27 +30,37 @@ public class CamController : MonoBehaviour
         {
             StopCoroutine(transitionCoroutine);
         }
-        transitionCoroutine = StartCoroutine(TransitionToPosition(shopViewPosition));
+
+        transform.SetParent(shopViewParent);
+        transitionCoroutine = StartCoroutine(TransitionToLocalZero());
     }
 
-    private IEnumerator TransitionToPosition(Vector3 targetPosition)
+    private IEnumerator TransitionToLocalZero()
     {
-        Vector3 startPosition = transform.position;
-        float elapsedTime = 0f;
+        Vector3 startPos = transform.localPosition;
+        Quaternion startRot = transform.localRotation;
 
-        while (elapsedTime < transitionDuration)
+        Vector3 endPos = Vector3.zero;
+        Quaternion endRot = Quaternion.identity;
+
+        float elapsed = 0f;
+
+        while (elapsed < transitionDuration)
         {
-            elapsedTime += Time.deltaTime;
-            float t = transitionCurve.Evaluate(elapsedTime / transitionDuration);
-            transform.position = Vector3.Lerp(startPosition, targetPosition, t);
+            elapsed += Time.deltaTime;
+            float t = transitionCurve.Evaluate(elapsed / transitionDuration);
+
+            transform.localPosition = Vector3.Lerp(startPos, endPos, t);
+            transform.localRotation = Quaternion.Slerp(startRot, endRot, t);
+
             yield return null;
         }
 
-        transform.position = targetPosition;
+        transform.localPosition = endPos;
+        transform.localRotation = endRot;
         transitionCoroutine = null;
     }
 
-    // Optional: Add camera shake or other effects
     public void ShakeCamera(float duration, float magnitude)
     {
         StartCoroutine(Shake(duration, magnitude));
@@ -64,7 +68,7 @@ public class CamController : MonoBehaviour
 
     private IEnumerator Shake(float duration, float magnitude)
     {
-        Vector3 originalPos = transform.position;
+        Vector3 originalPos = transform.localPosition;
         float elapsed = 0f;
 
         while (elapsed < duration)
@@ -72,11 +76,11 @@ public class CamController : MonoBehaviour
             float x = Random.Range(-1f, 1f) * magnitude;
             float y = Random.Range(-1f, 1f) * magnitude;
 
-            transform.position = new Vector3(originalPos.x + x, originalPos.y + y, originalPos.z);
+            transform.localPosition = new Vector3(originalPos.x + x, originalPos.y + y, originalPos.z);
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        transform.position = originalPos;
+        transform.localPosition = originalPos;
     }
 }

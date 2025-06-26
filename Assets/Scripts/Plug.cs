@@ -26,8 +26,8 @@ public class Plug : MonoBehaviour
         {
             if (hit.collider.GetComponent<PowerSource>() != null)
             {
-                Debug.Log("Directly connected to power source!");
-                ConnectPower(new List<Socket>()); // no sockets involved
+          
+                ConnectPower(1); // no sockets involved
                 return;
             }
 
@@ -36,21 +36,24 @@ public class Plug : MonoBehaviour
             {
                 if (socket.hasPower)
                 {
-                    ConnectPower(new List<Socket>());
+                    ConnectPower(socket.actingMultiplier);
                 }
+                else
+                {
+                    connectedTurret.DeactivateTurret();
+                }
+            }
+            else
+            {
+                connectedTurret.DeactivateTurret();
             }
         }
     }
 
-    private void ConnectPower(List<Socket> socketChain)
+    private void ConnectPower(float fireRate)
     {
-        Debug.Log("POWER CONNECTED! Chain length: " + socketChain.Count);
+      
         connectedTurret.InititateTurret();
-        float fireRate = 1;
-        foreach (var item in socketChain)
-        {
-            fireRate += item.multiplier;
-        }
         connectedTurret.UpdateFireRate(fireRate);
     }
 

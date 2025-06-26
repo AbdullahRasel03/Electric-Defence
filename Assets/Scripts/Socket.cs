@@ -8,7 +8,7 @@ public class Socket : MonoBehaviour
     public LayerMask gridLayer;
     public List<GridObject> assignedGrids = new List<GridObject>();
     [SerializeField] LayerMask connectableLayers;
-    public float multiplier;
+    public float ownMultiplier, actingMultiplier;
 
     public bool IsReleasableByRaycast()
     {
@@ -51,6 +51,7 @@ public class Socket : MonoBehaviour
 
     public void CheckPowerActivation()
     {
+        actingMultiplier = ownMultiplier;
         hasPower = false;
 
         foreach (var cube in socketCubes)
@@ -68,6 +69,7 @@ public class Socket : MonoBehaviour
                 if (otherSocket != null && otherSocket.hasPower)
                 {
                     hasPower = true;
+                    actingMultiplier += otherSocket.actingMultiplier;
                     return;
                 }
             }

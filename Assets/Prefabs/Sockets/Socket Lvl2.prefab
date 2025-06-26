@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f78fa5d42e1c814f9c9df1ceea5c603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasPower: 0
   socketCubes:
   - {fileID: 4054111154364044410}
   - {fileID: 6520111170660870107}
@@ -251,7 +252,8 @@ MonoBehaviour:
   connectableLayers:
     serializedVersion: 2
     m_Bits: 5120
-  multiplier: 1
+  ownMultiplier: 1
+  actingMultiplier: 0
 --- !u!65 &272469415129114330
 BoxCollider:
   m_ObjectHideFlags: 0
