@@ -59,7 +59,7 @@ public class DragSystem : MonoBehaviour
                 plug.assignedGrid.plug = null;
                 plug.assignedGrid = null;
             }
-            plug.connectedTurret.DeactivateTurret();
+            plug.connectedTower.DeactivateTower();
         }
         else if (objectType == DragObjectType.Socket)
         {

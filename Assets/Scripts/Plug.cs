@@ -8,7 +8,7 @@ public class Plug : MonoBehaviour
     public bool placedOnGrid;
     public GridObject assignedGrid;
     [SerializeField] LayerMask connectableLayers;
-    public TurretBehaviour connectedTurret;
+    public TowerController connectedTower;
 
     public void PlaceOnGrid(GridObject _assignedGrid)
     {
@@ -40,12 +40,12 @@ public class Plug : MonoBehaviour
                 }
                 else
                 {
-                    connectedTurret.DeactivateTurret();
+                    connectedTower.DeactivateTower();
                 }
             }
             else
             {
-                connectedTurret.DeactivateTurret();
+                connectedTower.DeactivateTower();
             }
         }
     }
@@ -53,8 +53,8 @@ public class Plug : MonoBehaviour
     private void ConnectPower(float fireRate)
     {
       
-        connectedTurret.InititateTurret();
-        connectedTurret.UpdateFireRate(fireRate);
+        connectedTower.ActivateTower();
+        connectedTower.towerTroup.SetFireRate(fireRate);
     }
 
 
