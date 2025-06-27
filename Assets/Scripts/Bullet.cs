@@ -5,16 +5,32 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float _damage = 10f;
     private float _lifeTimer;
     private const float _maxLifetime = 5f;
+    [SerializeField] private GameObject trail;
+
+    private TrailRenderer trailRenderer;
+
+    private void Awake()
+    {
+        if (trail != null)
+        {
+            trailRenderer = trail.GetComponent<TrailRenderer>();
+        }
+    }
 
     private void OnEnable()
     {
-        // Reset lifetime whenever bullet is activated
         _lifeTimer = _maxLifetime;
+
+        // Re-enable and clear trail after position is already set
+        if (trailRenderer != null)
+        {
+            trailRenderer.Clear();
+            trailRenderer.enabled = true;
+        }
     }
 
     private void Update()
     {
-        // Auto-return to pool if bullet doesn't hit anything
         _lifeTimer -= Time.deltaTime;
         if (_lifeTimer <= 0f)
         {
@@ -37,13 +53,17 @@ public class Bullet : MonoBehaviour
 
     private void ReturnToPool()
     {
+        if (trailRenderer != null)
+        {
+            trailRenderer.enabled = false;
+        }
+
         if (ObjectPool.instance != null)
         {
             ObjectPool.instance.ReturnToPool(gameObject);
         }
         else
         {
-            // Fallback in case pool system isn't available
             gameObject.SetActive(false);
         }
     }

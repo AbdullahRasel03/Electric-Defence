@@ -45,4 +45,18 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            foreach(var item in gridArrays)
+            {
+                foreach (var grid in item.grids)
+                {
+                    grid.ResetHighlight();
+                }
+            }
+        }
+    }
 }

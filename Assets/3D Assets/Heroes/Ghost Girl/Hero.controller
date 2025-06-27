@@ -46,7 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 60be6f542b2d3d54bb9b47a74490bbc7, type: 2}
+  m_Motion: {fileID: 7400000, guid: 5e6f71674f7459e4f8800c13f51b5e22, type: 2}
   m_Tag: 
   m_SpeedParameter: FireSpeed
   m_MirrorParameter: 
@@ -116,7 +116,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Standing Idle 03
-  m_Speed: 1
+  m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -128,7 +128,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 5261989a7cc1a694dbf63c91341488f0,
+  m_Motion: {fileID: -203655887218126122, guid: 949b8dccb2b4b9d4da9dbea35e630b7d,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 

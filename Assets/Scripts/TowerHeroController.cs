@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 public class TowerHeroController : MonoBehaviour
 {
-
+    public bool isFiring;
     [SerializeField] private TowerController towerController;
     [SerializeField] private float fireRate = 1f;
 
@@ -23,10 +23,18 @@ public class TowerHeroController : MonoBehaviour
 
     private Enemy currentTarget;
 
-    private void Awake()
+    private void Start()
     {
         towerController = GetComponentInParent<TowerController>();
+
+        // Pre-pool 20 bullets
+        for (int i = 0; i < 20; i++)
+        {
+            GameObject pooledBullet = ObjectPool.instance.GetObject(bulletPrefab, false);
+            ObjectPool.instance.ReturnToPool(pooledBullet);
+        }
     }
+
     public void TryShoot(Enemy target)
     {
         currentTarget = target;
@@ -91,7 +99,7 @@ public class TowerHeroController : MonoBehaviour
         isFiringSequenceActive = false;
     }
 
-    bool isFiring;
+  
     public void Fire()
     {
         if (bulletPrefab == null || currentTarget == null) return;
@@ -103,13 +111,22 @@ public class TowerHeroController : MonoBehaviour
         Vector3 targetPosition = currentTarget.transform.position;
         targetPosition.y = shootPoint.position.y;
 
-        float travelTime = Vector3.Distance(shootPoint.position, targetPosition) / speed;
+        float distance = Vector3.Distance(shootPoint.position, targetPosition);
+        float travelTime = distance / speed;
 
-        bullet.transform.DOJump(currentTarget.transform.position, 2, 1, travelTime).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            isFiring = false;
-            ObjectPool.instance.ReturnToPool(bullet);
-        });
+        // Calculate dynamic jump height (min 0.5, max 2)
+        float minDistance = 1f;
+        float maxDistance = 10f;
+        float normalized = Mathf.InverseLerp(minDistance, maxDistance, distance);
+        float jumpHeight = Mathf.Lerp(0.5f, 2f, normalized);
+
+        bullet.transform.DOJump(targetPosition, jumpHeight, 1, travelTime)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                isFiring = false;
+                ObjectPool.instance.ReturnToPool(bullet);
+            });
     }
 
     public void PlayFireAnimation()

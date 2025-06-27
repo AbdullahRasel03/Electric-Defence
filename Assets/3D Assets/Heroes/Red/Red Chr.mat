@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-589383511169219803
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -7,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tower
+  m_Name: Red Chr
   m_Shader: {fileID: 4800000, guid: a2a06e22c08354d9699356710b69ca9c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -18,7 +31,7 @@ Material:
   - DIFFUSE
   - FOG
   - MATCAP_PERSPECTIVE
-  - OUTLINE_PASS_DISABLED
+  - OUTLINE
   - SHADOWS_ENABLED
   - _DETAILBLEND_MULTIPLY
   - _DETAILUV_UV1
@@ -43,8 +56,7 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses:
-  - SRPDEFAULTUNLIT
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -102,7 +114,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9a1a721f534ac3545b34d8f5f71afe65, type: 3}
+        m_Texture: {fileID: 2800000, guid: 144c5ca83d1639943940ef638f43f87f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCapTex:
@@ -167,8 +179,8 @@ Material:
     - _AlphaToMask: 0
     - _AmbientBrightness: 1
     - _Anime: 1
-    - _AnimeSoftness: 0.138
-    - _AnimeThreshold1: 0.45
+    - _AnimeSoftness: 0.01
+    - _AnimeThreshold1: 0.21
     - _AnimeThreshold2: 0.85
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
@@ -242,11 +254,11 @@ Material:
     - _NormalUV: 0
     - _NormalUV2: 0
     - _OcclusionStrength: 1
-    - _Outline: 0
+    - _Outline: 1
     - _OutlineComp: 8
     - _OutlineGroup: 0
     - _OutlinePass: 0
-    - _OutlineWidth: 0.0005
+    - _OutlineWidth: 0.0182
     - _OutlineWidthIndependent: 0
     - _OutlineZPos: 0
     - _Parallax: 0.005
@@ -339,16 +351,3 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &1339868756510184302
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 7
