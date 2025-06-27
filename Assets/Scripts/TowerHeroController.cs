@@ -44,7 +44,8 @@ public class TowerHeroController : MonoBehaviour
         fireRate = Mathf.Max(newRate, 0.01f);
         fireCooldown = 0f;
 
-        animator.SetFloat("FireSpeed", fireRate); // Adjust speed to match fire rate
+        animator.SetFloat("FireSpeed", Mathf.Max(1f, fireRate));
+
     }
 
     private IEnumerator FireWithElectricity()
@@ -113,6 +114,6 @@ public class TowerHeroController : MonoBehaviour
 
     public void PlayFireAnimation()
     {
-        animator.SetTrigger("Fire");
+        animator.Play("Attack1");
     }
 }

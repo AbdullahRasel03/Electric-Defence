@@ -61,6 +61,7 @@ public class Socket : MonoBehaviour
             {
                 if (hit.collider.GetComponent<PowerSource>() != null)
                 {
+                    actingMultiplier += hit.collider.GetComponent<PowerSource>().sourcePowerMultiplier;
                     hasPower = true;
                     return;
                 }
