@@ -252,7 +252,7 @@ MonoBehaviour:
   connectableLayers:
     serializedVersion: 2
     m_Bits: 5120
-  ownMultiplier: 1
+  ownMultiplier: 0.1
   actingMultiplier: 0
 --- !u!65 &272469415129114330
 BoxCollider:

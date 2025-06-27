@@ -96,17 +96,18 @@ public class TowerHeroController : MonoBehaviour
         if (bulletPrefab == null || currentTarget == null) return;
 
         isFiring = true;
-        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+
+        GameObject bullet = ObjectPool.instance.GetObject(bulletPrefab, true, shootPoint.position, shootPoint.rotation);
 
         Vector3 targetPosition = currentTarget.transform.position;
-        targetPosition.y = shootPoint.position.y; // Keep bullet at shoot point height if needed
+        targetPosition.y = shootPoint.position.y;
 
         float travelTime = Vector3.Distance(shootPoint.position, targetPosition) / speed;
 
         bullet.transform.DOJump(currentTarget.transform.position, 2, 1, travelTime).SetEase(Ease.Linear).OnComplete(() =>
         {
             isFiring = false;
-            Destroy(bullet);
+            ObjectPool.instance.ReturnToPool(bullet);
         });
     }
 

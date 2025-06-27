@@ -6,19 +6,20 @@ public class Enemy : MonoBehaviour
 {
     [Header("Settings")]
     public float maxHealth = 100f;
+    [SerializeField] private float _currentHealth;
     public float movementSpeed = 5f;
     public string enemyType = "BasicEnemy";
 
     [Header("References")]
     [SerializeField] private TMP_Text healthText;
+    [SerializeField] private GameObject damageParticlePrefab;
+    [SerializeField] private GameObject deathParticlePrefab;
 
     private Rigidbody _rb;
-    [SerializeField] private float _currentHealth;
+   
     private bool _isActive;
 
-    // Event for death notification
     public event System.Action<Enemy> OnDeath;
-
     public bool IsActive => _isActive;
 
     private void Awake()
@@ -35,7 +36,6 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(true);
         UpdateHealthUI();
 
-        // Notify systems that this enemy has spawned
         EnemyManager.Instance?.RegisterEnemy(this);
     }
 
@@ -43,7 +43,6 @@ public class Enemy : MonoBehaviour
     {
         if (!_isActive) return;
 
-        // Move along -Z axis
         _rb.MovePosition(_rb.position + Vector3.back * (movementSpeed * Time.fixedDeltaTime));
     }
 
@@ -53,6 +52,12 @@ public class Enemy : MonoBehaviour
 
         _currentHealth -= damage;
         UpdateHealthUI();
+
+        if (damageParticlePrefab != null)
+        {
+            var particle = ObjectPool.instance.GetObject(damageParticlePrefab, true, transform.position, Quaternion.identity);
+            ObjectPool.instance.ReturnToPool(particle, 1.5f); // Adjust time to match particle duration
+        }
 
         if (_currentHealth <= 0)
         {
@@ -74,20 +79,25 @@ public class Enemy : MonoBehaviour
         if (!_isActive) return;
 
         _isActive = false;
+
+        if (deathParticlePrefab != null)
+        {
+            var particle = ObjectPool.instance.GetObject(deathParticlePrefab, true, transform.position, Quaternion.identity);
+            ObjectPool.instance.ReturnToPool(particle, 2f); // Adjust time to match particle duration
+        }
+
         OnDeath?.Invoke(this);
         Cleanup();
     }
 
     private void Cleanup()
     {
-        // Notify systems that this enemy is dying
         EnemyManager.Instance?.UnregisterEnemy(this);
         ObjectPool.instance.ReturnToPool(gameObject);
     }
 
     private void OnDisable()
     {
-        // Handle case where object is disabled without Die() being called
         if (_isActive)
         {
             Die();

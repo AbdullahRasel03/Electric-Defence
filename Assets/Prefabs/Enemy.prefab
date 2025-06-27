@@ -206,6 +206,7 @@ Transform:
   m_Children:
   - {fileID: 6999051220897117733}
   - {fileID: 7305424044152564526}
+  - {fileID: 7373517546695732571}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8821883865445639874
@@ -224,6 +225,8 @@ MonoBehaviour:
   movementSpeed: 5
   enemyType: BasicEnemy
   healthText: {fileID: 5394565625322317765}
+  damageParticlePrefab: {fileID: 145150, guid: 16d4b504584fb1d4784bc23462900274, type: 3}
+  deathParticlePrefab: {fileID: 150592, guid: 2c82b2af38b82f442bd9a24539b8d33c, type: 3}
   _currentHealth: 0
 --- !u!54 &4247946527809880514
 Rigidbody:
@@ -273,6 +276,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.62448156, y: 1.4638666, z: 1}
   m_Center: {x: -0.000686571, y: 0.2319333, z: 0}
+--- !u!1 &2250289011880505688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7373517546695732571}
+  m_Layer: 6
+  m_Name: VFXs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7373517546695732571
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2250289011880505688}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8677286059134896901}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3519795756892738026
 GameObject:
   m_ObjectHideFlags: 0

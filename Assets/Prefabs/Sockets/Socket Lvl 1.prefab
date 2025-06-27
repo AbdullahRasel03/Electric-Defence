@@ -208,7 +208,7 @@ MonoBehaviour:
   connectableLayers:
     serializedVersion: 2
     m_Bits: 5120
-  ownMultiplier: 1
+  ownMultiplier: 0.1
   actingMultiplier: 0
 --- !u!114 &1296750998800699312
 MonoBehaviour:
