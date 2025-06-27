@@ -1,20 +1,56 @@
 using UnityEngine;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class Socket : MonoBehaviour
 {
-    public bool hasPower;  // ← Fixed declaration (was missing `;`)
-    public List<GameObject> socketCubes;
+    [System.Serializable]
+    public class SocketCube
+    {
+        public GameObject cube;
+        public Transform pin; // Reference to the pin on this cube
+        public float pinRestPosition = 0f; // Local Z position when unpowered
+        public float pinActivePosition = 0.5f; // Local Z position when powered
+        [HideInInspector] public bool hasPowerSource;
+    }
+
+    [Header("Socket Configuration")]
+    public List<SocketCube> socketCubes = new List<SocketCube>();
     public LayerMask gridLayer;
+    public LayerMask connectableLayers;
+    public float ownMultiplier = 1f;
+    public float actingMultiplier = 1f;
+    public float pinMoveDuration = 0.3f;
+    public Ease pinMoveEase = Ease.OutBack;
+
+    [Header("Runtime State")]
+    public bool hasPower;
     public List<GridObject> assignedGrids = new List<GridObject>();
-    [SerializeField] LayerMask connectableLayers;
-    public float ownMultiplier, actingMultiplier;
+
+    private void Start()
+    {
+        InitializePins();
+    }
+
+    private void InitializePins()
+    {
+        // Set all pins to rest position at start
+        foreach (var socketCube in socketCubes)
+        {
+            if (socketCube.pin != null)
+            {
+                Vector3 pos = socketCube.pin.localPosition;
+                pos.z = socketCube.pinRestPosition;
+                socketCube.pin.localPosition = pos;
+            }
+        }
+    }
 
     public bool IsReleasableByRaycast()
     {
-        foreach (var cube in socketCubes)
+        foreach (var socketCube in socketCubes)
         {
-            Ray ray = new Ray(cube.transform.position + Vector3.up * 2f, Vector3.down);
+            Ray ray = new Ray(socketCube.cube.transform.position + Vector3.up * 2f, Vector3.down);
             if (Physics.Raycast(ray, out RaycastHit hit, 10f, gridLayer))
             {
                 GridObject grid = hit.collider.GetComponent<GridObject>();
@@ -33,9 +69,9 @@ public class Socket : MonoBehaviour
     {
         List<GridObject> grids = new List<GridObject>();
 
-        foreach (var cube in socketCubes)
+        foreach (var socketCube in socketCubes)
         {
-            Ray ray = new Ray(cube.transform.position + Vector3.up * 2f, Vector3.down);
+            Ray ray = new Ray(socketCube.cube.transform.position + Vector3.up * 2f, Vector3.down);
             if (Physics.Raycast(ray, out RaycastHit hit, 10f, gridLayer))
             {
                 GridObject grid = hit.collider.GetComponent<GridObject>();
@@ -54,16 +90,23 @@ public class Socket : MonoBehaviour
         actingMultiplier = ownMultiplier;
         hasPower = false;
 
-        foreach (var cube in socketCubes)
+        // Reset all power flags first
+        foreach (var socketCube in socketCubes)
         {
-            Ray ray = new Ray(cube.transform.position, -Vector3.forward);
+            socketCube.hasPowerSource = false;
+        }
+
+        foreach (var socketCube in socketCubes)
+        {
+            Ray ray = new Ray(socketCube.cube.transform.position, -Vector3.forward);
             if (Physics.Raycast(ray, out RaycastHit hit, 1f, connectableLayers))
             {
                 if (hit.collider.GetComponent<PowerSource>() != null)
                 {
                     actingMultiplier += hit.collider.GetComponent<PowerSource>().sourcePowerMultiplier;
                     hasPower = true;
-                    return;
+                    socketCube.hasPowerSource = true;
+                    continue;
                 }
 
                 Socket otherSocket = hit.collider.GetComponent<Socket>();
@@ -71,7 +114,53 @@ public class Socket : MonoBehaviour
                 {
                     hasPower = true;
                     actingMultiplier += otherSocket.actingMultiplier;
-                    return;
+                    socketCube.hasPowerSource = true;
+                }
+            }
+        }
+
+        // Update pin positions based on power state
+        if (hasPower)
+        {
+            Plugged();
+        }
+        else
+        {
+            UnPlugged();
+        }
+    }
+
+    public void UnPlugged()
+    {
+        foreach (var socketCube in socketCubes)
+        {
+            if (socketCube.pin != null)
+            {
+                // Only animate pins that were previously powered
+                if (socketCube.hasPowerSource)
+                {
+                    socketCube.pin.DOLocalMoveZ(
+                        socketCube.pinRestPosition,
+                        pinMoveDuration
+                    ).SetEase(pinMoveEase);
+                }
+            }
+        }
+    }
+
+    public void Plugged()
+    {
+        foreach (var socketCube in socketCubes)
+        {
+            if (socketCube.pin != null)
+            {
+                // Only animate pins that have power sources
+                if (socketCube.hasPowerSource)
+                {
+                    socketCube.pin.DOLocalMoveZ(
+                        socketCube.pinActivePosition,
+                        pinMoveDuration
+                    ).SetEase(pinMoveEase);
                 }
             }
         }

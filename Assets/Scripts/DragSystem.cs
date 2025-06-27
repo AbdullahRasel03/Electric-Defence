@@ -14,9 +14,9 @@ public class DragSystem : MonoBehaviour
     public DragObjectType objectType;
 
     [Header("Drag Settings")]
-    public float dragSpeed = 15f;
-    public float snapSpeed = 20f;
+    public float dragSpeed = 10f;
     public bool lockYAxis = true;
+    public float dragYOffset = 1f; // Y offset during drag
     public float fixedYPosition = 0f;
 
     public bool IsBeingDragged { get; private set; }
@@ -24,9 +24,9 @@ public class DragSystem : MonoBehaviour
 
     private Vector3 dragOffset;
     private Vector3 initialPosition;
+    private float originalYPosition;
 
     public LayerMask gridLayer;
-
 
     private GridObject lastHoveredGrid;
     private List<GridObject> lastHoveredGrids = new List<GridObject>();
@@ -34,6 +34,7 @@ public class DragSystem : MonoBehaviour
     private void OnMouseDown()
     {
         initialPosition = transform.position;
+        originalYPosition = initialPosition.y;
         StartDrag();
     }
 
@@ -79,7 +80,6 @@ public class DragSystem : MonoBehaviour
         }
     }
 
-
     public void EndDrag()
     {
         IsBeingDragged = false;
@@ -92,14 +92,22 @@ public class DragSystem : MonoBehaviour
         if (IsBeingDragged)
         {
             Vector3 targetPosition = GetMouseWorldPosition() - dragOffset;
+
+            // Apply Y offset smoothly during drag
             if (lockYAxis)
-                targetPosition.y = fixedYPosition;
+            {
+                targetPosition.y = fixedYPosition + dragYOffset;
+            }
+            else
+            {
+                targetPosition.y += dragYOffset;
+            }
 
             transform.position = Vector3.Lerp(transform.position, targetPosition, dragSpeed * Time.deltaTime);
-
             UpdateGridHighlight();
         }
     }
+
     private void UpdateGridHighlight()
     {
         // Reset previous highlights
@@ -112,7 +120,6 @@ public class DragSystem : MonoBehaviour
         {
             foreach (var g in lastHoveredGrids)
                 g.ResetHighlight();
-
             lastHoveredGrids.Clear();
         }
 
@@ -134,7 +141,7 @@ public class DragSystem : MonoBehaviour
             Socket socket = GetComponent<Socket>();
             foreach (var cube in socket.socketCubes)
             {
-                Ray ray = new Ray(cube.transform.position + Vector3.up * 2f, Vector3.down);
+                Ray ray = new Ray(cube.cube.transform.position + Vector3.up * 2f, Vector3.down);
                 if (Physics.Raycast(ray, out RaycastHit hit, 10f, gridLayer))
                 {
                     GridObject grid = hit.collider.GetComponent<GridObject>();
@@ -183,7 +190,7 @@ public class DragSystem : MonoBehaviour
 
                 for (int i = 0; i < socket.socketCubes.Count; i++)
                 {
-                    GameObject cube = socket.socketCubes[i];
+                    GameObject cube = socket.socketCubes[i].cube;
                     Ray ray = new Ray(cube.transform.position + Vector3.up * 2f, Vector3.down);
                     if (Physics.Raycast(ray, out RaycastHit hit, 10f, gridLayer))
                     {
@@ -198,11 +205,11 @@ public class DragSystem : MonoBehaviour
                 if (cubeGridMap.Count != socket.socketCubes.Count)
                 {
                     transform.position = initialPosition;
-                    return; // Not all cubes over valid grids
+                    return;
                 }
 
                 // Calculate required movement
-                GameObject firstCube = socket.socketCubes[0];
+                GameObject firstCube = socket.socketCubes[0].cube;
                 GridObject firstGrid = cubeGridMap[firstCube];
 
                 Vector3 cubeWorldPos = firstCube.transform.position;
@@ -212,30 +219,23 @@ public class DragSystem : MonoBehaviour
                 Vector3 newSocketPosition = gridWorldPos - socketOffset;
 
                 // Move the whole socket to align first cube
-                socket.transform.DOMove(newSocketPosition, 0.2f).OnComplete(()=> {
+                socket.transform.DOMove(newSocketPosition, 0.2f).OnComplete(() => {
                     foreach (var pair in cubeGridMap)
                     {
                         GridObject grid = pair.Value;
                         grid.isOccupied = true;
                         grid.socket = socket;
                         socket.assignedGrids.Add(grid);
-
                     }
                     foreach (var pair in cubeGridMap)
                     {
                         pair.Value.gridManager.CheckAllGridsPower();
                     }
-
                 });
-
-                // Mark all involved grids
-               
                 return;
             }
-
         }
-
-        transform.position = initialPosition; // No valid connection, reset position
+        transform.position = initialPosition;
     }
 
     private Vector3 GetMouseWorldPosition()

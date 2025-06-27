@@ -5,16 +5,23 @@ using DG.Tweening;
 
 public class SocketManager : MonoBehaviour
 {
+    [System.Serializable]
+    public struct SocketPrefabWeight
+    {
+        public Socket prefab;
+        public int weight;
+    }
+
     [Header("Socket Settings")]
-    public Socket[] socketPrefabs;
-    public Transform[] newSocketSpawnTransforms;
-    public int initialPoolSize = 5;
-    public float slideInDuration = 0.5f;
-    public float delayBetweenSockets = 0.1f;
+    [SerializeField] private List<SocketPrefabWeight> weightedSocketPrefabs = new();
+    [SerializeField] private Transform[] newSocketSpawnTransforms;
+    [SerializeField] private int initialPoolSize = 5;
+    [SerializeField] private float slideInDuration = 0.5f;
+    [SerializeField] private float delayBetweenSockets = 0.1f;
 
     [Header("Socket Tracking")]
-    [SerializeField] private List<Socket> availableSockets = new List<Socket>();
-    [SerializeField] private List<Socket> activeSockets = new List<Socket>();
+    [SerializeField] private List<Socket> availableSockets = new();
+    [SerializeField] private List<Socket> activeSockets = new();
 
     private void Start()
     {
@@ -29,23 +36,21 @@ public class SocketManager : MonoBehaviour
 
     private IEnumerator RefreshSocketsRoutine()
     {
-        // Immediately return all sockets to pool without animation
         foreach (Socket socket in activeSockets.ToArray())
         {
             ReturnSocketToPoolImmediately(socket);
         }
 
-        // No need to wait since there's no animation
         StartCoroutine(SlideInSockets());
         yield return null;
     }
 
     private void InitializeSocketPool()
     {
-        for (int i = 0; i < initialPoolSize * socketPrefabs.Length; i++)
+        for (int i = 0; i < initialPoolSize * weightedSocketPrefabs.Count; i++)
         {
-            Socket randomPrefab = socketPrefabs[Random.Range(0, socketPrefabs.Length)];
-            CreateNewSocket(randomPrefab);
+            Socket prefab = GetWeightedRandomSocketPrefab();
+            CreateNewSocket(prefab);
         }
     }
 
@@ -59,10 +64,10 @@ public class SocketManager : MonoBehaviour
     {
         foreach (Transform spawnPoint in newSocketSpawnTransforms)
         {
-            Socket randomPrefab = socketPrefabs[Random.Range(0, socketPrefabs.Length)];
-            Socket socket = GetAvailableSocket(randomPrefab);
+            Socket prefab = GetWeightedRandomSocketPrefab();
+            Socket socket = GetAvailableSocket(prefab);
 
-            socket.transform.position = spawnPoint.position + (Vector3.left * 5f);
+            socket.transform.position = spawnPoint.position + Vector3.left * 5f;
             socket.gameObject.SetActive(true);
             activeSockets.Add(socket);
 
@@ -93,11 +98,8 @@ public class SocketManager : MonoBehaviour
             return socket;
         }
 
-        Socket prefabToUse = preferredPrefab != null ?
-            preferredPrefab :
-            socketPrefabs[Random.Range(0, socketPrefabs.Length)];
-
-        return CreateNewSocket(prefabToUse);
+        Socket fallbackPrefab = preferredPrefab != null ? preferredPrefab : GetWeightedRandomSocketPrefab();
+        return CreateNewSocket(fallbackPrefab);
     }
 
     private Socket CreateNewSocket(Socket prefab)
@@ -105,12 +107,33 @@ public class SocketManager : MonoBehaviour
         Socket socket = Instantiate(prefab);
         socket.name = prefab.name;
         socket.gameObject.SetActive(false);
-      //  socket.SetSocketManager(this);
         availableSockets.Add(socket);
         return socket;
     }
 
-    // New method for immediate return to pool
+    private Socket GetWeightedRandomSocketPrefab()
+    {
+        int totalWeight = 0;
+        foreach (var entry in weightedSocketPrefabs)
+        {
+            totalWeight += entry.weight;
+        }
+
+        int randomWeight = Random.Range(0, totalWeight);
+        int currentWeight = 0;
+
+        foreach (var entry in weightedSocketPrefabs)
+        {
+            currentWeight += entry.weight;
+            if (randomWeight < currentWeight)
+            {
+                return entry.prefab;
+            }
+        }
+
+        return weightedSocketPrefabs[0].prefab;
+    }
+
     public void ReturnSocketToPoolImmediately(Socket socket)
     {
         if (activeSockets.Contains(socket))
@@ -121,7 +144,6 @@ public class SocketManager : MonoBehaviour
         }
     }
 
-    // Original method kept in case you want slide-out in other situations
     public void ReturnSocketToPool(Socket socket)
     {
         if (activeSockets.Contains(socket))
