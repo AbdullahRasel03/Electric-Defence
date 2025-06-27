@@ -91,10 +91,7 @@ public class EnemySpawner : MonoBehaviour
         );
 
         Enemy enemy = enemyObj.GetComponent<Enemy>();
-        enemy.maxHealth = config.health;
-        enemy.movementSpeed = config.speed;
-        enemy.enemyType = config.prefab.name;
-        enemy.Activate(spawnPoint.position, spawnPoint.rotation);
+        enemy.ActivateEnemy(spawnPoint.position, spawnPoint.rotation, config.health, config.speed);
 
         activeEnemies.Add(enemy);
     }

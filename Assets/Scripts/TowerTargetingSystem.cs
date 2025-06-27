@@ -19,7 +19,7 @@ public class TowerTargetingSystem : MonoBehaviour
         }
     }
 
-    private Enemy FindClosestEnemy()
+    public Enemy FindClosestEnemy()
     {
         float closestDist = range;
         Enemy best = null;

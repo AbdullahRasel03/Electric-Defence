@@ -228,6 +228,9 @@ MonoBehaviour:
   healthText: {fileID: 5394565625322317765}
   damageParticlePrefab: {fileID: 145150, guid: 16d4b504584fb1d4784bc23462900274, type: 3}
   deathParticlePrefab: {fileID: 150592, guid: 2c82b2af38b82f442bd9a24539b8d33c, type: 3}
+  dissolveDuration: 2
+  animator: {fileID: 4820253661092286336}
+  enemyMesh: {fileID: 4373356418024950718}
 --- !u!54 &4247946527809880514
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -397,6 +400,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5818889320171079249, guid: 81fa2f36249554320aa3814e0ef27631,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 049e651c23bd80545a7c8c890cd01504, type: 2}
     - target: {fileID: 919132149155446097, guid: 81fa2f36249554320aa3814e0ef27631,
         type: 3}
       propertyPath: m_Name
@@ -415,6 +423,18 @@ PrefabInstance:
 --- !u!4 &1442515270778443258 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 81fa2f36249554320aa3814e0ef27631,
+    type: 3}
+  m_PrefabInstance: {fileID: 1409185244605461009}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &4373356418024950718 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -5818889320171079249, guid: 81fa2f36249554320aa3814e0ef27631,
+    type: 3}
+  m_PrefabInstance: {fileID: 1409185244605461009}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4820253661092286336 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 81fa2f36249554320aa3814e0ef27631,
     type: 3}
   m_PrefabInstance: {fileID: 1409185244605461009}
   m_PrefabAsset: {fileID: 0}

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float _damage = 10f;
     private float _lifeTimer;
     private const float _maxLifetime = 5f;
     [SerializeField] private GameObject trail;
@@ -36,19 +35,6 @@ public class Bullet : MonoBehaviour
         {
             ReturnToPool();
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.activeSelf)
-        {
-            Enemy enemy = other.GetComponent<Enemy>();
-            if (enemy != null && enemy.IsActive)
-            {
-                enemy.TakeDamage(_damage);
-            }
-        }
-        ReturnToPool();
     }
 
     private void ReturnToPool()
