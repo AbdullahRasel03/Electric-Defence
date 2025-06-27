@@ -54,7 +54,7 @@ public class Plug : MonoBehaviour
     {
       
         connectedTower.ActivateTower();
-        connectedTower.towerTroup.SetFireRate(fireRate);
+        connectedTower.shooter.SetFireRate(fireRate);
     }
 
 
