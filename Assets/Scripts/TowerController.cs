@@ -5,7 +5,7 @@ public class TowerController : MonoBehaviour
 {
     [Header("Dependencies")]
     [SerializeField] private Transform turretHead;
-    [SerializeField] private Transform shootPoint;
+
     [SerializeField] public TowerHeroController shooter;
     [SerializeField] private TowerTargetingSystem targetingSystem;
 
@@ -15,14 +15,14 @@ public class TowerController : MonoBehaviour
 
     private Enemy currentTarget;
     private bool isActive = false;
-
+    public Plug plug;
     private void Update()
     {
         // Fire whenever Space is pressed, ignoring aim or target
         if (Input.GetKey(KeyCode.Space))
         {
             // If no current target, you might want to pass null or just shoot forward
-            shooter.TryShoot(currentTarget, shootPoint);
+            shooter.TryShoot(currentTarget);
         }
         if (!isActive) return;
 
@@ -35,7 +35,7 @@ public class TowerController : MonoBehaviour
 
             if (IsAimedAt(currentTarget.transform.position))
             {
-                shooter.TryShoot(currentTarget, shootPoint);
+                shooter.TryShoot(currentTarget);
             }
         }
 

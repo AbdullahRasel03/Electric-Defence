@@ -82,11 +82,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretHead: {fileID: 249941844927922862}
-  shootPoint: {fileID: 5672777145574359222}
   shooter: {fileID: 82828040115917393}
   targetingSystem: {fileID: 3502466686025342829}
   rotationSpeed: 5
   aimThreshold: 5
+  plug: {fileID: 4645070844188734156}
   rotationOffsetY: 65
 --- !u!114 &3502466686025342829
 MonoBehaviour:
@@ -493,11 +493,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787ca20f419d29c498e15d46ee5fefd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerController: {fileID: 406920136571441206}
   fireRate: 1
   bulletPrefab: {fileID: 6029541652606951464, guid: 11e96e86a96c7c34c8f979f131d76e6b,
     type: 3}
-  speed: 10
+  speed: 20
   animator: {fileID: 7140331334068264888}
+  rope: {fileID: 3551852762388154951}
+  electricityVisualPrefab: {fileID: 1406328307305653203, guid: 5e5fa1d37022041fa81290a543ccc7ec,
+    type: 3}
+  electricitySpeed: 0.3
+  shootPoint: {fileID: 5672777145574359222}
 --- !u!1 &3422816216194713292
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,7 +1280,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5672777145574359222}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: faccacb0f439c874d8ad4f74732f9328,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 222987690122573148}
   m_SourcePrefab: {fileID: 100100000, guid: faccacb0f439c874d8ad4f74732f9328, type: 3}
 --- !u!4 &3154970446878842337 stripped
 Transform:
@@ -1288,6 +1298,39 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3638090657995317801}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4520613455106367352 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: faccacb0f439c874d8ad4f74732f9328,
+    type: 3}
+  m_PrefabInstance: {fileID: 3638090657995317801}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &222987690122573148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4520613455106367352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffc7037e5cf6f094b8b4d8a4a092d561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnFire:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 82828040115917393}
+        m_TargetAssemblyTypeName: TowerHeroController, Assembly-CSharp
+        m_MethodName: Fire
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &7140331334068264888 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: faccacb0f439c874d8ad4f74732f9328,
