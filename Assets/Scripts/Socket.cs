@@ -103,6 +103,7 @@ public class Socket : MonoBehaviour
             {
                 if (hit.collider.GetComponent<PowerSource>() != null)
                 {
+                    Plugged();
                     actingMultiplier += hit.collider.GetComponent<PowerSource>().sourcePowerMultiplier;
                     hasPower = true;
                     socketCube.hasPowerSource = true;
@@ -112,6 +113,7 @@ public class Socket : MonoBehaviour
                 Socket otherSocket = hit.collider.GetComponent<Socket>();
                 if (otherSocket != null && otherSocket.hasPower)
                 {
+                    Plugged();
                     hasPower = true;
                     actingMultiplier += otherSocket.actingMultiplier;
                     socketCube.hasPowerSource = true;
@@ -119,15 +121,7 @@ public class Socket : MonoBehaviour
             }
         }
 
-        // Update pin positions based on power state
-        if (hasPower)
-        {
-            Plugged();
-        }
-        else
-        {
-            UnPlugged();
-        }
+       
     }
 
     public void UnPlugged()
@@ -137,13 +131,13 @@ public class Socket : MonoBehaviour
             if (socketCube.pin != null)
             {
                 // Only animate pins that were previously powered
-                if (socketCube.hasPowerSource)
-                {
+             //   if (socketCube.hasPowerSource)
+              //  {
                     socketCube.pin.DOLocalMoveZ(
                         socketCube.pinRestPosition,
                         pinMoveDuration
                     ).SetEase(pinMoveEase);
-                }
+              //  }
             }
         }
     }
@@ -155,13 +149,13 @@ public class Socket : MonoBehaviour
             if (socketCube.pin != null)
             {
                 // Only animate pins that have power sources
-                if (socketCube.hasPowerSource)
-                {
+              //  if (socketCube.hasPowerSource)
+              //  {
                     socketCube.pin.DOLocalMoveZ(
                         socketCube.pinActivePosition,
                         pinMoveDuration
                     ).SetEase(pinMoveEase);
-                }
+              //  }
             }
         }
     }

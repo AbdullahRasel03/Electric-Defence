@@ -13,9 +13,12 @@ public class Plug : MonoBehaviour
     public void PlaceOnGrid(GridObject _assignedGrid)
     {
         assignedGrid = _assignedGrid;
-        transform.DOLocalMove(Vector3.zero - Vector3.forward * 0.02f, 0.2f).OnComplete(()=> {
-
-            assignedGrid.gridManager.CheckAllGridsPower();
+        transform.DOLocalMove(Vector3.zero + Vector3.forward * 0.1f, 0.3f).OnComplete(() =>
+        {
+            transform.DOLocalMove(Vector3.zero - Vector3.forward * 0.02f, 0.2f).OnComplete(() =>
+            {
+                assignedGrid.gridManager.CheckAllGridsPower();
+            });
         });
     }
 

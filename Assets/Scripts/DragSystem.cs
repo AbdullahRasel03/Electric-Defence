@@ -16,7 +16,7 @@ public class DragSystem : MonoBehaviour
     [Header("Drag Settings")]
     public float dragSpeed = 10f;
     public bool lockYAxis = true;
-    public float dragYOffset = 1f; // Y offset during drag
+    public float dragYOffset = 0f; // Y offset during drag
     public float fixedYPosition = 0f;
 
     public bool IsBeingDragged { get; private set; }
@@ -65,6 +65,9 @@ public class DragSystem : MonoBehaviour
         else if (objectType == DragObjectType.Socket)
         {
             Socket socket = GetComponent<Socket>();
+
+            socket.UnPlugged();
+           
             if (socket != null && socket.assignedGrids != null)
             {
                 foreach (var grid in socket.assignedGrids)
@@ -173,68 +176,28 @@ public class DragSystem : MonoBehaviour
         else
         {
             Socket socket = GetComponent<Socket>();
-            if (socket.IsReleasableByRaycast())
+            if (!GridObject.TryReleaseSocketToGrids(socket, out Vector3 newPosition))
             {
-                List<GridObject> requiredGrids = socket.RequiredGridsByRaycast();
-
-                // Clear previous grid assignments
-                foreach (var grid in socket.assignedGrids)
-                {
-                    grid.isOccupied = false;
-                    grid.socket = null;
-                }
-                socket.assignedGrids.Clear();
-
-                // Map each cube to the grid below it
-                Dictionary<GameObject, GridObject> cubeGridMap = new Dictionary<GameObject, GridObject>();
-
-                for (int i = 0; i < socket.socketCubes.Count; i++)
-                {
-                    GameObject cube = socket.socketCubes[i].cube;
-                    Ray ray = new Ray(cube.transform.position + Vector3.up * 2f, Vector3.down);
-                    if (Physics.Raycast(ray, out RaycastHit hit, 10f, gridLayer))
-                    {
-                        GridObject grid = hit.collider.GetComponent<GridObject>();
-                        if (grid != null && !grid.isOccupied)
-                        {
-                            cubeGridMap.Add(cube, grid);
-                        }
-                    }
-                }
-
-                if (cubeGridMap.Count != socket.socketCubes.Count)
-                {
-                    transform.position = initialPosition;
-                    return;
-                }
-
-                // Calculate required movement
-                GameObject firstCube = socket.socketCubes[0].cube;
-                GridObject firstGrid = cubeGridMap[firstCube];
-
-                Vector3 cubeWorldPos = firstCube.transform.position;
-                Vector3 gridWorldPos = firstGrid.plugSocketHolder.position;
-
-                Vector3 socketOffset = cubeWorldPos - socket.transform.position;
-                Vector3 newSocketPosition = gridWorldPos - socketOffset;
-
-                // Move the whole socket to align first cube
-                socket.transform.DOMove(newSocketPosition, 0.2f).OnComplete(() => {
-                    foreach (var pair in cubeGridMap)
-                    {
-                        GridObject grid = pair.Value;
-                        grid.isOccupied = true;
-                        grid.socket = socket;
-                        socket.assignedGrids.Add(grid);
-                    }
-                    foreach (var pair in cubeGridMap)
-                    {
-                        pair.Value.gridManager.CheckAllGridsPower();
-                    }
-                });
+                transform.position = initialPosition;
                 return;
             }
+
+            socket.transform.DOMove(newPosition + Vector3.forward * 0.5f, 0.3f).OnComplete(() =>
+            {
+                socket.Plugged();
+                socket.transform.DOMove(newPosition, 0.2f).OnComplete(() => {
+
+                    foreach (var grid in socket.assignedGrids)
+                    {
+                        if (grid.gridManager != null)
+                            grid.gridManager.CheckAllGridsPower();
+                    }
+                });
+
+            });
+            return;
         }
+
         transform.position = initialPosition;
     }
 

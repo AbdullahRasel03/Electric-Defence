@@ -31,7 +31,7 @@ public class GridManager : MonoBehaviour
 
         foreach (var item in gridArrays)
         {
-                yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.1f);
             foreach (var grid in item.grids)
             {
                 if (grid.socket != null)
