@@ -38,11 +38,10 @@ public class GridObject : MonoBehaviour
         plug.PlaceOnGrid(this);
     }
 
-    public static bool TryReleaseSocketToGrids(Socket socket, out Vector3 newSocketWorldPos)
+    public static bool TryReleaseSocketToGrids(Socket socket, out Vector3 newSocketWorldPos, out GridObject anchorGrid)
     {
         newSocketWorldPos = Vector3.zero;
-        if (!socket.IsReleasableByRaycast())
-            return false;
+        anchorGrid = null;
 
         Dictionary<GameObject, GridObject> cubeGridMap = new();
         foreach (var cubeEntry in socket.socketCubes)
@@ -52,9 +51,21 @@ public class GridObject : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, 10f, socket.gridLayer))
             {
                 GridObject grid = hit.collider.GetComponent<GridObject>();
-                if (grid != null && !grid.isOccupied)
+                if (grid != null)
                 {
-                    cubeGridMap[cube] = grid;
+                    if (!grid.isOccupied)
+                    {
+                        cubeGridMap[cube] = grid;
+                    }
+                    else
+                    {
+                        Socket targetSocket = grid.socket;
+                        if (targetSocket != null && targetSocket.socketManager.CanMergeSockets(socket, targetSocket))
+                        {
+                            targetSocket.socketManager.TryMergeSockets(socket, targetSocket);
+                            return false;
+                        }
+                    }
                 }
             }
         }
@@ -76,6 +87,8 @@ public class GridObject : MonoBehaviour
         GameObject firstCube = socket.socketCubes[0].cube;
         GridObject firstGrid = cubeGridMap[firstCube];
 
+        anchorGrid = firstGrid;
+
         Vector3 cubeWorldPos = firstCube.transform.position;
         Vector3 gridWorldPos = firstGrid.plugSocketHolder.position;
         Vector3 socketOffset = cubeWorldPos - socket.transform.position;
@@ -90,12 +103,9 @@ public class GridObject : MonoBehaviour
             socket.assignedGrids.Add(grid);
         }
 
-       /* foreach (var grid in socket.assignedGrids)
-        {
-            if (grid.gridManager != null)
-                grid.gridManager.CheckAllGridsPower();
-        }*/
         newSocketWorldPos.y = 0.08f;
         return true;
     }
+
+
 }

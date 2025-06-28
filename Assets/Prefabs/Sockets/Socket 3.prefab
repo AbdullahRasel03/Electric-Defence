@@ -233,8 +233,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.031578988, y: 1.0500001}
-  m_SizeDelta: {x: 1.2164, y: 0.7684}
+  m_AnchoredPosition: {x: 0.0316, y: 1.0500001}
+  m_SizeDelta: {x: 0.7803, y: 0.7684}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3666706923217920847
 MeshRenderer:
@@ -329,9 +329,9 @@ MonoBehaviour:
   m_fontSize: 6
   m_fontSizeBase: 6
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 1
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 4
+  m_fontSizeMax: 6
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -475,6 +475,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f78fa5d42e1c814f9c9df1ceea5c603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentLevel: 0
+  isMerging: 0
+  pins: {fileID: 584410899242578279}
+  levelColors: []
+  fireRateTexts: []
   socketCubes:
   - cube: {fileID: 4054111154364044410}
     pin: {fileID: 3683563191931612261}
@@ -503,6 +508,7 @@ MonoBehaviour:
   pinMoveEase: 27
   hasPower: 0
   assignedGrids: []
+  socketManager: {fileID: 0}
 --- !u!65 &272469415129114330
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -689,8 +695,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.029473722, y: 1.0500001}
-  m_SizeDelta: {x: 1.2164, y: 0.7684}
+  m_AnchoredPosition: {x: 0.0316, y: 1.0500001}
+  m_SizeDelta: {x: 0.7803, y: 0.7684}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &6811327677902544190
 MeshRenderer:
@@ -785,9 +791,9 @@ MonoBehaviour:
   m_fontSize: 6
   m_fontSizeBase: 6
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 1
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 4
+  m_fontSizeMax: 6
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -894,8 +900,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.029473722, y: 1.0500001}
-  m_SizeDelta: {x: 1.2164, y: 0.7684}
+  m_AnchoredPosition: {x: 0.0316, y: 1.0500001}
+  m_SizeDelta: {x: 0.7803, y: 0.7684}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &6584860825873639021
 MeshRenderer:
@@ -990,9 +996,9 @@ MonoBehaviour:
   m_fontSize: 6
   m_fontSizeBase: 6
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 1
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 4
+  m_fontSizeMax: 6
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512

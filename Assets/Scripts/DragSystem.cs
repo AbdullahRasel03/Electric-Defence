@@ -160,6 +160,7 @@ public class DragSystem : MonoBehaviour
 
     private void CheckForGridUnderneath()
     {
+
         if (objectType == DragObjectType.Plug)
         {
             Ray ray = new Ray(transform.position + Vector3.up * 2f, Vector3.down);
@@ -176,8 +177,10 @@ public class DragSystem : MonoBehaviour
         else
         {
             Socket socket = GetComponent<Socket>();
-            if (!GridObject.TryReleaseSocketToGrids(socket, out Vector3 newPosition))
+           
+            if (!GridObject.TryReleaseSocketToGrids(socket, out Vector3 newPosition, out GridObject grid))
             {
+                if (socket.isMerging) return;
                 transform.position = initialPosition;
                 return;
             }
@@ -198,7 +201,7 @@ public class DragSystem : MonoBehaviour
             return;
         }
 
-        transform.position = initialPosition;
+       // transform.position = initialPosition;
     }
 
     private Vector3 GetMouseWorldPosition()

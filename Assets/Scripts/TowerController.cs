@@ -13,7 +13,7 @@ public class TowerController : MonoBehaviour
     [SerializeField] private float aimThreshold = 5f;
 
     private Enemy currentTarget;
-    private bool isActive = false;
+    public bool isActive = false;
     public Plug plug;
     private bool manualFireInput; // Track manual firing state
 

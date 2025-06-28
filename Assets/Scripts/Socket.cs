@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using DG.Tweening;
-
+using TMPro;
 public class Socket : MonoBehaviour
 {
     [System.Serializable]
@@ -14,6 +14,13 @@ public class Socket : MonoBehaviour
         [HideInInspector] public bool hasPowerSource;
     }
 
+    [HideInInspector] public int currentLevel = 0;
+
+    public bool isMerging;
+    public GameObject pins;
+    [Header("Visuals")]
+    public Color[] levelColors; // Assign via Inspector, index = level (0, 1, 2, ...)
+    public TMP_Text[] fireRateTexts;
     [Header("Socket Configuration")]
     public List<SocketCube> socketCubes = new List<SocketCube>();
     public LayerMask gridLayer;
@@ -27,9 +34,14 @@ public class Socket : MonoBehaviour
     public bool hasPower;
     public List<GridObject> assignedGrids = new List<GridObject>();
 
+    public SocketManager socketManager;
     private void Start()
     {
         InitializePins();
+        foreach (var item in fireRateTexts)
+        {
+            item.text = ownMultiplier.ToString() + "x";
+        }
     }
 
     private void InitializePins()
@@ -159,4 +171,23 @@ public class Socket : MonoBehaviour
             }
         }
     }
+    public void UpdateColorAndTextByLevel()
+    {
+        if (levelColors == null || levelColors.Length == 0) return;
+
+        Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
+        foreach (var item in fireRateTexts)
+        {
+            item.text = ownMultiplier.ToString("0.0") + "x";
+        }
+        foreach (var cubeEntry in socketCubes)
+        {
+            Renderer rend = cubeEntry.cube.GetComponent<Renderer>();
+            if (rend != null)
+            {
+                rend.material.color = colorToApply;
+            }
+        }
+    }
+
 }

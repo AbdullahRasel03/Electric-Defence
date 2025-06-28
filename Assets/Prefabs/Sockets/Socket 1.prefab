@@ -230,6 +230,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f78fa5d42e1c814f9c9df1ceea5c603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentLevel: 0
+  isMerging: 0
+  pins: {fileID: 4804032747423290587}
+  levelColors:
+  - {r: 0.8352942, g: 0.7411765, b: 0.23529413, a: 1}
+  - {r: 1, g: 0.66278464, b: 0.051886797, a: 1}
+  fireRateTexts:
+  - {fileID: 3652960866237835926}
   socketCubes:
   - cube: {fileID: 3279600789919437683}
     pin: {fileID: 2743482803409467781}
@@ -248,6 +256,7 @@ MonoBehaviour:
   pinMoveEase: 27
   hasPower: 0
   assignedGrids: []
+  socketManager: {fileID: 0}
 --- !u!114 &1296750998800699312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,16 +365,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8265576050242019877}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0111111095}
-  m_LocalScale: {x: 1.0526316, y: 1.1111112, z: 2.4999998}
+  m_LocalPosition: {x: 0, y: 0, z: 0.010526314}
+  m_LocalScale: {x: 1.0526316, y: 1.0526316, z: 2.4999998}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2794671749597055433}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.0500001}
-  m_SizeDelta: {x: 0.9535, y: 0.7196}
+  m_AnchoredPosition: {x: 0.0316, y: 1.0500001}
+  m_SizeDelta: {x: 0.7803, y: 0.7684}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8594598875786134819
 MeshRenderer:
@@ -460,9 +469,9 @@ MonoBehaviour:
   m_fontSize: 6
   m_fontSizeBase: 6
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 1
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 4
+  m_fontSizeMax: 6
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
