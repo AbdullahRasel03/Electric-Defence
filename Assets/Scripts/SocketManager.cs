@@ -213,6 +213,7 @@ public class SocketManager : MonoBehaviour
 
         List<Transform> cubesA = new();
         List<Transform> cubesB = new();
+
         List<Vector3> finalMergePoints = new();
 
         Vector3 center = gridSocket.transform.position;
@@ -223,7 +224,11 @@ public class SocketManager : MonoBehaviour
             cubesA.Add(incomingSocket.socketCubes[i].cube.transform);
             cubesB.Add(gridSocket.socketCubes[i].cube.transform);
         }
-
+        List<Vector3> originalLocalPositionsB = new();
+        for (int i = 0; i < cubesB.Count; i++)
+        {
+            originalLocalPositionsB.Add(cubesB[i].localPosition);
+        }
         // Step 1: Lift and align
         for (int i = 0; i < count; i++)
         {
@@ -286,19 +291,18 @@ public class SocketManager : MonoBehaviour
         gridSocket.currentLevel += 1;
         gridSocket.UpdateColorAndTextByLevel();
 
-       /* foreach (var cubeEntry in gridSocket.socketCubes)
-        {
-            Renderer rend = cubeEntry.cube.GetComponent<Renderer>();
-            if (rend != null)
-            {
-                Color c = rend.material.color;
-                rend.material.color = c * 0.5f;
-            }
-        }*/
-
+        // Return incoming socket
         ReturnSocketToPoolImmediately(incomingSocket);
 
-        // Re-align grid socket precisely
+        // Restore grid socket cube local positions
+        for (int i = 0; i < cubesB.Count; i++)
+        {
+            cubesB[i].localPosition = originalLocalPositionsB[i];
+            cubesB[i].localRotation = Quaternion.identity;
+            cubesB[i].localScale = Vector3.one;
+        }
+
+        // Re-align grid socket position
         if (gridSocket.assignedGrids.Count > 0)
         {
             GridObject anchorGrid = gridSocket.assignedGrids[0];
@@ -308,8 +312,17 @@ public class SocketManager : MonoBehaviour
 
             gridSocket.transform.DOMove(gridWorldPos - cubeOffset, 0.25f).SetEase(Ease.OutBack);
         }
-
+        for (int i = 0; i < cubesB.Count; i++)
+        {
+            cubesB[i].localPosition = originalLocalPositionsB[i];
+            cubesB[i].localRotation = Quaternion.identity;
+            cubesB[i].localScale = Vector3.one;
+        }
         gridSocket.GetComponent<Collider>().enabled = true;
+        incomingSocket.isMerging = false;
+        gridSocket.isMerging = false;
+
+
     }
 
 

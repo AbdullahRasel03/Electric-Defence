@@ -1,3 +1,4 @@
+// DragSystem.cs
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class DragSystem : MonoBehaviour
     [Header("Drag Settings")]
     public float dragSpeed = 10f;
     public bool lockYAxis = true;
-    public float dragYOffset = 0f; // Y offset during drag
+    public float dragYOffset = 0f;
     public float fixedYPosition = 0f;
 
     public bool IsBeingDragged { get; private set; }
@@ -65,9 +66,8 @@ public class DragSystem : MonoBehaviour
         else if (objectType == DragObjectType.Socket)
         {
             Socket socket = GetComponent<Socket>();
-
             socket.UnPlugged();
-           
+
             if (socket != null && socket.assignedGrids != null)
             {
                 foreach (var grid in socket.assignedGrids)
@@ -96,15 +96,10 @@ public class DragSystem : MonoBehaviour
         {
             Vector3 targetPosition = GetMouseWorldPosition() - dragOffset;
 
-            // Apply Y offset smoothly during drag
             if (lockYAxis)
-            {
                 targetPosition.y = fixedYPosition + dragYOffset;
-            }
             else
-            {
                 targetPosition.y += dragYOffset;
-            }
 
             transform.position = Vector3.Lerp(transform.position, targetPosition, dragSpeed * Time.deltaTime);
             UpdateGridHighlight();
@@ -113,7 +108,6 @@ public class DragSystem : MonoBehaviour
 
     private void UpdateGridHighlight()
     {
-        // Reset previous highlights
         if (objectType == DragObjectType.Plug && lastHoveredGrid != null)
         {
             lastHoveredGrid.ResetHighlight();
@@ -160,7 +154,6 @@ public class DragSystem : MonoBehaviour
 
     private void CheckForGridUnderneath()
     {
-
         if (objectType == DragObjectType.Plug)
         {
             Ray ray = new Ray(transform.position + Vector3.up * 2f, Vector3.down);
@@ -177,10 +170,8 @@ public class DragSystem : MonoBehaviour
         else
         {
             Socket socket = GetComponent<Socket>();
-           
             if (!GridObject.TryReleaseSocketToGrids(socket, out Vector3 newPosition, out GridObject grid))
             {
-                if (socket.isMerging) return;
                 transform.position = initialPosition;
                 return;
             }
@@ -188,20 +179,19 @@ public class DragSystem : MonoBehaviour
             socket.transform.DOMove(newPosition + Vector3.forward * 0.5f, 0.3f).OnComplete(() =>
             {
                 socket.Plugged();
-                socket.transform.DOMove(newPosition, 0.2f).OnComplete(() => {
-
+                socket.transform.DOMove(newPosition, 0.2f).OnComplete(() =>
+                {
                     foreach (var grid in socket.assignedGrids)
                     {
                         if (grid.gridManager != null)
                             grid.gridManager.CheckAllGridsPower();
                     }
                 });
-
             });
             return;
         }
 
-       // transform.position = initialPosition;
+        transform.position = initialPosition;
     }
 
     private Vector3 GetMouseWorldPosition()
