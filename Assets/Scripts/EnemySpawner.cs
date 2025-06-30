@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,13 @@ public class EnemySpawner : MonoBehaviour
         public float speed;
     }
 
+    [System.Serializable]
+    public class Wave
+    {
+        public int enemyCount = 10;
+        public float spawnInterval = 0.5f;
+    }
+
     [Header("Configuration")]
     [SerializeField] private EnemyConfig[] enemyConfigs;
     [SerializeField] private Transform[] spawnPoints;
@@ -19,16 +27,23 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float maxSpawnDelay = 3f;
     [SerializeField] private int maxActiveEnemies = 20;
 
+    [Header("Waves")]
+    [SerializeField] private List<Wave> waves = new List<Wave>();
+    [SerializeField] private float interWaveDelay = 3f;
+    public int currentWaveIndex = -1;
+
     [Header("Runtime Info")]
     [SerializeField] public List<Enemy> activeEnemies = new List<Enemy>();
 
     private float nextSpawnTime;
     private bool isSpawning;
+    private bool isWaveMode = false;
 
     private void Start()
     {
         InitializePool();
-       // StartSpawning();
+        // StartSpawning(); // Manual or wave-based
+        // StartWaves();    // Uncomment to start waves automatically
     }
 
     private void InitializePool()
@@ -53,7 +68,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!isSpawning || activeEnemies.Count >= maxActiveEnemies) return;
 
-        if (Time.time >= nextSpawnTime)
+        if (!isWaveMode && Time.time >= nextSpawnTime)
         {
             SpawnEnemy();
             SetNextSpawnTime();
@@ -63,6 +78,7 @@ public class EnemySpawner : MonoBehaviour
     public void StartSpawning()
     {
         isSpawning = true;
+        isWaveMode = false;
         SetNextSpawnTime();
     }
 
@@ -123,6 +139,11 @@ public class EnemySpawner : MonoBehaviour
     public void OnEnemyDefeated(Enemy enemy)
     {
         activeEnemies.Remove(enemy);
+        // Auto progress wave if all enemies are dead
+        if (isWaveMode && activeEnemies.Count == 0)
+        {
+            StartCoroutine(SpawnNextWaveWithDelay());
+        }
     }
 
     public void CleanupAllEnemies()
@@ -139,9 +160,52 @@ public class EnemySpawner : MonoBehaviour
         CleanupAllEnemies();
     }
 
-    // ✅ Public trigger method for manual spawn
     public void TriggerSpawn()
     {
         SpawnEnemy();
+    }
+
+    // ✅ WAVE SYSTEM STARTS HERE
+    public void StartWaves()
+    {
+        if (waves.Count == 0) return;
+
+        isSpawning = true;
+        isWaveMode = true;
+        currentWaveIndex = -1;
+
+        StartCoroutine(SpawnNextWaveWithDelay());
+    }
+
+    private IEnumerator SpawnNextWaveWithDelay()
+    {
+        yield return new WaitForSeconds(interWaveDelay);
+        SpawnNextWave();
+    }
+
+    private void SpawnNextWave()
+    {
+        currentWaveIndex++;
+        if (currentWaveIndex >= waves.Count)
+        {
+            Debug.Log("All waves completed!");
+            isSpawning = false;
+            return;
+        }
+
+        Wave wave = waves[currentWaveIndex];
+        StartCoroutine(SpawnWaveCoroutine(wave));
+    }
+
+    private IEnumerator SpawnWaveCoroutine(Wave wave)
+    {
+        for (int i = 0; i < wave.enemyCount; i++)
+        {
+            if (activeEnemies.Count < maxActiveEnemies)
+            {
+                SpawnEnemy();
+            }
+            yield return new WaitForSeconds(wave.spawnInterval);
+        }
     }
 }
