@@ -442,6 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 0
+  shapeType: 1
   isMerging: 0
   pins: {fileID: 6379158913971276449}
   levelColors:

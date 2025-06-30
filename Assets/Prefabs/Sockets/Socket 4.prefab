@@ -476,11 +476,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 0
-  shapeType: 0
+  shapeType: 3
   isMerging: 0
   pins: {fileID: 584410899242578279}
-  levelColors: []
-  fireRateTexts: []
+  levelColors:
+  - {r: 0.3137255, g: 0.85098046, b: 0.3019608, a: 1}
+  - {r: 0.16525064, g: 0.7075472, b: 0.15018693, a: 1}
+  fireRateTexts:
+  - {fileID: 8807804488135809834}
+  - {fileID: 8554680170203873147}
+  - {fileID: 1437961288017086487}
+  - {fileID: 4116602929040066369}
   socketCubes:
   - cube: {fileID: 4054111154364044410}
     pin: {fileID: 3683563191931612261}

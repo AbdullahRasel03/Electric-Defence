@@ -177,6 +177,7 @@ public class DragSystem : MonoBehaviour
             }
 
             socket.socketManager.RemoveSocketFromSpwanedList(socket);
+            socket.socketManager.activeGrids.Add(socket);
             socket.transform.DOMove(newPosition + Vector3.forward * 0.5f, 0.3f).OnComplete(() =>
             {
                 socket.Plugged();

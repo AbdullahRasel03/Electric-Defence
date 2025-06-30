@@ -29,6 +29,7 @@ public class SocketManager : MonoBehaviour
 {
     [Header("Socket Tracking")]
     [SerializeField] private List<Socket> spawnedNewSockets = new();
+    [SerializeField] public List<Socket> activeGrids = new();
 
     [SerializeField] private ParticleSystem mergeParticlesPrefab;
     private SocketSpawner socketSpawner;
@@ -132,6 +133,9 @@ public class SocketManager : MonoBehaviour
 
         RemoveSocketFromSpwanedList(socketA);
         RemoveSocketFromSpwanedList(socketB);
+        if (activeGrids.Contains(socketA)) { 
+            activeGrids.Remove(socketA);
+        }
         StartCoroutine(MergeSocketsRoutine(socketA, socketB));
     }
 
@@ -277,5 +281,6 @@ public class SocketManager : MonoBehaviour
         gridSocket.GetComponent<Collider>().enabled = true;
         incomingSocket.isMerging = false;
         gridSocket.isMerging = false;
+        Destroy(incomingSocket.gameObject);
     }
 }

@@ -560,11 +560,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 0
-  shapeType: 0
+  shapeType: 5
   isMerging: 0
   pins: {fileID: 584410899242578279}
-  levelColors: []
-  fireRateTexts: []
+  levelColors:
+  - {r: 0, g: 0.8980393, b: 0.83921576, a: 1}
+  - {r: 0, g: 0.6698113, b: 0.6259372, a: 1}
+  fireRateTexts:
+  - {fileID: 8807804488135809834}
+  - {fileID: 6518508185997850650}
+  - {fileID: 8554680170203873147}
+  - {fileID: 1437961288017086487}
   socketCubes:
   - cube: {fileID: 4054111154364044410}
     pin: {fileID: 3683563191931612261}
@@ -584,7 +590,7 @@ MonoBehaviour:
   - cube: {fileID: 1931685279477213678}
     pin: {fileID: 1119645222239469870}
     pinRestPosition: -0.48
-    pinActivePosition: 0.5
+    pinActivePosition: -1.1
     hasPowerSource: 0
   gridLayer:
     serializedVersion: 2

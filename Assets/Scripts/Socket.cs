@@ -5,7 +5,7 @@ using TMPro;
 public class Socket : MonoBehaviour
 {
   
-    [HideInInspector] public int currentLevel = 0;
+    public int currentLevel = 1;
     public SocketShapeType shapeType;
     public bool isMerging;
     public GameObject pins;
@@ -166,17 +166,21 @@ public class Socket : MonoBehaviour
     {
         if (levelColors == null || levelColors.Length == 0) return;
 
-        Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
         foreach (var item in fireRateTexts)
         {
             item.text = ownMultiplier.ToString("0.0") + "x";
         }
-        foreach (var cubeEntry in socketCubes)
+        if (levelColors.Length > 0)
         {
-            Renderer rend = cubeEntry.cube.GetComponent<Renderer>();
-            if (rend != null)
+
+            Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
+            foreach (var cubeEntry in socketCubes)
             {
-                rend.material.color = colorToApply;
+                Renderer rend = cubeEntry.cube.GetComponent<Renderer>();
+                if (rend != null)
+                {
+                    rend.material.color = colorToApply;
+                }
             }
         }
     }
