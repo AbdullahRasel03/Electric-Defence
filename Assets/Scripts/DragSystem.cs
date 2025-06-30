@@ -176,6 +176,7 @@ public class DragSystem : MonoBehaviour
                 return;
             }
 
+            socket.socketManager.RemoveSocketFromSpwanedList(socket);
             socket.transform.DOMove(newPosition + Vector3.forward * 0.5f, 0.3f).OnComplete(() =>
             {
                 socket.Plugged();
@@ -184,7 +185,11 @@ public class DragSystem : MonoBehaviour
                     foreach (var grid in socket.assignedGrids)
                     {
                         if (grid.gridManager != null)
+                        {
                             grid.gridManager.CheckAllGridsPower();
+                            break;
+                        }
+
                     }
                 });
             });

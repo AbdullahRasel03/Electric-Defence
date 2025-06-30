@@ -4,18 +4,9 @@ using DG.Tweening;
 using TMPro;
 public class Socket : MonoBehaviour
 {
-    [System.Serializable]
-    public class SocketCube
-    {
-        public GameObject cube;
-        public Transform pin; // Reference to the pin on this cube
-        public float pinRestPosition = 0f; // Local Z position when unpowered
-        public float pinActivePosition = 0.5f; // Local Z position when powered
-        [HideInInspector] public bool hasPowerSource;
-    }
-
+  
     [HideInInspector] public int currentLevel = 0;
-
+    public SocketShapeType shapeType;
     public bool isMerging;
     public GameObject pins;
     [Header("Visuals")]

@@ -17,6 +17,7 @@ public class TowerController : MonoBehaviour
     public Plug plug;
     private bool manualFireInput; // Track manual firing state
 
+
     private void Update()
     {
         manualFireInput = Input.GetKey(KeyCode.Space);
