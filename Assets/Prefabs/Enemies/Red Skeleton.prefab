@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 4247946527809880514}
   - component: {fileID: 8499987791163337807}
   m_Layer: 6
-  m_Name: Enemy
+  m_Name: Red Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,15 +222,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  _currentHealth: 0
-  movementSpeed: 5
-  enemyType: BasicEnemy
   healthText: {fileID: 5394565625322317765}
+  movementSpeed: 1.5
+  enemyType: 1
+  sinkDuration: 2
+  sinkDepth: 2
   damageParticlePrefab: {fileID: 145150, guid: 16d4b504584fb1d4784bc23462900274, type: 3}
   deathParticlePrefab: {fileID: 150592, guid: 2c82b2af38b82f442bd9a24539b8d33c, type: 3}
-  dissolveDuration: 2
-  animator: {fileID: 4820253661092286336}
   enemyMesh: {fileID: 4373356418024950718}
+  animator: {fileID: 4820253661092286336}
 --- !u!54 &4247946527809880514
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -404,12 +404,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 049e651c23bd80545a7c8c890cd01504, type: 2}
+      objectReference: {fileID: 2100000, guid: 282b3d52f62d39f4c8ab1c21bb13b9e1, type: 2}
     - target: {fileID: 919132149155446097, guid: 81fa2f36249554320aa3814e0ef27631,
         type: 3}
       propertyPath: m_Name
       value: Skeleton
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 81fa2f36249554320aa3814e0ef27631,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: a6170e824773944bdb25eb84fd7760ba, type: 3}
     - target: {fileID: 5866666021909216657, guid: 81fa2f36249554320aa3814e0ef27631,
         type: 3}
       propertyPath: m_Controller

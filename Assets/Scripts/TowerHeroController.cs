@@ -97,8 +97,6 @@ public class TowerHeroController : MonoBehaviour
     public void Fire()
     {
         if (bulletPrefab == null || currentTarget == null || !currentTarget.IsActive) return;
-
-        print("Fire");
         isFiring = true;
         GameObject bullet = ObjectPool.instance.GetObject(bulletPrefab, true, shootPoint.position, shootPoint.rotation);
 

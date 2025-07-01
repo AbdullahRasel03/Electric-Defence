@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public enum SocketShapeType
 {
-    a, b, c, d, e, f, g, h, i
+    a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z
 }
 
 [System.Serializable]
@@ -13,8 +13,7 @@ public class SocketCube
 {
     public GameObject cube;
     public Transform pin;
-    public float pinRestPosition = 0f;
-    public float pinActivePosition = 0.5f;
+    public float unpluggedZ, pluggedZ;
     [HideInInspector] public bool hasPowerSource;
 }
 public class SocketManager : MonoBehaviour
@@ -133,7 +132,14 @@ public class SocketManager : MonoBehaviour
 
     private IEnumerator MergeSocketsRoutine(Socket incomingSocket, Socket gridSocket)
     {
-        incomingSocket.pins.SetActive(false);
+        foreach (SocketCube cube in incomingSocket.socketCubes)
+        {
+          if(cube.pin) cube.pin.gameObject.SetActive(false);
+        }
+        foreach (SocketCube cube in gridSocket.socketCubes)
+        {
+            if (cube.pin) cube.pin.gameObject.SetActive(false);
+        }
         incomingSocket.isMerging = true;
         gridSocket.isMerging = true;
 
@@ -221,7 +227,7 @@ public class SocketManager : MonoBehaviour
                 Instantiate(mergeParticlesPrefab, finalMergePoints[i] + Vector3.up * 0.1f, Quaternion.identity);
             }
 
-            Destroy(cubesA[i].gameObject);
+          //  Destroy(cubesA[i].gameObject);
         }
 
         // Step 5: Power up grid socket
@@ -274,5 +280,9 @@ public class SocketManager : MonoBehaviour
         incomingSocket.isMerging = false;
         gridSocket.isMerging = false;
         Destroy(incomingSocket.gameObject);
+        foreach (SocketCube cube in gridSocket.socketCubes)
+        {
+            if (cube.pin) cube.pin.gameObject.SetActive(true);
+        }
     }
 }

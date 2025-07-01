@@ -2,18 +2,20 @@ using UnityEngine;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
+
 public class Socket : MonoBehaviour
 {
-  
+    #region Configuration
+
+    [Header("Base Configuration")]
     public int currentLevel = 1;
     public SocketShapeType shapeType;
-    public bool isMerging;
-    public GameObject pins;
+    public Transform cubesParent;
+
     [Header("Visuals")]
-    public Color[] levelColors; // Assign via Inspector, index = level (0, 1, 2, ...)
-    public TMP_Text[] fireRateTexts;
+    public Color[] levelColors;
+
     [Header("Socket Configuration")]
-    public List<SocketCube> socketCubes = new List<SocketCube>();
     public LayerMask gridLayer;
     public LayerMask connectableLayers;
     public float ownMultiplier = 1f;
@@ -21,33 +23,117 @@ public class Socket : MonoBehaviour
     public float pinMoveDuration = 0.3f;
     public Ease pinMoveEase = Ease.OutBack;
 
-    [Header("Runtime State")]
-    public bool hasPower;
-    public List<GridObject> assignedGrids = new List<GridObject>();
+    #endregion
 
+    #region Runtime State
+
+    public List<SocketCube> socketCubes = new();
+    public bool isMerging;
+    public bool hasPower;
+    public List<GridObject> assignedGrids = new();
     public SocketManager socketManager;
+
+    private TMP_Text[] fireRateTexts;
+
+    #endregion
+
+    #region Unity Lifecycle
+
     private void Start()
     {
+        InitializeSocket();
+    }
+
+    private void InitializeSocket()
+    {
+        AssignFireRateTexts();
         InitializePins();
-        foreach (var item in fireRateTexts)
-        {
-            item.text = ownMultiplier.ToString() + "x";
-        }
+        UpdateColorAndTextByLevel();
+    }
+
+    private void AssignFireRateTexts()
+    {
+        fireRateTexts = cubesParent.GetComponentsInChildren<TMP_Text>();
     }
 
     private void InitializePins()
     {
-        // Set all pins to rest position at start
         foreach (var socketCube in socketCubes)
         {
             if (socketCube.pin != null)
             {
-                Vector3 pos = socketCube.pin.localPosition;
-                pos.z = socketCube.pinRestPosition;
-                socketCube.pin.localPosition = pos;
+                socketCube.unpluggedZ = socketCube.pin.localPosition.z;
+                socketCube.pluggedZ = socketCube.pin.localPosition.z - 0.5f;
             }
         }
     }
+
+    #endregion
+
+    #region Power Handling
+
+    public void CheckPowerActivation()
+    {
+        actingMultiplier = ownMultiplier;
+        hasPower = false;
+
+        foreach (var socketCube in socketCubes)
+        {
+            socketCube.hasPowerSource = false;
+        }
+
+        foreach (var socketCube in socketCubes)
+        {
+            Ray ray = new Ray(socketCube.cube.transform.position, -Vector3.forward);
+            if (Physics.Raycast(ray, out RaycastHit hit, 1f, connectableLayers))
+            {
+                var powerSource = hit.collider.GetComponent<PowerSource>();
+                if (powerSource != null)
+                {
+                    Plugged();
+                    actingMultiplier += powerSource.sourcePowerMultiplier;
+                    hasPower = true;
+                    socketCube.hasPowerSource = true;
+                    continue;
+                }
+
+                Socket otherSocket = hit.collider.GetComponent<Socket>();
+                if (otherSocket != null && otherSocket.hasPower)
+                {
+                    Plugged();
+                    actingMultiplier += otherSocket.actingMultiplier;
+                    hasPower = true;
+                    socketCube.hasPowerSource = true;
+                }
+            }
+        }
+    }
+
+    public void Plugged()
+    {
+        foreach (var socketCube in socketCubes)
+        {
+            if (socketCube.pin != null)
+            {
+                socketCube.pin.DOLocalMoveZ(socketCube.pluggedZ, pinMoveDuration).SetEase(pinMoveEase);
+            }
+        }
+    }
+
+    public void UnPlugged()
+    {
+        foreach (var socketCube in socketCubes)
+        {
+            if (socketCube.pin != null)
+            {
+                socketCube.pin.DOLocalMoveZ(socketCube.unpluggedZ, pinMoveDuration).SetEase(pinMoveEase);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Grid Detection
 
     public bool IsReleasableByRaycast()
     {
@@ -60,18 +146,14 @@ public class Socket : MonoBehaviour
                 if (grid == null || grid.isOccupied)
                     return false;
             }
-            else
-            {
-                return false;
-            }
+            else return false;
         }
         return true;
     }
 
     public List<GridObject> RequiredGridsByRaycast()
     {
-        List<GridObject> grids = new List<GridObject>();
-
+        List<GridObject> grids = new();
         foreach (var socketCube in socketCubes)
         {
             Ray ray = new Ray(socketCube.cube.transform.position + Vector3.up * 2f, Vector3.down);
@@ -84,105 +166,61 @@ public class Socket : MonoBehaviour
                 }
             }
         }
+
         assignedGrids = grids;
         return grids;
     }
 
-    public void CheckPowerActivation()
-    {
-        actingMultiplier = ownMultiplier;
-        hasPower = false;
+    #endregion
 
-        // Reset all power flags first
-        foreach (var socketCube in socketCubes)
-        {
-            socketCube.hasPowerSource = false;
-        }
+    #region Visuals
 
-        foreach (var socketCube in socketCubes)
-        {
-            Ray ray = new Ray(socketCube.cube.transform.position, -Vector3.forward);
-            if (Physics.Raycast(ray, out RaycastHit hit, 1f, connectableLayers))
-            {
-                if (hit.collider.GetComponent<PowerSource>() != null)
-                {
-                    Plugged();
-                    actingMultiplier += hit.collider.GetComponent<PowerSource>().sourcePowerMultiplier;
-                    hasPower = true;
-                    socketCube.hasPowerSource = true;
-                    continue;
-                }
-
-                Socket otherSocket = hit.collider.GetComponent<Socket>();
-                if (otherSocket != null && otherSocket.hasPower)
-                {
-                    Plugged();
-                    hasPower = true;
-                    actingMultiplier += otherSocket.actingMultiplier;
-                    socketCube.hasPowerSource = true;
-                }
-            }
-        }
-
-       
-    }
-
-    public void UnPlugged()
-    {
-        foreach (var socketCube in socketCubes)
-        {
-            if (socketCube.pin != null)
-            {
-                // Only animate pins that were previously powered
-             //   if (socketCube.hasPowerSource)
-              //  {
-                    socketCube.pin.DOLocalMoveZ(
-                        socketCube.pinRestPosition,
-                        pinMoveDuration
-                    ).SetEase(pinMoveEase);
-              //  }
-            }
-        }
-    }
-
-    public void Plugged()
-    {
-        foreach (var socketCube in socketCubes)
-        {
-            if (socketCube.pin != null)
-            {
-                // Only animate pins that have power sources
-              //  if (socketCube.hasPowerSource)
-              //  {
-                    socketCube.pin.DOLocalMoveZ(
-                        socketCube.pinActivePosition,
-                        pinMoveDuration
-                    ).SetEase(pinMoveEase);
-              //  }
-            }
-        }
-    }
     public void UpdateColorAndTextByLevel()
     {
+        UpdateFireRateDisplay();
+
         if (levelColors == null || levelColors.Length == 0) return;
+
+        Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
+
+        foreach (var cubeEntry in socketCubes)
+        {
+            Renderer rend = cubeEntry.cube.GetComponent<Renderer>();
+            if (rend != null)
+            {
+                rend.material.color = colorToApply;
+            }
+        }
+    }
+
+    private void UpdateFireRateDisplay()
+    {
+        if (fireRateTexts == null) return;
 
         foreach (var item in fireRateTexts)
         {
             item.text = ownMultiplier.ToString("0.0") + "x";
         }
-        if (levelColors.Length > 0)
-        {
+    }
 
-            Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
-            foreach (var cubeEntry in socketCubes)
+    #endregion
+
+    #region Auto-Assignment (Editor-Only)
+
+    public void AutoAssignSocketCubes()
+    {
+        socketCubes.Clear();
+
+        foreach (Transform child in cubesParent)
+        {
+            SocketCube cubeEntry = new SocketCube
             {
-                Renderer rend = cubeEntry.cube.GetComponent<Renderer>();
-                if (rend != null)
-                {
-                    rend.material.color = colorToApply;
-                }
-            }
+                cube = child.gameObject,
+            };
+
+            socketCubes.Add(cubeEntry);
         }
     }
 
+    #endregion
 }

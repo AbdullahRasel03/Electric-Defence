@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Movement Settings")]
     [SerializeField, Min(0)] private float movementSpeed = 5f;
-    [SerializeField] private string enemyType = "BasicEnemy";
+    [SerializeField] private EnemyType enemyType;
 
     [Header("Death Settings")]
     [SerializeField, Min(0.1f)] private float sinkDuration = 2f;
@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour
     private float _currentHealth;
 
     public bool IsActive => _currentState == EnemyState.Active;
-    public string EnemyType => enemyType;
+    public EnemyType EnemyType => enemyType;
 
     #endregion
 
@@ -90,9 +90,8 @@ public class Enemy : MonoBehaviour
     /// </summary>
     /// <param name="position">World position to spawn</param>
     /// <param name="rotation">World rotation to apply</param>
-    public void ActivateEnemy(Vector3 position, Quaternion rotation, float _maxHealth, float _speed)
+    public void ActivateEnemy(Vector3 position, Quaternion rotation, float _maxHealth)
     {
-        movementSpeed = _speed;
         maxHealth = _maxHealth;
         transform.SetPositionAndRotation(position, rotation);
         _currentHealth = maxHealth;

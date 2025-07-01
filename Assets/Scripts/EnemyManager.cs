@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+public enum EnemyType
+{
+    Skeleton, Zombie
+}
 public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager Instance { get; private set; }

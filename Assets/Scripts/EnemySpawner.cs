@@ -9,7 +9,6 @@ public class EnemySpawner : MonoBehaviour
         public GameObject prefab;
         [Range(0, 1)] public float spawnWeight = 1f;
         public float health;
-        public float speed;
     }
 
     [Header("Configuration")]
@@ -91,7 +90,7 @@ public class EnemySpawner : MonoBehaviour
         );
 
         Enemy enemy = enemyObj.GetComponent<Enemy>();
-        enemy.ActivateEnemy(spawnPoint.position, spawnPoint.rotation, config.health, config.speed);
+        enemy.ActivateEnemy(spawnPoint.position, spawnPoint.rotation, config.health);
 
         activeEnemies.Add(enemy);
     }
@@ -143,5 +142,26 @@ public class EnemySpawner : MonoBehaviour
     public void TriggerSpawn()
     {
         SpawnEnemy();
+    }
+
+    public void SpawnSpecificEnemy(EnemySpawnData data)
+    {
+        var config = System.Array.Find(enemyConfigs, e => e.prefab.GetComponent<Enemy>().EnemyType == data.enemyType);
+        if (config == null) return;
+
+        Transform spawnPoint = GetRandomSpawnPoint();
+
+        GameObject enemyObj = ObjectPool.instance.GetObject(
+            config.prefab,
+            true,
+            spawnPoint.position,
+            spawnPoint.rotation
+        );
+
+        Enemy enemy = enemyObj.GetComponent<Enemy>();
+        float adjustedHealth = config.health * data.healthMultiplier;
+
+        enemy.ActivateEnemy(spawnPoint.position, spawnPoint.rotation, adjustedHealth);
+        activeEnemies.Add(enemy);
     }
 }

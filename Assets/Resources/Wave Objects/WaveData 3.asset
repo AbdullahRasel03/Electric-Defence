@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66fc52dc7b4048b49a20fec1ffb49e08, type: 3}
+  m_Name: WaveData 3
+  m_EditorClassIdentifier: 
+  enemyForWaves:
+  - enemyType: 0
+    spawnCount: 10
+    healthMultiplier: 2
+    attackMultiplier: 0
+    minInterval: 2
+    maxInterval: 5
+  hasMidWaveBoss: 0
+  isBossWave: 0
+  waveStartDelay: 0
+  perWaveDelay: 0
+  waveGemBonus: 0

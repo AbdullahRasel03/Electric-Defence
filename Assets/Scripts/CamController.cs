@@ -13,24 +13,26 @@ public class CamController : MonoBehaviour
 
     private Coroutine transitionCoroutine;
 
+    [SerializeField] private GameObject[] shopViewObjects;
     public void SetFightView()
     {
         if (transitionCoroutine != null)
         {
             StopCoroutine(transitionCoroutine);
         }
-
+        foreach (GameObject go in shopViewObjects) go.SetActive(false);
         transform.SetParent(fightViewParent);
         transitionCoroutine = StartCoroutine(TransitionToLocalZero());
     }
 
     public void SetShopView()
     {
+        print("Shop");
         if (transitionCoroutine != null)
         {
             StopCoroutine(transitionCoroutine);
         }
-
+        foreach (GameObject go in shopViewObjects) go.SetActive(true);
         transform.SetParent(shopViewParent);
         transitionCoroutine = StartCoroutine(TransitionToLocalZero());
     }
