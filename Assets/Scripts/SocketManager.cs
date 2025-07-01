@@ -17,14 +17,6 @@ public class SocketCube
     public float pinActivePosition = 0.5f;
     [HideInInspector] public bool hasPowerSource;
 }
-
-[System.Serializable]
-public struct SocketPrefabWeight
-{
-    public Socket prefab;
-    public int weight;
-}
-
 public class SocketManager : MonoBehaviour
 {
     [Header("Socket Tracking")]

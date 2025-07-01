@@ -3,20 +3,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 public class SocketSpawner : MonoBehaviour
 {
     [Header("Socket Settings")]
-    [SerializeField] private List<SocketPrefabWeight> weightedSocketPrefabs = new();
+    [SerializeField] private List<Socket> allSocketPrefabs = new(); // Direct Socket reference
     [SerializeField] private Transform[] newSocketSpawnTransforms;
     [SerializeField] private float slideInDuration = 0.5f;
     [SerializeField] private float delayBetweenSockets = 0.1f;
-    [SerializeField] private float sameShapeSpawnChance = 0.7f; // 70% chance to spawn same shape
+    [SerializeField] private float sameShapeSpawnChance = 0.7f;
 
     private SocketManager socketManager;
+
+    private List<Socket> selectedSocketPool = new();
 
     private void Awake()
     {
         socketManager = GetComponent<SocketManager>();
+        PickRandomSocketPool();
+    }
+
+    private void PickRandomSocketPool()
+    {
+        selectedSocketPool.Clear();
+
+        List<Socket> cloneList = new(allSocketPrefabs);
+
+        for (int i = 0; i < 5 && cloneList.Count > 0; i++)
+        {
+            int randIndex = Random.Range(0, cloneList.Count);
+            selectedSocketPool.Add(cloneList[randIndex]);
+            cloneList.RemoveAt(randIndex);
+        }
     }
 
     public void SpawnNewSockets()
@@ -48,62 +70,30 @@ public class SocketSpawner : MonoBehaviour
 
     private Socket GetPrioritizedSocketPrefab()
     {
-        // If there are active sockets, prioritize their shapes
         if (socketManager.activeGrids.Count > 0 && Random.value <= sameShapeSpawnChance)
         {
-            // Get a random active socket to match its shape
             Socket randomActiveSocket = socketManager.activeGrids[Random.Range(0, socketManager.activeGrids.Count)];
             SocketShapeType shapeToMatch = randomActiveSocket.shapeType;
             int levelToMatch = randomActiveSocket.currentLevel;
 
-            // Try to find matching shape and level
-            List<SocketPrefabWeight> matchingSockets = weightedSocketPrefabs.FindAll(x =>
-                x.prefab.shapeType == shapeToMatch &&
-                x.prefab.currentLevel == levelToMatch);
+            List<Socket> matchingSockets = selectedSocketPool.FindAll(x =>
+                x.shapeType == shapeToMatch &&
+                x.currentLevel == levelToMatch);
 
             if (matchingSockets.Count > 0)
-            {
-                return GetWeightedRandomFromList(matchingSockets);
-            }
+                return GetRandomSocket(matchingSockets);
 
-            // If no exact level match, try just matching shape
-            matchingSockets = weightedSocketPrefabs.FindAll(x => x.prefab.shapeType == shapeToMatch);
+            matchingSockets = selectedSocketPool.FindAll(x => x.shapeType == shapeToMatch);
             if (matchingSockets.Count > 0)
-            {
-                return GetWeightedRandomFromList(matchingSockets);
-            }
+                return GetRandomSocket(matchingSockets);
         }
 
-        // Fallback to completely random if no matches or chance fails
-        return GetWeightedRandomSocketPrefab();
+        return GetRandomSocket(selectedSocketPool);
     }
 
-    private Socket GetWeightedRandomFromList(List<SocketPrefabWeight> socketList)
+    private Socket GetRandomSocket(List<Socket> list)
     {
-        int totalWeight = 0;
-        foreach (var entry in socketList)
-        {
-            totalWeight += entry.weight;
-        }
-
-        int randomWeight = Random.Range(0, totalWeight);
-        int currentWeight = 0;
-
-        foreach (var entry in socketList)
-        {
-            currentWeight += entry.weight;
-            if (randomWeight < currentWeight)
-            {
-                return entry.prefab;
-            }
-        }
-
-        return socketList[0].prefab;
-    }
-
-    private Socket GetWeightedRandomSocketPrefab()
-    {
-        return GetWeightedRandomFromList(weightedSocketPrefabs);
+        return list[Random.Range(0, list.Count)];
     }
 
     public void ReturnSocketToPool(Socket socket)
