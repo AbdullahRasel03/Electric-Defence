@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyForWaves:
   - enemyType: 0
     spawnCount: 10
-    healthMultiplier: 2
+    healthMultiplier: 2.5
     attackMultiplier: 0
     minInterval: 2
     maxInterval: 5
