@@ -10,7 +10,7 @@ public class GridLayout : MonoBehaviour
     public float rowOffset;
     public float columnOffset;
 
-    private void Update()
+    private void LateUpdate()
     {
         if (!Application.isPlaying)
         {
@@ -21,7 +21,7 @@ public class GridLayout : MonoBehaviour
     private void RearrangeChildren()
     {
         int totalChildren = transform.childCount;
-
+        if (rows == 0 || columns == 0) return;
         float totalWidth = (columns - 1) * (cellSize.x + spacing.x);
         float totalHeight = (rows - 1) * (cellSize.y + spacing.y);
 

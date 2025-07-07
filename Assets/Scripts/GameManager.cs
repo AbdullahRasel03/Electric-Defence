@@ -163,6 +163,6 @@ public class GameManager : MonoBehaviour
 
     public void ScheduleNotification(string title, string message, int hour, int minute, int second)
     {
-        mobileNotificationController.ScheduleNotification(title, message, hour, minute, second);
+       // mobileNotificationController.ScheduleNotification(title, message, hour, minute, second);
     }
 }

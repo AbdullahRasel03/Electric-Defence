@@ -185,11 +185,15 @@ public class Socket : MonoBehaviour
 
         foreach (var cubeEntry in socketCubes)
         {
-            Renderer rend = cubeEntry.cube.GetComponent<Renderer>();
-            if (rend != null)
+            Renderer[] rends = cubeEntry.cubeRenderers;
+            foreach (var rend in rends)
             {
-                rend.material.color = colorToApply;
+                if (rend != null)
+                {
+                    rend.material.color = colorToApply;
+                }
             }
+            
         }
     }
 
