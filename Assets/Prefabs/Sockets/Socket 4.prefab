@@ -305,7 +305,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLevel: 0
   shapeType: 3
-  pins: {fileID: 584410899242578279}
   cubesParent: {fileID: 5307622024320240384}
   levelColors:
   - {r: 0.3137255, g: 0.85098046, b: 0.3019608, a: 1}
@@ -316,27 +315,31 @@ MonoBehaviour:
   connectableLayers:
     serializedVersion: 2
     m_Bits: 5120
-  ownMultiplier: 0.1
+  ownMultiplier: 1
   actingMultiplier: 0
   pinMoveDuration: 0.3
   pinMoveEase: 27
   socketCubes:
   - cube: {fileID: 500896473968795102}
+    cubeRenderers: []
     pin: {fileID: 0}
     unpluggedZ: 0
     pluggedZ: 0
     hasPowerSource: 0
   - cube: {fileID: 1840527278196684191}
+    cubeRenderers: []
     pin: {fileID: 0}
     unpluggedZ: 0
     pluggedZ: 0
     hasPowerSource: 0
   - cube: {fileID: 7674712887653812282}
+    cubeRenderers: []
     pin: {fileID: 3683563191931612261}
     unpluggedZ: 0
     pluggedZ: 0
     hasPowerSource: 0
   - cube: {fileID: 801332835074714132}
+    cubeRenderers: []
     pin: {fileID: 4174381815605685900}
     unpluggedZ: 0
     pluggedZ: 0

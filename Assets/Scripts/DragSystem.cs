@@ -17,7 +17,7 @@ public class DragSystem : MonoBehaviour
     [Header("Drag Settings")]
     public float dragSpeed = 10f;
     public bool lockYAxis = true;
-    public float dragYOffset = 0f;
+    public float dragYOffset = 1f;
     public float fixedYPosition = 0f;
 
     public bool IsBeingDragged { get; private set; }

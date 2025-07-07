@@ -203,7 +203,7 @@ public class Socket : MonoBehaviour
 
         foreach (var item in fireRateTexts)
         {
-            item.text = ownMultiplier.ToString("0.0") + "x";
+            item.text = ownMultiplier.ToString("0") + "x";
         }
     }
 

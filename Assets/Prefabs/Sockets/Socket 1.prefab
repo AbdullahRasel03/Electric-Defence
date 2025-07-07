@@ -242,7 +242,7 @@ MonoBehaviour:
   connectableLayers:
     serializedVersion: 2
     m_Bits: 5120
-  ownMultiplier: 0.1
+  ownMultiplier: 1
   actingMultiplier: 0
   pinMoveDuration: 0.3
   pinMoveEase: 27
