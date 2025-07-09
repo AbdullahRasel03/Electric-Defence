@@ -108,7 +108,7 @@ public class GridObject : MonoBehaviour
             socket.assignedGrids.Add(grid);
         }
 
-        newSocketWorldPos.y = 0.08f;
+        //newSocketWorldPos.y = 0.08f;
         return true;
     }
 

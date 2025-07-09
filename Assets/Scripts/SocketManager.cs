@@ -12,7 +12,6 @@ public enum SocketShapeType
 public class SocketCube
 {
     public GameObject cube;
-    public Renderer[] cubeRenderers;
     public Transform pin;
     public float unpluggedZ, pluggedZ;
     [HideInInspector] public bool hasPowerSource;
