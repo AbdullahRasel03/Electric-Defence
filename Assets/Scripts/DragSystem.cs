@@ -138,7 +138,7 @@ public class DragSystem : MonoBehaviour
             Socket socket = GetComponent<Socket>();
             foreach (var cube in socket.socketCubes)
             {
-                Ray ray = new Ray(cube.cube.transform.position + Vector3.up * 2f, Vector3.down);
+                Ray ray = new Ray(cube.cube.transform.position + Vector3.up * 2f + Vector3.back * 0.5f, Vector3.down);
                 if (Physics.Raycast(ray, out RaycastHit hit, 10f, gridLayer))
                 {
                     GridObject grid = hit.collider.GetComponent<GridObject>();
@@ -178,10 +178,10 @@ public class DragSystem : MonoBehaviour
 
             socket.socketManager.RemoveSocketFromSpwanedList(socket);
             socket.socketManager.activeGrids.Add(socket);
-            socket.transform.DOMove(newPosition + Vector3.forward * 0.5f, 0.3f).OnComplete(() =>
+            socket.transform.DOMove(newPosition + Vector3.forward * 0.3f, 0.25f).OnComplete(() =>
             {
                 socket.Plugged();
-                socket.transform.DOMove(newPosition, 0.2f).OnComplete(() =>
+                socket.transform.DOMove(newPosition, 0.15f).OnComplete(() =>
                 {
                     foreach (var grid in socket.assignedGrids)
                     {

@@ -62,8 +62,8 @@ public class SocketSpawner : MonoBehaviour
             Socket socket = socketObj.GetComponent<Socket>();
             socketManager.AddSpawnedSocket(socket);
             socket.socketManager = socketManager;
-
-            socketObj.transform.DOMove(spawnPoint.position, slideInDuration);
+            socketObj.transform.parent = spawnPoint;
+            socketObj.transform.DOLocalMove(Vector3.zero, slideInDuration);
             yield return new WaitForSeconds(delayBetweenSockets);
         }
     }

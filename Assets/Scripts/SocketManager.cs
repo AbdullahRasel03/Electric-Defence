@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Unity.Collections;
 
 public enum SocketShapeType
 {
@@ -13,8 +14,8 @@ public class SocketCube
 {
     public GameObject cube;
     public Transform pin;
-    public float unpluggedZ, pluggedZ;
-    [HideInInspector] public bool hasPowerSource;
+    [ReadOnly] public float unpluggedZ, pluggedZ;
+    [ReadOnly] public bool hasPowerSource;
 }
 public class SocketManager : MonoBehaviour
 {

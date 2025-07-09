@@ -63,7 +63,7 @@ public class Socket : MonoBehaviour
             if (socketCube.pin != null)
             {
                 socketCube.unpluggedZ = socketCube.pin.localPosition.z;
-                socketCube.pluggedZ = socketCube.pin.localPosition.z - 0.5f;
+                socketCube.pluggedZ = socketCube.pin.localPosition.z - 0.4f;
             }
         }
     }
