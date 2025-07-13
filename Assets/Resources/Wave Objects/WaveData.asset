@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: WaveData
   m_EditorClassIdentifier: 
   enemyForWaves:
+  - enemyType: 1
+    spawnCount: 5
+    healthMultiplier: 0.5
+    attackMultiplier: 0
+    minInterval: 2
+    maxInterval: 5
   - enemyType: 0
     spawnCount: 5
     healthMultiplier: 0.5
