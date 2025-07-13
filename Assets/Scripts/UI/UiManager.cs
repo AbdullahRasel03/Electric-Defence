@@ -1,17 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UiManager : MonoBehaviour
 {
     private static UiManager instance;
-
-    [Space]
-    [Header("Reward Icons")]
-    [SerializeField] private Sprite coinIcon;
-    [SerializeField] private Sprite extraPin, extraCardSlot, hammer;
-
-    [Space]
-    public Sprite rewardCoinPile;
 
     private Stack<IOverlayUI> overlayUI = new Stack<IOverlayUI>();
 
@@ -61,6 +54,22 @@ public class UiManager : MonoBehaviour
         }
     }
 
+
+    public void UpdateSkillTokenInUI()
+    {
+        MainMenuUiController mainMenuUiController = null;
+        try
+        {
+            mainMenuUiController = (MainMenuUiController)uiController;
+
+            mainMenuUiController.TopHudController.UpdateSkillTokenText(Statics.FormatNumber(GameManager.GetInstance().GetCurrentSkillTokenAmount()));
+        }
+        catch (Exception ex)
+        {
+            BbsLog.LogError(ex.Message);
+        }
+    }
+
     public bool IsOverlayUiActive()
     {
         return overlayUI.Count > 0;
@@ -87,21 +96,6 @@ public class UiManager : MonoBehaviour
     {
         //TODO: Update icons and types according to game
         Sprite returnSprite = null;
-        switch (rewardType)
-        {
-            case FlyObjectType.Coins:
-                returnSprite = coinIcon;
-                break;
-            case FlyObjectType.ExtraPin:
-                returnSprite = extraPin;
-                break;
-            case FlyObjectType.ExtraCardSlot:
-                returnSprite = extraCardSlot;
-                break;
-            case FlyObjectType.Hammer:
-                returnSprite = hammer;
-                break;
-        }
         return returnSprite;
     }
 }

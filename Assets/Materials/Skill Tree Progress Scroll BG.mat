@@ -1,0 +1,154 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Skill Tree Progress Scroll BG
+  m_Shader: {fileID: 4800000, guid: c8efa2e2d6ba44b5fa4c76bea968e01a, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - DepthOnly
+  - SHADOWCASTER
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_7FCC054E:
+        m_Texture: {fileID: 2800000, guid: bb0bcb391bca14e6f93ab03d6eee1b3e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_B24C83B0:
+        m_Texture: {fileID: 2800000, guid: 28c7aad1372ff114b90d330f8a2dd938, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_E43982E:
+        m_Texture: {fileID: 2800000, guid: 0bc407057fece104db605879b2b919ec, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_E5130C32:
+        m_Texture: {fileID: 2800000, guid: 03e4ee8d0b5f45045bb12e2930ed4058, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ColorRamp:
+        m_Texture: {fileID: 2800000, guid: 789405d2635550c4c9df257b8e484c62, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Distortion:
+        m_Texture: {fileID: 2800000, guid: 82f4b06147155c54da475b309b9e24fa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Gradient:
+        m_Texture: {fileID: 2800000, guid: 28c7aad1372ff114b90d330f8a2dd938, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 191264d27723f9b4bad0b133da2558f2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTexutre:
+        m_Texture: {fileID: 2800000, guid: bb0bcb391bca14e6f93ab03d6eee1b3e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 2800000, guid: 03e4ee8d0b5f45045bb12e2930ed4058, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - Vector1_C1728026: 0
+    - Vector1_D1034171: -1
+    - _Alpha: 1
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 2
+    - _CastShadows: 0
+    - _ColorMultiplier: 3.470428
+    - _Cull: 2
+    - _DistortMainTexture: 0
+    - _DistortionUSpeed: 0.2
+    - _DistortionVSpeed: 0
+    - _DoubleSided: 1
+    - _DstBlend: 1
+    - _EdgeSoftness: 0
+    - _EnableExternalAlpha: 0
+    - _GradientPower: 0
+    - _GradientUSpeed: -0.2
+    - _GradientVSpeed: -0.2
+    - _MainTextureUSpeed: 0
+    - _MainTextureVSpeed: 0
+    - _NoiseAmount: 0.1144851
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ScrollSpeedX: 0
+    - _ScrollSpeedY: -2
+    - _SrcBlend: 5
+    - _Surface: 1
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
+    m_Colors:
+    - Color_DB555ADA: {r: 1, g: 1, b: 1, a: 1}
+    - Vector2_781FB8A4: {r: 1, g: 1, b: 0, a: 0}
+    - Vector2_892CE00: {r: 1, g: 1, b: 0, a: 0}
+    - Vector2_8E0A3991: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_C3A961A0: {r: 0, g: 1, b: 0, a: 0}
+    - Vector2_D6AA7B7D: {r: 1, g: 1, b: 0, a: 0}
+    - Vector2_E10066FE: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.2, g: 0.80784315, b: 0.25490198, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ScrollSpeed: {r: 0, g: -1, b: 0, a: 0}
+    - _Tiling: {r: 1, g: 800, b: 0, a: 0}
+    - _TintColor: {r: 1, g: 0.5342799, b: 0.17647055, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &7397886741481202207
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
