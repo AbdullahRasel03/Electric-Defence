@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5fcb45507e9d47518ea01176e83197a, type: 3}
+  m_Name: Fire
+  m_EditorClassIdentifier: 
+  _troopId: 0
+  _unlockWorldId: 0
+  _unlockAreaId: 0
+  _troopType: 0
+  _troopName: 
+  _troopDescription: 
+  _troopImg: {fileID: 0}
+  _troopFragmentImg: {fileID: 0}
+  _maxHealth: []
+  _damage: []
+  _criticalDamage: 0
+  _attackDelay: []
+  _moveSpeed: []
+  _attackRange: 0
+  _upgradeCosts: []
+  _idleTimeMin: 1
+  _idleTimeMax: 2
+  _wanderingTimeMin: 1
+  _wanderingTimeMax: 2
+  csvFileUpgradeCosts: {fileID: 0}
+  csvFileTroopStats: {fileID: 0}
+  _upgradeCostsSheetURL: https://docs.google.com/spreadsheets/d/1WRpKTq5ewp9pe7T2cY-DHYV13xy2-ajgHQvEyEDo6Ts/export?format=csv&gid=884387404
+  _troopStatsSheetURL: https://docs.google.com/spreadsheets/d/1WRpKTq5ewp9pe7T2cY-DHYV13xy2-ajgHQvEyEDo6Ts/edit?gid=1152340582#gid=1152340582
