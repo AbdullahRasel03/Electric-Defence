@@ -2,7 +2,8 @@ Shader "CustomShader/BgScroll"
 {
     Properties
     {
-        [PerRendererData] _MainTex("Texture", 2D) = "white" {}
+        _MainTex("Texture", 2D) = "white" {}
+        _Color("Color", Color) = (1, 1, 1, 1)
         _Tiling("Tiling", Vector) = (1, 1, 0, 0)
         _ScrollSpeedX("Scroll Speed X", Float) = 0.1
         _ScrollSpeedY("Scroll Speed Y", Float) = 0.1
@@ -60,6 +61,7 @@ Shader "CustomShader/BgScroll"
             SAMPLER(sampler_MainTex);
 
             float4 _Tiling;
+            float4 _Color;
             float _ScrollSpeedX;
             float _ScrollSpeedY;
             float _Alpha;
@@ -69,13 +71,17 @@ Shader "CustomShader/BgScroll"
                 Varyings OUT;
                 OUT.positionHCS = TransformObjectToHClip(IN.positionOS);
                 float2 scrollUV =  (IN.uv * _Tiling.xy) + float2(_ScrollSpeedX, _ScrollSpeedY) * _Time.y;
+
                 OUT.uv = scrollUV;
+                
+
                 return OUT;
             }
 
             half4 frag(Varyings IN) : SV_Target
             {
                 half4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv);
+                col *= _Color;
                 col.a *= _Alpha;
                 return col;
             }
