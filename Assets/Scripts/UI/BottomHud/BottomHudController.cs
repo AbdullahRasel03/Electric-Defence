@@ -32,12 +32,12 @@ public class BottomHudController : MonoBehaviour
     private float screenWidth = 1080f;
 
 
-#if UNITY_EDITOR
-    void OnValidate()
-    {
-        UpdateSelectionImg();
-    }
-#endif
+// #if UNITY_EDITOR
+//     void OnValidate()
+//     {
+//         UpdateSelectionImg();
+//     }
+// #endif
 
 
     void Start()

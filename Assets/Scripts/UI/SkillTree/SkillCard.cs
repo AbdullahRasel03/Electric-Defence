@@ -9,8 +9,9 @@ using DG.Tweening;
 public class SkillCard : MonoBehaviour
 {
     [SerializeField] private RectTransform rectTransform, notifyRect;
-    [SerializeField] private Image cardBg, skillIconImg;
-    [SerializeField] private Sprite[] cardBGSprites;
+    [SerializeField] private Image cardBg, cardBorderBg, skillIconImg;
+    [SerializeField] private Color[] cardBGColors;
+    [SerializeField] private Color[] cardBorderColors;
     [SerializeField] private ParticleSystem notifyParticle;
     [SerializeField] private UIShiny notifyShiny;
     [SerializeField] private Button skillButton;
@@ -52,20 +53,23 @@ public class SkillCard : MonoBehaviour
         this.currentSkillNum = currentSkillNum;
         this.isUpgradable = isUpgradable;
 
-        cardBg.sprite = cardBGSprites[0];
-        cardBg.color = Color.white;
+        cardBg.color = cardBGColors[0];
+        cardBorderBg.color = cardBorderColors[0];
+        // cardBg.color = Color.white;
         skillButton.interactable = true;
 
 
         if (skillIndex < currentSkillNum)
         {
-            cardBg.sprite = cardBGSprites[2];
+            cardBg.color = cardBGColors[2];
+            cardBorderBg.color = cardBorderColors[2];
             skillButton.interactable = false;
         }
 
         else if (skillIndex == currentSkillNum)
         {
-            cardBg.sprite = cardBGSprites[1];
+            cardBg.color = cardBGColors[1];
+            cardBorderBg.color = cardBorderColors[1];
         }
 
         SetNotifyIcon();
@@ -85,7 +89,8 @@ public class SkillCard : MonoBehaviour
 
         cardBg.DOFade(0.5f, 0.25f).OnComplete(() =>
         {
-            cardBg.sprite = cardBGSprites[1];
+            cardBg.color = cardBGColors[1];
+            cardBorderBg.color = cardBorderColors[1];
             cardBg.DOFade(1, 0.25f);
         });
 
@@ -137,7 +142,8 @@ public class SkillCard : MonoBehaviour
 
         cardBg.DOFade(0, 0.25f).OnComplete(() =>
         {
-            cardBg.sprite = cardBGSprites[2];
+            cardBg.color = cardBGColors[2];
+            cardBorderBg.color = cardBorderColors[2];
             cardBg.DOFade(1, 0.25f);
         });
     }

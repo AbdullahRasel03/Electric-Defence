@@ -46,12 +46,12 @@ public class SkillView : MiddleViews
 
         if (Statics.IsTab())
         {
-            mat.SetVector("_Tiling", new Vector2(4.5f, tiling.y));
+            mat.SetVector("_Tiling", new Vector2(4f, tiling.y));
         }
 
         else
         {
-            mat.SetVector("_Tiling", new Vector2(3f, tiling.y));
+            mat.SetVector("_Tiling", new Vector2(2f, tiling.y));
         }
     }
 
