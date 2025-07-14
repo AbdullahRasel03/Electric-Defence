@@ -34,7 +34,8 @@ public class Socket : MonoBehaviour
     public SocketManager socketManager;
 
     private TMP_Text[] fireRateTexts;
-
+    public Transform plugHolder;
+    public Plug connectedPlug;
     #endregion
 
     #region Unity Lifecycle
@@ -87,6 +88,7 @@ public class Socket : MonoBehaviour
             Ray ray = new Ray(socketCube.cube.transform.position, -Vector3.forward);
             if (Physics.Raycast(ray, out RaycastHit hit, 1f, connectableLayers))
             {
+                 print("Powered");
                 var powerSource = hit.collider.GetComponent<PowerSource>();
                 if (powerSource != null)
                 {
@@ -115,7 +117,7 @@ public class Socket : MonoBehaviour
         {
             if (socketCube.pin != null)
             {
-                socketCube.pin.DOLocalMoveZ(socketCube.pluggedZ, pinMoveDuration).SetEase(pinMoveEase);
+               // socketCube.pin.DOLocalMoveZ(socketCube.pluggedZ, pinMoveDuration).SetEase(pinMoveEase);
             }
         }
     }

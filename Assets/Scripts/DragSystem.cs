@@ -57,8 +57,10 @@ public class DragSystem : MonoBehaviour
             Plug plug = GetComponent<Plug>();
             if (plug != null && plug.assignedGrid != null)
             {
-                plug.assignedGrid.isOccupied = false;
-                plug.assignedGrid.plug = null;
+                plug.assignedSocket.connectedPlug = null;
+                plug.assignedSocket = null;
+                // plug.assignedGrid.isOccupied = false;
+                // plug.assignedGrid.plug = null;
                 plug.assignedGrid = null;
             }
             plug.connectedTower.DeactivateTower();
@@ -157,12 +159,16 @@ public class DragSystem : MonoBehaviour
         if (objectType == DragObjectType.Plug)
         {
             Ray ray = new Ray(transform.position + Vector3.up * 2f, Vector3.down);
-            if (Physics.Raycast(ray, out RaycastHit hit, 10f, gridLayer))
+            if (Physics.Raycast(ray, out RaycastHit hit, 20f, gridLayer))
             {
                 GridObject grid = hit.collider.GetComponent<GridObject>();
-                if (grid != null && !grid.isOccupied)
+                if (grid != null && grid.isOccupied)
                 {
-                    grid.ReleaseToGrid(GetComponent<Plug>());
+ 
+                  
+                        grid.ReleaseToGrid(GetComponent<Plug>(), grid.socket);
+                        
+             
                     return;
                 }
             }

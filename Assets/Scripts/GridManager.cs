@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
 using UnityEngine;
 [System.Serializable]
 public class GridArray
@@ -8,17 +10,44 @@ public class GridArray
 }
 public class GridManager : MonoBehaviour
 {
-    public GridArray[] gridArrays;
+    [SerializeField] int rowCount, columnCount;
+    public List<GridArray> gridArrays;
     // Start is called before the first frame update
     void Start()
     {
-        foreach (var item in gridArrays)
+        // Get all direct child GridObjects
+        List<GridObject> allGrids = new List<GridObject>();
+        foreach (Transform child in transform)
         {
-            foreach (var grid in item.grids)
+            GridObject grid = child.GetComponent<GridObject>();
+            if (grid != null)
             {
-                grid.gridManager = this;
+                allGrids.Add(grid);
             }
         }
+
+        // Calculate column count (assuming even distribution)
+        columnCount = allGrids.Count / rowCount;
+        gridArrays = new List<GridArray>();
+
+        for (int i = 0; i < rowCount; i++)
+        {
+            GridArray gridArray = new GridArray();
+            gridArray.grids = new GridObject[columnCount];
+
+            for (int j = 0; j < columnCount; j++)
+            {
+                int index = i * columnCount + j;
+                if (index < allGrids.Count)
+                {
+                    gridArray.grids[j] = allGrids[index];
+                    allGrids[index].gridManager = this;
+                }
+            }
+
+            gridArrays.Add(gridArray);
+        }
+        gridArrays.Reverse();
     }
 
     public void CheckAllGridsPower()
@@ -37,11 +66,12 @@ public class GridManager : MonoBehaviour
                 if (grid.socket != null)
                 {
                     grid.socket.CheckPowerActivation();
+                    if (grid.socket.connectedPlug != null)
+                    {
+                        grid.socket.connectedPlug.CheckForSocketsUnderneath();
+                    }
                 }
-                else if (grid.plug != null)
-                {
-                    grid.plug.CheckForSocketsUnderneath();
-                }
+               
             }
         }
     }

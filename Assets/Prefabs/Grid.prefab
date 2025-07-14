@@ -86,8 +86,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.69367015, y: 0.2785594, z: 0.69536746}
-  m_Center: {x: 0, y: -0.6620109, z: 0}
+  m_Size: {x: 1.0046365, y: 0.37848544, z: 0.97294104}
+  m_Center: {x: 0, y: -0.6120479, z: 0}
 --- !u!114 &1483124921730436052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,7 +107,6 @@ MonoBehaviour:
     m_Bits: 8192
   plugSocketHolder: {fileID: 6727341517717581771}
   socket: {fileID: 0}
-  plug: {fileID: 0}
   gridRenderer: {fileID: 8666060339683650322}
   highlightColor: {r: 0.39281318, g: 1, b: 0.16509432, a: 1}
 --- !u!1 &4575375289332118560

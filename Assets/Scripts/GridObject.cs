@@ -10,7 +10,7 @@ public class GridObject : MonoBehaviour
     public Transform plugSocketHolder;
 
     public Socket socket;
-    public Plug plug;
+    //public Plug plug;
     public Renderer gridRenderer;
     private Color defaultColor;
     public Color highlightColor = Color.yellow;
@@ -30,12 +30,12 @@ public class GridObject : MonoBehaviour
         gridRenderer.material.color = defaultColor;
     }
 
-    public void ReleaseToGrid(Plug plug)
+    public void ReleaseToGrid(Plug plug, Socket assignedSocket)
     {
-        plug.transform.parent = plugSocketHolder;
-        isOccupied = true;
-        this.plug = plug;
-        plug.PlaceOnGrid(this);
+        plug.transform.parent = socket.plugHolder;
+      //  isOccupied = true;
+       // this.plug = plug;
+        plug.PlaceOnGrid(this, assignedSocket);
     }
 
     public static bool TryReleaseSocketToGrids(Socket socket, out Vector3 newSocketWorldPos, out GridObject anchorGrid)

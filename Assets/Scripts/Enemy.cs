@@ -186,6 +186,7 @@ public class Enemy : MonoBehaviour
 
     private void PlayDeathAnimation()
     {
+        if(animator)
         animator.Play("Death");
     }
 

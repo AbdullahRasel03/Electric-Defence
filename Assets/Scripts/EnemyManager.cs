@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public enum EnemyType
 {
-    Skeleton, Zombie
+    Skeleton, Gazer, Pig, Goblin, Troll, Dragon, Golem, Phoenix, Zombie, Vampire, Werewolf
 }
 public class EnemyManager : MonoBehaviour
 {
