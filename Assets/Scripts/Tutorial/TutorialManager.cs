@@ -48,7 +48,7 @@ public class TutorialManager : MonoBehaviour
     IEnumerator Start()
     {
         yield return null;
-        StartTutorial();
+        // StartTutorial();
     }
 
     public static TutorialManager GetInstance()
@@ -129,7 +129,7 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        StartTutorial();
+        // StartTutorial();
     }
 
     public bool IsTutorialFinished()

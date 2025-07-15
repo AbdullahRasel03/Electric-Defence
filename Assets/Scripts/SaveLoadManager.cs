@@ -7,7 +7,9 @@ public static class SaveLoadManager
     private const string preferenceDatafileName = "/preference.dat";
     private const string economyDatafileName = "/economy.dat";
     private const string playerDatafileName = "/playerData.dat";
+    private const string skillTreefileName = "/skillTree.dat";
     private const string gameMetaDatafileName = "/gameMetaData.dat";
+    private const string wallSavedDatafileName = "/wallSavedData.dat";
 
     #region PREFERENCE_DATA
     public static void SavePreference(PreferenceData data)
@@ -116,6 +118,62 @@ public static class SaveLoadManager
         else
         {
             Debug.LogError("Saved GameMetaData Not Found! Returning NULL!!");
+            return null;
+        }
+
+    }
+    #endregion
+
+
+    #region SKILL_TREE_DATA
+    public static void SaveSkillTreeData(SkillTreeSavedData data)
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream stream = new FileStream(Application.persistentDataPath + skillTreefileName, FileMode.Create);
+        bf.Serialize(stream, data);
+        stream.Close();
+    }
+
+    public static SkillTreeSavedData LoadSkillTreeData()
+    {
+        if (File.Exists(Application.persistentDataPath + skillTreefileName))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream stream = new FileStream(Application.persistentDataPath + skillTreefileName, FileMode.Open);
+            SkillTreeSavedData data = bf.Deserialize(stream) as SkillTreeSavedData;
+            stream.Close();
+            return data;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+    #endregion
+
+    #region HUT_SAVED_DATA
+    public static void SaveWallSavedData(WallSavedData data)
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream stream = new FileStream(Application.persistentDataPath + wallSavedDatafileName, FileMode.Create);
+        bf.Serialize(stream, data);
+        stream.Close();
+    }
+
+    public static WallSavedData LoadWallSavedData()
+    {
+        if (File.Exists(Application.persistentDataPath + wallSavedDatafileName))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream stream = new FileStream(Application.persistentDataPath + wallSavedDatafileName, FileMode.Open);
+            WallSavedData data = bf.Deserialize(stream) as WallSavedData;
+            stream.Close();
+            return data;
+        }
+        else
+        {
+            Debug.LogError("Saved Hut Data Not Found! Returning NULL!!");
             return null;
         }
 

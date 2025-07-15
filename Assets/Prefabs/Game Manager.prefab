@@ -1,0 +1,163 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8941738022597666934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2549783950992693943}
+  - component: {fileID: 4306443750762830544}
+  - component: {fileID: 8955212570107868032}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2549783950992693943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8941738022597666934}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4306443750762830544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8941738022597666934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a05fd03619ca4fde95f87e2b2fa8034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mobileNotificationController: {fileID: 8955212570107868032}
+  meatDataSO: {fileID: 11400000, guid: 36aca48e4238445299f4a1f1800dd49c, type: 2}
+  allTroopData:
+  - {fileID: 11400000, guid: 378f9264eec564a5785e070e02a832d3, type: 2}
+  - {fileID: 11400000, guid: 8a49ada1319424aefa17420aac239fbc, type: 2}
+  - {fileID: 11400000, guid: 9237a1110e75b4cdbab1ee7df37be8ef, type: 2}
+  - {fileID: 11400000, guid: 9a1d61bc158b44f048de040deaf6e561, type: 2}
+  - {fileID: 11400000, guid: f43465741750f44c9afd30b3d141c96b, type: 2}
+  - {fileID: 11400000, guid: 9c1ad77e050564a49a9cab2dae3f6593, type: 2}
+  - {fileID: 11400000, guid: e3ec7fa52b0ee4e8dbe24dfaf335f30c, type: 2}
+  - {fileID: 11400000, guid: 34d4e16eddd40454fb16faba337e92cb, type: 2}
+  - {fileID: 11400000, guid: 9c53ee7d157df465982c2b5b99e16ede, type: 2}
+  allItemData:
+  - {fileID: 11400000, guid: cb6b2ec015539460f891954fd0474d2e, type: 2}
+  - {fileID: 11400000, guid: 6726c6c933d92450cb415016bd6f55f2, type: 2}
+  - {fileID: 11400000, guid: 2ff695119ec9a4913a4a7ba88655c8d7, type: 2}
+  - {fileID: 11400000, guid: d5157c6db09a944979c3436f72edcc84, type: 2}
+  - {fileID: 11400000, guid: 795a39431fe06446f81b3e8a38db9ce0, type: 2}
+  - {fileID: 11400000, guid: 0d5a1703caaa94e30aa55bfb066d3b4a, type: 2}
+  - {fileID: 11400000, guid: 5f2d1ded646be4347b4003873afae7f3, type: 2}
+  - {fileID: 11400000, guid: 0896da0a48e5d490f85134cd28a3cfed, type: 2}
+  - {fileID: 11400000, guid: f2bceaceed65b4207a6c1c797865bb75, type: 2}
+  - {fileID: 11400000, guid: 8f719ea08130a4259895cc9f279819b6, type: 2}
+  allPowerupsData:
+  - {fileID: 11400000, guid: 028fb1fb12010425ebc34a57b8fe27a0, type: 2}
+  - {fileID: 11400000, guid: 11161a60f86404e9698e50b399bd64c2, type: 2}
+  - {fileID: 11400000, guid: 80f1b88e265174fe58f37eb20b8462b3, type: 2}
+  - {fileID: 11400000, guid: 99cc440d627be467d8c130e47de97a4c, type: 2}
+  - {fileID: 11400000, guid: cd08dd58868ab4f7d8ea9e977f8a3130, type: 2}
+  - {fileID: 11400000, guid: 2f50d3cf604d14b2db27ad1f7d8ec018, type: 2}
+  allChapterEndRewardsData:
+  - chapterRewards:
+    - {fileID: 11400000, guid: 7bb51f2fd0c104527b59bab5d474dade, type: 2}
+    - {fileID: 11400000, guid: 75735b44547114ca6b9bb68c0491a03e, type: 2}
+    - {fileID: 11400000, guid: 5e23ca40b7f7644f39c7628b1083c55f, type: 2}
+    - {fileID: 11400000, guid: 202568222a7bb4cd7b2921cdc0c2d908, type: 2}
+  - chapterRewards:
+    - {fileID: 11400000, guid: 64203e3005f74436e9b7ece097aa470c, type: 2}
+    - {fileID: 11400000, guid: 605aef590fa274b33a642a616d38ac6c, type: 2}
+    - {fileID: 11400000, guid: 6f8c4cca150ed4023833c084149c9eb8, type: 2}
+    - {fileID: 11400000, guid: c4696349084ca463a9aa0f20643f43f5, type: 2}
+    - {fileID: 11400000, guid: 49498a120131f44ffb005810cb285279, type: 2}
+    - {fileID: 11400000, guid: a02217cf38aaa45d59998472f118c142, type: 2}
+  - chapterRewards:
+    - {fileID: 11400000, guid: 51678650cfe874eb5a90cb5b54ec8c33, type: 2}
+    - {fileID: 11400000, guid: f9a7ef56e47c54e9c8512273a37fbce1, type: 2}
+    - {fileID: 11400000, guid: e7bc592a7b7a448a9ae0a24c65ddc2e5, type: 2}
+    - {fileID: 11400000, guid: d1cacf522cd5b41f4b45aaf302ed3591, type: 2}
+    - {fileID: 11400000, guid: 2f153a2ba2c4847f88b3e070b5a1af67, type: 2}
+    - {fileID: 11400000, guid: 44a1b9f4a45484515825696522fd397c, type: 2}
+    - {fileID: 11400000, guid: 6d75b6904c77c48969717291c83b9979, type: 2}
+  - chapterRewards:
+    - {fileID: 11400000, guid: 06510d471d1054c52ac4b5a829c57c34, type: 2}
+    - {fileID: 11400000, guid: 1d3f3e4c29783445e8a7c203fe48ba2f, type: 2}
+    - {fileID: 11400000, guid: b194073b223b14c44ab2249ad8e8a480, type: 2}
+    - {fileID: 11400000, guid: 8993ee3b42f01426282d37f13bc4e190, type: 2}
+    - {fileID: 11400000, guid: 06fbc168dad4e491d88ab7ab873ed6e2, type: 2}
+    - {fileID: 11400000, guid: 1bf535c61f6d340f09c2cbd50544638e, type: 2}
+    - {fileID: 11400000, guid: 57b8d0fe33b0a47708d68175738dc81c, type: 2}
+    - {fileID: 11400000, guid: ac3ea18edf11449e1ba16fbadc02817b, type: 2}
+  - chapterRewards:
+    - {fileID: 11400000, guid: c40e2cd77b7cb465299270c57a7d8458, type: 2}
+    - {fileID: 11400000, guid: 15885a969266340e594395bc8adff080, type: 2}
+    - {fileID: 11400000, guid: 41060903c238a44209e50da20c2a77c8, type: 2}
+    - {fileID: 11400000, guid: d9edc1e3235c44435b4f0bd255d9c44c, type: 2}
+    - {fileID: 11400000, guid: db4f425b1a8a44e2f81b0f34144ff6f7, type: 2}
+    - {fileID: 11400000, guid: 0745af0479b5145d498f92d833fc7436, type: 2}
+    - {fileID: 11400000, guid: 784267da27d75400a8ffbf55d1b3a929, type: 2}
+    - {fileID: 11400000, guid: 69accb7b771af4b63baa15da84d796fc, type: 2}
+    - {fileID: 11400000, guid: f4e610b9bd83b47699a77af3b556a27a, type: 2}
+    - {fileID: 11400000, guid: 480af66d3d1614547859dc0d4cf12869, type: 2}
+  itemPrefabs:
+  - {fileID: 5474168379299960739, guid: fd21e7f2d6f274baf8bc44046fc3aac0, type: 3}
+  - {fileID: 3882748869958548174, guid: 8bfeb21a3eafe45e39588d02d6978aab, type: 3}
+  - {fileID: 3277707571119134965, guid: 04728ef0e3d274f18b417aab77d96ca5, type: 3}
+  - {fileID: 1672530353510201383, guid: d83aac1dcb9b249f2905d3de214e3267, type: 3}
+  - {fileID: 3250279453661933838, guid: ad24f3190af7246faa4f5f815e2ebf79, type: 3}
+  - {fileID: 2981158376448699443, guid: 7f5374b95703347dd9b893569f72a33c, type: 3}
+  - {fileID: 7896905513590186159, guid: e76e50185c856423bbd7184a32637cdc, type: 3}
+  - {fileID: 3560496578397418336, guid: 54f5aaab039ea47f683a0e68cce4680b, type: 3}
+  - {fileID: 5768306025863253211, guid: 12cd68de9a4234d7aaa2ee3f9013096b, type: 3}
+  - {fileID: 6229067937780798206, guid: 72aa20ea0c40648488f51a6fb4bbed4f, type: 3}
+  customTimeScale: 2
+  playerData:
+    currentWorldId: 0
+    currentAreaId: 0
+    troopDeckSlots: 
+    powerupDeckSlots: 
+  isDebug: 1
+  currentWorldIdDebug: 1
+  currentAreaIdDebug: 3
+  InitialCoinAmountForDebug: 9900
+  InitialGemAmountForDebug: 100000
+  debugFragmentsData:
+  - troopType: 0
+    fragmentsCount: 36
+  - troopType: 1
+    fragmentsCount: 32
+  - troopType: 2
+    fragmentsCount: 24
+  - troopType: 3
+    fragmentsCount: 20
+  - troopType: 4
+    fragmentsCount: 10
+--- !u!114 &8955212570107868032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8941738022597666934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc718f765c4d946d0bdd2420cb138702, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
