@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class TowerHeroController : MonoBehaviour
 {
+
     public bool isFiring;
     [SerializeField] private TowerController towerController;
     [SerializeField] private float fireRate = 1f;

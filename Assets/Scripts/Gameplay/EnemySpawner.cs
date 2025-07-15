@@ -11,6 +11,7 @@ public class EnemySpawner : MonoBehaviour
         public float health;
     }
 
+
     [Header("Configuration")]
     [SerializeField] private EnemyConfig[] enemyConfigs;
     [SerializeField] private Transform[] spawnPoints;

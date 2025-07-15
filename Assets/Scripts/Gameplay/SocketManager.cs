@@ -9,12 +9,11 @@ public enum SocketShapeType
     a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z
 }
 
-[System.Serializable]
+/*[System.Serializable]
 public class SocketCube
 {
     public GameObject cube;
-    [ReadOnly] public bool hasPowerSource;
-}
+}*/
 public class SocketManager : MonoBehaviour
 {
     [Header("Socket Tracking")]
@@ -99,16 +98,12 @@ public class SocketManager : MonoBehaviour
     {
         if (socketA == null || socketB == null)
             return false;
-
-        if (socketA.socketCubes.Count != socketB.socketCubes.Count)
+        if (socketA.shapeType != socketB.shapeType)        
             return false;
-
-        for (int i = 0; i < socketA.socketCubes.Count; i++)
-        {
-            if (socketA.socketCubes[i]?.cube == null || socketB.socketCubes[i]?.cube == null)
-                return false;
-        }
-
+        
+        if (socketA.currentLevel != socketB.currentLevel)
+            return false;
+        
         return true;
     }
 
@@ -155,7 +150,7 @@ public class SocketManager : MonoBehaviour
         {
             GridObject anchorGrid = gridSocket.assignedGrids[0];
             Vector3 gridWorldPos = anchorGrid.plugSocketHolder.position;
-            GameObject firstCube = gridSocket.socketCubes[0].cube;
+            GameObject firstCube = gridSocket.socketCubes[0].cube.gameObject;
             Vector3 cubeOffset = firstCube.transform.position - gridSocket.transform.position;
 
             Vector3 targetPosition = gridWorldPos - cubeOffset;

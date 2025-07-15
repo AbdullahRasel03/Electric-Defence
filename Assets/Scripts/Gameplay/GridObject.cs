@@ -46,7 +46,7 @@ public class GridObject : MonoBehaviour
         Dictionary<GameObject, GridObject> cubeGridMap = new();
         foreach (var cubeEntry in socket.socketCubes)
         {
-            GameObject cube = cubeEntry.cube;
+            GameObject cube = cubeEntry.cube.gameObject;
             Ray ray = new Ray(cube.transform.position + Vector3.up * 2f, Vector3.down);
             if (Physics.Raycast(ray, out RaycastHit hit, 10f, socket.gridLayer))
             {
@@ -89,7 +89,7 @@ public class GridObject : MonoBehaviour
 
         socket.assignedGrids.Clear();
 
-        GameObject firstCube = socket.socketCubes[0].cube;
+        GameObject firstCube = socket.socketCubes[0].cube.gameObject;
         GridObject firstGrid = cubeGridMap[firstCube];
 
         anchorGrid = firstGrid;

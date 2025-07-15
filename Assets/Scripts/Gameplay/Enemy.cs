@@ -4,6 +4,7 @@ using DG.Tweening;
 
 public class Enemy : MonoBehaviour
 {
+
     #region Settings
 
     [Header("Health Settings")]

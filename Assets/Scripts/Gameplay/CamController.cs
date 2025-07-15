@@ -1,88 +1,63 @@
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public class CamController : MonoBehaviour
 {
     [Header("View Settings")]
-    [SerializeField] private float transitionDuration = 1f;
-    [SerializeField] private AnimationCurve transitionCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    [SerializeField] private float transitionDuration = 0f;
+    [SerializeField] private Ease transitionEase = Ease.Linear;
 
     [Header("View Parents")]
     [SerializeField] private Transform fightViewParent;
     [SerializeField] private Transform shopViewParent;
 
-    private Coroutine transitionCoroutine;
+    [Header("Camera Settings")]
+    [SerializeField] private Camera cam;
+    [SerializeField] private float fightFOV = 20f;
+    [SerializeField] private float shopFOV = 60f;
 
+    [Header("View Objects")]
     [SerializeField] private GameObject[] shopViewObjects;
+
+    private Tween moveTween, rotateTween, fovTween;
+
     public void SetFightView()
     {
-        if (transitionCoroutine != null)
-        {
-            StopCoroutine(transitionCoroutine);
-        }
+        KillTweens();
         foreach (GameObject go in shopViewObjects) go.SetActive(false);
         transform.SetParent(fightViewParent);
-        transitionCoroutine = StartCoroutine(TransitionToLocalZero());
+        StartTransition(fightFOV);
     }
 
     public void SetShopView()
     {
-        print("Shop");
-        if (transitionCoroutine != null)
-        {
-            StopCoroutine(transitionCoroutine);
-        }
+        KillTweens();
         foreach (GameObject go in shopViewObjects) go.SetActive(true);
         transform.SetParent(shopViewParent);
-        transitionCoroutine = StartCoroutine(TransitionToLocalZero());
+        StartTransition(shopFOV);
     }
 
-    private IEnumerator TransitionToLocalZero()
+    private void StartTransition(float targetFOV)
     {
-        Vector3 startPos = transform.localPosition;
-        Quaternion startRot = transform.localRotation;
+        transform.localPosition = transform.localPosition; // Forces local space
+        transform.localRotation = transform.localRotation;
 
-        Vector3 endPos = Vector3.zero;
-        Quaternion endRot = Quaternion.identity;
+        moveTween = transform.DOLocalMove(Vector3.zero, transitionDuration).SetEase(transitionEase).SetDelay(0.1f);
+        rotateTween = transform.DOLocalRotate(Vector3.zero, transitionDuration).SetEase(transitionEase);
+        fovTween = cam.DOFieldOfView(targetFOV, transitionDuration).SetEase(transitionEase);
+    }
 
-        float elapsed = 0f;
-
-        while (elapsed < transitionDuration)
-        {
-            elapsed += Time.deltaTime;
-            float t = transitionCurve.Evaluate(elapsed / transitionDuration);
-
-            transform.localPosition = Vector3.Lerp(startPos, endPos, t);
-            transform.localRotation = Quaternion.Slerp(startRot, endRot, t);
-
-            yield return null;
-        }
-
-        transform.localPosition = endPos;
-        transform.localRotation = endRot;
-        transitionCoroutine = null;
+    private void KillTweens()
+    {
+        moveTween?.Kill();
+        rotateTween?.Kill();
+        fovTween?.Kill();
     }
 
     public void ShakeCamera(float duration, float magnitude)
     {
-        StartCoroutine(Shake(duration, magnitude));
-    }
-
-    private IEnumerator Shake(float duration, float magnitude)
-    {
-        Vector3 originalPos = transform.localPosition;
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
-
-            transform.localPosition = new Vector3(originalPos.x + x, originalPos.y + y, originalPos.z);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        transform.localPosition = originalPos;
+        transform.DOShakePosition(duration, magnitude, vibrato: 10, randomness: 90, snapping: false, fadeOut: true)
+                 .SetRelative(true);
     }
 }

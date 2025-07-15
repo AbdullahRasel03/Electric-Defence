@@ -27,8 +27,8 @@ public class Plug : MonoBehaviour
 
     public void CheckForSocketsUnderneath()
     {
-        Ray ray = new Ray(transform.position, Vector3.down);
-        if (Physics.Raycast(ray, out RaycastHit hit, 1f, connectableLayers))
+        Ray ray = new Ray(transform.position + Vector3.up * 0.5f, Vector3.down);
+        if (Physics.Raycast(ray, out RaycastHit hit, 2f, connectableLayers))
         {
             if (hit.collider.GetComponent<PowerSource>() != null)
             {

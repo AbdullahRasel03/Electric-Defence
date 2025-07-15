@@ -28,6 +28,7 @@ public class Socket : MonoBehaviour
     #region Runtime State
 
     public List<SocketCube> socketCubes = new();
+
     public bool isMerging;
     public bool hasPower;
     public List<GridObject> assignedGrids = new();
@@ -67,21 +68,21 @@ public class Socket : MonoBehaviour
 
         foreach (var socketCube in socketCubes)
         {
-            socketCube.hasPowerSource = false;
-        }
+            if (socketCube.pin != null)
+                socketCube.pin.gameObject.SetActive(false); // Disable all first
 
-        foreach (var socketCube in socketCubes)
-        {
             Ray ray = new Ray(socketCube.cube.transform.position, -Vector3.forward);
-            if (Physics.Raycast(ray, out RaycastHit hit, 1f, connectableLayers))
+            if (Physics.Raycast(ray, out RaycastHit hit, 1.5f, connectableLayers))
             {
-                 print("Powered");
                 var powerSource = hit.collider.GetComponent<PowerSource>();
                 if (powerSource != null)
                 {
                     actingMultiplier += powerSource.sourcePowerMultiplier;
                     hasPower = true;
-                    socketCube.hasPowerSource = true;
+
+                    if (socketCube.pin != null)
+                        socketCube.pin.gameObject.SetActive(true);
+
                     continue;
                 }
 
@@ -90,7 +91,9 @@ public class Socket : MonoBehaviour
                 {
                     actingMultiplier += otherSocket.actingMultiplier;
                     hasPower = true;
-                    socketCube.hasPowerSource = true;
+
+                    if (socketCube.pin != null)
+                        socketCube.pin.gameObject.SetActive(true);
                 }
             }
         }
@@ -111,14 +114,6 @@ public class Socket : MonoBehaviour
 
         Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
         socketGFX.material.color = colorToApply;
-        /*
-                foreach (var cubeEntry in socketCubes)
-                {
-                    Renderer rend = cubeEntry.cube.GetComponent<Renderer>();
-
-                    rend.material.color = colorToApply;
-
-                }*/
     }
 
     private void UpdateFireRateDisplay()
@@ -138,17 +133,13 @@ public class Socket : MonoBehaviour
     public void AutoAssignSocketCubes()
     {
         socketCubes.Clear();
-
-        foreach (Transform child in cubesParent)
-        {
-            SocketCube cubeEntry = new SocketCube
-            {
-                cube = child.gameObject,
-            };
-
-            socketCubes.Add(cubeEntry);
-        }
     }
 
     #endregion
+}
+[System.Serializable]
+public class SocketCube
+{
+    public Transform cube;
+    public Transform pin;
 }

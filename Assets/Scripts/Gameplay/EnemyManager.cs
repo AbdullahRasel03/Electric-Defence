@@ -7,6 +7,7 @@ public enum EnemyType
 }
 public class EnemyManager : MonoBehaviour
 {
+
     public static EnemyManager Instance { get; private set; }
 
     [Header("Dependencies")]
