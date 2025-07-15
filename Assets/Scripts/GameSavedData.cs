@@ -35,6 +35,13 @@ public class EconomyData
         this.economyData.Add(ECONOMY_TYPE.COIN, 0);
         this.economyData.Add(ECONOMY_TYPE.GEM, 0);
         this.economyData.Add(ECONOMY_TYPE.SKILL_TOKEN, 0);
+
+        this.troopFragmentsData = new Dictionary<int, int>();
+        foreach (TroopDataSO troopData in GameManager.GetInstance().AllHeroData)
+        {
+            troopFragmentsData.Add(troopData.TroopId, 0);
+        }
+
     }
 }
 
@@ -44,13 +51,27 @@ public class PlayerData
     public int currentLevelId;
     public int currentWorldId;
     public int currentAreaId;
-    // public Dictionary<PowerupType, int> powerupData;
-
+    public int[] troopDeckSlots;
+    public Dictionary<int, int> troopLevelData = new Dictionary<int, int>();
     public PlayerData(int currentLevelId)
     {
         this.currentLevelId = currentLevelId;
         this.currentWorldId = 1;
         this.currentAreaId = 1;
+
+        this.troopDeckSlots = new int[Statics.maxTroopDeckSlots];
+
+        troopDeckSlots[0] = 1; // Default troop slot
+
+        for (int i = 1; i < Statics.maxTroopDeckSlots; i++)
+        {
+            troopDeckSlots[i] = -1;
+        }
+
+        foreach (TroopDataSO troopData in GameManager.GetInstance().AllHeroData)
+        {
+            troopLevelData.Add(troopData.TroopId, 1); // Default level 1 for all troops
+        }
     }
 }
 

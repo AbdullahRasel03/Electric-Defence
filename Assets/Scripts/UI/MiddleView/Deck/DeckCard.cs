@@ -32,7 +32,7 @@ public class DeckCard : InGameNotificationTriggerer
         cardNameText.text = cardName;
         cardLevelText.text = $"Lvl {cardLevel.ToString()}";
         lockPanel.gameObject.SetActive(!isUnlocked);
-        selectedPanel.gameObject.SetActive(false);
+        // selectedPanel.gameObject.SetActive(false);
     }
 
 
@@ -42,7 +42,7 @@ public class DeckCard : InGameNotificationTriggerer
 
         if (!isUnlocked) return;
 
-        selectedPanel.gameObject.SetActive(isSelected);
+        // selectedPanel.gameObject.SetActive(isSelected);
     }
 
     public virtual void OnCardClicked()
@@ -62,20 +62,20 @@ public class DeckCard : InGameNotificationTriggerer
     protected virtual void SetLockedState(bool isLocked)
     {
         lockPanel.gameObject.SetActive(isLocked);
-        selectedPanel.gameObject.SetActive(!isLocked);
+        // selectedPanel.gameObject.SetActive(!isLocked);
 
         if (isLocked) return;
 
-        if (!PlayerPrefs.HasKey(CARD_NEW_NOTIFICATION_ID + cardId))
-        {
-            notificationImg.gameObject.SetActive(true);
-            TriggerNotification(receiver);
-        }
-        else
-        {
-            notificationImg.gameObject.SetActive(false);
-            CancelNotification(receiver);
-        }
+        // if (!PlayerPrefs.HasKey(CARD_NEW_NOTIFICATION_ID + cardId))
+        // {
+        //     notificationImg.gameObject.SetActive(true);
+        //     TriggerNotification(receiver);
+        // }
+        // else
+        // {
+        //     notificationImg.gameObject.SetActive(false);
+        //     CancelNotification(receiver);
+        // }
     }
 
     public void SetCardShake(bool canShake)
