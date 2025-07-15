@@ -68,7 +68,6 @@ public class DragSystem : MonoBehaviour
         else if (objectType == DragObjectType.Socket)
         {
             Socket socket = GetComponent<Socket>();
-            socket.UnPlugged();
 
             if (socket != null && socket.assignedGrids != null)
             {
@@ -164,11 +163,7 @@ public class DragSystem : MonoBehaviour
                 GridObject grid = hit.collider.GetComponent<GridObject>();
                 if (grid != null && grid.isOccupied)
                 {
- 
-                  
-                        grid.ReleaseToGrid(GetComponent<Plug>(), grid.socket);
-                        
-             
+                    grid.ReleaseToGrid(GetComponent<Plug>(), grid.socket);
                     return;
                 }
             }
@@ -186,7 +181,6 @@ public class DragSystem : MonoBehaviour
             socket.socketManager.activeGrids.Add(socket);
             socket.transform.DOMove(newPosition + Vector3.forward * 0.3f, 0.25f).OnComplete(() =>
             {
-                socket.Plugged();
                 socket.transform.DOMove(newPosition, 0.15f).OnComplete(() =>
                 {
                     foreach (var grid in socket.assignedGrids)

@@ -247,11 +247,9 @@ MonoBehaviour:
   actingMultiplier: 0
   pinMoveDuration: 0.3
   pinMoveEase: 27
+  socketGFX: {fileID: 2983679094182278188}
   socketCubes:
   - cube: {fileID: 3632386349531780601}
-    pin: {fileID: 942629051818331015}
-    unpluggedZ: 0
-    pluggedZ: 0
     hasPowerSource: 0
   isMerging: 0
   hasPower: 0
@@ -518,14 +516,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8391904164232700218, guid: 2ce687de1f062ab46b2a41e0f7759dc8,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1318236885133621204, guid: 2ce687de1f062ab46b2a41e0f7759dc8, type: 3}
+    - {fileID: 5057875392641818579, guid: 2ce687de1f062ab46b2a41e0f7759dc8, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ce687de1f062ab46b2a41e0f7759dc8, type: 3}
 --- !u!4 &2794671749597055433 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7754538615414908848, guid: 2ce687de1f062ab46b2a41e0f7759dc8,
+    type: 3}
+  m_PrefabInstance: {fileID: 5572374335959051897}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2983679094182278188 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7222969770032355925, guid: 2ce687de1f062ab46b2a41e0f7759dc8,
     type: 3}
   m_PrefabInstance: {fileID: 5572374335959051897}
   m_PrefabAsset: {fileID: 0}

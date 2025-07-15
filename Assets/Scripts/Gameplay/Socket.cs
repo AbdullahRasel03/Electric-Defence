@@ -22,7 +22,7 @@ public class Socket : MonoBehaviour
     public float actingMultiplier = 1f;
     public float pinMoveDuration = 0.3f;
     public Ease pinMoveEase = Ease.OutBack;
-
+    public Renderer socketGFX;
     #endregion
 
     #region Runtime State
@@ -48,25 +48,12 @@ public class Socket : MonoBehaviour
     private void InitializeSocket()
     {
         AssignFireRateTexts();
-        InitializePins();
         UpdateColorAndTextByLevel();
     }
 
     private void AssignFireRateTexts()
     {
         fireRateTexts = cubesParent.GetComponentsInChildren<TMP_Text>();
-    }
-
-    private void InitializePins()
-    {
-        foreach (var socketCube in socketCubes)
-        {
-            if (socketCube.pin != null)
-            {
-                socketCube.unpluggedZ = socketCube.pin.localPosition.z;
-                socketCube.pluggedZ = socketCube.pin.localPosition.z - 0.4f;
-            }
-        }
     }
 
     #endregion
@@ -92,7 +79,6 @@ public class Socket : MonoBehaviour
                 var powerSource = hit.collider.GetComponent<PowerSource>();
                 if (powerSource != null)
                 {
-                    Plugged();
                     actingMultiplier += powerSource.sourcePowerMultiplier;
                     hasPower = true;
                     socketCube.hasPowerSource = true;
@@ -102,7 +88,6 @@ public class Socket : MonoBehaviour
                 Socket otherSocket = hit.collider.GetComponent<Socket>();
                 if (otherSocket != null && otherSocket.hasPower)
                 {
-                    Plugged();
                     actingMultiplier += otherSocket.actingMultiplier;
                     hasPower = true;
                     socketCube.hasPowerSource = true;
@@ -111,69 +96,10 @@ public class Socket : MonoBehaviour
         }
     }
 
-    public void Plugged()
-    {
-        foreach (var socketCube in socketCubes)
-        {
-            if (socketCube.pin != null)
-            {
-               // socketCube.pin.DOLocalMoveZ(socketCube.pluggedZ, pinMoveDuration).SetEase(pinMoveEase);
-            }
-        }
-    }
 
-    public void UnPlugged()
-    {
-        foreach (var socketCube in socketCubes)
-        {
-            if (socketCube.pin != null)
-            {
-                socketCube.pin.DOLocalMoveZ(socketCube.unpluggedZ, pinMoveDuration).SetEase(pinMoveEase);
-            }
-        }
-    }
 
     #endregion
 
-    #region Grid Detection
-
-    public bool IsReleasableByRaycast()
-    {
-        foreach (var socketCube in socketCubes)
-        {
-            Ray ray = new Ray(socketCube.cube.transform.position + Vector3.up * 2f, Vector3.down);
-            if (Physics.Raycast(ray, out RaycastHit hit, 10f, gridLayer))
-            {
-                GridObject grid = hit.collider.GetComponent<GridObject>();
-                if (grid == null || grid.isOccupied)
-                    return false;
-            }
-            else return false;
-        }
-        return true;
-    }
-
-    public List<GridObject> RequiredGridsByRaycast()
-    {
-        List<GridObject> grids = new();
-        foreach (var socketCube in socketCubes)
-        {
-            Ray ray = new Ray(socketCube.cube.transform.position + Vector3.up * 2f, Vector3.down);
-            if (Physics.Raycast(ray, out RaycastHit hit, 10f, gridLayer))
-            {
-                GridObject grid = hit.collider.GetComponent<GridObject>();
-                if (grid != null && !grid.isOccupied && !grids.Contains(grid))
-                {
-                    grids.Add(grid);
-                }
-            }
-        }
-
-        assignedGrids = grids;
-        return grids;
-    }
-
-    #endregion
 
     #region Visuals
 
@@ -184,14 +110,15 @@ public class Socket : MonoBehaviour
         if (levelColors == null || levelColors.Length == 0) return;
 
         Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
+        socketGFX.material.color = colorToApply;
+        /*
+                foreach (var cubeEntry in socketCubes)
+                {
+                    Renderer rend = cubeEntry.cube.GetComponent<Renderer>();
 
-        foreach (var cubeEntry in socketCubes)
-        {
-            Renderer rend = cubeEntry.cube.GetComponent<Renderer>();
+                    rend.material.color = colorToApply;
 
-            rend.material.color = colorToApply;
-
-        }
+                }*/
     }
 
     private void UpdateFireRateDisplay()
