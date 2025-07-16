@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66fc52dc7b4048b49a20fec1ffb49e08, type: 3}
+  m_Script: {fileID: 0}
   m_Name: WaveData
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveDataSO
   enemyForWaves:
-  - enemyType: 0
-    spawnCount: 5
-    healthMultiplier: 0.5
+  - enemyType: 1
+    spawnCount: 10
+    healthMultiplier: 1.5
     attackMultiplier: 0
     minInterval: 2
     maxInterval: 5

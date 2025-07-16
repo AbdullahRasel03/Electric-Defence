@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(TowerTargetingSystem))]
 public class TowerController : MonoBehaviour
 {
+
     [Header("Dependencies")]
     [SerializeField] private Transform turretHead;
     [SerializeField] public TowerHeroController shooter;

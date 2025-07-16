@@ -10,7 +10,7 @@ public class GridObject : MonoBehaviour
     public Transform plugSocketHolder;
 
     public Socket socket;
-    public Plug plug;
+    //public Plug plug;
     public Renderer gridRenderer;
     private Color defaultColor;
     public Color highlightColor = Color.yellow;
@@ -30,12 +30,12 @@ public class GridObject : MonoBehaviour
         gridRenderer.material.color = defaultColor;
     }
 
-    public void ReleaseToGrid(Plug plug)
+    public void ReleaseToGrid(Plug plug, Socket assignedSocket)
     {
-        plug.transform.parent = plugSocketHolder;
-        isOccupied = true;
-        this.plug = plug;
-        plug.PlaceOnGrid(this);
+        plug.transform.parent = socket.plugHolder;
+      //  isOccupied = true;
+       // this.plug = plug;
+        plug.PlaceOnGrid(this, assignedSocket);
     }
 
     public static bool TryReleaseSocketToGrids(Socket socket, out Vector3 newSocketWorldPos, out GridObject anchorGrid)
@@ -46,7 +46,7 @@ public class GridObject : MonoBehaviour
         Dictionary<GameObject, GridObject> cubeGridMap = new();
         foreach (var cubeEntry in socket.socketCubes)
         {
-            GameObject cube = cubeEntry.cube;
+            GameObject cube = cubeEntry.cube.gameObject;
             Ray ray = new Ray(cube.transform.position + Vector3.up * 2f, Vector3.down);
             if (Physics.Raycast(ray, out RaycastHit hit, 10f, socket.gridLayer))
             {
@@ -89,7 +89,7 @@ public class GridObject : MonoBehaviour
 
         socket.assignedGrids.Clear();
 
-        GameObject firstCube = socket.socketCubes[0].cube;
+        GameObject firstCube = socket.socketCubes[0].cube.gameObject;
         GridObject firstGrid = cubeGridMap[firstCube];
 
         anchorGrid = firstGrid;

@@ -8,6 +8,7 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(fileName = "WaveData", menuName = "ScriptableObjects/WaveDataSO", order = 1)]
 public class WaveDataSO : ScriptableObject
 {
+
     public List<EnemySpawnData> enemyForWaves = new List<EnemySpawnData>();
     
     public bool hasMidWaveBoss;

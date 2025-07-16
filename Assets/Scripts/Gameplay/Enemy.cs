@@ -4,6 +4,7 @@ using DG.Tweening;
 
 public class Enemy : MonoBehaviour
 {
+
     #region Settings
 
     [Header("Health Settings")]
@@ -186,6 +187,7 @@ public class Enemy : MonoBehaviour
 
     private void PlayDeathAnimation()
     {
+        if(animator)
         animator.Play("Death");
     }
 

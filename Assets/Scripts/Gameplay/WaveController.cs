@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class WaveController : MonoBehaviour
 {
+
     [Header("Wave Configuration")]
     [SerializeField] private List<WaveDataSO> waves;
     [SerializeField] private EnemySpawner spawner;

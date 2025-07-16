@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class TowerTargetingSystem : MonoBehaviour
 {
-    [SerializeField] private float range = 12f;
+
+    [SerializeField] private float range = 18f;
     private Enemy currentTarget;
     private float refreshCooldown = 0.2f;
     private float timer;

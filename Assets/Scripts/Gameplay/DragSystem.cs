@@ -57,8 +57,10 @@ public class DragSystem : MonoBehaviour
             Plug plug = GetComponent<Plug>();
             if (plug != null && plug.assignedGrid != null)
             {
-                plug.assignedGrid.isOccupied = false;
-                plug.assignedGrid.plug = null;
+                plug.assignedSocket.connectedPlug = null;
+                plug.assignedSocket = null;
+                // plug.assignedGrid.isOccupied = false;
+                // plug.assignedGrid.plug = null;
                 plug.assignedGrid = null;
             }
             plug.connectedTower.DeactivateTower();
@@ -66,7 +68,6 @@ public class DragSystem : MonoBehaviour
         else if (objectType == DragObjectType.Socket)
         {
             Socket socket = GetComponent<Socket>();
-            socket.UnPlugged();
 
             if (socket != null && socket.assignedGrids != null)
             {
@@ -138,7 +139,7 @@ public class DragSystem : MonoBehaviour
             Socket socket = GetComponent<Socket>();
             foreach (var cube in socket.socketCubes)
             {
-                Ray ray = new Ray(cube.cube.transform.position + Vector3.up * 2f + Vector3.back * 0.5f, Vector3.down);
+                Ray ray = new Ray(cube.cube.position + Vector3.up * 2f + Vector3.back * 0.5f, Vector3.down);
                 if (Physics.Raycast(ray, out RaycastHit hit, 10f, gridLayer))
                 {
                     GridObject grid = hit.collider.GetComponent<GridObject>();
@@ -157,12 +158,12 @@ public class DragSystem : MonoBehaviour
         if (objectType == DragObjectType.Plug)
         {
             Ray ray = new Ray(transform.position + Vector3.up * 2f, Vector3.down);
-            if (Physics.Raycast(ray, out RaycastHit hit, 10f, gridLayer))
+            if (Physics.Raycast(ray, out RaycastHit hit, 20f, gridLayer))
             {
                 GridObject grid = hit.collider.GetComponent<GridObject>();
-                if (grid != null && !grid.isOccupied)
+                if (grid != null && grid.isOccupied)
                 {
-                    grid.ReleaseToGrid(GetComponent<Plug>());
+                    grid.ReleaseToGrid(GetComponent<Plug>(), grid.socket);
                     return;
                 }
             }
@@ -178,9 +179,9 @@ public class DragSystem : MonoBehaviour
 
             socket.socketManager.RemoveSocketFromSpwanedList(socket);
             socket.socketManager.activeGrids.Add(socket);
+            newPosition.y = 0;
             socket.transform.DOMove(newPosition + Vector3.forward * 0.3f, 0.25f).OnComplete(() =>
             {
-                socket.Plugged();
                 socket.transform.DOMove(newPosition, 0.15f).OnComplete(() =>
                 {
                     foreach (var grid in socket.assignedGrids)
