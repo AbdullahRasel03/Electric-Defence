@@ -9803,10 +9803,8 @@ MonoBehaviour:
   - {fileID: 4758462471227152518}
   - {fileID: 7205601181115556387}
   Laser: {fileID: 421015676730179526}
-  LaserStart: {fileID: 5197378769453485938, guid: 0f54a0dbe7c154c43b392ddd661e4409,
-    type: 3}
-  LaserStop: {fileID: 3079271075141404359, guid: 49c3a01728ac5ec429f353beb5aa8bf3,
-    type: 3}
+  LaserStart: {fileID: 5197378769453485938, guid: 0f54a0dbe7c154c43b392ddd661e4409, type: 3}
+  LaserStop: {fileID: 3079271075141404359, guid: 49c3a01728ac5ec429f353beb5aa8bf3, type: 3}
   HitOffset: 0.5
 --- !u!1 &1988120130856609918
 GameObject:
