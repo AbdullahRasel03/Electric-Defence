@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class GridObject : MonoBehaviour
 {
-    public GridManager gridManager;
     public bool isOccupied;
+    public bool isLaserPath;
+    public bool isBlocked;
+    public GameObject blocker;
+
+    public GridManager gridManager;
     public LayerMask gridLayer;
     public Transform plugSocketHolder;
 
@@ -15,11 +19,24 @@ public class GridObject : MonoBehaviour
     private Color defaultColor;
     public Color highlightColor = Color.yellow;
 
+
+
     private void Awake()
     {
         defaultColor = gridRenderer.material.color;
     }
-
+    private void Start()
+    {
+        if (isBlocked)
+        {
+            gridRenderer.enabled = false;
+            blocker.SetActive(true);
+        }
+        else if (isLaserPath)
+        {
+           // gridRenderer.enabled = false;
+        }
+    }
     public void Highlight()
     {
         gridRenderer.material.color = highlightColor;
