@@ -135,4 +135,9 @@ public class TowerHeroController : MonoBehaviour
         fireCooldown = 0f;
         animator.SetFloat("FireSpeed", Mathf.Max(1f, fireRate));
     }
+
+    public float GetFireRate() {
+
+        return fireRate;
+    }
 }

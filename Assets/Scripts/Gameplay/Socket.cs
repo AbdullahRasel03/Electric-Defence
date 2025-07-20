@@ -22,7 +22,7 @@ public class Socket : MonoBehaviour
     public float actingMultiplier = 1f;
     public float pinMoveDuration = 0.3f;
     public Ease pinMoveEase = Ease.OutBack;
-    public Renderer socketGFX;
+    public Renderer socketGFX, socketOuterGFX;
     public GameObject multiText;
     #endregion
 
@@ -85,7 +85,7 @@ public class Socket : MonoBehaviour
         if (levelColors == null || levelColors.Length == 0) return;
 
         Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
-        socketGFX.material.color = colorToApply;
+        socketOuterGFX.material.color = colorToApply;
     }
 
     private void UpdateFireRateDisplay()

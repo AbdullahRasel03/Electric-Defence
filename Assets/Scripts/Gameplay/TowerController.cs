@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(TowerTargetingSystem))]
@@ -19,7 +20,7 @@ public class TowerController : MonoBehaviour
     private bool manualFireInput; // Track manual firing state
 
     public GridObject[] gridsOnPath;
-
+    public TMP_Text powerText;
     private void Start()
     {
         ActivateTower();
@@ -78,6 +79,7 @@ public class TowerController : MonoBehaviour
     {
         isActive = true;
         shooter.enabled = true;
+        powerText.text = shooter.GetFireRate().ToString();
     }
 
     public void DeactivateTower()
@@ -89,7 +91,7 @@ public class TowerController : MonoBehaviour
     public void CheckMultisOnPath()
     {
         float fireRate = 1;
-        foreach (var item in gridsOnPath)
+        foreach (GridObject item in gridsOnPath)
         {
             if (item.socket)
             {
@@ -98,5 +100,6 @@ public class TowerController : MonoBehaviour
             }
         }
         shooter.SetFireRate(fireRate);
+        powerText.text = shooter.GetFireRate().ToString();
     }
 }

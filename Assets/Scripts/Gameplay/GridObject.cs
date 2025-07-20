@@ -7,7 +7,7 @@ public class GridObject : MonoBehaviour
     public bool isOccupied;
     public bool isLaserPath;
     public bool isBlocked;
-    public GameObject blocker;
+    public GameObject gridGFX;
 
     public GridManager gridManager;
     public LayerMask gridLayer;
@@ -30,7 +30,8 @@ public class GridObject : MonoBehaviour
         if (isBlocked)
         {
             gridRenderer.enabled = false;
-            blocker.SetActive(true);
+            gridGFX.SetActive(false);
+            GetComponent<Collider>().enabled = false;
         }
         else if (isLaserPath)
         {

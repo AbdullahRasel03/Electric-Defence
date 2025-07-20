@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4726669788572567349}
   - component: {fileID: 795199000669100528}
   - component: {fileID: 5692224398930916933}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Multiplier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ MonoBehaviour:
   shapeType: 2
   cubesParent: {fileID: 5307622024320240384}
   levelColors:
-  - {r: 0.854902, g: 0.25882354, b: 0.24313727, a: 1}
+  - {r: 0.99607843, g: 0.15294117, b: 0.7762482, a: 1}
   - {r: 0.764151, g: 0.14251582, b: 0.12615699, a: 1}
   gridLayer:
     serializedVersion: 2
@@ -294,6 +294,7 @@ MonoBehaviour:
   pinMoveDuration: 0.3
   pinMoveEase: 27
   socketGFX: {fileID: 1296292880015648660}
+  socketOuterGFX: {fileID: 8287858274389854971}
   multiText: {fileID: 1079178345959276278}
   socketCubes:
   - cube: {fileID: 7824628056864042790}
@@ -327,8 +328,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.94119686, y: 0.25859445, z: 0.87342536}
-  m_Center: {x: 0.59337664, y: 0.05871989, z: 0.048447788}
+  m_Size: {x: 2.1682441, y: 0.49992794, z: 2.424586}
+  m_Center: {x: 0.57458436, y: 0.17938665, z: -1.1202317}
 --- !u!54 &1115564204573202531
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -375,8 +376,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.823199, y: 0.23680344, z: 0.8093754}
-  m_Center: {x: 0.0172863, y: 0.0573792, z: 1.0435281}
+  m_Size: {x: 4.568096, y: 0.4935277, z: 1.8989041}
+  m_Center: {x: -0.6260848, y: 0.16694906, z: 1.0435281}
 --- !u!1 &2746742288960823673
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,7 +403,7 @@ Transform:
   m_GameObject: {fileID: 2746742288960823673}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.606, y: 0.175, z: 0}
+  m_LocalPosition: {x: 0.39, y: 0.175, z: 1.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -433,7 +434,7 @@ Transform:
   m_GameObject: {fileID: 3488140585582230593}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.572, y: 0.175, z: 1.01}
+  m_LocalPosition: {x: -1.93, y: 0.175, z: 0.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -515,7 +516,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5307622024320240384}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -564,7 +565,7 @@ Transform:
   m_GameObject: {fileID: 7288342302177636129}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.56, y: 0.175, z: 1.049}
+  m_LocalPosition: {x: 0.39, y: 0.175, z: -1.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -581,7 +582,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 246a796628b49d94bbda06923d08d873,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.04
+      value: 1.672
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 246a796628b49d94bbda06923d08d873,
         type: 3}
@@ -591,7 +592,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 246a796628b49d94bbda06923d08d873,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.44
+      value: 1.985
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 246a796628b49d94bbda06923d08d873,
         type: 3}
@@ -643,6 +644,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0
       objectReference: {fileID: 0}
+    - target: {fileID: -4470769532127219509, guid: 246a796628b49d94bbda06923d08d873,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 538861565070457056, guid: 246a796628b49d94bbda06923d08d873,
         type: 3}
       propertyPath: m_LocalScale.y
@@ -657,6 +663,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: L_Shape
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 246a796628b49d94bbda06923d08d873,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960400974417861209, guid: 246a796628b49d94bbda06923d08d873,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8012087812373120664, guid: 246a796628b49d94bbda06923d08d873,
         type: 3}
@@ -677,6 +693,12 @@ MeshRenderer:
 --- !u!4 &1999172893921766280 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 246a796628b49d94bbda06923d08d873,
+    type: 3}
+  m_PrefabInstance: {fileID: 2032465226241576035}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8287858274389854971 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8012087812373120664, guid: 246a796628b49d94bbda06923d08d873,
     type: 3}
   m_PrefabInstance: {fileID: 2032465226241576035}
   m_PrefabAsset: {fileID: 0}
@@ -752,6 +774,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wire Connector (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 846fe5591dcb5dc439a1cfaee68fcd97,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 846fe5591dcb5dc439a1cfaee68fcd97,
         type: 3}
@@ -854,6 +881,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ac49717b43bb65042b03df5f5174bd93,
         type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ac49717b43bb65042b03df5f5174bd93,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -940,6 +972,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wire Connector
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 846fe5591dcb5dc439a1cfaee68fcd97,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 846fe5591dcb5dc439a1cfaee68fcd97,
         type: 3}
