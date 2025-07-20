@@ -14,11 +14,16 @@ public class TowerController : MonoBehaviour
     [SerializeField] private float aimThreshold = 5f;
 
     private Enemy currentTarget;
-    public bool isActive = false;
+    public bool isActive = true;
     public Plug plug;
     private bool manualFireInput; // Track manual firing state
 
+    public GridObject[] gridsOnPath;
 
+    private void Start()
+    {
+        ActivateTower();
+    }
     private void Update()
     {
         manualFireInput = Input.GetKey(KeyCode.Space);
@@ -79,5 +84,19 @@ public class TowerController : MonoBehaviour
     {
         isActive = false;
         shooter.enabled = false;
+    }
+
+    public void CheckMultisOnPath()
+    {
+        float fireRate = 1;
+        foreach (var item in gridsOnPath)
+        {
+            if (item.socket)
+            {
+                fireRate += item.socket.ownMultiplier;
+                item.socket.PowerUp();
+            }
+        }
+        shooter.SetFireRate(fireRate);
     }
 }

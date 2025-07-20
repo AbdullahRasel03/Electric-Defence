@@ -12,6 +12,7 @@ public class GridManager : MonoBehaviour
 {
     [SerializeField] int rowCount, columnCount;
     public List<GridArray> gridArrays;
+    public TowerController[] towers;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,23 +58,29 @@ public class GridManager : MonoBehaviour
 
     private IEnumerator CheckAllGridsPowerWithDelay()
     {
+        yield return new WaitForSeconds(0.1f);
 
-        foreach (var item in gridArrays)
+        foreach (var item in towers)
         {
-            yield return new WaitForSeconds(0.1f);
-            foreach (var grid in item.grids)
-            {
-                if (grid.socket != null)
-                {
-                    grid.socket.CheckPowerActivation();
-                    if (grid.socket.connectedPlug != null)
-                    {
-                        grid.socket.connectedPlug.CheckForSocketsUnderneath();
-                    }
-                }
-               
-            }
+            item.CheckMultisOnPath();
+            print("Here and there");
         }
+        /*  foreach (var item in gridArrays)
+          {
+              yield return new WaitForSeconds(0.1f);
+              foreach (var grid in item.grids)
+              {
+                  if (grid.socket != null)
+                  {
+                      grid.socket.CheckPowerActivation();
+                      if (grid.socket.connectedPlug != null)
+                      {
+                          grid.socket.connectedPlug.CheckForSocketsUnderneath();
+                      }
+                  }
+
+              }
+          }*/
     }
 
     private void Update()

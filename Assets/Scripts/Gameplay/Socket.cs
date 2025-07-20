@@ -23,6 +23,7 @@ public class Socket : MonoBehaviour
     public float pinMoveDuration = 0.3f;
     public Ease pinMoveEase = Ease.OutBack;
     public Renderer socketGFX;
+    public GameObject multiText;
     #endregion
 
     #region Runtime State
@@ -60,47 +61,18 @@ public class Socket : MonoBehaviour
     #endregion
 
     #region Power Handling
-
-    public void CheckPowerActivation()
+    public void PowerUp()
     {
-        actingMultiplier = ownMultiplier;
-        hasPower = false;
-
-        foreach (var socketCube in socketCubes)
-        {
-            if (socketCube.pin != null)
-                socketCube.pin.gameObject.SetActive(false); // Disable all first
-
-            Ray ray = new Ray(socketCube.cube.transform.position, -Vector3.forward);
-            if (Physics.Raycast(ray, out RaycastHit hit, 1.5f, connectableLayers))
-            {
-                var powerSource = hit.collider.GetComponent<PowerSource>();
-                if (powerSource != null)
-                {
-                    actingMultiplier += powerSource.sourcePowerMultiplier;
-                    hasPower = true;
-
-                    if (socketCube.pin != null)
-                        socketCube.pin.gameObject.SetActive(true);
-
-                    continue;
-                }
-
-                Socket otherSocket = hit.collider.GetComponent<Socket>();
-                if (otherSocket != null && otherSocket.hasPower)
-                {
-                    actingMultiplier += otherSocket.actingMultiplier;
-                    hasPower = true;
-
-                    if (socketCube.pin != null)
-                        socketCube.pin.gameObject.SetActive(true);
-                }
-            }
-        }
+        if (socketGFX == null || socketGFX.material == null || hasPower) return;
+        multiText.SetActive(false);
+        hasPower = true;
+        Material mat = socketGFX.material;
+        float currentSaturation = mat.GetFloat("_Saturation");
+        DOTween.To(() => currentSaturation, x => {
+            currentSaturation = x;
+            mat.SetFloat("_Saturation", currentSaturation);
+        }, 1f, 0.2f);
     }
-
-
-
     #endregion
 
 

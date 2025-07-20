@@ -85,7 +85,7 @@ MonoBehaviour:
   targetingSystem: {fileID: 4938270792229561294}
   rotationSpeed: 5
   aimThreshold: 5
-  isActive: 0
+  isActive: 1
   plug: {fileID: 0}
   rotationOffsetY: 45
 --- !u!114 &4938270792229561294

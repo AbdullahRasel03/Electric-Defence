@@ -81,6 +81,7 @@ public class GridObject : MonoBehaviour
                         {
                             foreach (var grd in socket.assignedGrids)
                             {
+                                print("here");
                                 if (grd.gridManager != null)
                                     grd.gridManager.CheckAllGridsPower();
                             }
