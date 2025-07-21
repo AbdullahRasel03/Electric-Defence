@@ -52945,6 +52945,7 @@ MonoBehaviour:
   activeGrids: []
   mergeParticlesPrefab: {fileID: 19870976, guid: ef697b4cb271b7642af97a1a70394631,
     type: 3}
+  gridManager: {fileID: 772491128}
 --- !u!114 &695137986
 MonoBehaviour:
   m_ObjectHideFlags: 0

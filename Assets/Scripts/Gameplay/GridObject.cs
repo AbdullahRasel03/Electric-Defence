@@ -80,13 +80,12 @@ public class GridObject : MonoBehaviour
                         Socket targetSocket = grid.socket;
                         if (targetSocket != null && targetSocket.socketManager.CanMergeSockets(socket, targetSocket))
                         {
+                            targetSocket.socketManager.TryMergeSockets(socket, targetSocket);
                             foreach (var grd in socket.assignedGrids)
                             {
-                                print("here");
                                 if (grd.gridManager != null)
                                     grd.gridManager.CheckAllGridsPower();
                             }
-                            targetSocket.socketManager.TryMergeSockets(socket, targetSocket);
                             return false;
                         }
                     }

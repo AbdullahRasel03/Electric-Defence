@@ -1,8 +1,9 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using DG.Tweening;
+using System.Net.Sockets;
 using Unity.Collections;
+using UnityEngine;
 
 public enum SocketShapeType
 {
@@ -22,7 +23,7 @@ public class SocketManager : MonoBehaviour
 
     [SerializeField] private ParticleSystem mergeParticlesPrefab;
     private SocketSpawner socketSpawner;
-
+    [SerializeField] GridManager gridManager;
     private void Awake()
     {
         socketSpawner = GetComponent<SocketSpawner>();
@@ -168,7 +169,8 @@ public class SocketManager : MonoBehaviour
         incomingSocket.isMerging = false;
         gridSocket.isMerging = false;
         Destroy(incomingSocket.gameObject);
-        yield return null;
+        gridManager.CheckAllGridsPower();
+         yield return null;
     }
 
 }
