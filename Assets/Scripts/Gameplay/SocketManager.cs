@@ -170,6 +170,7 @@ public class SocketManager : MonoBehaviour
         gridSocket.isMerging = false;
         Destroy(incomingSocket.gameObject);
         gridManager.CheckAllGridsPower();
+        gridSocket.UpdateColorAndTextByLevel();
          yield return null;
     }
 
