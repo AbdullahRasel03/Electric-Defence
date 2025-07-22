@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 418990}
   - component: {fileID: 19870976}
   - component: {fileID: 19966264}
-  m_Layer: 0
-  m_Name: ExplosionNovaBlue
+  m_Layer: 14
+  m_Name: ExplosionNovaBlue 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4846,7 +4846,7 @@ GameObject:
   - component: {fileID: 431478}
   - component: {fileID: 19859452}
   - component: {fileID: 19937486}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FireBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9665,7 +9665,7 @@ GameObject:
   - component: {fileID: 465902}
   - component: {fileID: 19854208}
   - component: {fileID: 19984456}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FireCurve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14493,7 +14493,7 @@ GameObject:
   - component: {fileID: 425366}
   - component: {fileID: 19807720}
   - component: {fileID: 19943120}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19366,7 +19366,7 @@ GameObject:
   - component: {fileID: 475642}
   - component: {fileID: 19822950}
   - component: {fileID: 19979454}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Nova
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24212,7 +24212,7 @@ GameObject:
   - component: {fileID: 498796}
   - component: {fileID: 19863978}
   - component: {fileID: 19968154}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29047,6 +29047,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: VFX_Smoke 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2159117630687702523, guid: 3e2a71c232f3245fd85f4d1eceb732f4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2663678536217272736, guid: 3e2a71c232f3245fd85f4d1eceb732f4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -29096,6 +29101,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3860337038316154695, guid: 3e2a71c232f3245fd85f4d1eceb732f4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7779575083197639598, guid: 3e2a71c232f3245fd85f4d1eceb732f4,
         type: 3}
@@ -29200,6 +29210,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VFX_Smoke
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981313134865858321, guid: 0fb4ca28e2f34414a9e842474eb6ccbb,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -21,9 +21,11 @@ public class TowerController : MonoBehaviour
 
     public GridObject[] gridsOnPath;
     public TMP_Text powerText;
+
+
     private void Start()
     {
-        ActivateTower();
+       // ActivateTower();
     }
     private void Update()
     {

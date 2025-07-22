@@ -22,7 +22,7 @@ public class Socket : MonoBehaviour
     public float actingMultiplier = 1f;
     public float pinMoveDuration = 0.3f;
     public Ease pinMoveEase = Ease.OutBack;
-    public Renderer glowGFX, coloredGFX;
+    public Renderer gfx;
     public GameObject multiText;
     #endregion
 
@@ -63,10 +63,10 @@ public class Socket : MonoBehaviour
     #region Power Handling
     public void PowerUp()
     {
-        if (glowGFX == null || glowGFX.material == null || hasPower) return;
+        if (gfx == null || gfx.material == null || hasPower) return;
        // multiText.SetActive(false);
         hasPower = true;
-        Material mat = glowGFX.material;
+        Material mat = gfx.materials[1];
         Color currentEmission = mat.GetColor("_Emissive");
         Color targetEmission = currentEmission + Color.cyan * 10f;
         DOTween.To(() => currentEmission, x => {
@@ -87,7 +87,7 @@ public class Socket : MonoBehaviour
         if (levelColors == null || levelColors.Length == 0) return;
 
         Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
-        coloredGFX.material.color = colorToApply;
+        gfx.materials[0].color = colorToApply;
     }
 
     private void UpdateFireRateDisplay()

@@ -21,7 +21,7 @@ public class SocketManager : MonoBehaviour
     [SerializeField] private List<Socket> spawnedNewSockets = new();
     [SerializeField] public List<Socket> activeGrids = new();
 
-    [SerializeField] private ParticleSystem mergeParticlesPrefab;
+    [SerializeField] private GameObject mergeParticlesPrefab;
     private SocketSpawner socketSpawner;
     [SerializeField] GridManager gridManager;
     private void Awake()
@@ -134,7 +134,8 @@ public class SocketManager : MonoBehaviour
         // Particle effect (optional)
         if (mergeParticlesPrefab)
         {
-            Instantiate(mergeParticlesPrefab, gridSocket.transform.position + Vector3.up * 0.1f, Quaternion.identity);
+           GameObject mergeParticle = Instantiate(mergeParticlesPrefab, gridSocket.transform.position + Vector3.up * 0.5f, Quaternion.identity);
+            Destroy(mergeParticle, 2);
         }
 
         // Merge logic
