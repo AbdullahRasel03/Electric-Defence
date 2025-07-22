@@ -139,6 +139,8 @@ public class Enemy : MonoBehaviour
     {
         if (!IsActive) return;
 
+        AudioManager.CallPlaySFX(Sound.EnemyHit);
+
         StopCoroutine(DoDamageFlash());
         StartCoroutine(DoDamageFlash());
 
@@ -199,8 +201,6 @@ public class Enemy : MonoBehaviour
     private void UpdateHealthUI()
     {
         if (healthText == null) return;
-
-        Debug.LogError(_currentHealth);
 
         healthText.text = $"{Mathf.Round(_currentHealth)}";
         healthText.transform.forward = Camera.main.transform.forward;

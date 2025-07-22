@@ -42,6 +42,7 @@ public class AudioManager : MonoBehaviour
     {
         if (Instance == null)
         {
+            hearAudibleSFX = true;
             Instance = this;
         }
         else
@@ -92,8 +93,8 @@ public class AudioManager : MonoBehaviour
 
     private void TriggerSFX(Sound sound)
     {
-        if (!hearAudibleSFX)
-            return;
+        // if (!hearAudibleSFX)
+        //     return;
         if (SoundToClip.ContainsKey(sound))
         {
             try
@@ -178,6 +179,7 @@ public class AudioManager : MonoBehaviour
     public void SetSFXPermissionValue(bool canPlaySFX)
     {
         hearAudibleSFX = canPlaySFX;
+        hearAudibleSFX = true;
         //TO DO: Save Can Play Audio SFX
     }
 

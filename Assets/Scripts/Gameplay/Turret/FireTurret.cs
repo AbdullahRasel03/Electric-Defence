@@ -9,6 +9,7 @@ public class FireTurret : Turret
     [SerializeField] private ParticleSystem fireMuzzle;
     [SerializeField] private ParticleSystem fireImpact;
     [SerializeField] private GameObject fireProjectilePrefab;
+    [SerializeField] private Sound fireSound;
 
     private float fireTime = 0f;
 
@@ -26,6 +27,8 @@ public class FireTurret : Turret
             {
                 turretBody.transform.DOLocalMoveZ(0f, 0.1f);
             });
+
+            AudioManager.CallPlaySFX(fireSound);
 
             fireMuzzle.Play();
 

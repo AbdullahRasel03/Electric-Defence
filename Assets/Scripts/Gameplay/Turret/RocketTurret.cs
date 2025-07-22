@@ -27,6 +27,8 @@ public class RocketTurret : Turret
                 turretBody.transform.DOLocalMoveZ(0f, 0.1f);
             });
 
+            AudioManager.CallPlaySFX(Sound.RocketTurretShot);
+
             fireMuzzle.Play();
 
             // Create a fire projectile towards the target

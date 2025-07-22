@@ -6,4 +6,8 @@ public enum Sound
     TroopEquipped,
     TroopUpgrade,
     ErrorAlert,
+    FireTurretShot,
+    LaserTurretShot,
+    RocketTurretShot,
+    EnemyHit
 }

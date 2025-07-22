@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public int InitialSkillTokenAmount = 0;
 
     [SerializeReference] private MobileNotificationController mobileNotificationController;
-    [SerializeField] private List<TroopDataSO> allHeroData; 
+    [SerializeField] private List<TroopDataSO> allHeroData;
 
     private PreferenceData preferenceData;
     private EconomyData economyData;
@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
 
         AudioManager.GetInstance().SetBGMPermissionValue(isBgmOn);
         AudioManager.GetInstance().SetSFXPermissionValue(isSfxOn);
-        VibrationManager.instance.SetVibration(isVibrationOn);
+        // VibrationManager.instance.SetVibration(isVibrationOn);
         AudioManager.GetInstance().Init();
     }
 
@@ -183,7 +183,7 @@ public class GameManager : MonoBehaviour
         SaveLoadManager.SaveEconomyData(economyData);
         UiManager.GetInstance().UpdateSkillTokenInUI();
     }
-    
+
     public void AddHeroFragments(int troopId, int amount)
     {
         if (economyData.troopFragmentsData.ContainsKey(troopId))
