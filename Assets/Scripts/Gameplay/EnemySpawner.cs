@@ -82,7 +82,7 @@ public class EnemySpawner : MonoBehaviour
 
         EnemyConfig config = GetRandomEnemyConfig();
         Transform spawnPoint = GetRandomSpawnPoint();
-        Vector3 spawnOffset = new Vector3(0, 0, 100f);
+        Vector3 spawnOffset = new Vector3(0, 0, 35f);
 
         GameObject enemyObj = ObjectPool.instance.GetObject(
             config.prefab,

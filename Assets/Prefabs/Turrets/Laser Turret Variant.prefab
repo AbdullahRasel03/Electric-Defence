@@ -161,7 +161,7 @@ MonoBehaviour:
   turretBody: {fileID: 7363283894273836073}
   range: 45
   rotationSpeed: 5
-  fireDelay: 1
+  fireDelay: 0.75
   shootPoint: {fileID: 6492124083457505758}
   fireMuzzle: {fileID: 8687294969616388347}
   fireImpact: {fileID: 4733833923560191842, guid: 8c6f98d6eab364da7acd68f9455471a7,

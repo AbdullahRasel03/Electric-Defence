@@ -1095,7 +1095,6 @@ GameObject:
   m_Component:
   - component: {fileID: 38693296}
   - component: {fileID: 38693295}
-  - component: {fileID: 38693294}
   - component: {fileID: 38693293}
   m_Layer: 0
   m_Name: TopDown
@@ -1149,14 +1148,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &38693294
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 38693292}
-  m_Enabled: 1
 --- !u!20 &38693295
 Camera:
   m_ObjectHideFlags: 0
@@ -9182,7 +9173,7 @@ Transform:
   m_GameObject: {fileID: 499961671}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 0, z: 14.5}
+  m_LocalPosition: {x: 9, y: 0, z: 14.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23444,7 +23435,7 @@ Transform:
   m_GameObject: {fileID: 841045743}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3, y: 0, z: 15.3}
+  m_LocalPosition: {x: -4.79, y: 0, z: 14.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23475,7 +23466,7 @@ Transform:
   m_GameObject: {fileID: 847438224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: 14.5}
+  m_LocalPosition: {x: -8.97, y: 0, z: 14.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55562,7 +55553,7 @@ Transform:
   m_GameObject: {fileID: 1252503342}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.8, y: 0, z: 16.4}
+  m_LocalPosition: {x: 4.57, y: 0, z: 14.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

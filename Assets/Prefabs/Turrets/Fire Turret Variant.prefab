@@ -60,7 +60,7 @@ PrefabInstance:
     - target: {fileID: 8154962034931220629, guid: bd3111d7b003ed040b9e860c3572624c,
         type: 3}
       propertyPath: fireDelay
-      value: 1.5
+      value: 1.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

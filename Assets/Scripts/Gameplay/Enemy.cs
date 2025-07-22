@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Material damageMaterial;
     [SerializeField] private Animator animator;
 
-    [SerializeField] private ParticleSystem warpTrail;
+    [SerializeField] private List<ParticleSystem> warpTrail;
 
     #endregion
 
@@ -104,14 +104,17 @@ public class Enemy : MonoBehaviour
         {
             renderer.material = enemyMaterial;
         }
-        warpTrail.Play();
-        maxHealth = _maxHealth;
+        warpTrail.ForEach(trail => trail.Play());
+        // maxHealth = _maxHealth;
         transform.rotation = rotation;
         transform.DOMove(position, 0.5f).SetEase(Ease.OutQuint)
             .OnComplete(() => StartCoroutine(TurnOffWarpTrail()));
         // transform.SetPositionAndRotation(position, rotation);
         _currentHealth = maxHealth;
         _currentState = EnemyState.Active;
+
+        // Debug.LogError(_currentHealth);
+        // Debug.LogError(maxHealth);
 
         SetPhysicsEnabled(true);
         SetHealthTextEnabled(true);
@@ -123,8 +126,8 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator TurnOffWarpTrail()
     {
-        yield return new WaitForSeconds(0.25f);
-        warpTrail.Stop();
+        yield return new WaitForSeconds(0.15f);
+        warpTrail.ForEach(trail => trail.Stop());
     }
 
     public void TakeDamage(float damage)
@@ -191,6 +194,8 @@ public class Enemy : MonoBehaviour
     private void UpdateHealthUI()
     {
         if (healthText == null) return;
+
+        Debug.LogError(_currentHealth);
 
         healthText.text = $"{Mathf.Round(_currentHealth)}";
         healthText.transform.forward = Camera.main.transform.forward;
