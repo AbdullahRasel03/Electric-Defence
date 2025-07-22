@@ -52961,7 +52961,6 @@ MonoBehaviour:
   allSocketPrefabs:
   - {fileID: 1230197801516366146, guid: f313cac0e533bdb43874cbed586cebf5, type: 3}
   - {fileID: 5347411051580915485, guid: b4400e3b76011ef449642e5309759acd, type: 3}
-  - {fileID: 5347411051580915485, guid: 8ff48d6359153124aad868941b3e2a24, type: 3}
   newSocketSpawnTransforms:
   - {fileID: 2122861550}
   - {fileID: 1248276687}

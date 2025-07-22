@@ -22,7 +22,7 @@ public class Socket : MonoBehaviour
     public float actingMultiplier = 1f;
     public float pinMoveDuration = 0.3f;
     public Ease pinMoveEase = Ease.OutBack;
-    public Renderer socketGFX, socketOuterGFX;
+    public Renderer glowGFX, coloredGFX;
     public GameObject multiText;
     #endregion
 
@@ -35,7 +35,7 @@ public class Socket : MonoBehaviour
     public List<GridObject> assignedGrids = new();
     public SocketManager socketManager;
 
-    private TMP_Text[] fireRateTexts;
+    public TMP_Text[] fireRateTexts;
     public Transform plugHolder;
     public Plug connectedPlug;
     #endregion
@@ -53,9 +53,9 @@ public class Socket : MonoBehaviour
         UpdateColorAndTextByLevel();
     }
 
-    private void AssignFireRateTexts()
+    public void AssignFireRateTexts()
     {
-        fireRateTexts = cubesParent.GetComponentsInChildren<TMP_Text>();
+       // fireRateTexts = cubesParent.GetComponentsInChildren<TMP_Text>();
     }
 
     #endregion
@@ -63,16 +63,18 @@ public class Socket : MonoBehaviour
     #region Power Handling
     public void PowerUp()
     {
-        if (socketGFX == null || socketGFX.material == null || hasPower) return;
-        multiText.SetActive(false);
+        if (glowGFX == null || glowGFX.material == null || hasPower) return;
+       // multiText.SetActive(false);
         hasPower = true;
-        Material mat = socketGFX.material;
-        float currentSaturation = mat.GetFloat("_Saturation");
-        DOTween.To(() => currentSaturation, x => {
-            currentSaturation = x;
-            mat.SetFloat("_Saturation", currentSaturation);
-        }, 1f, 0.2f);
+        Material mat = glowGFX.material;
+        Color currentEmission = mat.GetColor("_Emissive");
+        Color targetEmission = currentEmission + Color.cyan * 10f;
+        DOTween.To(() => currentEmission, x => {
+            currentEmission = x;
+            mat.SetColor("_Emissive", currentEmission);
+        }, targetEmission, 1f);
     }
+
     #endregion
 
 
@@ -85,7 +87,7 @@ public class Socket : MonoBehaviour
         if (levelColors == null || levelColors.Length == 0) return;
 
         Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
-        socketOuterGFX.material.color = colorToApply;
+        coloredGFX.material.color = colorToApply;
     }
 
     private void UpdateFireRateDisplay()
