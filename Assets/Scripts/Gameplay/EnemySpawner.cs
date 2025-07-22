@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         InitializePool();
-       // StartSpawning();
+        StartSpawning();
     }
 
     private void InitializePool()
@@ -82,11 +82,12 @@ public class EnemySpawner : MonoBehaviour
 
         EnemyConfig config = GetRandomEnemyConfig();
         Transform spawnPoint = GetRandomSpawnPoint();
+        Vector3 spawnOffset = new Vector3(0, 0, 100f);
 
         GameObject enemyObj = ObjectPool.instance.GetObject(
             config.prefab,
             true,
-            spawnPoint.position,
+            spawnPoint.position + spawnOffset,
             spawnPoint.rotation
         );
 

@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Enemy : MonoBehaviour
 {
@@ -22,8 +24,12 @@ public class Enemy : MonoBehaviour
     [Header("Visual Effects")]
     [SerializeField] private GameObject damageParticlePrefab;
     [SerializeField] private GameObject deathParticlePrefab;
-    [SerializeField] private Renderer enemyMesh;
+    [SerializeField] private List<Renderer> enemyMesh;
+    [SerializeField] private Material enemyMaterial;
+    [SerializeField] private Material damageMaterial;
     [SerializeField] private Animator animator;
+
+    [SerializeField] private ParticleSystem warpTrail;
 
     #endregion
 
@@ -93,8 +99,17 @@ public class Enemy : MonoBehaviour
     /// <param name="rotation">World rotation to apply</param>
     public void ActivateEnemy(Vector3 position, Quaternion rotation, float _maxHealth)
     {
+        // warpTrail.gameObject.SetActive(true);
+        foreach (Renderer renderer in enemyMesh)
+        {
+            renderer.material = enemyMaterial;
+        }
+        warpTrail.Play();
         maxHealth = _maxHealth;
-        transform.SetPositionAndRotation(position, rotation);
+        transform.rotation = rotation;
+        transform.DOMove(position, 0.5f).SetEase(Ease.OutQuint)
+            .OnComplete(() => StartCoroutine(TurnOffWarpTrail()));
+        // transform.SetPositionAndRotation(position, rotation);
         _currentHealth = maxHealth;
         _currentState = EnemyState.Active;
 
@@ -106,15 +121,39 @@ public class Enemy : MonoBehaviour
         EnemyManager.Instance?.RegisterEnemy(this);
     }
 
+    private IEnumerator TurnOffWarpTrail()
+    {
+        yield return new WaitForSeconds(0.25f);
+        warpTrail.Stop();
+    }
+
     public void TakeDamage(float damage)
     {
         if (!IsActive) return;
+
+        StopCoroutine(DoDamageFlash());
+        StartCoroutine(DoDamageFlash());
 
         PlayHitAnimation();
         ApplyDamage(damage);
         SpawnDamageParticles();
 
         CheckForDeath();
+    }
+
+    private IEnumerator DoDamageFlash()
+    {
+        foreach (Renderer renderer in enemyMesh)
+        {
+            renderer.material = damageMaterial;
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        foreach (Renderer renderer in enemyMesh)
+        {
+            renderer.material = enemyMaterial;
+        }
     }
 
     #endregion
@@ -187,8 +226,8 @@ public class Enemy : MonoBehaviour
 
     private void PlayDeathAnimation()
     {
-        if(animator)
-        animator.Play("Death");
+        if (animator)
+            animator.Play("Death");
     }
 
     private void SpawnDeathParticles()

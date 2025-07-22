@@ -289,9 +289,9 @@ Material:
     - _ReflectionRim: 0
     - _ReflectionSpecular: 0
     - _Rim: 0
-    - _RimAmount: 1
+    - _RimAmount: 25
     - _RimBlend: 1
-    - _RimContrast: 5
+    - _RimContrast: 0
     - _RimInverse: 0
     - _Saturation: 1
     - _ShadowOverlayAnimation: 0
