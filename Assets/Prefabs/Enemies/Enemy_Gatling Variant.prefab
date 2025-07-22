@@ -185,6 +185,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trail (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1794327305012484128, guid: f67a55eb97e524b3db284544618359a0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8400201989462247636, guid: f67a55eb97e524b3db284544618359a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -294,15 +299,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 408740, guid: b37daab609aeb204c80873d303f25508, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.72
+      value: 4.4
       objectReference: {fileID: 0}
     - target: {fileID: 408740, guid: b37daab609aeb204c80873d303f25508, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10
+      value: 5.47
       objectReference: {fileID: 0}
     - target: {fileID: 408740, guid: b37daab609aeb204c80873d303f25508, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.88
+      value: 31.4
       objectReference: {fileID: 0}
     - target: {fileID: 408740, guid: b37daab609aeb204c80873d303f25508, type: 3}
       propertyPath: m_LocalRotation.w
@@ -419,14 +424,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1b15e4a89a88547bd63d38d3a042a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 120
+  maxHealth: 100
   healthText: {fileID: 7354522263728325371}
-  movementSpeed: 2.5
+  movementSpeed: 2.75
   enemyType: 0
   sinkDuration: 2
   sinkDepth: 2
   damageParticlePrefab: {fileID: 145150, guid: 16d4b504584fb1d4784bc23462900274, type: 3}
-  deathParticlePrefab: {fileID: 150592, guid: 2c82b2af38b82f442bd9a24539b8d33c, type: 3}
+  deathParticlePrefab: {fileID: 3030505862732488420, guid: c17ae050383d94c17aaf727a09e284ea,
+    type: 3}
   enemyMesh:
   - {fileID: 1055892495051117282}
   - {fileID: 1055892495051092106}
@@ -464,8 +470,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!1001 &5089112149344733966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -478,6 +484,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Trail (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794327305012484128, guid: f67a55eb97e524b3db284544618359a0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8400201989462247636, guid: f67a55eb97e524b3db284544618359a0,
         type: 3}
@@ -558,6 +569,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Trail
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794327305012484128, guid: f67a55eb97e524b3db284544618359a0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8400201989462247636, guid: f67a55eb97e524b3db284544618359a0,
         type: 3}

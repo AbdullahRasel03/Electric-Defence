@@ -4,6 +4,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour
 {
 
@@ -99,6 +100,10 @@ public class Enemy : MonoBehaviour
     /// <param name="rotation">World rotation to apply</param>
     public void ActivateEnemy(Vector3 position, Quaternion rotation, float _maxHealth)
     {
+        _rigidbody.isKinematic = true;
+        _rigidbody.useGravity = false;
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
         // warpTrail.gameObject.SetActive(true);
         foreach (Renderer renderer in enemyMesh)
         {
@@ -231,17 +236,18 @@ public class Enemy : MonoBehaviour
 
     private void PlayDeathAnimation()
     {
-        if (animator)
-            animator.Play("Death");
+        // if (animator)
+        //     animator.Play("Death");
     }
 
     private void SpawnDeathParticles()
     {
         if (deathParticlePrefab == null) return;
 
-        var particle = ObjectPool.instance.GetObject(deathParticlePrefab,
+        GameObject particle = ObjectPool.instance.GetObject(deathParticlePrefab,
             true, transform.position, Quaternion.identity);
-        ObjectPool.instance.ReturnToPool(particle, 2f);
+
+        particle.GetComponent<ParticleSystem>().Play();
     }
 
     private void NotifyDeath()
@@ -252,11 +258,21 @@ public class Enemy : MonoBehaviour
     private void StartSinking()
     {
         _currentState = EnemyState.Sinking;
-        SetPhysicsEnabled(false);
+        // SetPhysicsEnabled(false);
 
-        _sinkTween = transform.DOMoveY(transform.position.y - sinkDepth, sinkDuration)
-            .SetEase(Ease.InQuad)
-            .OnComplete(CompleteDeathSequence);
+        _rigidbody.isKinematic = false;
+        _rigidbody.useGravity = true;
+
+        _rigidbody.AddForce(new Vector3(0, -5, 15), ForceMode.Impulse);
+
+        DOVirtual.DelayedCall(1.5f, () =>
+        {
+            CompleteDeathSequence();
+        });
+
+        // _sinkTween = transform.DOMoveY(transform.position.y - sinkDepth, sinkDuration)
+        //     .SetEase(Ease.InQuad)
+        //     .OnComplete(CompleteDeathSequence);
     }
 
     private void CompleteDeathSequence()

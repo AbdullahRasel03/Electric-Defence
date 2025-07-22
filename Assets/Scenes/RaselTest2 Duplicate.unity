@@ -2824,7 +2824,7 @@ Transform:
   m_GameObject: {fileID: 179066884}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0, z: 14.5}
+  m_LocalPosition: {x: -0.5, y: 5, z: 12.900002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9173,7 +9173,7 @@ Transform:
   m_GameObject: {fileID: 499961671}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9, y: 0, z: 14.5}
+  m_LocalPosition: {x: 9, y: 5, z: 12.900002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23435,7 +23435,7 @@ Transform:
   m_GameObject: {fileID: 841045743}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.79, y: 0, z: 14.34}
+  m_LocalPosition: {x: -4.79, y: 5, z: 12.740002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23466,7 +23466,7 @@ Transform:
   m_GameObject: {fileID: 847438224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.97, y: 0, z: 14.5}
+  m_LocalPosition: {x: -8.97, y: 5, z: 12.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55553,7 +55553,7 @@ Transform:
   m_GameObject: {fileID: 1252503342}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.57, y: 0, z: 14.3}
+  m_LocalPosition: {x: 4.57, y: 5, z: 12.700002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55995,9 +55995,25 @@ MonoBehaviour:
   enemyConfigs:
   - prefab: {fileID: 7974130592062837775, guid: 17f0ff8167ad14e5993233637416f64b,
       type: 3}
-    spawnWeight: 0.5
+    spawnWeight: 0.7
     health: 40
   - prefab: {fileID: 1055892495053101556, guid: c755d05d537b24d6c8ec431374aa7c34,
+      type: 3}
+    spawnWeight: 0.7
+    health: 40
+  - prefab: {fileID: 5100679093373183185, guid: fb00e37ff121f49a48a32089a2f58536,
+      type: 3}
+    spawnWeight: 0.7
+    health: 40
+  - prefab: {fileID: 9079092282280442874, guid: a155bdc68254a40d58dcb0ced73286b4,
+      type: 3}
+    spawnWeight: 0.7
+    health: 40
+  - prefab: {fileID: 8242352279948615975, guid: 1d56b97f28f8a4ec0a1e54cd7a9d883f,
+      type: 3}
+    spawnWeight: 0.7
+    health: 40
+  - prefab: {fileID: 7834327631995091101, guid: 0949fa6a8f257434b8b5ee56540aefc3,
       type: 3}
     spawnWeight: 0.7
     health: 40
