@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class GridObject : MonoBehaviour
 {
-    public GridManager gridManager;
     public bool isOccupied;
+    public bool isLaserPath;
+    public bool isBlocked;
+    public GameObject gridGFX;
+
+    public GridManager gridManager;
     public LayerMask gridLayer;
     public Transform plugSocketHolder;
 
@@ -15,11 +19,25 @@ public class GridObject : MonoBehaviour
     private Color defaultColor;
     public Color highlightColor = Color.yellow;
 
+
+
     private void Awake()
     {
         defaultColor = gridRenderer.material.color;
     }
-
+    private void Start()
+    {
+        if (isBlocked)
+        {
+            gridRenderer.enabled = false;
+            gridGFX.SetActive(false);
+            GetComponent<Collider>().enabled = false;
+        }
+        else if (isLaserPath)
+        {
+           // gridRenderer.enabled = false;
+        }
+    }
     public void Highlight()
     {
         gridRenderer.material.color = highlightColor;
@@ -62,12 +80,12 @@ public class GridObject : MonoBehaviour
                         Socket targetSocket = grid.socket;
                         if (targetSocket != null && targetSocket.socketManager.CanMergeSockets(socket, targetSocket))
                         {
+                            targetSocket.socketManager.TryMergeSockets(socket, targetSocket);
                             foreach (var grd in socket.assignedGrids)
                             {
                                 if (grd.gridManager != null)
                                     grd.gridManager.CheckAllGridsPower();
                             }
-                            targetSocket.socketManager.TryMergeSockets(socket, targetSocket);
                             return false;
                         }
                     }

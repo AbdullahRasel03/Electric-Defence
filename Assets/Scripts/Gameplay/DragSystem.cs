@@ -179,6 +179,7 @@ public class DragSystem : MonoBehaviour
 
             socket.socketManager.RemoveSocketFromSpwanedList(socket);
             socket.socketManager.activeGrids.Add(socket);
+           
             newPosition.y = 0;
             socket.transform.DOMove(newPosition + Vector3.forward * 0.3f, 0.25f).OnComplete(() =>
             {
@@ -186,6 +187,7 @@ public class DragSystem : MonoBehaviour
                 {
                     foreach (var grid in socket.assignedGrids)
                     {
+                       
                         if (grid.gridManager != null)
                         {
                             grid.gridManager.CheckAllGridsPower();

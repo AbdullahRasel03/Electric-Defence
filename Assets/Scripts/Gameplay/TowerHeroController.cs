@@ -8,7 +8,7 @@ public class TowerHeroController : MonoBehaviour
 
     public bool isFiring;
     [SerializeField] private TowerController towerController;
-    [SerializeField] private float fireRate = 1f;
+    [SerializeField] private float fireRate = 0f;
     [SerializeField] private float damagePerShot = 10f;
 
     [SerializeField] private GameObject bulletPrefab;
@@ -130,8 +130,14 @@ public class TowerHeroController : MonoBehaviour
 
     public void SetFireRate(float newRate)
     {
-        fireRate = Mathf.Max(newRate, 0.01f);
+       // fireRate = Mathf.Max(newRate, 0.01f);
+        fireRate = newRate;
         fireCooldown = 0f;
         animator.SetFloat("FireSpeed", Mathf.Max(1f, fireRate));
+    }
+
+    public float GetFireRate() {
+
+        return fireRate;
     }
 }

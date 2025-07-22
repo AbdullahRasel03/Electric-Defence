@@ -22,7 +22,8 @@ public class Socket : MonoBehaviour
     public float actingMultiplier = 1f;
     public float pinMoveDuration = 0.3f;
     public Ease pinMoveEase = Ease.OutBack;
-    public Renderer socketGFX;
+    public Renderer glowGFX, coloredGFX;
+    public GameObject multiText;
     #endregion
 
     #region Runtime State
@@ -34,7 +35,7 @@ public class Socket : MonoBehaviour
     public List<GridObject> assignedGrids = new();
     public SocketManager socketManager;
 
-    private TMP_Text[] fireRateTexts;
+    public TMP_Text[] fireRateTexts;
     public Transform plugHolder;
     public Plug connectedPlug;
     #endregion
@@ -52,54 +53,27 @@ public class Socket : MonoBehaviour
         UpdateColorAndTextByLevel();
     }
 
-    private void AssignFireRateTexts()
+    public void AssignFireRateTexts()
     {
-        fireRateTexts = cubesParent.GetComponentsInChildren<TMP_Text>();
+       // fireRateTexts = cubesParent.GetComponentsInChildren<TMP_Text>();
     }
 
     #endregion
 
     #region Power Handling
-
-    public void CheckPowerActivation()
+    public void PowerUp()
     {
-        actingMultiplier = ownMultiplier;
-        hasPower = false;
-
-        foreach (var socketCube in socketCubes)
-        {
-            if (socketCube.pin != null)
-                socketCube.pin.gameObject.SetActive(false); // Disable all first
-
-            Ray ray = new Ray(socketCube.cube.transform.position, -Vector3.forward);
-            if (Physics.Raycast(ray, out RaycastHit hit, 1.5f, connectableLayers))
-            {
-                var powerSource = hit.collider.GetComponent<PowerSource>();
-                if (powerSource != null)
-                {
-                    actingMultiplier += powerSource.sourcePowerMultiplier;
-                    hasPower = true;
-
-                    if (socketCube.pin != null)
-                        socketCube.pin.gameObject.SetActive(true);
-
-                    continue;
-                }
-
-                Socket otherSocket = hit.collider.GetComponent<Socket>();
-                if (otherSocket != null && otherSocket.hasPower)
-                {
-                    actingMultiplier += otherSocket.actingMultiplier;
-                    hasPower = true;
-
-                    if (socketCube.pin != null)
-                        socketCube.pin.gameObject.SetActive(true);
-                }
-            }
-        }
+        if (glowGFX == null || glowGFX.material == null || hasPower) return;
+       // multiText.SetActive(false);
+        hasPower = true;
+        Material mat = glowGFX.material;
+        Color currentEmission = mat.GetColor("_Emissive");
+        Color targetEmission = currentEmission + Color.cyan * 10f;
+        DOTween.To(() => currentEmission, x => {
+            currentEmission = x;
+            mat.SetColor("_Emissive", currentEmission);
+        }, targetEmission, 1f);
     }
-
-
 
     #endregion
 
@@ -113,7 +87,7 @@ public class Socket : MonoBehaviour
         if (levelColors == null || levelColors.Length == 0) return;
 
         Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
-        socketGFX.material.color = colorToApply;
+        coloredGFX.material.color = colorToApply;
     }
 
     private void UpdateFireRateDisplay()
