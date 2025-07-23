@@ -9,5 +9,8 @@ public enum Sound
     FireTurretShot,
     LaserTurretShot,
     RocketTurretShot,
-    EnemyHit
+    EnemyHit,
+    RocketExplosion,
+    EnemyDeath,
+    EnemyAppear
 }

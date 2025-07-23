@@ -1,5 +1,114 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1493525564915239878
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3027330969359848946}
+    m_Modifications:
+    - target: {fileID: 4733563594552637660, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4733563594552637660, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 4733563594552637660, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855104306849538064, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.6666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855104306849538064, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.6666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855104306849538064, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.6666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855104306849538064, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855104306849538064, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855104306849538064, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855104306849538064, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855104306849538064, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855104306849538064, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855104306849538064, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855104306849538064, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855104306849538064, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855104306849538064, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4860765678486631056, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861148323982353340, guid: 8c6f98d6eab364da7acd68f9455471a7,
+        type: 3}
+      propertyPath: m_Name
+      value: Laser Turret Impact Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8c6f98d6eab364da7acd68f9455471a7, type: 3}
+--- !u!4 &6330612135890037718 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4855104306849538064, guid: 8c6f98d6eab364da7acd68f9455471a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1493525564915239878}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3030087501146833770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73,10 +182,45 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 198000011314615104, guid: f49989ab2f7c73b41ab0248d58b81116,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000011314615104, guid: f49989ab2f7c73b41ab0248d58b81116,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.scalar
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000011314615104, guid: f49989ab2f7c73b41ab0248d58b81116,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[2].countCurve.scalar
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000011708101332, guid: f49989ab2f7c73b41ab0248d58b81116,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000011708101332, guid: f49989ab2f7c73b41ab0248d58b81116,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 198000012253202536, guid: f49989ab2f7c73b41ab0248d58b81116,
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012525642622, guid: f49989ab2f7c73b41ab0248d58b81116,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012525642622, guid: f49989ab2f7c73b41ab0248d58b81116,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 198060361127641440, guid: f49989ab2f7c73b41ab0248d58b81116,
         type: 3}
@@ -87,6 +231,21 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198937352194865334, guid: f49989ab2f7c73b41ab0248d58b81116,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198969987391498998, guid: f49989ab2f7c73b41ab0248d58b81116,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 198969987391498998, guid: f49989ab2f7c73b41ab0248d58b81116,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 199000010104902038, guid: f49989ab2f7c73b41ab0248d58b81116,
         type: 3}
@@ -165,7 +324,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4000010921236120, guid: f49989ab2f7c73b41ab0248d58b81116,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6330612135890037718}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1000012903210382, guid: f49989ab2f7c73b41ab0248d58b81116,
         type: 3}
@@ -176,6 +339,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 47042536005020288}
   m_SourcePrefab: {fileID: 100100000, guid: f49989ab2f7c73b41ab0248d58b81116, type: 3}
+--- !u!4 &3027330969359848946 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4000010921236120, guid: f49989ab2f7c73b41ab0248d58b81116,
+    type: 3}
+  m_PrefabInstance: {fileID: 3030087501146833770}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3028910127341332518 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1637386437405516, guid: f49989ab2f7c73b41ab0248d58b81116,

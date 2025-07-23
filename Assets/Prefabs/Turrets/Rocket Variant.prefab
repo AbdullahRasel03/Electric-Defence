@@ -123,6 +123,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 484214, guid: f10cb9f4e98ef41458c6a3b9b696648e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 484214, guid: f10cb9f4e98ef41458c6a3b9b696648e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 484214, guid: f10cb9f4e98ef41458c6a3b9b696648e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -180,7 +192,7 @@ MonoBehaviour:
     type: 3}
   fireProjectilePrefab: {fileID: 3716577373055670218, guid: 41de23f12793e4a24a3c833ddfc53a89,
     type: 3}
-  explosionDamageRadius: 5
+  explosionDamageRadius: 7
 --- !u!1001 &1909698935637670172
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -56,6 +56,7 @@ public class RocketProjectile : Projectile
 
     private void OnExplosionRequired()
     {
+        AudioManager.CallPlaySFX(Sound.RocketExplosion);
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
         foreach (Collider collider in colliders)

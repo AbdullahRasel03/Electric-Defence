@@ -112,6 +112,7 @@ public class Enemy : MonoBehaviour
         warpTrail.ForEach(trail => trail.Play());
         // maxHealth = _maxHealth;
         transform.rotation = rotation;
+        AudioManager.CallPlaySFX(Sound.EnemyAppear);
         transform.DOMove(position, 0.5f).SetEase(Ease.OutQuint)
             .OnComplete(() => StartCoroutine(TurnOffWarpTrail()));
         // transform.SetPositionAndRotation(position, rotation);
@@ -225,6 +226,7 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        AudioManager.CallPlaySFX(Sound.EnemyDeath);
         _currentState = EnemyState.Dying;
         SetHealthTextEnabled(false);
 
