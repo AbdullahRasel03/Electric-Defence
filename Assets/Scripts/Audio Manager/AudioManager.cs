@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("AudioClip")]
     public AudioClip BGM;
-    [Range(0f, 0.1f)]
+    [Range(0f, 1f)]
     public float bgmVolume = 0.7f;
     [Space]
     [SerializeField] private SoundAudioClipPair[] soundAudioClipPairs;
@@ -131,15 +131,15 @@ public class AudioManager : MonoBehaviour
 
     private void PlayBGM()
     {
-        if (!hearAudibleBGM)
-            return;
+        // if (!hearAudibleBGM)
+        //     return;
 
-        if (!bgmSource.isPlaying)
-        {
-            bgmSource.clip = BGM;
-            bgmSource.volume = GetBGMVolume();
-            bgmSource.Play();
-        }
+        // if (!bgmSource.isPlaying)
+        // {
+        bgmSource.clip = BGM;
+        bgmSource.volume = bgmVolume;
+        bgmSource.Play();
+        // }
     }
 
     #region Internal Methods
@@ -192,6 +192,7 @@ public class AudioManager : MonoBehaviour
     public void SetBGMPermissionValue(bool canPlayBGM)
     {
         hearAudibleBGM = canPlayBGM;
+        hearAudibleBGM = true;
         // TO DO: Save Can Play Audio BGM
 
         if (!canPlayBGM)

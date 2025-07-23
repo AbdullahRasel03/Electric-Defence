@@ -1892,6 +1892,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6026337440544013508, guid: 1fbd3da358f144953934ec27be311341,
         type: 3}
+      propertyPath: BGM
+      value: 
+      objectReference: {fileID: 8300000, guid: 4e8e004f63ab44b5cb3ccdb1b9c531a9, type: 3}
+    - target: {fileID: 6026337440544013508, guid: 1fbd3da358f144953934ec27be311341,
+        type: 3}
+      propertyPath: bgmVolume
+      value: 0.114
+      objectReference: {fileID: 0}
+    - target: {fileID: 6026337440544013508, guid: 1fbd3da358f144953934ec27be311341,
+        type: 3}
       propertyPath: soundAudioClipPairs.Array.size
       value: 11
       objectReference: {fileID: 0}

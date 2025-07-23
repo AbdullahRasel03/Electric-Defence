@@ -227,6 +227,8 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         AudioManager.CallPlaySFX(Sound.EnemyDeath);
+        Camera.main.transform.DOShakePosition(0.5f, 0.25f, 7, 0.45f);
+        Camera.main.transform.DOPunchRotation(Vector3.forward * 0.25f, 0.5f, 7, 0.65f);
         _currentState = EnemyState.Dying;
         SetHealthTextEnabled(false);
 
@@ -247,7 +249,7 @@ public class Enemy : MonoBehaviour
         if (deathParticlePrefab == null) return;
 
         GameObject particle = ObjectPool.instance.GetObject(deathParticlePrefab,
-            true, transform.position, Quaternion.identity);
+            true, transform.position + Vector3.up, Quaternion.identity);
 
         particle.GetComponent<ParticleSystem>().Play();
     }
