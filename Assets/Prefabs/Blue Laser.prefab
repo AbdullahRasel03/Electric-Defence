@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7839681113848723364}
   - component: {fileID: 3213341822113376341}
   - component: {fileID: 4522724865730142574}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Blue Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4931,7 +4931,7 @@ GameObject:
   - component: {fileID: 9097950489753392584}
   - component: {fileID: 7872060327269814388}
   - component: {fileID: 918041437395559512}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Par_BlueShoot_Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9825,7 +9825,7 @@ GameObject:
   - component: {fileID: 3604743374451557091}
   - component: {fileID: 969415252928702104}
   - component: {fileID: 5211032909220424417}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Par_BurstParticles (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14713,7 +14713,7 @@ GameObject:
   - component: {fileID: 4543384227664525001}
   - component: {fileID: 3485123772337921554}
   - component: {fileID: 8439587065444497388}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sparkle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19611,7 +19611,7 @@ GameObject:
   - component: {fileID: 5153053845695810454}
   - component: {fileID: 6023031378788054305}
   - component: {fileID: 8536134902291722324}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: CircleWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24499,7 +24499,7 @@ GameObject:
   - component: {fileID: 6367433327168044516}
   - component: {fileID: 2908834519160526003}
   - component: {fileID: 6146077724388687088}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: LightSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29387,7 +29387,7 @@ GameObject:
   - component: {fileID: 708790168146564514}
   - component: {fileID: 9050245670424747576}
   - component: {fileID: 1425040403236880941}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: HorizontalFlare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34284,7 +34284,7 @@ GameObject:
   - component: {fileID: 3017622125627989522}
   - component: {fileID: 1443565018073614176}
   - component: {fileID: 8954071046132800376}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Flare (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39172,7 +39172,7 @@ GameObject:
   - component: {fileID: 7464406847988714792}
   - component: {fileID: 248675765183479931}
   - component: {fileID: 2951859103913812236}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44060,7 +44060,7 @@ GameObject:
   - component: {fileID: 6015525138890502474}
   - component: {fileID: 5306750833158757845}
   - component: {fileID: 4115693394936139102}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: LaserInner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48948,7 +48948,7 @@ GameObject:
   - component: {fileID: 8443538231617750628}
   - component: {fileID: 2020735744550738093}
   - component: {fileID: 1195792604152318424}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Flare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53836,7 +53836,7 @@ GameObject:
   - component: {fileID: 3892309130283032564}
   - component: {fileID: 3700984725737055935}
   - component: {fileID: 5489939774920614254}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sparkle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58733,7 +58733,7 @@ GameObject:
   - component: {fileID: 4733924892600061710}
   - component: {fileID: 7148367469186608577}
   - component: {fileID: 4579704934106853279}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: LaserInner (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63621,7 +63621,7 @@ GameObject:
   - component: {fileID: 1872812748190591478}
   - component: {fileID: 483360423757777434}
   - component: {fileID: 6994748228326864185}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68509,7 +68509,7 @@ GameObject:
   - component: {fileID: 2101340550102130042}
   - component: {fileID: 2897832294958501379}
   - component: {fileID: 4172352339901606867}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73397,7 +73397,7 @@ GameObject:
   - component: {fileID: 3612697729932355318}
   - component: {fileID: 6135273552038338085}
   - component: {fileID: 4040957699419259324}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sparkle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78294,7 +78294,7 @@ GameObject:
   - component: {fileID: 2815203259183748673}
   - component: {fileID: 40309088125197322}
   - component: {fileID: 5023202064032608256}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Par_BurstParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83182,7 +83182,7 @@ GameObject:
   - component: {fileID: 2001113601246026443}
   - component: {fileID: 1933204298703271648}
   - component: {fileID: 2203242919542280792}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Wave (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

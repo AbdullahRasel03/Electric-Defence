@@ -22,6 +22,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Camera topDownNonPPCam;
     [SerializeField] private Camera tpCam;
     [SerializeField] private GameObject canvas;
+    [SerializeField] private SocketManager socketManager;
 
     [Header("Runtime Info")]
     [SerializeField] public List<Enemy> activeEnemies = new List<Enemy>();
@@ -67,6 +68,7 @@ public class EnemySpawner : MonoBehaviour
     public void StartSpawning()
     {
         canvas.SetActive(false);
+        socketManager.gameObject.SetActive(false);
         isSpawning = true;
         topDownNonPPCam.orthographic = false;
         topDownCam.orthographic = false;
@@ -81,6 +83,7 @@ public class EnemySpawner : MonoBehaviour
         DOTween.To(() => topDownCam.fieldOfView, x => topDownCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
         DOTween.To(() => topDownNonPPCam.fieldOfView, x => topDownNonPPCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
         nextSpawnTime = 3f;
+
         // SetNextSpawnTime();
     }
 

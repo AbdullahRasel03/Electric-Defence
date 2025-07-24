@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Turret : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Turret : MonoBehaviour
     [SerializeField] protected float range = 18f;
     [SerializeField] protected float rotationSpeed = 5f;
     [SerializeField] protected float fireDelay = 1f;
+    [SerializeField] private TMP_Text fireRateText;
     public GridObject[] gridsOnPath;
     protected Enemy currentTarget;
     protected float refreshCooldown = 0.2f;
@@ -16,6 +18,15 @@ public class Turret : MonoBehaviour
     void Start()
     {
         timer = refreshCooldown;
+        UpdateFireRateText();
+    }
+
+    private void UpdateFireRateText()
+    {
+        if (fireRateText != null)
+        {
+            fireRateText.text = (1f / fireDelay).ToString("F2") + "/s";
+        }
     }
 
 
@@ -72,15 +83,20 @@ public class Turret : MonoBehaviour
 
     public void CheckMultisOnPath()
     {
-        float fireRate = 1;
+        // float fireRate = 1;
+        float currentFireDelay = fireDelay;
         foreach (GridObject item in gridsOnPath)
         {
             if (item.socket)
             {
-                fireRate += item.socket.ownMultiplier;
+                currentFireDelay -= item.socket.ownMultiplier / 50f;
                 item.socket.PowerUp();
             }
         }
+
+        fireDelay = currentFireDelay;
+
+        UpdateFireRateText();
         // shooter.SetFireRate(fireRate);
         // powerText.text = shooter.GetFireRate().ToString();
     }
