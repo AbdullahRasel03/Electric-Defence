@@ -80,7 +80,8 @@ public class EnemySpawner : MonoBehaviour
 
         DOTween.To(() => topDownCam.fieldOfView, x => topDownCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
         DOTween.To(() => topDownNonPPCam.fieldOfView, x => topDownNonPPCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
-        SetNextSpawnTime();
+        nextSpawnTime = 3f;
+        // SetNextSpawnTime();
     }
 
     public void StopSpawning()

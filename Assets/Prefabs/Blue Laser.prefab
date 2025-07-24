@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4874323691587843351}
   - component: {fileID: 7839681113848723364}
   - component: {fileID: 3213341822113376341}
+  - component: {fileID: 4522724865730142574}
   m_Layer: 0
   m_Name: Blue Laser
   m_TagString: Untagged
@@ -38,6 +39,7 @@ Transform:
   - {fileID: 6367433327168044516}
   - {fileID: 1872812748190591478}
   - {fileID: 9097950489753392584}
+  - {fileID: 3604743374451557091}
   - {fileID: 4543384227664525001}
   - {fileID: 3612697729932355318}
   m_Father: {fileID: 0}
@@ -232,7 +234,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.4627451}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.43137255}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4897,6 +4899,27 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &4522724865730142574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446690124692110305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70dc160a5000f04bbfd6bd058646d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LaserDistance: 10
+  LaserHead: {fileID: 4543384227664525001}
+  LaserBodies:
+  - {fileID: 5306750833158757845}
+  - {fileID: 7148367469186608577}
+  Laser: {fileID: 7839681113848723364}
+  LaserStart: {fileID: 3485123772337921554}
+  LaserStop: {fileID: 6135273552038338085}
+  HitOffset: 0.5
 --- !u!1 &2143896062036819940
 GameObject:
   m_ObjectHideFlags: 0
@@ -9818,11 +9841,11 @@ Transform:
   m_GameObject: {fileID: 3357129495766300552}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.62139535, z: -0, w: -0.7834972}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4543384227664525001}
+  m_Father: {fileID: 4874323691587843351}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!198 &969415252928702104
 ParticleSystem:
@@ -10542,7 +10565,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.69
+      value: 0.4
       mode: 0
       spread: 0
       speed:
@@ -10661,7 +10684,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 120
+      scalar: 60
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -14706,12 +14729,11 @@ Transform:
   m_GameObject: {fileID: 3432001817674074138}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 9.76}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3017622125627989522}
-  - {fileID: 3604743374451557091}
   m_Father: {fileID: 4874323691587843351}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!198 &3485123772337921554
@@ -14904,7 +14926,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
+      maxColor: {r: 0.766, g: 0.766, b: 0.766, a: 0.5019608}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -24483,7 +24505,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6367433327168044516
 Transform:
   m_ObjectHideFlags: 0
@@ -34268,7 +34290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3017622125627989522
 Transform:
   m_ObjectHideFlags: 0
@@ -34474,7 +34496,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 0.4627451}
+      maxColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 0.2509804}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -44367,7 +44389,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 9.76
+      scalar: 10
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -48932,7 +48954,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8443538231617750628
 Transform:
   m_ObjectHideFlags: 0
@@ -49138,7 +49160,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 0.4627451}
+      maxColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 0.2509804}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -58717,7 +58739,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4733924892600061710
 Transform:
   m_ObjectHideFlags: 0
@@ -59040,7 +59062,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 9.76
+      scalar: 10
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -73587,7 +73609,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
+      maxColor: {r: 0.766, g: 0.766, b: 0.766, a: 0.5019608}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -79012,7 +79034,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.69
+      value: 0.4
       mode: 0
       spread: 0
       speed:
@@ -79131,7 +79153,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 120
+      scalar: 60
       minScalar: 10
       maxCurve:
         serializedVersion: 2
