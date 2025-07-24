@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
+using MasterFX;
 
 public class Socket : MonoBehaviour
 {
@@ -39,6 +40,9 @@ public class Socket : MonoBehaviour
     public Transform plugHolder;
     public Plug connectedPlug;
     #endregion
+
+
+    public MLaser laser;
 
     #region Unity Lifecycle
 
@@ -101,6 +105,12 @@ public class Socket : MonoBehaviour
     }
 
     #endregion
+
+
+    public void Upgrade()
+    {
+        laser.UpgradeLaser();
+    }
 
     #region Auto-Assignment (Editor-Only)
 

@@ -137,6 +137,7 @@ MonoBehaviour:
   - {fileID: 4433900933615849399}
   plugHolder: {fileID: 9008791665525645521}
   connectedPlug: {fileID: 0}
+  laser: {fileID: 0}
 --- !u!65 &272469415129114330
 BoxCollider:
   m_ObjectHideFlags: 0

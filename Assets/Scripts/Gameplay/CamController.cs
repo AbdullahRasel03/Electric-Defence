@@ -1,63 +1,79 @@
-using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 
 public class CamController : MonoBehaviour
 {
     [Header("View Settings")]
-    [SerializeField] private float transitionDuration = 0f;
-    [SerializeField] private Ease transitionEase = Ease.Linear;
+    [SerializeField] private float transitionDuration = 1f;
+    [SerializeField] private Ease transitionEase = Ease.InOutSine;
 
     [Header("View Parents")]
     [SerializeField] private Transform fightViewParent;
     [SerializeField] private Transform shopViewParent;
 
     [Header("Camera Settings")]
-    [SerializeField] private Camera cam;
-    [SerializeField] private float fightFOV = 20f;
-    [SerializeField] private float shopFOV = 60f;
+    [SerializeField] private Camera cam, cam2;
 
     [Header("View Objects")]
     [SerializeField] private GameObject[] shopViewObjects;
 
-    private Tween moveTween, rotateTween, fovTween;
+    private Tween moveTween, rotateTween;
+
+    private void Start()
+    {
+        InitializeShopView();
+    }
+
+    private void InitializeShopView()
+    {
+        cam.transform.SetParent(shopViewParent);
+        cam.transform.localPosition = Vector3.zero;
+        cam.transform.localRotation = Quaternion.identity;
+        foreach (GameObject go in shopViewObjects) go.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            SetFightView();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            SetShopView();
+        }
+    }
 
     public void SetFightView()
     {
-        KillTweens();
         foreach (GameObject go in shopViewObjects) go.SetActive(false);
-        transform.SetParent(fightViewParent);
-        StartTransition(fightFOV);
+        cam.transform.SetParent(fightViewParent);
+   
+        SmoothTransitionToParent(30f);
     }
 
     public void SetShopView()
     {
-        KillTweens();
         foreach (GameObject go in shopViewObjects) go.SetActive(true);
-        transform.SetParent(shopViewParent);
-        StartTransition(shopFOV);
+        cam.transform.SetParent(shopViewParent);
+        SmoothTransitionToParent(45f);
     }
 
-    private void StartTransition(float targetFOV)
-    {
-        transform.localPosition = transform.localPosition; // Forces local space
-        transform.localRotation = transform.localRotation;
-
-        moveTween = transform.DOLocalMove(Vector3.zero, transitionDuration).SetEase(transitionEase).SetDelay(0.1f);
-        rotateTween = transform.DOLocalRotate(Vector3.zero, transitionDuration).SetEase(transitionEase);
-        fovTween = cam.DOFieldOfView(targetFOV, transitionDuration).SetEase(transitionEase);
-    }
-
-    private void KillTweens()
+    private void SmoothTransitionToParent(float targetFOV)
     {
         moveTween?.Kill();
         rotateTween?.Kill();
-        fovTween?.Kill();
+
+        moveTween = cam.transform.DOLocalMove(Vector3.zero, transitionDuration).SetEase(transitionEase);
+        rotateTween = cam.transform.DOLocalRotate(Vector3.zero, transitionDuration).SetEase(transitionEase);
+
+        cam2.transform.DOLocalMove(Vector3.zero, transitionDuration).SetEase(transitionEase);
+        cam2.transform.DOLocalRotate(Vector3.zero, transitionDuration).SetEase(transitionEase);
+
+        // Tween FOV for both cameras
+        cam.DOFieldOfView(targetFOV, transitionDuration).SetEase(transitionEase);
+        cam2.DOFieldOfView(targetFOV, transitionDuration).SetEase(transitionEase);
     }
 
-    public void ShakeCamera(float duration, float magnitude)
-    {
-        transform.DOShakePosition(duration, magnitude, vibrato: 10, randomness: 90, snapping: false, fadeOut: true)
-                 .SetRelative(true);
-    }
 }

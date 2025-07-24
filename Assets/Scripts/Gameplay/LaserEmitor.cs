@@ -14,7 +14,7 @@ public class LaserEmitor : MonoBehaviour
 
     void EmitLaser()
     {
-        Vector3 origin = transform.position;
+        Vector3 origin = transform.position + Vector3.up * 0.5f;
         Vector3 direction = transform.forward;
 
         Ray ray = new Ray(origin, direction);

@@ -7,22 +7,19 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Walls
+  m_Name: New Material
   m_Shader: {fileID: 4800000, guid: a2a06e22c08354d9699356710b69ca9c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - AMBIENT
   - ANIME_SOFT
+  - BASE_CONTRAST
   - DIFFUSE
-  - EMISSIVE_MAP
   - FOG
-  - LIGHT_MAP
   - MATCAP_PERSPECTIVE
-  - NORMAL_MAP
   - OUTLINE_PASS_DISABLED
   - SHADOWS_ENABLED
-  - SPECULAR_MAP
   - _DETAILBLEND_MULTIPLY
   - _DETAILUV_UV1
   - _HEIGHTCOLORSBLEND_ALPHA_BLEND
@@ -40,16 +37,11 @@ Material:
   - _RIMBLEND_ADDITIVE
   - _SHADOWOVERLAYANIMATION_SCROLL
   - _SPECULARUV_UV1
-  m_InvalidKeywords:
-  - _EMISSION
-  - _METALLICGLOSSMAP
-  - _METALLICSPECGLOSSMAP
-  - _NORMALMAP
-  - _OCCLUSIONMAP
-  m_LightmapFlags: 2
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses:
   - SRPDEFAULTUNLIT
@@ -86,7 +78,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissiveTex:
-        m_Texture: {fileID: 2800000, guid: f389da43cb645604ba7611d0096f510a, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightColorsTex:
@@ -106,13 +98,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LightmapTex:
-        m_Texture: {fileID: 2800000, guid: e6d1f2648193b27498c6cc2feb95c3a8, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ab4a47180ed738640ac2c2d012e4a7fa, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: 4118f7e1ab7a9354c9d5e7ba21c59840, type: 3}
+        m_Scale: {x: 1.2, y: 0.35}
+        m_Offset: {x: 0, y: 1.3}
     - _MatCapTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -122,7 +114,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: 6f9a16b57cf11bc4d928ea3bccf6c67d, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex2:
@@ -150,7 +142,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularTex:
-        m_Texture: {fileID: 2800000, guid: ce53fd0fe38187e41ab3da825301d518, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TransparencyMaskTex:
@@ -181,18 +173,18 @@ Material:
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BlendOp: 0
-    - _Brightness: 1
+    - _Brightness: 3.44
     - _BumpScale: 1
     - _CameraFadeEnd: 0
     - _CameraFadeStart: 0
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _Contrast: 1
+    - _Contrast: 1.88
     - _Cull: 2
     - _Cutoff: 0.5
     - _Cutout: 0
     - _CutoutCutoff: 0.5
-    - _DestBlend: 0
+    - _DestBlend: 10
     - _DetailAlbedoMapScale: 1
     - _DetailBlend: 2
     - _DetailBrightness: 1
@@ -202,18 +194,18 @@ Material:
     - _DetailUV: 0
     - _DetailVertexColors: 0
     - _Diffuse: 1
-    - _DiffuseBrightness: 1
-    - _DiffuseContrast: 1
+    - _DiffuseBrightness: 1.1
+    - _DiffuseContrast: 0.78
     - _DiffusePerPixel: 0
-    - _DiffuseWrap: 0
+    - _DiffuseWrap: -0.269
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Flat: 0
     - _Fog: 1
-    - _GlossMapScale: 1
-    - _Glossiness: 1
-    - _GlossyReflections: 1
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _GlossyReflections: 0
     - _HeightColors: 0
     - _HeightColorsAlpha: 1
     - _HeightColorsBlend: 0
@@ -246,11 +238,10 @@ Material:
     - _MatCapStatic: 0
     - _Metallic: 0
     - _MixedLighting: 0
-    - _Mode: 0
     - _NormalStrength: 1
     - _NormalUV: 0
     - _NormalUV2: 0
-    - _OcclusionStrength: 0.458
+    - _OcclusionStrength: 1
     - _Outline: 0
     - _OutlineComp: 8
     - _OutlineGroup: 0
@@ -258,7 +249,7 @@ Material:
     - _OutlineWidth: 0.002
     - _OutlineWidthIndependent: 0
     - _OutlineZPos: 0
-    - _Parallax: 0.02
+    - _Parallax: 0.005
     - _Plant: 0
     - _PlantBaseHeight: 0
     - _PlantLocal: 0
@@ -266,7 +257,7 @@ Material:
     - _PlantSwayAmount: 0.15
     - _PlantSwaySpeed: 1
     - _PlantType: 0
-    - _Preset: 0
+    - _Preset: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Reflection: 0
@@ -285,9 +276,9 @@ Material:
     - _ShadowOverlaySpeedV: 0.03
     - _ShadowOverlaySwayAmount: 0.01
     - _ShadowsEnabled: 1
-    - _Smoothness: 1
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
-    - _SourceBlend: 1
+    - _SourceBlend: 5
     - _Specular: 0
     - _SpecularBrightness: 1
     - _SpecularHair: 0
@@ -299,7 +290,6 @@ Material:
     - _Surface: 0
     - _TransparencyMaskAmount: 1
     - _TransparencyMaskContrast: 1
-    - _UVSec: 0
     - _UVTile: 0
     - _UVTileDiscardUV: 1
     - _UVTileV0U0: 0
@@ -324,16 +314,16 @@ Material:
     - _WorkflowMode: 1
     - _ZOffset: 0
     - _ZTest: 4
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
     - _AnimeColor1: {r: 1, g: 1, b: 1, a: 1}
     - _AnimeColor2: {r: 1.35, g: 1.35, b: 1.35, a: 1}
     - _AnimeColor3: {r: 2, g: 2, b: 2, a: 1}
-    - _BaseColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
-    - _Color: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DetailColor: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 5.9921565, g: 5.5789056, b: 0, a: 1}
-    - _Emissive: {r: 0, g: 0.00058845367, b: 0.0007314645, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Emissive: {r: 0, g: 0, b: 0, a: 0}
     - _HeightColorsColor: {r: 1, g: 1, b: 1, a: 1}
     - _Layer1Color: {r: 1, g: 1, b: 1, a: 1}
     - _Layer2Color: {r: 1, g: 1, b: 1, a: 1}
@@ -343,13 +333,13 @@ Material:
     - _MatCapRot: {r: 0, g: 0, b: 0, a: 0}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 14.928529, g: 14.928529, b: 14.928529, a: 1}
     - _RimDirection: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &3099106105300576422
+--- !u!114 &4818682869885936422
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

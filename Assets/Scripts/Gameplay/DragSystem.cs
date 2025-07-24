@@ -176,7 +176,7 @@ public class DragSystem : MonoBehaviour
                 transform.position = initialPosition;
                 return;
             }
-
+            socket.transform.localScale = Vector3.one;
             socket.socketManager.RemoveSocketFromSpwanedList(socket);
             socket.socketManager.activeGrids.Add(socket);
            
@@ -185,6 +185,7 @@ public class DragSystem : MonoBehaviour
             {
                 socket.transform.DOMove(newPosition, 0.15f).OnComplete(() =>
                 {
+                   
                     foreach (var grid in socket.assignedGrids)
                     {
                        

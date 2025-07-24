@@ -39,13 +39,13 @@ public class LaserReflector : MonoBehaviour
             chosenDir = transform.forward;
         }
 
-        Vector3 origin = transform.position;
+        Vector3 origin = transform.position + Vector3.up * 0.5f;
         Vector3 endPoint = origin + chosenDir * maxDistance;
 
         Ray ray = new Ray(origin + chosenDir * castOffset, chosenDir);
         if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, reflectionLayer))
         {
-            endPoint = hit.point;
+            endPoint = hit.point + (chosenDir.normalized * 1f);
 
             LaserReflector nextReflector = hit.collider.GetComponent<LaserReflector>();
             if (nextReflector != null && nextReflector != this)
@@ -63,7 +63,7 @@ public class LaserReflector : MonoBehaviour
             }
         }
 
-            laser.SetLaser(origin, endPoint);
+        laser.SetLaser(origin, endPoint);
         laser.gameObject.SetActive(true);
         isHitThisFrame = true;
     }

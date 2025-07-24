@@ -114,6 +114,7 @@ MonoBehaviour:
   - {fileID: 3652960866237835926}
   plugHolder: {fileID: 1570513965003418249}
   connectedPlug: {fileID: 0}
+  laser: {fileID: 5707740720829198086}
 --- !u!114 &3828924428658353430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,8 +130,8 @@ MonoBehaviour:
   laser: {fileID: 5707740720829198086}
   reflectDirection: {fileID: 0}
   useCustomWorldDirection: 1
-  direction1: {x: 0, y: 0, z: 0}
-  direction2: {x: 0, y: 0, z: 0}
+  direction1: {x: 0, y: 0, z: 1}
+  direction2: {x: -1, y: 0, z: 0}
   maxDistance: 10
   maxReflectionCount: 5
   castOffset: 0.01
@@ -298,7 +299,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8265576050242019877}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.475}
+  m_LocalPosition: {x: 0, y: 0, z: -0.56}
   m_LocalScale: {x: 1, y: 1, z: 2.4999998}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -306,7 +307,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.454, y: 0.5}
+  m_AnchoredPosition: {x: 0.41, y: 0.9}
   m_SizeDelta: {x: 1.2055, y: 1.0186}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8594598875786134819
@@ -496,7 +497,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8b8b050d69876424199edb514c723e3d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.347
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b8b050d69876424199edb514c723e3d,
         type: 3}
@@ -516,22 +517,22 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8b8b050d69876424199edb514c723e3d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b8b050d69876424199edb514c723e3d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b8b050d69876424199edb514c723e3d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b8b050d69876424199edb514c723e3d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b8b050d69876424199edb514c723e3d,
         type: 3}
@@ -546,7 +547,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8b8b050d69876424199edb514c723e3d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 8b8b050d69876424199edb514c723e3d,
         type: 3}
@@ -596,17 +597,17 @@ PrefabInstance:
     - target: {fileID: 4158586875577046572, guid: 9575e3430745a344a942d9ae38d18a5b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.08
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4158586875577046572, guid: 9575e3430745a344a942d9ae38d18a5b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.23
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4158586875577046572, guid: 9575e3430745a344a942d9ae38d18a5b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.72
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4158586875577046572, guid: 9575e3430745a344a942d9ae38d18a5b,
         type: 3}
@@ -647,11 +648,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Par_Laser_PurpleLaser Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 6957630474948081132, guid: 9575e3430745a344a942d9ae38d18a5b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

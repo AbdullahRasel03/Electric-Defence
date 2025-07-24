@@ -57,15 +57,32 @@ public class SocketManager : MonoBehaviour
 
     private IEnumerator RefreshSocketsRoutine()
     {
-        foreach (Socket socket in spawnedNewSockets.ToArray())
+        float spacing = 1f; // or match spacing from SlideInSockets
+        float moveDuration = 0.3f;
+        float totalScrollDuration = socketSpawner.slideInDuration;
+
+        socketSpawner.ScrollBelt(totalScrollDuration);
+
+        for (int i = 0; i < spawnedNewSockets.Count; i++)
         {
-            ReturnSocketToPoolImmediately(socket);
+            Socket socket = spawnedNewSockets[i];
+            float offsetX = i * spacing;
+
+            socket.transform
+                .DOMoveX(socket.transform.position.x + 30f + offsetX, socketSpawner.slideInDuration)
+                .SetEase(Ease.Linear)
+                .OnComplete(() =>
+                {
+                    ReturnSocketToPoolImmediately(socket);
+                });
         }
 
         spawnedNewSockets.Clear();
+
+        yield return new WaitForSeconds(moveDuration + 0.05f);
         socketSpawner.SpawnNewSockets();
-        yield return null;
     }
+
 
     public void ReturnSocketToPoolImmediately(Socket socket)
     {
@@ -142,7 +159,7 @@ public class SocketManager : MonoBehaviour
         gridSocket.ownMultiplier *= 2f;
         gridSocket.currentLevel += 1;
         gridSocket.UpdateColorAndTextByLevel();
-
+        gridSocket.Upgrade();
         ReturnSocketToPoolImmediately(incomingSocket);
 
         // Maintain Y position
