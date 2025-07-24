@@ -10,7 +10,7 @@ public class UILookAtCamera : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        transform.LookAt(transform.position + cam.transform.rotation * Vector3.forward, cam.transform.rotation * Vector3.up);
+        // transform.LookAt(transform.position + cam.transform.rotation * Vector3.forward, cam.transform.rotation * Vector3.up);
     }
     void LateUpdate()
     {

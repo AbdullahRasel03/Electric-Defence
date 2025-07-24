@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class Turret : MonoBehaviour
 {
@@ -99,6 +100,14 @@ public class Turret : MonoBehaviour
         UpdateFireRateText();
         // shooter.SetFireRate(fireRate);
         // powerText.text = shooter.GetFireRate().ToString();
+    }
+
+    public void RotateFireRateText()
+    {
+        if (fireRateText != null)
+        {
+            fireRateText.transform.parent.DOLocalRotateQuaternion(Quaternion.Euler(-75f, 0f, 0f), 1.5f);
+        }
     }
 
 }
