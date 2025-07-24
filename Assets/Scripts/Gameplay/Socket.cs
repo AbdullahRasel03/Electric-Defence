@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
+using MasterFX;
 
 public class Socket : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class Socket : MonoBehaviour
     public float actingMultiplier = 1f;
     public float pinMoveDuration = 0.3f;
     public Ease pinMoveEase = Ease.OutBack;
-    public Renderer glowGFX, coloredGFX;
+    public Renderer gfx;
     public GameObject multiText;
     #endregion
 
@@ -40,6 +41,9 @@ public class Socket : MonoBehaviour
     public Plug connectedPlug;
     #endregion
 
+
+    public MLaser laser;
+
     #region Unity Lifecycle
 
     private void Start()
@@ -55,25 +59,68 @@ public class Socket : MonoBehaviour
 
     public void AssignFireRateTexts()
     {
-       // fireRateTexts = cubesParent.GetComponentsInChildren<TMP_Text>();
+        // fireRateTexts = cubesParent.GetComponentsInChildren<TMP_Text>();
     }
 
     #endregion
 
     #region Power Handling
+    #region Power Handling
     public void PowerUp()
     {
-        if (glowGFX == null || glowGFX.material == null || hasPower) return;
-       // multiText.SetActive(false);
+        if (gfx == null || gfx.material == null || hasPower) return;
+
         hasPower = true;
-        Material mat = glowGFX.material;
+        Material mat = gfx.materials[1];
         Color currentEmission = mat.GetColor("_Emissive");
         Color targetEmission = currentEmission + Color.cyan * 10f;
+
         DOTween.To(() => currentEmission, x => {
-            currentEmission = x;
-            mat.SetColor("_Emissive", currentEmission);
-        }, targetEmission, 1f);
+            mat.SetColor("_Emissive", x); // Directly set the color in the callback
+        }, targetEmission, 1f).SetId(this); // Add ID for potential tween control
+
+        // Activate laser when powered up
+        if (laser != null)
+        {
+            laser.gameObject.SetActive(true);
+        }
     }
+
+    public void PowerDown()
+    {
+        if (gfx == null || gfx.material == null || !hasPower) return;
+
+        hasPower = false;
+        Material mat = gfx.materials[1];
+        Color currentEmission = mat.GetColor("_Emissive");
+        Color targetEmission = currentEmission - Color.cyan * 10f;
+
+        // Kill any ongoing emission tweens for this object
+        DOTween.Kill(this);
+
+        DOTween.To(() => currentEmission, x => {
+            mat.SetColor("_Emissive", x);
+        }, targetEmission, 1f);
+
+        // Show multiplier text when powered down
+        if (multiText != null)
+        {
+            multiText.SetActive(true);
+        }
+
+        // Deactivate laser when powered down
+        if (laser != null)
+        {
+            laser.gameObject.SetActive(false);
+        }
+
+        // Disconnect plug if connected
+        if (connectedPlug != null)
+        {
+            connectedPlug = null;
+        }
+    }
+    #endregion
 
     #endregion
 
@@ -87,7 +134,7 @@ public class Socket : MonoBehaviour
         if (levelColors == null || levelColors.Length == 0) return;
 
         Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
-        coloredGFX.material.color = colorToApply;
+        gfx.materials[0].color = colorToApply;
     }
 
     private void UpdateFireRateDisplay()
@@ -101,6 +148,12 @@ public class Socket : MonoBehaviour
     }
 
     #endregion
+
+
+    public void Upgrade()
+    {
+       // laser.UpgradeLaser();
+    }
 
     #region Auto-Assignment (Editor-Only)
 
