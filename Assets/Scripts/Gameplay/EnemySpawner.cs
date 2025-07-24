@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         InitializePool();
-        StartSpawning();
+        //StartSpawning();
     }
 
     private void InitializePool()
@@ -51,6 +51,10 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartSpawning();
+        }
         if (!isSpawning || activeEnemies.Count >= maxActiveEnemies) return;
 
         if (Time.time >= nextSpawnTime)
