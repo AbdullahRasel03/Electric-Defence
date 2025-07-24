@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class EnemySpawner : MonoBehaviour
 {
     [System.Serializable]
@@ -18,6 +18,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float minSpawnDelay = 1f;
     [SerializeField] private float maxSpawnDelay = 3f;
     [SerializeField] private int maxActiveEnemies = 20;
+    [SerializeField] private Camera topDownCam;
+    [SerializeField] private Camera topDownNonPPCam;
+    [SerializeField] private Camera tpCam;
+    [SerializeField] private GameObject canvas;
 
     [Header("Runtime Info")]
     [SerializeField] public List<Enemy> activeEnemies = new List<Enemy>();
@@ -62,7 +66,20 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartSpawning()
     {
+        canvas.SetActive(false);
         isSpawning = true;
+        topDownNonPPCam.orthographic = false;
+        topDownCam.orthographic = false;
+
+        topDownCam.transform.DOMove(tpCam.transform.position, 1.5f);
+        topDownCam.transform.DORotate(tpCam.transform.rotation.eulerAngles, 1.5f).OnComplete(() =>
+        {
+            topDownCam.gameObject.SetActive(false);
+            tpCam.gameObject.SetActive(true);
+        });
+
+        DOTween.To(() => topDownCam.fieldOfView, x => topDownCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
+        DOTween.To(() => topDownNonPPCam.fieldOfView, x => topDownNonPPCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
         SetNextSpawnTime();
     }
 
