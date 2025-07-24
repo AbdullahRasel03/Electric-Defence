@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         InitializePool();
-        StartSpawning();
+        // StartSpawning();
     }
 
     private void InitializePool()
