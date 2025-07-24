@@ -63,11 +63,11 @@ namespace MasterFX
         }
         void Start()
         {
-            // Ensure stop particle is disabled at start
+          /*  // Ensure stop particle is disabled at start
             if (LaserStop != null)
             {
                 LaserStop.gameObject.SetActive(false);
-            }
+            }*/
         }
 
         public void SetLaser(Vector3 start, Vector3 end)
@@ -77,7 +77,7 @@ namespace MasterFX
             LaserDistance = Vector3.Distance(start, end) - HitOffset;
             transform.LookAt(end);
             UpdateLaser();
-
+            LaserStop.transform.position = end;
             // Enable laser if it was disabled
             if (Laser != null && !Laser.isPlaying)
             {

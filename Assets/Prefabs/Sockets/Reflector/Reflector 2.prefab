@@ -132,7 +132,8 @@ MonoBehaviour:
   useCustomWorldDirection: 1
   direction1: {x: 0, y: 0, z: -1}
   direction2: {x: -1, y: 0, z: 0}
-  maxDistance: 10
+  multiplier: 1
+  maxDistance: 15
   maxReflectionCount: 5
   castOffset: 0.01
   reflectionLayer:

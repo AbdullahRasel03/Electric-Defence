@@ -1,9 +1,9 @@
-using MasterFX;
+﻿using MasterFX;
 using UnityEngine;
 
 public class LaserEmitor : MonoBehaviour
 {
-    public LayerMask reflectableLayers;
+    public LayerMask reflectableLayers, towerLayer;
     public MLaser laser;
     public float maxDistance = 100f;
 
@@ -18,16 +18,25 @@ public class LaserEmitor : MonoBehaviour
         Vector3 direction = transform.forward;
 
         Ray ray = new Ray(origin, direction);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, maxDistance, reflectableLayers))
+        if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, reflectableLayers))
         {
-            laser.SetLaser(origin, hit.point);
+            laser.SetLaser(origin, hit.collider.transform.position);
 
             LaserReflector reflector = hit.collider.GetComponent<LaserReflector>();
             if (reflector != null)
             {
-                reflector.Reflect(hit.point);
+                // 👇 Pass depth and accumulatedMultiplier
+                reflector.Reflect(hit.point, 0, 0f);
+            }
+        }
+       else if (Physics.Raycast(ray, out RaycastHit hit2, maxDistance, towerLayer))
+        {
+            laser.SetLaser(origin, hit2.point);
+
+            Turret turret = hit2.collider.transform.parent.GetComponentInChildren<Turret>();
+            if (turret != null)
+            {
+              turret.ReceivePower(1);
             }
         }
         else

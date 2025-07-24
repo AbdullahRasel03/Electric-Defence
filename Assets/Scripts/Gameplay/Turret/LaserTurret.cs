@@ -85,7 +85,7 @@ public class LaserTurret : Turret
 
         currentFireRate += Time.deltaTime;
 
-        if (currentFireRate >= fireDelay)
+        if (currentFireRate >= fireRate)
         {
             currentFireRate = 0;
 

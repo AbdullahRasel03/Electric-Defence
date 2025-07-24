@@ -62,7 +62,7 @@ public class GridManager : MonoBehaviour
 
         foreach (var item in towers)
         {
-            item.CheckMultisOnPath();
+           // item.CheckMultisOnPath();
             print("Here and there");
         }
         /*  foreach (var item in gridArrays)

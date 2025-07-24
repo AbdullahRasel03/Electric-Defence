@@ -65,19 +65,62 @@ public class Socket : MonoBehaviour
     #endregion
 
     #region Power Handling
+    #region Power Handling
     public void PowerUp()
     {
         if (gfx == null || gfx.material == null || hasPower) return;
-       // multiText.SetActive(false);
+
         hasPower = true;
         Material mat = gfx.materials[1];
         Color currentEmission = mat.GetColor("_Emissive");
         Color targetEmission = currentEmission + Color.cyan * 10f;
+
         DOTween.To(() => currentEmission, x => {
-            currentEmission = x;
-            mat.SetColor("_Emissive", currentEmission);
-        }, targetEmission, 1f);
+            mat.SetColor("_Emissive", x); // Directly set the color in the callback
+        }, targetEmission, 1f).SetId(this); // Add ID for potential tween control
+
+        // Activate laser when powered up
+        if (laser != null)
+        {
+            laser.gameObject.SetActive(true);
+        }
     }
+
+    public void PowerDown()
+    {
+        if (gfx == null || gfx.material == null || !hasPower) return;
+
+        hasPower = false;
+        Material mat = gfx.materials[1];
+        Color currentEmission = mat.GetColor("_Emissive");
+        Color targetEmission = currentEmission - Color.cyan * 10f;
+
+        // Kill any ongoing emission tweens for this object
+        DOTween.Kill(this);
+
+        DOTween.To(() => currentEmission, x => {
+            mat.SetColor("_Emissive", x);
+        }, targetEmission, 1f);
+
+        // Show multiplier text when powered down
+        if (multiText != null)
+        {
+            multiText.SetActive(true);
+        }
+
+        // Deactivate laser when powered down
+        if (laser != null)
+        {
+            laser.gameObject.SetActive(false);
+        }
+
+        // Disconnect plug if connected
+        if (connectedPlug != null)
+        {
+            connectedPlug = null;
+        }
+    }
+    #endregion
 
     #endregion
 

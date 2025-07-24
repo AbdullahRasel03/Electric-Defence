@@ -52,6 +52,7 @@ public class SocketManager : MonoBehaviour
 
     public void RefreshSockets()
     {
+        print("11111");
         StartCoroutine(RefreshSocketsRoutine());
     }
 
