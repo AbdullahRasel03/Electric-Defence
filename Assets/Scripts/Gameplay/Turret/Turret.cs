@@ -8,6 +8,7 @@ public class Turret : MonoBehaviour
     [SerializeField] protected float range = 18f;
     [SerializeField] protected float rotationSpeed = 5f;
     [SerializeField] protected float fireDelay = 1f;
+    public GridObject[] gridsOnPath;
     protected Enemy currentTarget;
     protected float refreshCooldown = 0.2f;
     protected float timer;
@@ -67,6 +68,21 @@ public class Turret : MonoBehaviour
     protected virtual void Fire()
     {
         // Implement firing logic in derived classes
+    }
+
+    public void CheckMultisOnPath()
+    {
+        float fireRate = 1;
+        foreach (GridObject item in gridsOnPath)
+        {
+            if (item.socket)
+            {
+                fireRate += item.socket.ownMultiplier;
+                item.socket.PowerUp();
+            }
+        }
+        // shooter.SetFireRate(fireRate);
+        // powerText.text = shooter.GetFireRate().ToString();
     }
 
 }

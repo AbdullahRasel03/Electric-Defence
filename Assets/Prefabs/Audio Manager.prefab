@@ -48,11 +48,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 7440540077190399380}
   sfxSourcePrefab: {fileID: 2393440094923081059}
-  BGM: {fileID: 0}
-  bgmVolume: 0.1
+  BGM: {fileID: 8300000, guid: 4e8e004f63ab44b5cb3ccdb1b9c531a9, type: 3}
+  bgmVolume: 0.114
   soundAudioClipPairs:
   - sound: 0
     audioClip: {fileID: 8300000, guid: 1ad7ac597645342df9ebac0a7ea5921d, type: 3}
+    volumeRange: 0.7
+  - sound: 3
+    audioClip: {fileID: 8300000, guid: 05687f28b7e7f496583ec78cf32d2348, type: 3}
+    volumeRange: 0.7
+  - sound: 4
+    audioClip: {fileID: 8300000, guid: c366a41d8942a4c90960301bc7dfdea5, type: 3}
+    volumeRange: 0.7
+  - sound: 5
+    audioClip: {fileID: 8300000, guid: 1b1f0196a860b4d41990e7305992cf9f, type: 3}
+    volumeRange: 0.7
+  - sound: 6
+    audioClip: {fileID: 8300000, guid: b872f18d30921410281caf1ab4de639f, type: 3}
+    volumeRange: 0.7
+  - sound: 7
+    audioClip: {fileID: 8300000, guid: 6ac7cb118b33c456fa5dec4f7ff8771e, type: 3}
+    volumeRange: 0.7
+  - sound: 8
+    audioClip: {fileID: 8300000, guid: fbbfbb14cdbbc49279ea6b7bec8ff3a4, type: 3}
+    volumeRange: 0.9
+  - sound: 9
+    audioClip: {fileID: 8300000, guid: ebbe26c2c23e34a828fdab2c212c38fd, type: 3}
+    volumeRange: 0.5
+  - sound: 10
+    audioClip: {fileID: 8300000, guid: d81be458476ba4abfa3d0cfc5e386eb4, type: 3}
+    volumeRange: 0.7
+  - sound: 11
+    audioClip: {fileID: 8300000, guid: 61941d5386fa04648b83527d15810b86, type: 3}
+    volumeRange: 0.7
+  - sound: 12
+    audioClip: {fileID: 8300000, guid: 3ec9d8333f42e44cd8911a0769ad2492, type: 3}
     volumeRange: 0.7
 --- !u!1 &1116726150898034684
 GameObject:
@@ -100,7 +130,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
