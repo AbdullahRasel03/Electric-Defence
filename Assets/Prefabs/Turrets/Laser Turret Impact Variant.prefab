@@ -8,9 +8,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1127226951305888, guid: d3fd8aa88ebf6004ca25927e96653cbf, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172543070557092, guid: d3fd8aa88ebf6004ca25927e96653cbf, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205103054961908, guid: d3fd8aa88ebf6004ca25927e96653cbf, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1248337321016788, guid: d3fd8aa88ebf6004ca25927e96653cbf, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1525638851938226, guid: d3fd8aa88ebf6004ca25927e96653cbf, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1591583931887632, guid: d3fd8aa88ebf6004ca25927e96653cbf, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655383994386584, guid: d3fd8aa88ebf6004ca25927e96653cbf, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1726504490019200, guid: d3fd8aa88ebf6004ca25927e96653cbf, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 1879272669879180, guid: d3fd8aa88ebf6004ca25927e96653cbf, type: 3}
       propertyPath: m_Name
       value: Laser Turret Impact Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879272669879180, guid: d3fd8aa88ebf6004ca25927e96653cbf, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1947723841646622, guid: d3fd8aa88ebf6004ca25927e96653cbf, type: 3}
+      propertyPath: m_Layer
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 4541196389373984, guid: d3fd8aa88ebf6004ca25927e96653cbf, type: 3}
       propertyPath: m_LocalScale.x

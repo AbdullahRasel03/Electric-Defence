@@ -4911,7 +4911,7 @@ GameObject:
   - component: {fileID: 219867716}
   - component: {fileID: 219867717}
   - component: {fileID: 219867718}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Starfield Elliptical (Outer Stars)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5317,7 +5317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 239572073}
   - component: {fileID: 239572072}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Elliptical Galaxy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5347,7 +5347,7 @@ Transform:
   m_GameObject: {fileID: 239572071}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -113.60778, z: 511.30695}
+  m_LocalPosition: {x: 0, y: -113.60778, z: 430}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -6709,7 +6709,7 @@ GameObject:
   - component: {fileID: 289272300}
   - component: {fileID: 289272301}
   - component: {fileID: 289272302}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Starfield Elliptical (Clouds)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26960,7 +26960,7 @@ GameObject:
   - component: {fileID: 784328958}
   - component: {fileID: 784328959}
   - component: {fileID: 784328960}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Starfield Elliptical (Inner Stars)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27524,7 +27524,7 @@ GameObject:
   m_Component:
   - component: {fileID: 820793983}
   - component: {fileID: 820793982}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Nebula Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27592,7 +27592,7 @@ Transform:
   m_GameObject: {fileID: 820793981}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -46.60778, z: 527.30695}
+  m_LocalPosition: {x: 0, y: -89, z: 443}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -43491,7 +43491,7 @@ GameObject:
   - component: {fileID: 1070376309}
   - component: {fileID: 1070376308}
   - component: {fileID: 1070376307}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: SgtStarfieldModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44534,7 +44534,7 @@ GameObject:
   - component: {fileID: 1128706529}
   - component: {fileID: 1128706528}
   - component: {fileID: 1128706527}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: SgtRingModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62631,7 +62631,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 127232
+    m_Bits: 94592
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -63193,7 +63193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1310669091}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Accretion Disc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63209,7 +63209,7 @@ Transform:
   m_GameObject: {fileID: 1310669090}
   serializedVersion: 2
   m_LocalRotation: {x: -0.3420201, y: -0, z: -0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 114.39222, z: 493.30695}
+  m_LocalPosition: {x: 0, y: 195, z: 574}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -69349,7 +69349,7 @@ GameObject:
   - component: {fileID: 1358162341}
   - component: {fileID: 1358162340}
   - component: {fileID: 1358162339}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: SgtStarfieldModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69832,7 +69832,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1372372570}
   - component: {fileID: 1372372571}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Accretion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69848,7 +69848,7 @@ Transform:
   m_GameObject: {fileID: 1372372569}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.26, z: -0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -75126,13 +75126,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1578779043}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3420201, y: -0, z: -0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 65, z: -77.2}
+  m_LocalRotation: {x: 0.31730464, y: 0, z: 0, w: 0.94832367}
+  m_LocalPosition: {x: 0, y: 64, z: -80}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 639915987}
-  m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 37, y: 0, z: 0}
 --- !u!1001 &1582555912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75991,7 +75991,7 @@ GameObject:
   - component: {fileID: 1632079483}
   - component: {fileID: 1632079482}
   - component: {fileID: 1632079481}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: SgtStarfieldModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85113,7 +85113,7 @@ GameObject:
   - component: {fileID: 2044999333}
   - component: {fileID: 2044999332}
   - component: {fileID: 2044999331}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: SgtRingModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111730,6 +111730,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rocket Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 1910492977116139890, guid: 0f2f2437df5c44a8db3f1d79690829d9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1910769889030324914, guid: 0f2f2437df5c44a8db3f1d79690829d9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1910999664856821746, guid: 0f2f2437df5c44a8db3f1d79690829d9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1911454164743176476, guid: 0f2f2437df5c44a8db3f1d79690829d9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4061078761312820282, guid: 0f2f2437df5c44a8db3f1d79690829d9,
         type: 3}

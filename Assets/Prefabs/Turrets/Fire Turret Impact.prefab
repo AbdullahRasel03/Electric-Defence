@@ -8,9 +8,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1093396020034654, guid: cfd26614dff7742469a59d19d1403e93, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 1228869523896316, guid: cfd26614dff7742469a59d19d1403e93, type: 3}
       propertyPath: m_Name
       value: Fire Turret Impact
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228869523896316, guid: cfd26614dff7742469a59d19d1403e93, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1239764664278716, guid: cfd26614dff7742469a59d19d1403e93, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1308765203369454, guid: cfd26614dff7742469a59d19d1403e93, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1407586809064136, guid: cfd26614dff7742469a59d19d1403e93, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531108112763822, guid: cfd26614dff7742469a59d19d1403e93, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586124608257776, guid: cfd26614dff7742469a59d19d1403e93, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610774474998394, guid: cfd26614dff7742469a59d19d1403e93, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1741275317581282, guid: cfd26614dff7742469a59d19d1403e93, type: 3}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1852476955645382, guid: cfd26614dff7742469a59d19d1403e93, type: 3}
+      propertyPath: m_Layer
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 4636209284918014, guid: cfd26614dff7742469a59d19d1403e93, type: 3}
       propertyPath: m_LocalScale.x
