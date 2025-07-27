@@ -177,7 +177,7 @@ public class DragSystem : MonoBehaviour
                 transform.position = initialPosition;
                 return;
             }
-            socket.transform.localScale = Vector3.one * 1.2f;
+            socket.transform.DOScale(Vector3.one * 1.2f, 0.15f);
             socket.socketManager.RemoveSocketFromSpwanedList(socket);
             socket.socketManager.activeGrids.Add(socket);
 

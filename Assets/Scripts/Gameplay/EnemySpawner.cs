@@ -3,6 +3,7 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using Random = UnityEngine.Random;
+using Unity.Mathematics;
 public class EnemySpawner : MonoBehaviour
 {
     [System.Serializable]
@@ -132,11 +133,11 @@ public class EnemySpawner : MonoBehaviour
             config.prefab,
             true,
             spawnPoint.position + spawnOffset,
-            spawnPoint.rotation
+            quaternion.identity
         );
 
         Enemy enemy = enemyObj.GetComponent<Enemy>();
-        enemy.ActivateEnemy(spawnPoint.position, spawnPoint.rotation, config.health);
+        enemy.ActivateEnemy(spawnPoint.position, quaternion.identity, config.health);
 
         activeEnemies.Add(enemy);
     }
