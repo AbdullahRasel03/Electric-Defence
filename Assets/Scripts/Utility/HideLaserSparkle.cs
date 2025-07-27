@@ -6,6 +6,11 @@ public class HideLaserSparkle : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        this.gameObject.SetActive(false);
+        this.GetComponent<ParticleSystem>().Stop();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        this.GetComponent<ParticleSystem>().Play();
     }
 }
