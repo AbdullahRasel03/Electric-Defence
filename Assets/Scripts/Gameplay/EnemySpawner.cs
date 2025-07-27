@@ -31,6 +31,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] public List<Enemy> activeEnemies = new List<Enemy>();
 
     private float nextSpawnTime;
+    private float currentTime;
     private bool isSpawning;
 
     public static event Action OnSpawnStarted;
@@ -67,7 +68,10 @@ public class EnemySpawner : MonoBehaviour
         }
         if (!isSpawning || activeEnemies.Count >= maxActiveEnemies) return;
 
-        if (Time.time >= nextSpawnTime)
+        currentTime += Time.deltaTime;
+
+
+        if (currentTime >= nextSpawnTime)
         {
             SpawnEnemy();
             SetNextSpawnTime();
