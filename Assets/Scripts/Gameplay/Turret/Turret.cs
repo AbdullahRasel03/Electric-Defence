@@ -28,10 +28,10 @@ public class Turret : MonoBehaviour
     void Start()
     {
         timer = refreshCooldown;
+
         if (!reflectorActive)
         {
-
-        UpdateFireRateText();
+            UpdateFireRateText();
         }
     }
 
@@ -73,6 +73,7 @@ public class Turret : MonoBehaviour
     public void Deactivate()
     {
         if (!isActive) return;
+        if (!reflectorActive) return;
 
         isActive = false;
         currentTarget = null;

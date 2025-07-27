@@ -188,7 +188,7 @@ public class DragSystem : MonoBehaviour
                 chil.gameObject.layer = LayerMask.NameToLayer("Default");
             }
 
-            socket.MulTxt.layer = LayerMask.NameToLayer("Socket");
+            socket.MulTxt.layer = LayerMask.NameToLayer("UI");
 
             socket.transform.DOMove(newPosition + Vector3.forward * 0.3f, 0.25f).OnComplete(() =>
             {

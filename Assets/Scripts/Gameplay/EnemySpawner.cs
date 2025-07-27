@@ -23,12 +23,16 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Camera topDownCam;
     [SerializeField] private Camera topDownNonPPCam;
     [SerializeField] private Camera tpCam;
+    [SerializeField] private Camera uiCam;
     [SerializeField] private GameObject canvas;
     [SerializeField] private SocketManager socketManager;
     [SerializeField] private List<Turret> allTurrets;
 
     [Header("Runtime Info")]
     [SerializeField] public List<Enemy> activeEnemies = new List<Enemy>();
+
+    [Space(15)]
+    [SerializeField] private bool isReflectorGameplay = false;
 
     private float nextSpawnTime;
     private float currentTime;
@@ -82,7 +86,9 @@ public class EnemySpawner : MonoBehaviour
     public void StartSpawning()
     {
         OnSpawnStarted?.Invoke();
-        allTurrets.ForEach(x => x.Activate());
+
+        if (!isReflectorGameplay)
+            allTurrets.ForEach(x => x.Activate());
 
         canvas.SetActive(false);
         socketManager.ResetAllSockets();
@@ -98,6 +104,7 @@ public class EnemySpawner : MonoBehaviour
 
         DOTween.To(() => topDownCam.fieldOfView, x => topDownCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
         DOTween.To(() => topDownNonPPCam.fieldOfView, x => topDownNonPPCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
+        DOTween.To(() => uiCam.fieldOfView, x => uiCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
 
 
         // SetNextSpawnTime();
