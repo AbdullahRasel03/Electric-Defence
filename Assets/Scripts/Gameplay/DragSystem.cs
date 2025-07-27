@@ -179,16 +179,22 @@ public class DragSystem : MonoBehaviour
             socket.transform.localScale = Vector3.one;
             socket.socketManager.RemoveSocketFromSpwanedList(socket);
             socket.socketManager.activeGrids.Add(socket);
-           
-            newPosition.y = 0;
+
+            newPosition.y = 1;
+
+            foreach (Transform child in socket.transform.GetComponentInChildren<Transform>())
+                child.gameObject.tag = "Untagged";
+
             socket.transform.DOMove(newPosition + Vector3.forward * 0.3f, 0.25f).OnComplete(() =>
             {
                 socket.transform.DOMove(newPosition, 0.15f).OnComplete(() =>
                 {
-                   
+
+
+
                     foreach (var grid in socket.assignedGrids)
                     {
-                       
+
                         if (grid.gridManager != null)
                         {
                             grid.gridManager.CheckAllGridsPower();
