@@ -1473,7 +1473,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 114679
+    m_Bits: 245751
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -64088,7 +64088,7 @@ MonoBehaviour:
   - {fileID: 922298203}
   - {fileID: 841045744}
   - {fileID: 1977437165}
-  minSpawnDelay: 5
+  minSpawnDelay: 4
   maxSpawnDelay: 5
   maxActiveEnemies: 20
   topDownCam: {fileID: 38693295}

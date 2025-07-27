@@ -73,6 +73,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (currentTime >= nextSpawnTime)
         {
+            currentTime = 0f;
             SpawnEnemy();
             SetNextSpawnTime();
         }
@@ -85,7 +86,7 @@ public class EnemySpawner : MonoBehaviour
 
         canvas.SetActive(false);
         socketManager.ResetAllSockets();
-        nextSpawnTime = 4f;
+        nextSpawnTime = 3f;
         isSpawning = true;
         topDownNonPPCam.orthographic = false;
         topDownCam.orthographic = false;
@@ -109,7 +110,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SetNextSpawnTime()
     {
-        nextSpawnTime = Time.time + Random.Range(minSpawnDelay, maxSpawnDelay);
+        nextSpawnTime = Random.Range(minSpawnDelay, maxSpawnDelay);
     }
 
     private void SpawnEnemy()
