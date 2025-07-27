@@ -161,13 +161,19 @@ MonoBehaviour:
   turretBody: {fileID: 7363283894273836073}
   range: 45
   rotationSpeed: 5
-  fireDelay: 0.75
+  fireRateText: {fileID: 0}
+  gridsOnPath: []
+  fireRate: 0.75
+  isActive: 0
+  towerGFX: {fileID: 0}
+  baseFireRate: 1
   shootPoint: {fileID: 6492124083457505758}
   fireMuzzle: {fileID: 8687294969616388347}
   fireImpact: {fileID: 4733833923560191842, guid: 8c6f98d6eab364da7acd68f9455471a7,
     type: 3}
   fireProjectilePrefab: {fileID: 7768145399888214000, guid: f88b7cd2df81846f483423406192bcb5,
     type: 3}
+  fireSound: 0
 --- !u!4 &7363283894273836073 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 438652, guid: 4e50f7c196eb0e94282d8df00c58fbc7,

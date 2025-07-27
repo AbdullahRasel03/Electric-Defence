@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4718806174005180444}
-  m_Layer: 16
+  m_Layer: 12
   m_Name: Grid Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 5347411051580915485}
   - component: {fileID: 272469415129114330}
   - component: {fileID: 1115564204573202531}
-  m_Layer: 16
+  m_Layer: 12
   m_Name: Socket 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,6 +110,7 @@ MonoBehaviour:
   cubesParent: {fileID: 5307622024320240384}
   levelColors:
   - {r: 0.7058824, g: 0.08235294, b: 0.53333336, a: 1}
+  - {r: 0.21176471, g: 0.3372549, b: 0.9607843, a: 1}
   gridLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -193,7 +194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1669901201940634602}
-  m_Layer: 16
+  m_Layer: 12
   m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6766223980382774650}
-  m_Layer: 16
+  m_Layer: 12
   m_Name: 1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +256,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5307622024320240384}
-  m_Layer: 16
+  m_Layer: 12
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +288,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9008791665525645521}
-  m_Layer: 16
+  m_Layer: 12
   m_Name: Plug Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +321,7 @@ GameObject:
   - component: {fileID: 3669931940293967559}
   - component: {fileID: 8682847455462825986}
   - component: {fileID: 4433900933615849399}
-  m_Layer: 16
+  m_Layer: 12
   m_Name: Multiplier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +367,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2517202264660172603, guid: 5c5ee151f9307453bad78be36b51a077, type: 2}
+  - {fileID: -8394420552937558723, guid: 6f9d253c918824659b9426046aca78cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -410,8 +411,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1x
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5c5ee151f9307453bad78be36b51a077, type: 2}
-  m_sharedMaterial: {fileID: 2517202264660172603, guid: 5c5ee151f9307453bad78be36b51a077,
+  m_fontAsset: {fileID: 11400000, guid: 6f9d253c918824659b9426046aca78cc, type: 2}
+  m_sharedMaterial: {fileID: -8394420552937558723, guid: 6f9d253c918824659b9426046aca78cc,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -568,6 +569,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SciFi_B2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ab3121b16ea9a5f42b88133d8d66027d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

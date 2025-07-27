@@ -72,6 +72,8 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartSpawning()
     {
+        allTurrets.ForEach(x => x.Activate());
+
         canvas.SetActive(false);
         socketManager.ResetAllSockets();
         nextSpawnTime = 4f;

@@ -3,15 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using TMPro;
-using DG.Tweening;
 
 public class Turret : MonoBehaviour
 {
     [SerializeField] protected Transform turretBody;
     [SerializeField] protected float range = 18f;
     [SerializeField] protected float rotationSpeed = 5f;
-    [SerializeField] protected float fireDelay = 1f;
+    // [SerializeField] protected float fireDelay = 1f;
     [SerializeField] private TMP_Text fireRateText;
     public GridObject[] gridsOnPath;
     [SerializeField] protected float fireRate = 1f;
@@ -22,7 +20,6 @@ public class Turret : MonoBehaviour
     protected float timer;
 
     [SerializeField] Renderer towerGFX;
-    [SerializeField] TMP_Text fireRateText;
 
     private bool wasPoweredThisFrame = false;
     [SerializeField] private float baseFireRate = 1f;
@@ -37,9 +34,9 @@ public class Turret : MonoBehaviour
     {
         if (fireRateText != null)
         {
-            fireRateText.text = (1f / fireDelay).ToString("F2") + "/s";
+            fireRateText.text = (1f / fireRate).ToString("F2") + "/s";
         }
-        UpdateFireRateText("--");
+        // UpdateFireRateText("--");
     }
 
     void Update()
@@ -61,7 +58,8 @@ public class Turret : MonoBehaviour
         Color currentEmission = mat.GetColor("_Emissive");
         Color targetEmission = currentEmission + Color.cyan * 10f;
 
-        DOTween.To(() => currentEmission, x => {
+        DOTween.To(() => currentEmission, x =>
+        {
             currentEmission = x;
             mat.SetColor("_Emissive", currentEmission);
         }, targetEmission, 1f);
@@ -81,7 +79,8 @@ public class Turret : MonoBehaviour
             Color targetEmission = currentEmission - Color.cyan * 10f;
 
             DOTween.Kill(mat);
-            DOTween.To(() => currentEmission, x => {
+            DOTween.To(() => currentEmission, x =>
+            {
                 mat.SetColor("_Emissive", x);
             }, targetEmission, 1f);
         }
@@ -146,7 +145,7 @@ public class Turret : MonoBehaviour
     public void CheckMultisOnPath()
     {
         // float fireRate = 1;
-        float currentFireDelay = fireDelay;
+        float currentFireDelay = fireRate;
         foreach (GridObject item in gridsOnPath)
         {
             if (item.socket)
@@ -156,7 +155,7 @@ public class Turret : MonoBehaviour
             }
         }
 
-        fireDelay = currentFireDelay;
+        fireRate = currentFireDelay;
 
         UpdateFireRateText();
         // shooter.SetFireRate(fireRate);
@@ -188,7 +187,7 @@ public class Turret : MonoBehaviour
     {
         if (!wasPoweredThisFrame && isActive)
         {
-            Deactivate();
+            // Deactivate();
         }
 
         wasPoweredThisFrame = false;
@@ -199,7 +198,7 @@ public class Turret : MonoBehaviour
     private void SetFireRate(float rate)
     {
         fireRate = rate;
-        UpdateFireRateText(rate.ToString("0.0"));
+        UpdateFireRateText();
     }
 
     private void UpdateFireRateText(string text)

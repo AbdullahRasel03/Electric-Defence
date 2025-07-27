@@ -171,6 +171,7 @@ MonoBehaviour:
   cubesParent: {fileID: 5307622024320240384}
   levelColors:
   - {r: 0.7058824, g: 0.08235294, b: 0.53333336, a: 1}
+  - {r: 0.21176471, g: 0.3372549, b: 0.9607843, a: 1}
   gridLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -181,7 +182,7 @@ MonoBehaviour:
   actingMultiplier: 0
   pinMoveDuration: 0.3
   pinMoveEase: 27
-  gfx: {fileID: 0}
+  gfx: {fileID: 5192632171769179414}
   multiText: {fileID: 2952775427178931942}
   socketCubes:
   - cube: {fileID: 4625464762245407115}
@@ -324,7 +325,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2517202264660172603, guid: 5c5ee151f9307453bad78be36b51a077, type: 2}
+  - {fileID: -8394420552937558723, guid: 6f9d253c918824659b9426046aca78cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -368,8 +369,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1x
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5c5ee151f9307453bad78be36b51a077, type: 2}
-  m_sharedMaterial: {fileID: 2517202264660172603, guid: 5c5ee151f9307453bad78be36b51a077,
+  m_fontAsset: {fileID: 11400000, guid: 6f9d253c918824659b9426046aca78cc, type: 2}
+  m_sharedMaterial: {fileID: -8394420552937558723, guid: 6f9d253c918824659b9426046aca78cc,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -642,6 +643,12 @@ PrefabInstance:
 --- !u!4 &3796827309362450775 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f1dcfacd702c3b345a4e2b7b78ba2f34,
+    type: 3}
+  m_PrefabInstance: {fileID: 3691741334922622652}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5192632171769179414 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8877822324135517098, guid: f1dcfacd702c3b345a4e2b7b78ba2f34,
     type: 3}
   m_PrefabInstance: {fileID: 3691741334922622652}
   m_PrefabAsset: {fileID: 0}

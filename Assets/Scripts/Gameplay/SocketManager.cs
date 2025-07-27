@@ -155,11 +155,7 @@ public class SocketManager : MonoBehaviour
         // Particle effect (optional)
         if (mergeParticlesPrefab)
         {
-<<<<<<< HEAD
-            GameObject mergeParticle = Instantiate(mergeParticlesPrefab, gridSocket.transform.position + Vector3.up * 0.5f, Quaternion.identity);
-=======
            GameObject mergeParticle = Instantiate(mergeParticlesPrefab, gridSocket.transform.position + Vector3.up * 0.5f, Quaternion.identity);
->>>>>>> 71e70f19a4ca64f2d458342222ed40ba5b3cf211
             Destroy(mergeParticle, 2);
         }
 
