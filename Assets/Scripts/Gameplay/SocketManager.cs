@@ -99,7 +99,8 @@ public class SocketManager : MonoBehaviour
         if (spawnedNewSockets.Contains(socket))
         {
             socket.transform.DOMoveX(socket.transform.position.x - 5f, 0.2f)
-                .OnComplete(() => {
+                .OnComplete(() =>
+                {
                     ReturnSocketToPoolImmediately(socket);
                 });
         }
@@ -151,11 +152,11 @@ public class SocketManager : MonoBehaviour
         gridSocket.isMerging = true;
 
 
-       // gridSocket.transform.localScale = Vector3.one;
+        // gridSocket.transform.localScale = Vector3.one;
         // Particle effect (optional)
         if (mergeParticlesPrefab)
         {
-           GameObject mergeParticle = Instantiate(mergeParticlesPrefab, gridSocket.transform.position + Vector3.up * 0.5f, Quaternion.identity);
+            GameObject mergeParticle = Instantiate(mergeParticlesPrefab, gridSocket.transform.position + Vector3.up * 0.5f, Quaternion.identity);
             Destroy(mergeParticle, 2);
         }
 

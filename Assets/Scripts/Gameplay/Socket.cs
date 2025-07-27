@@ -135,6 +135,11 @@ public class Socket : MonoBehaviour
 
         Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
         gfx.materials[0].color = colorToApply;
+
+        Material mat = gfx.materials[0];
+        Color currentEmission = mat.GetColor("_Emissive");
+        Color targetEmission = currentEmission + colorToApply * 0.5f;
+        mat.SetColor("_Emissive", targetEmission);
     }
 
     private void UpdateFireRateDisplay()
@@ -152,7 +157,7 @@ public class Socket : MonoBehaviour
 
     public void Upgrade()
     {
-        laser.UpgradeLaser();
+        // laser.UpgradeLaser();
     }
 
     #region Auto-Assignment (Editor-Only)

@@ -6,10 +6,6 @@ public class HideLaserSparkle : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.LogError(other.gameObject);
-        if (other.gameObject.CompareTag("Socket"))
-        {
-            this.gameObject.SetActive(false);
-        }
+        this.gameObject.SetActive(false);
     }
 }
