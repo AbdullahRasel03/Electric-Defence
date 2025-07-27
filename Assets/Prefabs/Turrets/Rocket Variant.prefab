@@ -190,7 +190,7 @@ MonoBehaviour:
   fireRate: 5
   isActive: 0
   towerGFX: {fileID: 0}
-  baseFireRate: 1
+  baseFireRate: 5
   shootPoint: {fileID: 1141618410901861990}
   fireMuzzle: {fileID: 1747184191098254744}
   fireImpact: {fileID: 1907251893271902017, guid: 72e9c66a11c564c0daaf00ef28f90404,
