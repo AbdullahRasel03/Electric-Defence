@@ -509,6 +509,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4531615622736042368}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5350889851612116966 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8404180479793688166, guid: 3f9f7e47f677841a2b647ae77d0c1102,
+    type: 3}
+  m_PrefabInstance: {fileID: 4531615622736042368}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7363283894273750357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -644,10 +656,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cad708b78e3747059321cfc5441594a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reflectorActive: 0
   turretBody: {fileID: 7363283894273836073}
   range: 70
   rotationSpeed: 5
-  fireRateText: {fileID: 0}
+  fireRateText: {fileID: 5350889851612116966}
   gridsOnPath:
   - {fileID: 0}
   - {fileID: 0}

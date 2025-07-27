@@ -192,7 +192,7 @@ public class Turret : MonoBehaviour
     {
         if (!wasPoweredThisFrame && isActive)
         {
-             Deactivate();
+            //  Deactivate();
         }
 
         wasPoweredThisFrame = false;
