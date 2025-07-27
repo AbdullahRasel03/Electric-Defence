@@ -77,7 +77,7 @@ namespace MasterFX
             LaserDistance = Vector3.Distance(start, end) - HitOffset;
             transform.LookAt(end);
             UpdateLaser();
-            LaserStop.transform.position = end;
+            LaserStop.transform.position = end + (end - start).normalized * 0.5f;
             // Enable laser if it was disabled
             if (Laser != null && !Laser.isPlaying)
             {

@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 4142335470773747995}
   - component: {fileID: 1843325174546496568}
   - component: {fileID: 540461217539519471}
-  m_Layer: 12
+  m_Layer: 5
   m_Name: Multiplier
   m_TagString: Untagged
   m_Icon: {fileID: 0}

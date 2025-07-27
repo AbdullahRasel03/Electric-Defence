@@ -11,6 +11,7 @@ public class FireTurret : Turret
     [SerializeField] private ParticleSystem fireImpact;
     [SerializeField] private GameObject fireProjectilePrefab;
     [SerializeField] private Sound fireSound;
+    
 
 
     private float fireTime = 0f;
