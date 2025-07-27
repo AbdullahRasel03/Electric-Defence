@@ -109,8 +109,7 @@ MonoBehaviour:
   shapeType: 1
   cubesParent: {fileID: 5307622024320240384}
   levelColors:
-  - {r: 0.90964204, g: 0.15294117, b: 0.99607843, a: 1}
-  - {r: 0.909804, g: 0.15294118, b: 0.9960785, a: 1}
+  - {r: 0.7058824, g: 0.08235294, b: 0.53333336, a: 1}
   gridLayer:
     serializedVersion: 2
     m_Bits: 8192

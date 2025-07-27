@@ -18,6 +18,7 @@ public class LaserReflector : MonoBehaviour
 
     [SerializeField] LayerMask reflectionLayer;
     [SerializeField] LayerMask towerLayer;
+    [SerializeField] LayerMask socketLayer;
     Socket socket;
 
     private void Start()

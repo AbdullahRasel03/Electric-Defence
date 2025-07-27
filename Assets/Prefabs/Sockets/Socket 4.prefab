@@ -170,8 +170,7 @@ MonoBehaviour:
   shapeType: 3
   cubesParent: {fileID: 5307622024320240384}
   levelColors:
-  - {r: 0.3137255, g: 0.85098046, b: 0.3019608, a: 1}
-  - {r: 0.21333215, g: 0.3367311, b: 0.9622642, a: 1}
+  - {r: 0.7058824, g: 0.08235294, b: 0.53333336, a: 1}
   gridLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -182,8 +181,7 @@ MonoBehaviour:
   actingMultiplier: 0
   pinMoveDuration: 0.3
   pinMoveEase: 27
-  socketGFX: {fileID: 6094408763289211609}
-  socketOuterGFX: {fileID: 5192632171769179414}
+  gfx: {fileID: 0}
   multiText: {fileID: 2952775427178931942}
   socketCubes:
   - cube: {fileID: 4625464762245407115}
@@ -196,8 +194,10 @@ MonoBehaviour:
   hasPower: 0
   assignedGrids: []
   socketManager: {fileID: 0}
+  fireRateTexts: []
   plugHolder: {fileID: 4865733133982847765}
   connectedPlug: {fileID: 0}
+  laser: {fileID: 0}
 --- !u!65 &272469415129114330
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -642,18 +642,6 @@ PrefabInstance:
 --- !u!4 &3796827309362450775 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f1dcfacd702c3b345a4e2b7b78ba2f34,
-    type: 3}
-  m_PrefabInstance: {fileID: 3691741334922622652}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &5192632171769179414 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 8877822324135517098, guid: f1dcfacd702c3b345a4e2b7b78ba2f34,
-    type: 3}
-  m_PrefabInstance: {fileID: 3691741334922622652}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &6094408763289211609 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -1754148394519894939, guid: f1dcfacd702c3b345a4e2b7b78ba2f34,
     type: 3}
   m_PrefabInstance: {fileID: 3691741334922622652}
   m_PrefabAsset: {fileID: 0}
