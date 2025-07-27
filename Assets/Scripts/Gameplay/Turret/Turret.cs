@@ -149,6 +149,10 @@ public class Turret : MonoBehaviour
 
     public void CheckMultisOnPath()
     {
+        if (reflectorActive)
+        {
+            return;
+        }
         // float fireRate = 1;
         float currentFireDelay = fireRate;
         foreach (GridObject item in gridsOnPath)
