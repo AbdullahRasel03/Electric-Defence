@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_Laser_Purple__BlueShoot_Sparkle
+  m_Name: Mat_Laser_Purple__HorizontalFlare 2
   m_Shader: {fileID: -6465566751694194690, guid: b85d6def27a1d1041b93e3045d7d6c0f,
     type: 3}
   m_Parent: {fileID: 0}
@@ -35,7 +35,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
@@ -46,7 +46,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseTexture:
-        m_Texture: {fileID: 2800000, guid: bc03968054a5c5b48b18ac83f64cc2e9, type: 3}
+        m_Texture: {fileID: 2800000, guid: a49c01e572cc67c4f8675924e5549b8e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -94,7 +94,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RampTexture:
-        m_Texture: {fileID: 2800000, guid: 8d904b43aba682240a9c11188477e491, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6ef6e373e54feec44894fd2962d97d05, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UVNoiseTexture:
@@ -119,9 +119,9 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _BUILTIN_AlphaClip: 0
-    - _BUILTIN_Blend: 2
-    - _BUILTIN_CullMode: 2
-    - _BUILTIN_DstBlend: 1
+    - _BUILTIN_Blend: 0
+    - _BUILTIN_CullMode: 0
+    - _BUILTIN_DstBlend: 10
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _BUILTIN_SrcBlend: 5
@@ -129,10 +129,10 @@ Material:
     - _BUILTIN_ZTest: 4
     - _BUILTIN_ZWrite: 0
     - _BUILTIN_ZWriteControl: 0
-    - _Blend: 2
+    - _Blend: 0
     - _BumpScale: 1
     - _CastShadows: 0
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0.5
     - _DEPTHFADE: 0
     - _DepthFade: 0.88
@@ -140,7 +140,7 @@ Material:
     - _DepthFadeMax: 0.209
     - _DepthFadeMin: 0
     - _DetailNormalMapScale: 1
-    - _DstBlend: 1
+    - _DstBlend: 10
     - _EDGEFADE: 1
     - _EdgeFade: 0.652
     - _EdgeFadeMax: 1
@@ -165,7 +165,7 @@ Material:
     - _QueueOffset: 0
     - _RemapDark: 0
     - _RemapWhite: 1
-    - _Repeat: 0
+    - _Repeat: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
@@ -192,7 +192,7 @@ Material:
     - _MaskScroll2: {r: 0, g: 0, b: 0, a: 0}
     - _MaskTiling: {r: 1, g: 1, b: 0, a: 0}
     - _MaskTiling2: {r: 1, g: 1, b: 0, a: 0}
-    - _Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _Offset: {r: 1, g: 0, b: 0, a: 0}
     - _ScrollSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _UVNoiseScroll: {r: 0, g: 0, b: 0, a: 0}

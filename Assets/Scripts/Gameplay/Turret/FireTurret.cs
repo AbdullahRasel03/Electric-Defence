@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class FireTurret : Turret
 {
@@ -10,6 +11,7 @@ public class FireTurret : Turret
     [SerializeField] private ParticleSystem fireImpact;
     [SerializeField] private GameObject fireProjectilePrefab;
     [SerializeField] private Sound fireSound;
+
 
     private float fireTime = 0f;
 

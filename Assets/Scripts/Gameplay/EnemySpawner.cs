@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
+using System;
+using Random = UnityEngine.Random;
 public class EnemySpawner : MonoBehaviour
 {
     [System.Serializable]
@@ -18,12 +20,21 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float minSpawnDelay = 1f;
     [SerializeField] private float maxSpawnDelay = 3f;
     [SerializeField] private int maxActiveEnemies = 20;
+    [SerializeField] private Camera topDownCam;
+    [SerializeField] private Camera topDownNonPPCam;
+    [SerializeField] private Camera tpCam;
+    [SerializeField] private GameObject canvas;
+    [SerializeField] private SocketManager socketManager;
+    [SerializeField] private List<Turret> allTurrets;
 
     [Header("Runtime Info")]
     [SerializeField] public List<Enemy> activeEnemies = new List<Enemy>();
 
     private float nextSpawnTime;
+    private float currentTime;
     private bool isSpawning;
+
+    public static event Action OnSpawnStarted;
 
     private void Start()
     {
@@ -57,8 +68,12 @@ public class EnemySpawner : MonoBehaviour
         }
         if (!isSpawning || activeEnemies.Count >= maxActiveEnemies) return;
 
-        if (Time.time >= nextSpawnTime)
+        currentTime += Time.deltaTime;
+
+
+        if (currentTime >= nextSpawnTime)
         {
+            currentTime = 0f;
             SpawnEnemy();
             SetNextSpawnTime();
         }
@@ -66,8 +81,26 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartSpawning()
     {
+        OnSpawnStarted?.Invoke();
+        allTurrets.ForEach(x => x.Activate());
+
+        canvas.SetActive(false);
+        socketManager.ResetAllSockets();
+        nextSpawnTime = 3f;
         isSpawning = true;
-        SetNextSpawnTime();
+        topDownNonPPCam.orthographic = false;
+        topDownCam.orthographic = false;
+
+        allTurrets.ForEach(turret => turret.RotateFireRateText());
+
+        topDownCam.transform.DOMove(tpCam.transform.position, 1.5f);
+        topDownCam.transform.DORotate(tpCam.transform.rotation.eulerAngles, 1.5f);
+
+        DOTween.To(() => topDownCam.fieldOfView, x => topDownCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
+        DOTween.To(() => topDownNonPPCam.fieldOfView, x => topDownNonPPCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
+
+
+        // SetNextSpawnTime();
     }
 
     public void StopSpawning()
@@ -77,7 +110,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SetNextSpawnTime()
     {
-        nextSpawnTime = Time.time + Random.Range(minSpawnDelay, maxSpawnDelay);
+        nextSpawnTime = Random.Range(minSpawnDelay, maxSpawnDelay);
     }
 
     private void SpawnEnemy()

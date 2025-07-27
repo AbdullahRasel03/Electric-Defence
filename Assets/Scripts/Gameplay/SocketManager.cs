@@ -99,7 +99,8 @@ public class SocketManager : MonoBehaviour
         if (spawnedNewSockets.Contains(socket))
         {
             socket.transform.DOMoveX(socket.transform.position.x - 5f, 0.2f)
-                .OnComplete(() => {
+                .OnComplete(() =>
+                {
                     ReturnSocketToPoolImmediately(socket);
                 });
         }
@@ -117,12 +118,12 @@ public class SocketManager : MonoBehaviour
     {
         if (socketA == null || socketB == null)
             return false;
-        if (socketA.shapeType != socketB.shapeType)        
+        if (socketA.shapeType != socketB.shapeType)
             return false;
-        
+
         if (socketA.currentLevel != socketB.currentLevel)
             return false;
-        
+
         return true;
     }
 
@@ -137,7 +138,8 @@ public class SocketManager : MonoBehaviour
 
         RemoveSocketFromSpwanedList(socketA);
         RemoveSocketFromSpwanedList(socketB);
-        if (activeGrids.Contains(socketA)) { 
+        if (activeGrids.Contains(socketA))
+        {
             activeGrids.Remove(socketA);
         }
         StartCoroutine(MergeSocketsRoutine(socketA, socketB));
@@ -149,10 +151,12 @@ public class SocketManager : MonoBehaviour
         incomingSocket.isMerging = true;
         gridSocket.isMerging = true;
 
+
+        // gridSocket.transform.localScale = Vector3.one;
         // Particle effect (optional)
         if (mergeParticlesPrefab)
         {
-           GameObject mergeParticle = Instantiate(mergeParticlesPrefab, gridSocket.transform.position + Vector3.up * 0.5f, Quaternion.identity);
+            GameObject mergeParticle = Instantiate(mergeParticlesPrefab, gridSocket.transform.position + Vector3.up * 0.5f, Quaternion.identity);
             Destroy(mergeParticle, 2);
         }
 
@@ -190,7 +194,7 @@ public class SocketManager : MonoBehaviour
         Destroy(incomingSocket.gameObject);
         gridManager.CheckAllGridsPower();
         gridSocket.UpdateColorAndTextByLevel();
-         yield return null;
+        yield return null;
     }
 
 }

@@ -13,6 +13,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] int rowCount, columnCount;
     public List<GridArray> gridArrays;
     public TowerController[] towers;
+    public Turret[] turrets;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +65,11 @@ public class GridManager : MonoBehaviour
         {
            // item.CheckMultisOnPath();
             print("Here and there");
+        }
+
+        foreach (var item in turrets)
+        {
+            item.CheckMultisOnPath();
         }
         /*  foreach (var item in gridArrays)
           {

@@ -9,6 +9,9 @@ public class Turret : MonoBehaviour
     [SerializeField] protected Transform turretBody;
     [SerializeField] protected float range = 18f;
     [SerializeField] protected float rotationSpeed = 5f;
+    // [SerializeField] protected float fireDelay = 1f;
+    [SerializeField] private TMP_Text fireRateText;
+    public GridObject[] gridsOnPath;
     [SerializeField] protected float fireRate = 1f;
     [SerializeField] protected bool isActive = false;
 
@@ -17,7 +20,6 @@ public class Turret : MonoBehaviour
     protected float timer;
 
     [SerializeField] Renderer towerGFX;
-    [SerializeField] TMP_Text fireRateText;
 
     private bool wasPoweredThisFrame = false;
     [SerializeField] private float baseFireRate = 1f;
@@ -25,7 +27,16 @@ public class Turret : MonoBehaviour
     void Start()
     {
         timer = refreshCooldown;
-        UpdateFireRateText("--");
+        UpdateFireRateText();
+    }
+
+    private void UpdateFireRateText()
+    {
+        if (fireRateText != null)
+        {
+            fireRateText.text = (1f / fireRate).ToString("F2") + "/s";
+        }
+        // UpdateFireRateText("--");
     }
 
     void Update()
@@ -47,7 +58,8 @@ public class Turret : MonoBehaviour
         Color currentEmission = mat.GetColor("_Emissive");
         Color targetEmission = currentEmission + Color.cyan * 10f;
 
-        DOTween.To(() => currentEmission, x => {
+        DOTween.To(() => currentEmission, x =>
+        {
             currentEmission = x;
             mat.SetColor("_Emissive", currentEmission);
         }, targetEmission, 1f);
@@ -67,7 +79,8 @@ public class Turret : MonoBehaviour
             Color targetEmission = currentEmission - Color.cyan * 10f;
 
             DOTween.Kill(mat);
-            DOTween.To(() => currentEmission, x => {
+            DOTween.To(() => currentEmission, x =>
+            {
                 mat.SetColor("_Emissive", x);
             }, targetEmission, 1f);
         }
@@ -129,6 +142,34 @@ public class Turret : MonoBehaviour
         // Implement firing logic in derived classes
     }
 
+    public void CheckMultisOnPath()
+    {
+        // float fireRate = 1;
+        float currentFireDelay = fireRate;
+        foreach (GridObject item in gridsOnPath)
+        {
+            if (item.socket)
+            {
+                currentFireDelay -= item.socket.ownMultiplier / 50f;
+                item.socket.PowerUp();
+            }
+        }
+
+        fireRate = currentFireDelay;
+
+        UpdateFireRateText();
+        // shooter.SetFireRate(fireRate);
+        // powerText.text = shooter.GetFireRate().ToString();
+    }
+
+    public void RotateFireRateText()
+    {
+        if (fireRateText != null)
+        {
+            fireRateText.transform.parent.DOLocalRotateQuaternion(Quaternion.Euler(-75f, 0f, 0f), 1.5f);
+        }
+    }
+
     public void ReceivePower(float totalMultiplier)
     {
         wasPoweredThisFrame = true;
@@ -146,7 +187,7 @@ public class Turret : MonoBehaviour
     {
         if (!wasPoweredThisFrame && isActive)
         {
-            Deactivate();
+            // Deactivate();
         }
 
         wasPoweredThisFrame = false;
@@ -157,7 +198,7 @@ public class Turret : MonoBehaviour
     private void SetFireRate(float rate)
     {
         fireRate = rate;
-        UpdateFireRateText(rate.ToString("0.0"));
+        UpdateFireRateText();
     }
 
     private void UpdateFireRateText(string text)
