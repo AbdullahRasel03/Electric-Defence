@@ -182,6 +182,8 @@ MonoBehaviour:
   pinMoveDuration: 0.3
   pinMoveEase: 27
   gfx: {fileID: 3814964963260893751}
+  glowIndex: 1
+  colorIndex: 0
   multiText: {fileID: 2952775427178931942}
   socketCubes:
   - cube: {fileID: 4625464762245407115}
@@ -257,7 +259,7 @@ GameObject:
   - component: {fileID: 4142335470773747995}
   - component: {fileID: 1843325174546496568}
   - component: {fileID: 540461217539519471}
-  m_Layer: 12
+  m_Layer: 5
   m_Name: Multiplier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,8 +273,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2952775427178931942}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.71}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 2.4999998}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -280,7 +282,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.83}
+  m_AnchoredPosition: {x: 0, y: 1}
   m_SizeDelta: {x: 3, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1843325174546496568

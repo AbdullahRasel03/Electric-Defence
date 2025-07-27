@@ -24,6 +24,8 @@ public class Socket : MonoBehaviour
     public float pinMoveDuration = 0.3f;
     public Ease pinMoveEase = Ease.OutBack;
     public Renderer gfx;
+    public int glowIndex = 1;
+    public int colorIndex = 0;
     public GameObject multiText;
     #endregion
 
@@ -44,11 +46,24 @@ public class Socket : MonoBehaviour
 
     public MLaser laser;
 
+    public GameObject MulTxt => multiText;
+
     #region Unity Lifecycle
 
     private void Start()
     {
         InitializeSocket();
+        EnemySpawner.OnSpawnStarted += RotateMultiplier;
+    }
+
+    private void OnDestroy()
+    {
+        EnemySpawner.OnSpawnStarted -= RotateMultiplier;
+    }
+
+    private void RotateMultiplier()
+    {
+        multiText.transform.DOLocalRotateQuaternion(Quaternion.Euler(65f, 0f, 0f), 1.5f);
     }
 
     private void InitializeSocket()
@@ -71,11 +86,12 @@ public class Socket : MonoBehaviour
         if (gfx == null || gfx.material == null || hasPower) return;
 
         hasPower = true;
-        Material mat = gfx.materials[1];
+        Material mat = gfx.materials[glowIndex];
         Color currentEmission = mat.GetColor("_Emissive");
         Color targetEmission = currentEmission + Color.cyan * 10f;
 
-        DOTween.To(() => currentEmission, x => {
+        DOTween.To(() => currentEmission, x =>
+        {
             mat.SetColor("_Emissive", x); // Directly set the color in the callback
         }, targetEmission, 1f).SetId(this); // Add ID for potential tween control
 
@@ -91,14 +107,15 @@ public class Socket : MonoBehaviour
         if (gfx == null || gfx.material == null || !hasPower) return;
 
         hasPower = false;
-        Material mat = gfx.materials[1];
+        Material mat = gfx.materials[glowIndex];
         Color currentEmission = mat.GetColor("_Emissive");
         Color targetEmission = currentEmission - Color.cyan * 10f;
 
         // Kill any ongoing emission tweens for this object
         DOTween.Kill(this);
 
-        DOTween.To(() => currentEmission, x => {
+        DOTween.To(() => currentEmission, x =>
+        {
             mat.SetColor("_Emissive", x);
         }, targetEmission, 1f);
 
@@ -134,9 +151,9 @@ public class Socket : MonoBehaviour
         if (levelColors == null || levelColors.Length == 0) return;
 
         Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
-        gfx.materials[0].color = colorToApply;
+        gfx.materials[colorIndex].color = colorToApply;
 
-        Material mat = gfx.materials[0];
+        Material mat = gfx.materials[colorIndex];
         Color currentEmission = mat.GetColor("_Emissive");
         Color targetEmission = currentEmission + colorToApply * 0.5f;
         mat.SetColor("_Emissive", targetEmission);

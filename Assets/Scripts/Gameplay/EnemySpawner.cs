@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
+using Random = UnityEngine.Random;
 public class EnemySpawner : MonoBehaviour
 {
     [System.Serializable]
@@ -30,6 +32,8 @@ public class EnemySpawner : MonoBehaviour
 
     private float nextSpawnTime;
     private bool isSpawning;
+
+    public static event Action OnSpawnStarted;
 
     private void Start()
     {
@@ -72,6 +76,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartSpawning()
     {
+        OnSpawnStarted?.Invoke();
         allTurrets.ForEach(x => x.Activate());
 
         canvas.SetActive(false);
@@ -84,11 +89,7 @@ public class EnemySpawner : MonoBehaviour
         allTurrets.ForEach(turret => turret.RotateFireRateText());
 
         topDownCam.transform.DOMove(tpCam.transform.position, 1.5f);
-        topDownCam.transform.DORotate(tpCam.transform.rotation.eulerAngles, 1.5f).OnComplete(() =>
-        {
-            topDownCam.gameObject.SetActive(false);
-            tpCam.gameObject.SetActive(true);
-        });
+        topDownCam.transform.DORotate(tpCam.transform.rotation.eulerAngles, 1.5f);
 
         DOTween.To(() => topDownCam.fieldOfView, x => topDownCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
         DOTween.To(() => topDownNonPPCam.fieldOfView, x => topDownNonPPCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);

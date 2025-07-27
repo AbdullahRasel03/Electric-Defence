@@ -122,6 +122,8 @@ MonoBehaviour:
   pinMoveDuration: 0.3
   pinMoveEase: 27
   gfx: {fileID: 2745494688942545216}
+  glowIndex: 1
+  colorIndex: 0
   multiText: {fileID: 9046804187783268100}
   socketCubes:
   - cube: {fileID: 1669901201940634602}
@@ -210,7 +212,7 @@ Transform:
   m_GameObject: {fileID: 3323232116513991683}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.06, y: 0.175, z: -0.07}
+  m_LocalPosition: {x: -1.04, y: 0.175, z: -0.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -241,7 +243,7 @@ Transform:
   m_GameObject: {fileID: 4861504198197171530}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.35, y: 0.175, z: -0.01}
+  m_LocalPosition: {x: 1.46, y: 0.175, z: -0.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -335,8 +337,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9046804187783268100}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.02}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0.05}
   m_LocalScale: {x: 1, y: 1, z: 2.4999998}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -344,7 +346,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.2}
+  m_AnchoredPosition: {x: 0, y: 1.25}
   m_SizeDelta: {x: 3, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8682847455462825986
@@ -437,8 +439,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 11
+  m_fontSizeBase: 11
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 5
@@ -503,7 +505,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ab3121b16ea9a5f42b88133d8d66027d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ab3121b16ea9a5f42b88133d8d66027d,
         type: 3}
@@ -513,7 +515,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ab3121b16ea9a5f42b88133d8d66027d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ab3121b16ea9a5f42b88133d8d66027d,
         type: 3}

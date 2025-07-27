@@ -176,11 +176,18 @@ public class DragSystem : MonoBehaviour
                 transform.position = initialPosition;
                 return;
             }
-            socket.transform.localScale = Vector3.one;
+            socket.transform.localScale = Vector3.one * 1.2f;
             socket.socketManager.RemoveSocketFromSpwanedList(socket);
             socket.socketManager.activeGrids.Add(socket);
 
-            newPosition.y = 1;
+            newPosition.y = 0f;
+
+            foreach (Transform chil in transform)
+            {
+                chil.gameObject.layer = LayerMask.NameToLayer("Default");
+            }
+
+            socket.MulTxt.layer = LayerMask.NameToLayer("Socket");
 
             socket.transform.DOMove(newPosition + Vector3.forward * 0.3f, 0.25f).OnComplete(() =>
             {
