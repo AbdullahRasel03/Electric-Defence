@@ -472,15 +472,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 422910, guid: f10cb9f4e98ef41458c6a3b9b696648e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.48000002
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 422910, guid: f10cb9f4e98ef41458c6a3b9b696648e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.48000002
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 422910, guid: f10cb9f4e98ef41458c6a3b9b696648e, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.48000002
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 422910, guid: f10cb9f4e98ef41458c6a3b9b696648e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -488,11 +488,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 422910, guid: f10cb9f4e98ef41458c6a3b9b696648e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 422910, guid: f10cb9f4e98ef41458c6a3b9b696648e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0959998
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 422910, guid: f10cb9f4e98ef41458c6a3b9b696648e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -500,7 +500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 422910, guid: f10cb9f4e98ef41458c6a3b9b696648e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.000000021855694
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 422910, guid: f10cb9f4e98ef41458c6a3b9b696648e, type: 3}
       propertyPath: m_LocalRotation.y
@@ -602,7 +602,7 @@ MonoBehaviour:
   turretBody: {fileID: 1113616668531351643}
   range: 60
   rotationSpeed: 5
-  fireRateText: {fileID: 7244149957304365966}
+  fireRateText: {fileID: 0}
   gridsOnPath:
   - {fileID: 0}
   - {fileID: 0}
@@ -649,7 +649,7 @@ PrefabInstance:
     - target: {fileID: 2882612620234373670, guid: 3f9f7e47f677841a2b647ae77d0c1102,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.49
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 2882612620234373670, guid: 3f9f7e47f677841a2b647ae77d0c1102,
         type: 3}
@@ -698,18 +698,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1164674868211768808}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7244149957304365966 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8404180479793688166, guid: 3f9f7e47f677841a2b647ae77d0c1102,
-    type: 3}
-  m_PrefabInstance: {fileID: 1164674868211768808}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1909698935637670172
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -718,9 +706,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1113616668531246153}
     m_Modifications:
+    - target: {fileID: 1110703515445358, guid: f54bb1ec5b694b74ba4f1ff9c5556eee, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1396411941108654, guid: f54bb1ec5b694b74ba4f1ff9c5556eee, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 1584403288528622, guid: f54bb1ec5b694b74ba4f1ff9c5556eee, type: 3}
       propertyPath: m_Name
       value: Bullet_BlazingRed_Big_MuzzleFlare
+      objectReference: {fileID: 0}
+    - target: {fileID: 1584403288528622, guid: f54bb1ec5b694b74ba4f1ff9c5556eee, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1764162705995776, guid: f54bb1ec5b694b74ba4f1ff9c5556eee, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4074934030344262, guid: f54bb1ec5b694b74ba4f1ff9c5556eee, type: 3}
       propertyPath: m_LocalScale.x

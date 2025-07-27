@@ -102,6 +102,8 @@ MonoBehaviour:
   pinMoveDuration: 0.3
   pinMoveEase: 27
   gfx: {fileID: 4117630507708649240}
+  glowIndex: 1
+  colorIndex: 0
   multiText: {fileID: 8265576050242019877}
   socketCubes:
   - cube: {fileID: 8851764224775469811}
