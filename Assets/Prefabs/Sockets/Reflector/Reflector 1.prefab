@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 470034231883435871}
-  m_Layer: 12
+  m_Layer: 18
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 1296750998800699312}
   - component: {fileID: 9071200438851629627}
   - component: {fileID: 355651167586403823}
-  m_Layer: 12
+  m_Layer: 18
   m_Name: Reflector 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,10 +138,13 @@ MonoBehaviour:
   castOffset: 0.01
   reflectionLayer:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 266240
   towerLayer:
     serializedVersion: 2
     m_Bits: 32768
+  socketLayer:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!114 &1296750998800699312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1570513965003418249}
-  m_Layer: 12
+  m_Layer: 18
   m_Name: Plug Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8729278946705380733}
-  m_Layer: 12
+  m_Layer: 18
   m_Name: Grid Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +288,7 @@ GameObject:
   - component: {fileID: 4456235149690182630}
   - component: {fileID: 8594598875786134819}
   - component: {fileID: 3652960866237835926}
-  m_Layer: 12
+  m_Layer: 18
   m_Name: Multiplier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -455,7 +458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8851764224775469811}
-  m_Layer: 12
+  m_Layer: 18
   m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -568,7 +571,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8b8b050d69876424199edb514c723e3d,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -595,6 +598,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5482918986924825048}
     m_Modifications:
+    - target: {fileID: 1232802399399969917, guid: 9575e3430745a344a942d9ae38d18a5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1922557988570866614, guid: 9575e3430745a344a942d9ae38d18a5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008594244192578637, guid: 9575e3430745a344a942d9ae38d18a5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042484451010844766, guid: 9575e3430745a344a942d9ae38d18a5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841558695699344549, guid: 9575e3430745a344a942d9ae38d18a5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334118279629115917, guid: 9575e3430745a344a942d9ae38d18a5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3693698887341590195, guid: 9575e3430745a344a942d9ae38d18a5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 4158586875577046572, guid: 9575e3430745a344a942d9ae38d18a5b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -645,6 +683,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4210482404797127760, guid: 9575e3430745a344a942d9ae38d18a5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276247229596539155, guid: 9575e3430745a344a942d9ae38d18a5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5791722081736445094, guid: 9575e3430745a344a942d9ae38d18a5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 6957630474948081132, guid: 9575e3430745a344a942d9ae38d18a5b,
         type: 3}
       propertyPath: m_Name
@@ -652,8 +705,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6957630474948081132, guid: 9575e3430745a344a942d9ae38d18a5b,
         type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 6957630474948081132, guid: 9575e3430745a344a942d9ae38d18a5b,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674533879866205658, guid: 9575e3430745a344a942d9ae38d18a5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034355418540302372, guid: 9575e3430745a344a942d9ae38d18a5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 9134247651306072150, guid: 9575e3430745a344a942d9ae38d18a5b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -11475,7 +11475,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 114679
+    m_Bits: 376823
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -73403,6 +73403,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1259574761}
+        m_TargetAssemblyTypeName: EnemySpawner, Assembly-CSharp
+        m_MethodName: StartSpawning
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1500520350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78605,10 +78617,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflectableLayers:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 262144
   towerLayer:
     serializedVersion: 2
     m_Bits: 32768
+  socketLayer:
+    serializedVersion: 2
+    m_Bits: 4096
   laser: {fileID: 1995052493}
   maxDistance: 20
 --- !u!1001 &1732438391

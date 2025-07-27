@@ -6,7 +6,8 @@ using UnityEngine;
 public enum DragObjectType
 {
     Plug,
-    Socket
+    Socket,
+    Reflector
 }
 
 [RequireComponent(typeof(Collider))]
@@ -51,7 +52,7 @@ public class DragSystem : MonoBehaviour
 
         Vector3 mousePosition = GetMouseWorldPosition();
         dragOffset = mousePosition - transform.position;
-
+        print("Dragging");
         if (objectType == DragObjectType.Plug)
         {
             Plug plug = GetComponent<Plug>();

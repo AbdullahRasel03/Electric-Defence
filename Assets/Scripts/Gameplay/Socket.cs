@@ -152,7 +152,7 @@ public class Socket : MonoBehaviour
 
     public void Upgrade()
     {
-        laser.UpgradeLaser();
+       // laser.UpgradeLaser();
     }
 
     #region Auto-Assignment (Editor-Only)
