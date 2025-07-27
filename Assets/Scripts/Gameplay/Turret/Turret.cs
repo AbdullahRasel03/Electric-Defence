@@ -1,5 +1,7 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
@@ -12,9 +14,18 @@ public class Turret : MonoBehaviour
     [SerializeField] protected float fireDelay = 1f;
     [SerializeField] private TMP_Text fireRateText;
     public GridObject[] gridsOnPath;
+    [SerializeField] protected float fireRate = 1f;
+    [SerializeField] protected bool isActive = false;
+
     protected Enemy currentTarget;
     protected float refreshCooldown = 0.2f;
     protected float timer;
+
+    [SerializeField] Renderer towerGFX;
+    [SerializeField] TMP_Text fireRateText;
+
+    private bool wasPoweredThisFrame = false;
+    [SerializeField] private float baseFireRate = 1f;
 
     void Start()
     {
@@ -28,14 +39,67 @@ public class Turret : MonoBehaviour
         {
             fireRateText.text = (1f / fireDelay).ToString("F2") + "/s";
         }
+        UpdateFireRateText("--");
     }
-
 
     void Update()
     {
+        if (!isActive) return;
+
         AssignClosestEnemy();
         RotateYAxisToTarget();
         Fire();
+    }
+
+    public void Activate()
+    {
+        isActive = true;
+
+        if (towerGFX == null || towerGFX.material == null) return;
+
+        Material mat = towerGFX.materials[0];
+        Color currentEmission = mat.GetColor("_Emissive");
+        Color targetEmission = currentEmission + Color.cyan * 10f;
+
+        DOTween.To(() => currentEmission, x => {
+            currentEmission = x;
+            mat.SetColor("_Emissive", currentEmission);
+        }, targetEmission, 1f);
+    }
+
+    public void Deactivate()
+    {
+        if (!isActive) return;
+
+        isActive = false;
+        currentTarget = null;
+
+        if (towerGFX != null && towerGFX.material != null)
+        {
+            Material mat = towerGFX.materials[0];
+            Color currentEmission = mat.GetColor("_Emissive");
+            Color targetEmission = currentEmission - Color.cyan * 10f;
+
+            DOTween.Kill(mat);
+            DOTween.To(() => currentEmission, x => {
+                mat.SetColor("_Emissive", x);
+            }, targetEmission, 1f);
+        }
+
+        SetFireRate(baseFireRate);
+        UpdateFireRateText("--");
+    }
+
+    public void ToggleActive()
+    {
+        if (isActive)
+        {
+            Deactivate();
+        }
+        else
+        {
+            Activate();
+        }
     }
 
     protected virtual void AssignClosestEnemy()
@@ -49,8 +113,6 @@ public class Turret : MonoBehaviour
 
             foreach (Enemy enemy in EnemyManager.Instance.ActiveEnemies)
             {
-                // if (!enemy.IsActive) continue;
-
                 float dist = Vector3.Distance(transform.position, enemy.transform.position);
                 if (dist <= range && dist < closestDist)
                 {
@@ -59,7 +121,6 @@ public class Turret : MonoBehaviour
                 }
             }
             currentTarget = best;
-
             timer = refreshCooldown;
         }
     }
@@ -110,4 +171,42 @@ public class Turret : MonoBehaviour
         }
     }
 
+    public void ReceivePower(float totalMultiplier)
+    {
+        wasPoweredThisFrame = true;
+
+        if (!isActive)
+        {
+            Activate();
+        }
+
+        float newRate = baseFireRate * Mathf.Max(1f, totalMultiplier);
+        SetFireRate(newRate);
+    }
+
+    void LateUpdate()
+    {
+        if (!wasPoweredThisFrame && isActive)
+        {
+            Deactivate();
+        }
+
+        wasPoweredThisFrame = false;
+    }
+
+    // === New Methods ===
+
+    private void SetFireRate(float rate)
+    {
+        fireRate = rate;
+        UpdateFireRateText(rate.ToString("0.0"));
+    }
+
+    private void UpdateFireRateText(string text)
+    {
+        if (fireRateText != null)
+        {
+            fireRateText.text = text;
+        }
+    }
 }

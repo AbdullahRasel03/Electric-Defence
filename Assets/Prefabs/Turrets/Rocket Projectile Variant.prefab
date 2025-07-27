@@ -8,9 +8,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1128912121857190, guid: 32563c1c7ddb94746889e29751f49ec9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134537380206928, guid: 32563c1c7ddb94746889e29751f49ec9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1255968895767878, guid: 32563c1c7ddb94746889e29751f49ec9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1554052670201816, guid: 32563c1c7ddb94746889e29751f49ec9, type: 3}
       propertyPath: m_Name
       value: Rocket Projectile Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554052670201816, guid: 32563c1c7ddb94746889e29751f49ec9, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4581485363590150, guid: 32563c1c7ddb94746889e29751f49ec9, type: 3}
       propertyPath: m_LocalScale.x

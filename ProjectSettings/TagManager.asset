@@ -21,9 +21,9 @@ TagManager:
   - Socket
   - Grid
   - NonPostProcess
+  - Tower
   - Laser
-  - WorldUI
-  - 
+  - HitEffect
   - 
   - 
   - 

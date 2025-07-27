@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// a component that works in both play mode and edit mode; change the length of the laser;
-// it change the position of laser head by the laserDistance, and change the scale of the laser body by the laserDistance;
 namespace MasterFX
 {
     public class MLaser : MonoBehaviour
@@ -13,28 +11,21 @@ namespace MasterFX
         public List<ParticleSystem> LaserBodies;
 
         public ParticleSystem Laser;
-
-        public ParticleSystem LaserStart;
-        public ParticleSystem LaserStop;
+        public ParticleSystem LaserStop; // Pre-assigned in inspector
         //Apply an offset before hit;
         public float HitOffset;
 
         Vector3 EndPos;
-
-        // public Texture2D LUTTexture;
-
 
         void OnValidate()
         {
             UpdateLaser();
         }
 
-
         void UpdateLaser()
         {
             if (LaserHead != null)
             {
-                // Move the laser head by the laser distance along the local forward direction
                 LaserHead.localPosition = new Vector3(0, 0, LaserDistance);
             }
 
@@ -42,78 +33,98 @@ namespace MasterFX
             {
                 foreach (var laserBody in LaserBodies)
                 {
-                    if (laserBody == null)
-                    {
-                        continue;
-                    }
+                    if (laserBody == null) continue;
 
-                    // Change the scale of the laser body to match the laser distance
                     var mainModule = laserBody.main;
-                    //set the startsize's z to fit the laser distance;
-                    mainModule.startSize3D = true; // Enable 3D start size mode
-
+                    mainModule.startSize3D = true;
                     mainModule.startSizeX = laserBody.main.startSizeX.constant;
                     mainModule.startSizeY = LaserDistance;
                     mainModule.startSizeZ = 1;
-                    //change the sorting fudge to 0;
                 }
             }
         }
 
+        public void UpgradeLaser()
+        {
+
+            if (LaserBodies != null)
+            {
+                foreach (var laserBody in LaserBodies)
+                {
+                    if (laserBody == null) continue;
+
+                    var mainModule = laserBody.main;
+                    mainModule.startSize3D = true;
+                    mainModule.startSizeX = laserBody.main.startSizeX.constant + 1;
+                    mainModule.startSizeY = LaserDistance;
+                    mainModule.startSizeZ = 1;
+                }
+            }
+        }
         void Start()
         {
-            //Instantiate Laser Start;
-            if (LaserStart != null)
+          /*  // Ensure stop particle is disabled at start
+            if (LaserStop != null)
             {
-                ParticleSystem start = Instantiate(LaserStart, transform);
-                start.transform.localPosition = Vector3.zero;
-                start.transform.localRotation = Quaternion.identity;
-                //Apply LUT texture;
-                // if (LUTTexture != null)
-                // {
-                //     //get all children renderers in the start;
-                //     MUtils.MApplyLutTexturesToParticles(start, LUTTexture);
-                // }
-            }
-            // MUtils.MApplyLutTexturesToParticles(gameObject.GetComponent<ParticleSystem>(), LUTTexture);
+                LaserStop.gameObject.SetActive(false);
+            }*/
         }
+
         public void SetLaser(Vector3 start, Vector3 end)
         {
-            //set the position of self to the start;
             transform.position = start;
-            //set the distance between start and end;
-            //set the laser distance to the distance between start and end;
             EndPos = end;
-
             LaserDistance = Vector3.Distance(start, end) - HitOffset;
-            //set the laser head to the end position;
-
             transform.LookAt(end);
-            //update the laser;
             UpdateLaser();
+            LaserStop.transform.position = end;
+            // Enable laser if it was disabled
+            if (Laser != null && !Laser.isPlaying)
+            {
+                Laser.gameObject.SetActive(true);
+                Laser.Play();
+            }
         }
 
         public void StopLaser()
         {
-            //stop this particle system;
-            ParticleSystem particle = GetComponent<ParticleSystem>();
-            if (particle != null)
+            // Stop main laser
+            if (Laser != null)
             {
-                particle.Stop();
+                Laser.Stop();
             }
-            //Instantiate Laser Stop;
+
+            // Show stop effect
             if (LaserStop != null)
             {
-                ParticleSystem stop = Instantiate(LaserStop, transform);
-                stop.transform.localPosition = Vector3.zero;
-                stop.transform.LookAt(EndPos);
-                //set the length of stop to the laser distance;
-                var mainModule = stop.main;
-                mainModule.startSize3D = true; // Enable 3D start size mode
-                mainModule.startSizeX = stop.main.startSizeX.constant;
+                LaserStop.gameObject.SetActive(true);
+                LaserStop.transform.localPosition = Vector3.zero;
+                LaserStop.transform.LookAt(EndPos);
+
+                var mainModule = LaserStop.main;
+                mainModule.startSize3D = true;
+                mainModule.startSizeX = LaserStop.main.startSizeX.constant;
                 mainModule.startSizeY = LaserDistance;
                 mainModule.startSizeZ = 1;
-                // MUtils.MApplyLutTexturesToParticles(stop, LUTTexture);
+
+                LaserStop.Play();
+            }
+        }
+
+        public void EnableLaser(bool enable)
+        {
+            if (Laser != null)
+            {
+                if (enable)
+                {
+                    Laser.gameObject.SetActive(true);
+                    Laser.Play();
+                }
+                else
+                {
+                    Laser.Stop();
+                    Laser.gameObject.SetActive(false);
+                }
             }
         }
     }

@@ -1,6 +1,9 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -21,14 +24,10 @@ namespace LayerLab.GUIScripts
         [SerializeField] private Button buttonPrev;
         [SerializeField] private Button buttonNext;
 
-        private bool IsOtherMode { get; set; }
-
 
         private void OnValidate()
         {
-            var panels = GameObject.Find("Panels");
-            if (panels) panelTransformDefault = panels.transform;
-            
+            panelTransformDefault = GameObject.Find("Panels").transform;
             buttonPrev = transform.GetChild(0).GetComponent<Button>();
             buttonNext = transform.GetChild(2).GetComponent<Button>();
         }
@@ -38,6 +37,7 @@ namespace LayerLab.GUIScripts
             OnValidate();
         }
 
+        private bool IsOtherMode { get; set; }
         private void Start()
         {
             _textTitle = transform.GetComponentInChildren<TextMeshProUGUI>();
@@ -52,16 +52,17 @@ namespace LayerLab.GUIScripts
             defaultPanels[_page].SetActive(true);
             
             
-            if(panelTransformOther == null) return;
             
-            foreach (Transform t in panelTransformOther)
+            
+            if (otherPanels.Count > 0)
             {
-                otherPanels.Add(t.gameObject);
-                t.gameObject.SetActive(false);
+                foreach (Transform t in panelTransformOther)
+                {
+                    otherPanels.Add(t.gameObject);
+                    t.gameObject.SetActive(false);
+                }
+                otherPanels[_page].SetActive(true);
             }
-            
-            
-            if (otherPanels.Count > 0) otherPanels[_page].SetActive(true);
 
             
             
@@ -70,7 +71,7 @@ namespace LayerLab.GUIScripts
             CheckControl();
         }
 
-        private void Update()
+        void Update()
         {
             if (defaultPanels.Count <= 0 || !_isReady) return;
 
@@ -97,7 +98,7 @@ namespace LayerLab.GUIScripts
 
         //Click_Prev
         //Click_Prev
-        private void Click_Prev()
+        public void Click_Prev()
         {
             if (_page <= 0) return;
 
@@ -124,7 +125,7 @@ namespace LayerLab.GUIScripts
         }
 
         //Click_Next
-        private void Click_Next()
+        public void Click_Next()
         {
             if (_page >= defaultPanels.Count - 1) return;
             
@@ -138,7 +139,7 @@ namespace LayerLab.GUIScripts
         }
 
 
-        private void SetArrowActive()
+        void SetArrowActive()
         {
             buttonPrev.gameObject.SetActive(_page > 0);
             buttonNext.gameObject.SetActive(_page < defaultPanels.Count - 1);
@@ -169,10 +170,10 @@ namespace LayerLab.GUIScripts
             CheckControl();
         }
         
-        private void SetMode()
+        void SetMode()
         {
-            panelTransformDefault.gameObject.SetActive(!IsOtherMode);
-            if(otherPanels.Count > 0) panelTransformOther.gameObject.SetActive(IsOtherMode);
+            panelTransformDefault.gameObject.SetActive(IsOtherMode);
+            if(otherPanels.Count > 0) panelTransformOther.gameObject.SetActive(!IsOtherMode);
         }
     }
 }

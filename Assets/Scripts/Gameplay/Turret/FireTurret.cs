@@ -21,7 +21,7 @@ public class FireTurret : Turret
         if (currentTarget != null)
         {
             fireTime += Time.deltaTime;
-            if (fireTime < fireDelay) return;
+            if (fireTime < fireRate) return;
 
             fireTime = 0f;
 
