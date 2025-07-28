@@ -78,7 +78,7 @@ public class Turret : MonoBehaviour
         isActive = false;
         currentTarget = null;
 
-        if (towerGFX != null && towerGFX.material != null)
+        if (towerGFX != null && towerGFX.materials.Length > 0)
         {
             Material mat = towerGFX.materials[0];
             Color currentEmission = mat.GetColor("_Emissive");
@@ -197,7 +197,11 @@ public class Turret : MonoBehaviour
     {
         if (!wasPoweredThisFrame && isActive)
         {
-            //  Deactivate();
+            if (reflectorActive)
+            {
+
+             Deactivate();
+            }
         }
 
         wasPoweredThisFrame = false;
