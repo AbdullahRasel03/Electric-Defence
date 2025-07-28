@@ -153,9 +153,9 @@ public class Socket : MonoBehaviour
         Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
         gfx.materials[colorIndex].color = colorToApply;
 
-        Material mat = gfx.materials[colorIndex];
+        Material mat = gfx.materials[glowIndex];
         Color currentEmission = mat.GetColor("_Emissive");
-        Color targetEmission = currentEmission + colorToApply * 0.5f;
+        Color targetEmission = currentEmission * 0.5f;
         mat.SetColor("_Emissive", targetEmission);
     }
 

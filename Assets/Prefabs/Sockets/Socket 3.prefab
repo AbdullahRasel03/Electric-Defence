@@ -281,8 +281,7 @@ MonoBehaviour:
   shapeType: 2
   cubesParent: {fileID: 5307622024320240384}
   levelColors:
-  - {r: 0.7058824, g: 0.08235294, b: 0.53333336, a: 1}
-  - {r: 0.21176471, g: 0.3372549, b: 0.9607843, a: 1}
+  - {r: 0.4862745, g: 0.07450981, b: 0.67058825, a: 1}
   gridLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -308,7 +307,8 @@ MonoBehaviour:
   hasPower: 0
   assignedGrids: []
   socketManager: {fileID: 0}
-  fireRateTexts: []
+  fireRateTexts:
+  - {fileID: 5692224398930916933}
   plugHolder: {fileID: 6168455243378264811}
   connectedPlug: {fileID: 0}
   laser: {fileID: 0}

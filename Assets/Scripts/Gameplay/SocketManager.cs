@@ -70,7 +70,7 @@ public class SocketManager : MonoBehaviour
             float offsetX = i * spacing;
 
             socket.transform
-                .DOMoveX(socket.transform.position.x + 30f + offsetX, socketSpawner.slideInDuration)
+                .DOMoveX(socket.transform.position.x + 40f + offsetX, socketSpawner.slideInDuration)
                 .SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {
@@ -151,11 +151,11 @@ public class SocketManager : MonoBehaviour
         incomingSocket.isMerging = true;
         gridSocket.isMerging = true;
 
-
         // gridSocket.transform.localScale = Vector3.one;
         // Particle effect (optional)
         if (mergeParticlesPrefab)
         {
+        print("Particle");
             GameObject mergeParticle = Instantiate(mergeParticlesPrefab, gridSocket.transform.position + Vector3.up * 0.5f, Quaternion.identity);
             Destroy(mergeParticle, 2);
         }

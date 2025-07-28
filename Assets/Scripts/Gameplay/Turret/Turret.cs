@@ -39,7 +39,7 @@ public class Turret : MonoBehaviour
     {
         if (fireRateText != null)
         {
-            fireRateText.text = (1f / fireRate).ToString("F2") + "/s";
+            fireRateText.text = ( fireRate).ToString("F2") + "/s";
         }
         // UpdateFireRateText("--");
     }
@@ -155,12 +155,12 @@ public class Turret : MonoBehaviour
             return;
         }
         // float fireRate = 1;
-        float currentFireDelay = fireRate;
+        float currentFireDelay = baseFireRate;
         foreach (GridObject item in gridsOnPath)
         {
             if (item.socket)
             {
-                currentFireDelay -= item.socket.ownMultiplier / 50f;
+                currentFireDelay += item.socket.ownMultiplier / 2f;
                 item.socket.PowerUp();
             }
         }
