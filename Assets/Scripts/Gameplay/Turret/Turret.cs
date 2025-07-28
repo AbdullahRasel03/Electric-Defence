@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
+    [SerializeField] bool reflectorActive;
     [SerializeField] protected Transform turretBody;
     [SerializeField] protected float range = 18f;
     [SerializeField] protected float rotationSpeed = 5f;
@@ -27,7 +28,11 @@ public class Turret : MonoBehaviour
     void Start()
     {
         timer = refreshCooldown;
-        UpdateFireRateText();
+
+        if (!reflectorActive)
+        {
+            UpdateFireRateText();
+        }
     }
 
     private void UpdateFireRateText()
@@ -68,6 +73,7 @@ public class Turret : MonoBehaviour
     public void Deactivate()
     {
         if (!isActive) return;
+        if (!reflectorActive) return;
 
         isActive = false;
         currentTarget = null;
@@ -144,6 +150,10 @@ public class Turret : MonoBehaviour
 
     public void CheckMultisOnPath()
     {
+        if (reflectorActive)
+        {
+            return;
+        }
         // float fireRate = 1;
         float currentFireDelay = fireRate;
         foreach (GridObject item in gridsOnPath)
@@ -187,7 +197,7 @@ public class Turret : MonoBehaviour
     {
         if (!wasPoweredThisFrame && isActive)
         {
-            // Deactivate();
+            //  Deactivate();
         }
 
         wasPoweredThisFrame = false;

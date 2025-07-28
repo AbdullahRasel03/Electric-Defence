@@ -19,19 +19,31 @@ public class LaserReflector : MonoBehaviour
     [SerializeField] LayerMask reflectionLayer;
     [SerializeField] LayerMask towerLayer;
     [SerializeField] LayerMask socketLayer;
+
     Socket socket;
 
     private void Start()
     {
         socket = GetComponent<Socket>();
     }
+
     public void Reflect(Vector3 hitPoint, int depth = 0, float accumulatedMultiplier = 0f)
     {
         if (laser == null || depth > maxReflectionCount)
             return;
 
         isHitThisFrame = true;
-        socket.PowerUp();
+
+        float total = accumulatedMultiplier;
+
+        if (socket != null)
+        {
+            socket.PowerUp();
+            total += socket.ownMultiplier;
+        }
+
+        total += multiplier;
+
         Vector3 incomingDir = (hitPoint - transform.position).normalized;
         Vector3 chosenDir;
 
@@ -49,33 +61,66 @@ public class LaserReflector : MonoBehaviour
         }
 
         Vector3 origin = transform.position + Vector3.up * 0.5f;
-        Vector3 endPoint = origin + chosenDir * maxDistance;
+        Vector3 currentOrigin = origin;
+        Vector3 finalEndPoint = origin + chosenDir * maxDistance;
+        float remainingDistance = maxDistance;
 
-        Ray ray = new Ray(origin + chosenDir * castOffset, chosenDir);
+        int combinedMask = reflectionLayer | towerLayer | socketLayer;
 
-        float total = accumulatedMultiplier + multiplier;
-
-        if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, reflectionLayer))
+        while (remainingDistance > 0f)
         {
-            endPoint = hit.point + (chosenDir.normalized * 1f);
+            Ray ray = new Ray(currentOrigin + chosenDir * castOffset, chosenDir);
 
-            LaserReflector nextReflector = hit.collider.GetComponent<LaserReflector>();
-            if (nextReflector != null && nextReflector != this)
+            if (Physics.Raycast(ray, out RaycastHit hit, remainingDistance, combinedMask))
             {
-                nextReflector.Reflect(hit.point, depth + 1, total);
+                int hitLayer = hit.collider.gameObject.layer;
+
+                if (((1 << hitLayer) & socketLayer) != 0)
+                {
+                    Socket socketHit = hit.collider.GetComponent<Socket>();
+                    if (socketHit != null)
+                    {
+                        socketHit.PowerUp();
+                        total += socketHit.ownMultiplier;
+                    }
+
+                    float distUsed = Vector3.Distance(currentOrigin, hit.point) + 0.01f;
+                    currentOrigin = hit.point + chosenDir * 0.01f;
+                    remainingDistance -= distUsed;
+                    continue;
+                }
+
+                if (((1 << hitLayer) & reflectionLayer) != 0)
+                {
+                    finalEndPoint = hit.point + chosenDir.normalized * 1f;
+
+                    LaserReflector nextReflector = hit.collider.GetComponent<LaserReflector>();
+                    if (nextReflector != null && nextReflector != this)
+                    {
+                        nextReflector.Reflect(hit.point, depth + 1, total);
+                    }
+                    break;
+                }
+
+                if (((1 << hitLayer) & towerLayer) != 0)
+                {
+                    finalEndPoint = hit.point;
+
+                    Turret turret = hit.collider.transform.parent.GetComponentInChildren<Turret>();
+                    if (turret != null)
+                    {
+                        turret.ReceivePower(total);
+                    }
+                    break;
+                }
+            }
+            else
+            {
+                break;
             }
         }
-        else if (Physics.Raycast(ray, out RaycastHit hit2, maxDistance, towerLayer))
-        {
-            endPoint = hit2.point;
-            Turret tower = hit2.collider.transform.parent.GetComponentInChildren<Turret>();
-            if (tower != null)
-            {
-                tower.ReceivePower(total); // 👈 use ReceivePower instead of ActivateTower
-            }
-        }
 
-        laser.SetLaser(origin, endPoint);
+        laser.SetLaser(origin, finalEndPoint);
         laser.gameObject.SetActive(true);
     }
 
@@ -84,7 +129,9 @@ public class LaserReflector : MonoBehaviour
         if (!isHitThisFrame && laser != null)
         {
             laser.gameObject.SetActive(false);
-            socket.PowerDown();
+
+            if (socket != null)
+                socket.PowerDown();
         }
 
         isHitThisFrame = false;
