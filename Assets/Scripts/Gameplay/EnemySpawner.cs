@@ -37,8 +37,14 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private DistanceTextUI distanceTextUI;
     [SerializeField] private bool isReflectorGameplay = false;
 
+    [Space(20)]
+    [SerializeField] private VictoryPopup victoryPopup;
+    [SerializeField] private LostPopup lostPopup;
+    
+
     private float nextSpawnTime;
     private float currentTime;
+    private int currentSpawnCount = 0;
     private bool isSpawning;
 
     public static event Action OnSpawnStarted;
@@ -114,7 +120,7 @@ public class EnemySpawner : MonoBehaviour
 
         DOVirtual.DelayedCall(3.5f, () =>
         {
-            distanceTextUI.StartTimer();
+            distanceTextUI.StartTimer(true);
         });
 
 
@@ -133,7 +139,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (activeEnemies.Count >= maxActiveEnemies) return;
+        if (currentSpawnCount >= maxActiveEnemies) return;
 
         EnemyConfig config = GetRandomEnemyConfig();
         Transform spawnPoint = GetRandomSpawnPoint();
@@ -150,6 +156,8 @@ public class EnemySpawner : MonoBehaviour
         enemy.ActivateEnemy(spawnPoint.position, quaternion.identity, config.health);
 
         activeEnemies.Add(enemy);
+
+        currentSpawnCount++;
     }
 
     private EnemyConfig GetRandomEnemyConfig()
@@ -179,6 +187,22 @@ public class EnemySpawner : MonoBehaviour
     public void OnEnemyDefeated(Enemy enemy)
     {
         activeEnemies.Remove(enemy);
+
+        if (currentSpawnCount >= maxActiveEnemies && activeEnemies.Count == 0)
+        {
+            isSpawning = false;
+            distanceTextUI.StartTimer(false);
+            distanceTextUI.gameObject.SetActive(false);
+            victoryPopup.SetView(true);
+        }
+    }
+
+    public void OnEnemiesReachedSafeZone()
+    {
+        isSpawning = false;
+        distanceTextUI.StartTimer(false);
+        distanceTextUI.gameObject.SetActive(false);
+        lostPopup.SetView(true);
     }
 
     public void CleanupAllEnemies()
@@ -196,7 +220,6 @@ public class EnemySpawner : MonoBehaviour
         Enemy.OnEnemyDead -= OnEnemyDefeated;
     }
 
-    // ✅ Public trigger method for manual spawn
     public void TriggerSpawn()
     {
         SpawnEnemy();

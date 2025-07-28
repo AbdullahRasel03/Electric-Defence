@@ -20,9 +20,9 @@ public class DistanceTextUI : MonoBehaviour
     private bool canStartTimer = false;
     private Sequence seq;
 
-    public void StartTimer()
+    public void StartTimer(bool flag)
     {
-        canStartTimer = true;
+        canStartTimer = flag;
         nextUpdateTime = Time.time + updateInterval; // Initialize the first update time
     }
 
@@ -30,7 +30,23 @@ public class DistanceTextUI : MonoBehaviour
     {
         if (distanceCount != null)
         {
+            distance = Mathf.Clamp(distance, 0, 100000);
+
+
             distanceCount.text = distance.ToString("F2") + "m";
+
+            if (distance <= 0)
+            {
+                distanceCount.color = Color.red;
+                distanceCount.text = "0.00m";
+                if (seq != null)
+                {
+                    seq.Kill();
+                    distanceCount.transform.localScale = Vector3.one;
+                }
+
+                enemySpawner.OnEnemiesReachedSafeZone();
+            }
 
             if (distance < 10f)
             {
