@@ -24,7 +24,7 @@ public class Turret : MonoBehaviour
 
     private bool wasPoweredThisFrame = false;
     [SerializeField] private float baseFireRate = 1f;
-
+    [SerializeField] private ParticleSystem levelUpAura;
     void Start()
     {
         timer = refreshCooldown;
@@ -37,6 +37,8 @@ public class Turret : MonoBehaviour
 
     private void UpdateFireRateText()
     {
+
+    
         if (fireRateText != null)
         {
             fireRateText.text = ( fireRate).ToString("F2") + "/s";
@@ -165,8 +167,11 @@ public class Turret : MonoBehaviour
             }
         }
 
+        if (fireRate != currentFireDelay)
+        {
+            levelUpAura.Play();
+        }
         fireRate = currentFireDelay;
-
         UpdateFireRateText();
         // shooter.SetFireRate(fireRate);
         // powerText.text = shooter.GetFireRate().ToString();

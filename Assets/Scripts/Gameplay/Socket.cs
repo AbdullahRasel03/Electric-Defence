@@ -86,6 +86,7 @@ public class Socket : MonoBehaviour
         if (gfx == null || gfx.material == null || hasPower) return;
 
         hasPower = true;
+
         Material mat = gfx.materials[glowIndex];
         Color currentEmission = mat.GetColor("_Emissive");
         Color targetEmission = currentEmission + Color.cyan * 10f;
