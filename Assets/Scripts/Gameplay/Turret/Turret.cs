@@ -188,9 +188,9 @@ public class Turret : MonoBehaviour
     public void ReceivePower(float totalMultiplier)
     {
         wasPoweredThisFrame = true;
-
         if (!isActive)
         {
+            levelUpAura.Play();
             Activate();
         }
 
