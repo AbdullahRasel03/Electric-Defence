@@ -25,6 +25,8 @@ public class Turret : MonoBehaviour
     private bool wasPoweredThisFrame = false;
     [SerializeField] private float baseFireRate = 1f;
 
+    protected Sequence fireSequence;
+
     void Start()
     {
         timer = refreshCooldown;
@@ -146,6 +148,10 @@ public class Turret : MonoBehaviour
     protected virtual void Fire()
     {
         // Implement firing logic in derived classes
+        if (currentTarget == null) return;
+
+        
+
     }
 
     public void CheckMultisOnPath()
