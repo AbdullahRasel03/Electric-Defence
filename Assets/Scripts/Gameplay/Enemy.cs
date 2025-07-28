@@ -63,6 +63,7 @@ public class Enemy : MonoBehaviour
     #region Events
 
     public event System.Action<Enemy> OnDeath;
+    public static event System.Action<Enemy> OnEnemyDead;
 
     #endregion
 
@@ -226,6 +227,7 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        OnEnemyDead?.Invoke(this);
         AudioManager.CallPlaySFX(Sound.EnemyDeath);
         Camera.main.transform.DOShakePosition(0.5f, 0.25f, 7, 0.45f);
         Camera.main.transform.DOPunchRotation(Vector3.forward * 0.25f, 0.5f, 7, 0.65f);

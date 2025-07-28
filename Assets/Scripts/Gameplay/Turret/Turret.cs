@@ -195,13 +195,9 @@ public class Turret : MonoBehaviour
 
     void LateUpdate()
     {
-        if (!wasPoweredThisFrame && isActive)
+        if (!wasPoweredThisFrame && isActive && reflectorActive)
         {
-            if (reflectorActive)
-            {
-
-             Deactivate();
-            }
+            Deactivate();
         }
 
         wasPoweredThisFrame = false;

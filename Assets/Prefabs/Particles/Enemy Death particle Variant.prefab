@@ -121,6 +121,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Death particle Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1682465862275314, guid: f49989ab2f7c73b41ab0248d58b81116, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4000010921236120, guid: f49989ab2f7c73b41ab0248d58b81116, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5

@@ -3,6 +3,7 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using Random = UnityEngine.Random;
+using Unity.Mathematics;
 public class EnemySpawner : MonoBehaviour
 {
     [System.Serializable]
@@ -27,11 +28,13 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject canvas;
     [SerializeField] private SocketManager socketManager;
     [SerializeField] private List<Turret> allTurrets;
+    
 
     [Header("Runtime Info")]
     [SerializeField] public List<Enemy> activeEnemies = new List<Enemy>();
 
     [Space(15)]
+    [SerializeField] private DistanceTextUI distanceTextUI;
     [SerializeField] private bool isReflectorGameplay = false;
 
     private float nextSpawnTime;
@@ -43,6 +46,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         InitializePool();
+        Enemy.OnEnemyDead += OnEnemyDefeated;
         //StartSpawning();
     }
 
@@ -90,6 +94,8 @@ public class EnemySpawner : MonoBehaviour
         if (!isReflectorGameplay)
             allTurrets.ForEach(x => x.Activate());
 
+        distanceTextUI.gameObject.SetActive(true);
+
         canvas.SetActive(false);
         socketManager.ResetAllSockets();
         nextSpawnTime = 3f;
@@ -105,6 +111,11 @@ public class EnemySpawner : MonoBehaviour
         DOTween.To(() => topDownCam.fieldOfView, x => topDownCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
         DOTween.To(() => topDownNonPPCam.fieldOfView, x => topDownNonPPCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
         DOTween.To(() => uiCam.fieldOfView, x => uiCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
+
+        DOVirtual.DelayedCall(3.5f, () =>
+        {
+            distanceTextUI.StartTimer();
+        });
 
 
         // SetNextSpawnTime();
@@ -132,11 +143,11 @@ public class EnemySpawner : MonoBehaviour
             config.prefab,
             true,
             spawnPoint.position + spawnOffset,
-            spawnPoint.rotation
+            quaternion.identity
         );
 
         Enemy enemy = enemyObj.GetComponent<Enemy>();
-        enemy.ActivateEnemy(spawnPoint.position, spawnPoint.rotation, config.health);
+        enemy.ActivateEnemy(spawnPoint.position, quaternion.identity, config.health);
 
         activeEnemies.Add(enemy);
     }
@@ -182,6 +193,7 @@ public class EnemySpawner : MonoBehaviour
     private void OnDestroy()
     {
         CleanupAllEnemies();
+        Enemy.OnEnemyDead -= OnEnemyDefeated;
     }
 
     // ✅ Public trigger method for manual spawn
