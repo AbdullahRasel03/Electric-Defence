@@ -14,7 +14,8 @@ public class Socket : MonoBehaviour
     public Transform cubesParent;
 
     [Header("Visuals")]
-    public Color[] levelColors;
+    public Renderer[] gfxs;
+    public GameObject multiText;
 
     [Header("Socket Configuration")]
     public LayerMask gridLayer;
@@ -23,29 +24,23 @@ public class Socket : MonoBehaviour
     public float actingMultiplier = 1f;
     public float pinMoveDuration = 0.3f;
     public Ease pinMoveEase = Ease.OutBack;
-    public Renderer gfx;
-    public int glowIndex = 1;
-    public int colorIndex = 0;
-    public GameObject multiText;
+
     #endregion
 
     #region Runtime State
 
     public List<SocketCube> socketCubes = new();
-
     public bool isMerging;
     public bool hasPower;
     public List<GridObject> assignedGrids = new();
     public SocketManager socketManager;
-
     public TMP_Text[] fireRateTexts;
     public Transform plugHolder;
     public Plug connectedPlug;
+
     #endregion
 
-
     public MLaser laser;
-
     public GameObject MulTxt => multiText;
 
     #region Unity Lifecycle
@@ -69,7 +64,7 @@ public class Socket : MonoBehaviour
     private void InitializeSocket()
     {
         AssignFireRateTexts();
-        UpdateColorAndTextByLevel();
+        UpdateFireRateDisplay();
     }
 
     public void AssignFireRateTexts()
@@ -80,23 +75,27 @@ public class Socket : MonoBehaviour
     #endregion
 
     #region Power Handling
-    #region Power Handling
+
     public void PowerUp()
     {
-        if (gfx == null || gfx.material == null || hasPower) return;
+        if (gfxs == null || gfxs.Length == 0 || hasPower) return;
 
         hasPower = true;
 
-        Material mat = gfx.materials[glowIndex];
-        Color currentEmission = mat.GetColor("_Emissive");
-        Color targetEmission = currentEmission + Color.cyan * 10f;
-
-        DOTween.To(() => currentEmission, x =>
+        foreach (var renderer in gfxs)
         {
-            mat.SetColor("_Emissive", x); // Directly set the color in the callback
-        }, targetEmission, 1f).SetId(this); // Add ID for potential tween control
+            if (renderer.material.HasProperty("_Emissive"))
+            {
+                Color currentEmission = renderer.material.GetColor("_Emissive");
+                Color targetEmission = currentEmission + Color.cyan * 10f;
 
-        // Activate laser when powered up
+                DOTween.To(() => currentEmission, x =>
+                {
+                    renderer.material.SetColor("_Emissive", x);
+                }, targetEmission, 1f).SetId(this);
+            }
+        }
+
         if (laser != null)
         {
             laser.gameObject.SetActive(true);
@@ -105,62 +104,47 @@ public class Socket : MonoBehaviour
 
     public void PowerDown()
     {
-        if (gfx == null || gfx.material == null || !hasPower) return;
+        if (gfxs == null || gfxs.Length == 0 || !hasPower) return;
 
         hasPower = false;
-        Material mat = gfx.materials[glowIndex];
-        Color currentEmission = mat.GetColor("_Emissive");
-        Color targetEmission = currentEmission - Color.cyan * 10f;
 
-        // Kill any ongoing emission tweens for this object
         DOTween.Kill(this);
 
-        DOTween.To(() => currentEmission, x =>
+        foreach (var renderer in gfxs)
         {
-            mat.SetColor("_Emissive", x);
-        }, targetEmission, 1f);
+            if (renderer.material.HasProperty("_Emissive"))
+            {
+                Color currentEmission = renderer.material.GetColor("_Emissive");
+                Color targetEmission = currentEmission - Color.cyan * 10f;
 
-        // Show multiplier text when powered down
+                DOTween.To(() => currentEmission, x =>
+                {
+                    renderer.material.SetColor("_Emissive", x);
+                }, targetEmission, 1f);
+            }
+        }
+
         if (multiText != null)
         {
             multiText.SetActive(true);
         }
 
-        // Deactivate laser when powered down
         if (laser != null)
         {
             laser.gameObject.SetActive(false);
         }
 
-        // Disconnect plug if connected
         if (connectedPlug != null)
         {
             connectedPlug = null;
         }
     }
-    #endregion
 
     #endregion
-
 
     #region Visuals
 
-    public void UpdateColorAndTextByLevel()
-    {
-        UpdateFireRateDisplay();
-
-        if (levelColors == null || levelColors.Length == 0) return;
-
-        Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
-        gfx.materials[colorIndex].color = colorToApply;
-
-        Material mat = gfx.materials[glowIndex];
-        Color currentEmission = mat.GetColor("_Emissive");
-        Color targetEmission = currentEmission * 0.5f;
-        mat.SetColor("_Emissive", targetEmission);
-    }
-
-    private void UpdateFireRateDisplay()
+    public void UpdateFireRateDisplay()
     {
         if (fireRateTexts == null) return;
 
@@ -171,7 +155,6 @@ public class Socket : MonoBehaviour
     }
 
     #endregion
-
 
     public void Upgrade()
     {
@@ -187,6 +170,7 @@ public class Socket : MonoBehaviour
 
     #endregion
 }
+
 [System.Serializable]
 public class SocketCube
 {

@@ -163,7 +163,7 @@ public class SocketManager : MonoBehaviour
         // Merge logic
         gridSocket.ownMultiplier *= 2f;
         gridSocket.currentLevel += 1;
-        gridSocket.UpdateColorAndTextByLevel();
+        gridSocket.UpdateFireRateDisplay();
         gridSocket.Upgrade();
         ReturnSocketToPoolImmediately(incomingSocket);
 
@@ -193,7 +193,7 @@ public class SocketManager : MonoBehaviour
         gridSocket.isMerging = false;
         Destroy(incomingSocket.gameObject);
         gridManager.CheckAllGridsPower();
-        gridSocket.UpdateColorAndTextByLevel();
+        gridSocket.UpdateFireRateDisplay();
         yield return null;
     }
 
