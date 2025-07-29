@@ -22,10 +22,15 @@ public class RocketTurret : Turret
 
             fireTime = 0f;
 
-            turretBody.transform.DOLocalMoveZ(-0.25f, 0.15f).OnComplete(() =>
-            {
-                turretBody.transform.DOLocalMoveZ(0f, 0.1f);
-            });
+            Quaternion currentRotation = turretBody.transform.rotation;
+
+            fireSequence = DOTween.Sequence();
+
+            fireSequence.Append(turretBody.transform.DOLocalMoveZ(-0.35f, 0.15f))
+            .Join(turretBody.transform.DORotateQuaternion(currentRotation * Quaternion.Euler(-10f, 0, 0), 0.15f))
+            .AppendInterval(0.1f)
+            .Append(turretBody.transform.DOLocalMoveZ(0f, 0.15f))
+            .Join(turretBody.transform.DORotateQuaternion(currentRotation, 0.15f));
 
             AudioManager.CallPlaySFX(Sound.RocketTurretShot);
 

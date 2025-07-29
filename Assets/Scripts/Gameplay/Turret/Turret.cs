@@ -24,7 +24,9 @@ public class Turret : MonoBehaviour
 
     private bool wasPoweredThisFrame = false;
     [SerializeField] private float baseFireRate = 1f;
-    [SerializeField] private ParticleSystem levelUpAura;
+
+    protected Sequence fireSequence;
+
     void Start()
     {
         timer = refreshCooldown;
@@ -37,11 +39,9 @@ public class Turret : MonoBehaviour
 
     private void UpdateFireRateText()
     {
-
-    
         if (fireRateText != null)
         {
-            fireRateText.text = ( fireRate).ToString("F2") + "/s";
+            fireRateText.text = (1f / fireRate).ToString("F2") + "/s";
         }
         // UpdateFireRateText("--");
     }
@@ -148,6 +148,10 @@ public class Turret : MonoBehaviour
     protected virtual void Fire()
     {
         // Implement firing logic in derived classes
+        if (currentTarget == null) return;
+
+        
+
     }
 
     public void CheckMultisOnPath()
@@ -157,21 +161,18 @@ public class Turret : MonoBehaviour
             return;
         }
         // float fireRate = 1;
-        float currentFireDelay = baseFireRate;
+        float currentFireDelay = fireRate;
         foreach (GridObject item in gridsOnPath)
         {
             if (item.socket)
             {
-                currentFireDelay += item.socket.ownMultiplier / 2f;
+                currentFireDelay -= item.socket.ownMultiplier / 50f;
                 item.socket.PowerUp();
             }
         }
 
-        if (fireRate != currentFireDelay)
-        {
-            levelUpAura.Play();
-        }
         fireRate = currentFireDelay;
+
         UpdateFireRateText();
         // shooter.SetFireRate(fireRate);
         // powerText.text = shooter.GetFireRate().ToString();
@@ -188,9 +189,9 @@ public class Turret : MonoBehaviour
     public void ReceivePower(float totalMultiplier)
     {
         wasPoweredThisFrame = true;
+
         if (!isActive)
         {
-            levelUpAura.Play();
             Activate();
         }
 
