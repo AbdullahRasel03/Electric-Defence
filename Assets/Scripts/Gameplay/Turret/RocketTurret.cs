@@ -10,7 +10,6 @@ public class RocketTurret : Turret
     [SerializeField] private ParticleSystem fireImpact;
     [SerializeField] private GameObject fireProjectilePrefab;
     [SerializeField] private float explosionDamageRadius = 5f;
-    private float fireTime = 0f;
 
     protected override void Fire()
     {
@@ -18,6 +17,7 @@ public class RocketTurret : Turret
         if (currentTarget != null)
         {
             fireTime += Time.deltaTime;
+            SetFireRateSlider(fireTime);
             if (fireTime < fireRate) return;
 
             fireTime = 0f;
@@ -41,6 +41,11 @@ public class RocketTurret : Turret
             projectile.transform.LookAt(currentTarget.transform);
             projectile.GetComponent<Projectile>().Initialize(currentTarget, fireImpact);
             projectile.GetComponent<RocketProjectile>().SetExplosionRadius(explosionDamageRadius);
+        }
+
+        else
+        {
+            SetFireRateSlider(0f);
         }
     }
 }

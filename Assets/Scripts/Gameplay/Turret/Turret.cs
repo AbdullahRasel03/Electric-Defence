@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Turret : MonoBehaviour
 {
@@ -25,7 +26,13 @@ public class Turret : MonoBehaviour
     private bool wasPoweredThisFrame = false;
     [SerializeField] private float baseFireRate = 1f;
 
+    [Space(15)]
+    [SerializeField] private Canvas sliderCanvas;
+    [SerializeField] private Slider fireRateSlider;
+
     protected Sequence fireSequence;
+
+    protected float fireTime = 0f;
 
     void Start()
     {
@@ -150,8 +157,6 @@ public class Turret : MonoBehaviour
         // Implement firing logic in derived classes
         if (currentTarget == null) return;
 
-        
-
     }
 
     public void CheckMultisOnPath()
@@ -160,6 +165,8 @@ public class Turret : MonoBehaviour
         {
             return;
         }
+
+        Debug.LogError("Call");
         // float fireRate = 1;
         float currentFireDelay = fireRate;
         foreach (GridObject item in gridsOnPath)
@@ -174,6 +181,7 @@ public class Turret : MonoBehaviour
         fireRate = currentFireDelay;
 
         UpdateFireRateText();
+
         // shooter.SetFireRate(fireRate);
         // powerText.text = shooter.GetFireRate().ToString();
     }
@@ -184,6 +192,15 @@ public class Turret : MonoBehaviour
         {
             fireRateText.transform.parent.DOLocalRotateQuaternion(Quaternion.Euler(-75f, 0f, 0f), 1.5f);
         }
+    }
+
+    public void SetFireRateSlider()
+    {
+        sliderCanvas.gameObject.SetActive(true);
+        sliderCanvas.transform.DORotateQuaternion(Quaternion.Euler(20f, 0f, 90f), 1.5f);
+        fireRateSlider.maxValue = fireRate;
+        fireRateSlider.value = 0;
+        fireTime = 0f;
     }
 
     public void ReceivePower(float totalMultiplier)
@@ -222,6 +239,15 @@ public class Turret : MonoBehaviour
         if (fireRateText != null)
         {
             fireRateText.text = text;
+        }
+    }
+
+    protected void SetFireRateSlider(float value)
+    {
+        if (fireRateSlider != null)
+        {
+            DOTween.To(() => fireRateSlider.value, x => fireRateSlider.value = x, value, 0.1f)
+                .SetEase(Ease.OutCubic);
         }
     }
 }

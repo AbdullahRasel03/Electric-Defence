@@ -14,14 +14,13 @@ public class FireTurret : Turret
 
 
 
-    private float fireTime = 0f;
-
     protected override void Fire()
     {
         base.Fire();
         if (currentTarget != null)
         {
             fireTime += Time.deltaTime;
+            SetFireRateSlider(fireTime);
             if (fireTime < fireRate) return;
 
             fireTime = 0f;
@@ -44,6 +43,12 @@ public class FireTurret : Turret
             GameObject projectile = ObjectPool.instance.GetObject(fireProjectilePrefab, true, shootPoint.position, Quaternion.identity);
             projectile.transform.LookAt(currentTarget.transform);
             projectile.GetComponent<Projectile>().Initialize(currentTarget, fireImpact);
+        }
+
+
+        else
+        {
+            SetFireRateSlider(0f);
         }
     }
 }
