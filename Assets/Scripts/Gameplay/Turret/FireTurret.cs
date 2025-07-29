@@ -48,6 +48,7 @@ public class FireTurret : Turret
 
         else
         {
+            fireTime = 0f;
             SetFireRateSlider(0f);
         }
     }

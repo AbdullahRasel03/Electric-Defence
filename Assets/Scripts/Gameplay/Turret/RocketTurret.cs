@@ -45,6 +45,7 @@ public class RocketTurret : Turret
 
         else
         {
+            fireTime = 0f;
             SetFireRateSlider(0f);
         }
     }

@@ -109,7 +109,7 @@ public class EnemySpawner : MonoBehaviour
         topDownNonPPCam.orthographic = false;
         topDownCam.orthographic = false;
 
-        allTurrets.ForEach(turret => { turret.RotateFireRateText(); turret.SetFireRateSlider(); });
+        allTurrets.ForEach(turret => { turret.HideFireRateText(); turret.SetFireRateSlider(); });
 
         topDownCam.transform.DOMove(tpCam.transform.position, 1.5f);
         topDownCam.transform.DORotate(tpCam.transform.rotation.eulerAngles, 1.5f);

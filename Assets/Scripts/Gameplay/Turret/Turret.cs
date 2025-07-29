@@ -186,12 +186,14 @@ public class Turret : MonoBehaviour
         // powerText.text = shooter.GetFireRate().ToString();
     }
 
-    public void RotateFireRateText()
+    public void HideFireRateText()
     {
-        if (fireRateText != null)
-        {
-            fireRateText.transform.parent.DOLocalRotateQuaternion(Quaternion.Euler(-75f, 0f, 0f), 1.5f);
-        }
+        fireRateText.transform.parent.gameObject.SetActive(false);
+
+        // if (fireRateText != null)
+        // {
+        //     fireRateText.transform.parent.DOLocalRotateQuaternion(Quaternion.Euler(-75f, 0f, 0f), 1.5f);
+        // }
     }
 
     public void SetFireRateSlider()
