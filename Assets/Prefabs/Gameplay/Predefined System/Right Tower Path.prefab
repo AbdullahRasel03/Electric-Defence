@@ -239,6 +239,7 @@ MonoBehaviour:
   - {fileID: 0}
   plugHolder: {fileID: 0}
   laser: {fileID: 0}
+  ConnectedParticles: []
 --- !u!114 &3214032894100279263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,6 +447,7 @@ MonoBehaviour:
   - {fileID: 0}
   plugHolder: {fileID: 0}
   laser: {fileID: 0}
+  ConnectedParticles: []
 --- !u!114 &1054195551569076709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,6 +655,7 @@ MonoBehaviour:
   - {fileID: 0}
   plugHolder: {fileID: 0}
   laser: {fileID: 0}
+  ConnectedParticles: []
 --- !u!114 &852694811866600801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1289,6 +1292,7 @@ MonoBehaviour:
   - {fileID: 0}
   plugHolder: {fileID: 0}
   laser: {fileID: 0}
+  ConnectedParticles: []
 --- !u!114 &7064143460825755651
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -144,7 +144,14 @@ public class SocketManager : MonoBehaviour
         }
         StartCoroutine(MergeSocketsRoutine(socketA, socketB));
     }
+    public void TurnOffAllMultipliers()
+    {
+        
+      /*  foreach (var item in socketSpawner.sock)
+        {
 
+        }*/
+    }
     private IEnumerator MergeSocketsRoutine(Socket incomingSocket, Socket gridSocket)
     {
 
