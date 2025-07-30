@@ -146,11 +146,14 @@ public class SocketManager : MonoBehaviour
     }
     public void TurnOffAllMultipliers()
     {
-        
-      /*  foreach (var item in socketSpawner.sock)
+        Socket[] sockets = FindObjectsOfType<Socket>();
+        foreach (var item in sockets)
         {
-
-        }*/
+            foreach (var multi in item.fireRateTexts)
+            {
+                multi.enabled = false;
+            }
+        }
     }
     private IEnumerator MergeSocketsRoutine(Socket incomingSocket, Socket gridSocket)
     {
