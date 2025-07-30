@@ -26,10 +26,17 @@ public class CamController : MonoBehaviour
 
     private void InitializeShopView()
     {
+        cam.orthographic = true;
+        cam.orthographicSize = 25;
+        cam2.orthographic = true;
+        cam2.orthographicSize = 25;
+
         cam.transform.SetParent(shopViewParent);
         cam.transform.localPosition = Vector3.zero;
         cam.transform.localRotation = Quaternion.identity;
-        foreach (GameObject go in shopViewObjects) go.SetActive(true);
+
+        foreach (GameObject go in shopViewObjects)
+            go.SetActive(true);
     }
 
     private void Update()
@@ -47,17 +54,32 @@ public class CamController : MonoBehaviour
 
     public void SetFightView()
     {
-        foreach (GameObject go in shopViewObjects) go.SetActive(false);
+        // Change to perspective and set FOV instantly BEFORE re-parenting
+        cam.orthographic = false;
+        cam.fieldOfView = 55;
+        cam2.orthographic = false;
+        cam2.fieldOfView = 55;
+
+        foreach (GameObject go in shopViewObjects)
+            go.SetActive(false);
+
         cam.transform.SetParent(fightViewParent);
-   
         SmoothTransitionToParent(30f);
     }
 
     public void SetShopView()
     {
-        foreach (GameObject go in shopViewObjects) go.SetActive(true);
+        // Change to orthographic BEFORE re-parenting
+        cam.orthographic = true;
+        cam.orthographicSize = 25;
+        cam2.orthographic = true;
+        cam2.orthographicSize = 25;
+
+        foreach (GameObject go in shopViewObjects)
+            go.SetActive(true);
+
         cam.transform.SetParent(shopViewParent);
-        SmoothTransitionToParent(45f);
+        SmoothTransitionToParent(25f); // 25 is arbitrary here; no FOV in ortho, just size
     }
 
     private void SmoothTransitionToParent(float targetFOV)
@@ -71,9 +93,11 @@ public class CamController : MonoBehaviour
         cam2.transform.DOLocalMove(Vector3.zero, transitionDuration).SetEase(transitionEase);
         cam2.transform.DOLocalRotate(Vector3.zero, transitionDuration).SetEase(transitionEase);
 
-        // Tween FOV for both cameras
-        cam.DOFieldOfView(targetFOV, transitionDuration).SetEase(transitionEase);
-        cam2.DOFieldOfView(targetFOV, transitionDuration).SetEase(transitionEase);
+        if (!cam.orthographic)
+        {
+            // Only tween FOV if in perspective mode
+            cam.DOFieldOfView(targetFOV, transitionDuration).SetEase(transitionEase);
+            cam2.DOFieldOfView(targetFOV, transitionDuration).SetEase(transitionEase);
+        }
     }
-
 }
