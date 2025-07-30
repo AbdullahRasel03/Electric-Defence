@@ -469,7 +469,6 @@ MonoBehaviour:
   fireRateTexts:
   - {fileID: 0}
   plugHolder: {fileID: 0}
-  connectedPlug: {fileID: 0}
   laser: {fileID: 0}
 --- !u!114 &8296438055430348318
 MonoBehaviour:
@@ -828,7 +827,6 @@ MonoBehaviour:
   fireRateTexts:
   - {fileID: 0}
   plugHolder: {fileID: 0}
-  connectedPlug: {fileID: 0}
   laser: {fileID: 0}
 --- !u!114 &7061525007062583092
 MonoBehaviour:
@@ -1004,7 +1002,6 @@ MonoBehaviour:
   fireRateTexts:
   - {fileID: 0}
   plugHolder: {fileID: 0}
-  connectedPlug: {fileID: 0}
   laser: {fileID: 0}
 --- !u!114 &6950172820615164798
 MonoBehaviour:
@@ -1430,7 +1427,6 @@ MonoBehaviour:
   fireRateTexts:
   - {fileID: 0}
   plugHolder: {fileID: 0}
-  connectedPlug: {fileID: 0}
   laser: {fileID: 0}
 --- !u!114 &292652119626349031
 MonoBehaviour:

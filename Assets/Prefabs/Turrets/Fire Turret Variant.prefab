@@ -734,6 +734,21 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3321765378393980869, guid: 9c14b41e635bf419ab0a89340f600fa9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321765378393980869, guid: 9c14b41e635bf419ab0a89340f600fa9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321765378393980869, guid: 9c14b41e635bf419ab0a89340f600fa9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 5267856545053151781, guid: 9c14b41e635bf419ab0a89340f600fa9,
         type: 3}
       propertyPath: m_Pivot.x
@@ -834,7 +849,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7767240355109611895, guid: 9c14b41e635bf419ab0a89340f600fa9,
+        type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3359714937970802114, guid: 9c14b41e635bf419ab0a89340f600fa9, type: 3}
+    - {fileID: 1261432576133123853, guid: 9c14b41e635bf419ab0a89340f600fa9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
