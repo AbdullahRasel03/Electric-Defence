@@ -14,7 +14,7 @@ public class RocketTurret : Turret
     protected override void Fire()
     {
         base.Fire();
-        if (currentTarget != null)
+        if (currentTarget != null && currentTarget.IsActive)
         {
             fireTime += Time.deltaTime;
             SetFireRateSlider(fireTime);

@@ -38,6 +38,7 @@ public class Socket : MonoBehaviour
     public Transform plugHolder; // Optional: remove if not used elsewhere
     public MLaser laser;
     public GameObject MulTxt => multiText;
+    public List<ParticleSystem> ConnectedParticles;
 
     #endregion
 
@@ -98,6 +99,14 @@ public class Socket : MonoBehaviour
         if (laser != null)
         {
             laser.gameObject.SetActive(true);
+        }
+
+        foreach (var particle in ConnectedParticles)
+        {
+            if (particle != null)
+            {
+                particle.Play();
+            }
         }
     }
 

@@ -107,6 +107,7 @@ public class EnemySpawner : MonoBehaviour
         nextSpawnTime = 3f;
         isSpawning = true;
         topDownNonPPCam.orthographic = false;
+        uiCam.orthographic = false;
         topDownCam.orthographic = false;
 
         allTurrets.ForEach(turret => { turret.HideFireRateText(); turret.SetFireRateSlider(); });
