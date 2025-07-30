@@ -27,6 +27,12 @@ public class RocketProjectile : Projectile
             return;
         }
 
+        else if (!target.IsActive)
+        {
+            ObjectPool.instance.ReturnToPool(gameObject);
+            return;
+        }
+
         timeElapsed += Time.deltaTime;
 
         Vector3 direction = (target.transform.position - transform.position).normalized;
@@ -48,7 +54,6 @@ public class RocketProjectile : Projectile
         if (Vector3.Distance(transform.position, target.transform.position) <= hitThreshold)
         {
             OnExplosionRequired();
-
 
             ObjectPool.instance.ReturnToPool(gameObject);
         }
