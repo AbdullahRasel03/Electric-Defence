@@ -216,9 +216,8 @@ MonoBehaviour:
   currentLevel: 0
   shapeType: 0
   cubesParent: {fileID: 1172487792154235423}
-  levelColors:
-  - {r: 0.99607843, g: 0.15294117, b: 0.40254718, a: 1}
-  - {r: 0.9960785, g: 0.15294118, b: 0.4039216, a: 1}
+  gfxs: []
+  multiText: {fileID: 0}
   gridLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -229,10 +228,6 @@ MonoBehaviour:
   actingMultiplier: 0
   pinMoveDuration: 0.3
   pinMoveEase: 27
-  gfx: {fileID: 6376864123095151647}
-  glowIndex: 1
-  colorIndex: 0
-  multiText: {fileID: 0}
   socketCubes:
   - cube: {fileID: 658195174695581591}
     pin: {fileID: 0}
@@ -429,9 +424,8 @@ MonoBehaviour:
   currentLevel: 0
   shapeType: 0
   cubesParent: {fileID: 4071696551581343911}
-  levelColors:
-  - {r: 0.99607843, g: 0.15294117, b: 0.40254718, a: 1}
-  - {r: 0.9960785, g: 0.15294118, b: 0.4039216, a: 1}
+  gfxs: []
+  multiText: {fileID: 0}
   gridLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -442,10 +436,6 @@ MonoBehaviour:
   actingMultiplier: 0
   pinMoveDuration: 0.3
   pinMoveEase: 27
-  gfx: {fileID: 3420250209406981952}
-  glowIndex: 1
-  colorIndex: 0
-  multiText: {fileID: 0}
   socketCubes:
   - cube: {fileID: 4682748864205842384}
     pin: {fileID: 0}
@@ -642,9 +632,8 @@ MonoBehaviour:
   currentLevel: 0
   shapeType: 0
   cubesParent: {fileID: 7832111023689160224}
-  levelColors:
-  - {r: 0.99607843, g: 0.15294117, b: 0.40254718, a: 1}
-  - {r: 0.9960785, g: 0.15294118, b: 0.4039216, a: 1}
+  gfxs: []
+  multiText: {fileID: 0}
   gridLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -655,10 +644,6 @@ MonoBehaviour:
   actingMultiplier: 0
   pinMoveDuration: 0.3
   pinMoveEase: 27
-  gfx: {fileID: 5814211325011788147}
-  glowIndex: 1
-  colorIndex: 0
-  multiText: {fileID: 0}
   socketCubes:
   - cube: {fileID: 712687517909141941}
     pin: {fileID: 0}
@@ -1284,9 +1269,8 @@ MonoBehaviour:
   currentLevel: 0
   shapeType: 0
   cubesParent: {fileID: 2428466098741215275}
-  levelColors:
-  - {r: 0.99607843, g: 0.15294117, b: 0.40254718, a: 1}
-  - {r: 0.9960785, g: 0.15294118, b: 0.4039216, a: 1}
+  gfxs: []
+  multiText: {fileID: 0}
   gridLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -1297,10 +1281,6 @@ MonoBehaviour:
   actingMultiplier: 0
   pinMoveDuration: 0.3
   pinMoveEase: 27
-  gfx: {fileID: 6803863522972636770}
-  glowIndex: 1
-  colorIndex: 0
-  multiText: {fileID: 0}
   socketCubes:
   - cube: {fileID: 4029741034969351023}
     pin: {fileID: 0}

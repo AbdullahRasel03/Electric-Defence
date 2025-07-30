@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 3669931940293967559}
   - component: {fileID: 8682847455462825986}
   - component: {fileID: 4433900933615849399}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Multiplier
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -418,9 +418,8 @@ MonoBehaviour:
   currentLevel: 0
   shapeType: 0
   cubesParent: {fileID: 9204609842418845360}
-  levelColors:
-  - {r: 0.99607843, g: 0.15294117, b: 0.40254718, a: 1}
-  - {r: 0.9960785, g: 0.15294118, b: 0.4039216, a: 1}
+  gfxs: []
+  multiText: {fileID: 0}
   gridLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -431,10 +430,6 @@ MonoBehaviour:
   actingMultiplier: 0
   pinMoveDuration: 0.3
   pinMoveEase: 27
-  gfx: {fileID: 223806127630294723}
-  glowIndex: 1
-  colorIndex: 0
-  multiText: {fileID: 0}
   socketCubes:
   - cube: {fileID: 5817357168791783217}
     pin: {fileID: 0}
@@ -763,9 +758,8 @@ MonoBehaviour:
   currentLevel: 0
   shapeType: 0
   cubesParent: {fileID: 8492704585186839702}
-  levelColors:
-  - {r: 0.99607843, g: 0.15294117, b: 0.40254718, a: 1}
-  - {r: 0.9960785, g: 0.15294118, b: 0.4039216, a: 1}
+  gfxs: []
+  multiText: {fileID: 0}
   gridLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -776,10 +770,6 @@ MonoBehaviour:
   actingMultiplier: 0
   pinMoveDuration: 0.3
   pinMoveEase: 27
-  gfx: {fileID: 1368450057742941373}
-  glowIndex: 1
-  colorIndex: 0
-  multiText: {fileID: 0}
   socketCubes:
   - cube: {fileID: 7764810666939681954}
     pin: {fileID: 0}

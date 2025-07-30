@@ -146,7 +146,7 @@ public class Socket : MonoBehaviour
 
     public void UpdateFireRateDisplay()
     {
-        if (fireRateTexts == null) return;
+        if (fireRateTexts.Length <= 0) return;
 
         foreach (var item in fireRateTexts)
         {
