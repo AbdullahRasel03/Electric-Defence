@@ -199,7 +199,7 @@ public class Turret : MonoBehaviour
     public void SetFireRateSlider()
     {
         sliderCanvas.gameObject.SetActive(true);
-        sliderCanvas.transform.DORotateQuaternion(Quaternion.Euler(20f, 0f, 90f), 1.5f);
+        sliderCanvas.transform.DORotateQuaternion(Quaternion.Euler(20f, 0f, 0f), 1.5f);
         fireRateSlider.maxValue = fireRate;
         fireRateSlider.value = 0;
         fireTime = 0f;

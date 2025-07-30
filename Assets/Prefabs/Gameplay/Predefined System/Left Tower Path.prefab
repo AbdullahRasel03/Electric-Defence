@@ -440,7 +440,6 @@ MonoBehaviour:
   fireRateTexts:
   - {fileID: 0}
   plugHolder: {fileID: 0}
-  connectedPlug: {fileID: 0}
   laser: {fileID: 0}
 --- !u!114 &1408527839797346767
 MonoBehaviour:
@@ -780,7 +779,6 @@ MonoBehaviour:
   fireRateTexts:
   - {fileID: 0}
   plugHolder: {fileID: 0}
-  connectedPlug: {fileID: 0}
   laser: {fileID: 0}
 --- !u!114 &1250872715409176135
 MonoBehaviour:
