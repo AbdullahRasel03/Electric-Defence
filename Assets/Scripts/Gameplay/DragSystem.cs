@@ -53,20 +53,7 @@ public class DragSystem : MonoBehaviour
         Vector3 mousePosition = GetMouseWorldPosition();
         dragOffset = mousePosition - transform.position;
         print("Dragging");
-        if (objectType == DragObjectType.Plug)
-        {
-            Plug plug = GetComponent<Plug>();
-            if (plug != null && plug.assignedGrid != null)
-            {
-                plug.assignedSocket.connectedPlug = null;
-                plug.assignedSocket = null;
-                // plug.assignedGrid.isOccupied = false;
-                // plug.assignedGrid.plug = null;
-                plug.assignedGrid = null;
-            }
-            plug.connectedTower.DeactivateTower();
-        }
-        else if (objectType == DragObjectType.Socket)
+       if (objectType == DragObjectType.Socket)
         {
             Socket socket = GetComponent<Socket>();
 

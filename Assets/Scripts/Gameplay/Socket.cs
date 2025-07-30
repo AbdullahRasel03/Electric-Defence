@@ -35,13 +35,11 @@ public class Socket : MonoBehaviour
     public List<GridObject> assignedGrids = new();
     public SocketManager socketManager;
     public TMP_Text[] fireRateTexts;
-    public Transform plugHolder;
-    public Plug connectedPlug;
-
-    #endregion
-
+    public Transform plugHolder; // Optional: remove if not used elsewhere
     public MLaser laser;
     public GameObject MulTxt => multiText;
+
+    #endregion
 
     #region Unity Lifecycle
 
@@ -124,19 +122,9 @@ public class Socket : MonoBehaviour
             }
         }
 
-        if (multiText != null)
-        {
-            multiText.SetActive(true);
-        }
-
         if (laser != null)
         {
             laser.gameObject.SetActive(false);
-        }
-
-        if (connectedPlug != null)
-        {
-            connectedPlug = null;
         }
     }
 
