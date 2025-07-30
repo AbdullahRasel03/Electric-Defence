@@ -166,7 +166,7 @@ public class Turret : MonoBehaviour
             return;
         }
 
-        Debug.LogError("Call");
+        // Debug.LogError("Call");
         // float fireRate = 1;
         float currentFireDelay = fireRate;
         foreach (GridObject item in gridsOnPath)

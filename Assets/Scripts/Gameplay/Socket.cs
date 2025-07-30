@@ -56,6 +56,7 @@ public class Socket : MonoBehaviour
 
     private void RotateMultiplier()
     {
+        if(multiText == null) return;
         multiText.transform.DOLocalRotateQuaternion(Quaternion.Euler(55f, 0f, 0f), 1.5f);
     }
 
