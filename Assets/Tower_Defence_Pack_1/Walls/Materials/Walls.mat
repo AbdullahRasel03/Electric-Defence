@@ -21,7 +21,6 @@ Material:
   - MATCAP_PERSPECTIVE
   - NORMAL_MAP
   - OUTLINE_PASS_DISABLED
-  - SHADOWS_ENABLED
   - SPECULAR_MAP
   - _DETAILBLEND_MULTIPLY
   - _DETAILUV_UV1
@@ -284,7 +283,7 @@ Material:
     - _ShadowOverlaySpeedU: 0.1
     - _ShadowOverlaySpeedV: 0.03
     - _ShadowOverlaySwayAmount: 0.01
-    - _ShadowsEnabled: 1
+    - _ShadowsEnabled: 0
     - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _SourceBlend: 1

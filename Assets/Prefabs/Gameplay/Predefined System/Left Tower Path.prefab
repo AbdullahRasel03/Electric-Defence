@@ -441,6 +441,7 @@ MonoBehaviour:
   - {fileID: 0}
   plugHolder: {fileID: 0}
   laser: {fileID: 0}
+  ConnectedParticles: []
 --- !u!114 &1408527839797346767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,6 +781,7 @@ MonoBehaviour:
   - {fileID: 0}
   plugHolder: {fileID: 0}
   laser: {fileID: 0}
+  ConnectedParticles: []
 --- !u!114 &1250872715409176135
 MonoBehaviour:
   m_ObjectHideFlags: 0
