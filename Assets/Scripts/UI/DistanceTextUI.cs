@@ -10,11 +10,11 @@ using DG.Tweening;
 
 public class DistanceTextUI : MonoBehaviour
 {
-    [SerializeField] private TMP_Text distanceCount;
+    [SerializeField] private TMP_Text impactTimeText; // Renamed from distanceCount
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private Transform safeZone;
 
-    [SerializeField] private float updateInterval = 0.2f; // Update every 0.2 seconds to avoid performance issues
+    [SerializeField] private float updateInterval = 0.2f;
     private float nextUpdateTime = 0f;
 
     private bool canStartTimer = false;
@@ -23,44 +23,51 @@ public class DistanceTextUI : MonoBehaviour
     public void StartTimer(bool flag)
     {
         canStartTimer = flag;
-        nextUpdateTime = Time.time + updateInterval; // Initialize the first update time
+        nextUpdateTime = Time.time + updateInterval;
     }
 
-    public void UpdateDistance(float distance)
+    public void UpdateImpactTime(float impactTime)
     {
-        if (distanceCount != null)
+        if (impactTimeText != null)
         {
-            distance = Mathf.Clamp(distance, 0, 100000);
-
-
-            distanceCount.text = distance.ToString("F2") + "m";
-
-            if (distance <= 0)
+            if (impactTime <= 0)
             {
-                distanceCount.color = Color.red;
-                distanceCount.text = "0.00m";
+                impactTimeText.color = Color.red;
+                impactTimeText.text = "T -0.00s";
                 if (seq != null)
                 {
                     seq.Kill();
-                    distanceCount.transform.localScale = Vector3.one;
+                    impactTimeText.transform.localScale = Vector3.one;
                 }
 
                 enemySpawner.OnEnemiesReachedSafeZone();
             }
-
-            if (distance < 10f)
-            {
-                distanceCount.color = Color.red;
-                SetTooCloseEffect();
-            }
             else
             {
-                distanceCount.color = Color.white;
+                impactTimeText.text = "T -" + impactTime.ToString("F2") + "s";
 
-                if (seq != null)
+                if (impactTime < 5f) // Warning when less than 5 seconds
                 {
-                    seq.Kill();
-                    distanceCount.transform.localScale = Vector3.one;
+                    impactTimeText.color = Color.red;
+
+                    if (seq == null || !seq.IsActive())
+                    {
+                        SetTooCloseEffect();
+                    }
+                }
+                else if (impactTime < 10f && impactTime > 5f) // Warning when less than 10 seconds
+                {
+                    impactTimeText.color = Color.yellow;
+                }
+                else
+                {
+                    impactTimeText.color = Color.white;
+
+                    if (seq != null)
+                    {
+                        seq.Kill();
+                        impactTimeText.transform.localScale = Vector3.one;
+                    }
                 }
             }
         }
@@ -71,14 +78,14 @@ public class DistanceTextUI : MonoBehaviour
         if (seq != null)
         {
             seq.Kill();
-            distanceCount.transform.localScale = Vector3.one;
+            impactTimeText.transform.localScale = Vector3.one;
         }
 
         seq = DOTween.Sequence();
-        seq.Append(distanceCount.transform.DOScale(1.2f, 0.15f).SetEase(Ease.OutBounce))
+        seq.Append(impactTimeText.transform.DOScale(1.2f, 0.15f))
         .AppendInterval(0.2f)
-        .Append(distanceCount.transform.DOScale(1f, 0.15f).SetEase(Ease.InBounce))
-        .SetLoops(-1, LoopType.Yoyo);
+        .Append(impactTimeText.transform.DOScale(1f, 0.15f))
+        .SetLoops(-1);
     }
 
     void Update()
@@ -88,65 +95,112 @@ public class DistanceTextUI : MonoBehaviour
         if (Time.time >= nextUpdateTime && enemySpawner.activeEnemies != null && enemySpawner.activeEnemies.Count > 0)
         {
             nextUpdateTime = Time.time + updateInterval;
-            FindClosestEnemyDistance();
+            FindClosestEnemyImpactTime();
         }
     }
 
-    private void FindClosestEnemyDistance()
+    private void FindClosestEnemyImpactTime()
     {
-        Vector3 safeZonePosition = safeZone.position;
+        float3 safeZonePosition = safeZone.position;
         int enemyCount = enemySpawner.activeEnemies.Count;
 
         // Create native arrays for the job system
         NativeArray<float3> enemyPositions = new NativeArray<float3>(enemyCount, Allocator.TempJob);
-        NativeArray<float> distances = new NativeArray<float>(enemyCount, Allocator.TempJob);
+        NativeArray<float> enemyVelocities = new NativeArray<float>(enemyCount, Allocator.TempJob);
+        NativeArray<float> impactTimes = new NativeArray<float>(enemyCount, Allocator.TempJob);
 
-        // Fill the positions array
+        // Fill the arrays
         for (int i = 0; i < enemyCount; i++)
         {
             if (enemySpawner.activeEnemies[i] != null)
+            {
                 enemyPositions[i] = enemySpawner.activeEnemies[i].transform.position;
+                
+                Enemy enemyMovement = enemySpawner.activeEnemies[i].GetComponent<Enemy>();
+                float speed = enemyMovement != null ? enemyMovement.Speed : 5f;
+                // Assuming enemies move towards safe zone (negative Z direction)
+                enemyVelocities[i] = speed;
+            }
         }
 
         // Create and schedule the job
-        FindClosestEnemyJob job = new FindClosestEnemyJob
+        CalculateImpactTimeJob job = new CalculateImpactTimeJob
         {
             enemyPositions = enemyPositions,
+            enemyVelocities = enemyVelocities,
             safeZonePosition = safeZonePosition,
-            distances = distances
+            impactTimes = impactTimes
         };
 
         JobHandle jobHandle = job.Schedule(enemyCount, 64);
         jobHandle.Complete();
 
-        // Find the minimum distance
-        float minDistance = float.MaxValue;
-        for (int i = 0; i < distances.Length; i++)
+        // Find the minimum impact time
+        float minImpactTime = float.MaxValue;
+        for (int i = 0; i < impactTimes.Length; i++)
         {
-            if (distances[i] < minDistance)
+            if (impactTimes[i] < minImpactTime)
             {
-                minDistance = distances[i];
+                minImpactTime = impactTimes[i];
             }
         }
 
-        // Update the UI with the closest enemy distance
-        UpdateDistance(minDistance);
+        // Update the UI with the closest enemy impact time
+        UpdateImpactTime(minImpactTime == float.MaxValue ? 0 : minImpactTime);
 
         // Dispose native arrays
         enemyPositions.Dispose();
-        distances.Dispose();
+        enemyVelocities.Dispose();
+        impactTimes.Dispose();
     }
 }
-
 [BurstCompile]
-struct FindClosestEnemyJob : IJobParallelFor
+struct CalculateImpactTimeJob : IJobParallelFor
 {
     [ReadOnly] public NativeArray<float3> enemyPositions;
+    [ReadOnly] public NativeArray<float> enemyVelocities;
     [ReadOnly] public float3 safeZonePosition;
-    [WriteOnly] public NativeArray<float> distances;
+    [WriteOnly] public NativeArray<float> impactTimes;
 
     public void Execute(int index)
     {
-        distances[index] = math.distance(enemyPositions[index], safeZonePosition);
+        float3 position = enemyPositions[index];
+        float speed = enemyVelocities[index];
+
+        if (speed > 0.001f) // Avoid division by zero
+        {
+            // Create a local copy for calculation
+            float3 targetPosition = safeZonePosition;
+            targetPosition.x = position.x; // Ensure X is the same for distance calculation
+            targetPosition.y = position.y; // Ensure Y is the same for distance calculation
+
+            // Calculate the direction from enemy to safe zone
+            float3 directionToSafeZone = targetPosition - position;
+            float distanceToSafeZone = math.length(directionToSafeZone);
+
+            // Calculate how long it takes to reach the safe zone
+            float timeToImpact = distanceToSafeZone / speed;
+
+            // Check if enemy is moving towards safe zone (negative Z direction)
+            // Enemy velocity is in negative Z direction when moving towards safe zone
+            float3 enemyVelocityDirection = new float3(0, 0, -1); // Enemies move towards safe zone
+            float3 normalizedDirectionToSafeZone = math.normalize(directionToSafeZone);
+
+            // Dot product: 1 means moving directly towards, -1 means moving away
+            float dotProduct = math.dot(normalizedDirectionToSafeZone, enemyVelocityDirection);
+
+            // If moving away from safe zone (dot product < 0), set time to a large value
+            if (dotProduct < 0)
+            {
+                timeToImpact = -1;
+            }
+
+            impactTimes[index] = timeToImpact;
+        }
+        else
+        {
+            impactTimes[index] = float.MaxValue;
+        }
     }
 }
+

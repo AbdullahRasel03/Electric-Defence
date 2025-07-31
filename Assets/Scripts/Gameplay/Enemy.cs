@@ -58,6 +58,8 @@ public class Enemy : MonoBehaviour
     public bool IsActive => _currentState == EnemyState.Active;
     public EnemyType EnemyType => enemyType;
 
+    public float Speed => movementSpeed;
+
 
     #endregion
 
