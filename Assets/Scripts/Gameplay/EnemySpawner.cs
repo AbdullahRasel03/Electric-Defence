@@ -109,6 +109,9 @@ public class EnemySpawner : MonoBehaviour
         topDownNonPPCam.orthographic = false;
         uiCam.orthographic = false;
         topDownCam.orthographic = false;
+        topDownCam.fieldOfView = 54.5f;
+        topDownNonPPCam.fieldOfView = 54.5f;
+        uiCam.fieldOfView = 54.5f;
 
         allTurrets.ForEach(turret => { turret.HideFireRateText(); turret.SetFireRateSlider(); });
 

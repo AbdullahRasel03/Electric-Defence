@@ -157,7 +157,6 @@ public class SocketManager : MonoBehaviour
     }
     private IEnumerator MergeSocketsRoutine(Socket incomingSocket, Socket gridSocket)
     {
-
         incomingSocket.isMerging = true;
         gridSocket.isMerging = true;
 

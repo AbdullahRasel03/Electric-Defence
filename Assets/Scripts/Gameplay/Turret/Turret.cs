@@ -30,9 +30,14 @@ public class Turret : MonoBehaviour
     [SerializeField] private Canvas sliderCanvas;
     [SerializeField] private Slider fireRateSlider;
 
+    [Space(10)]
+    [SerializeField] private ParticleSystem levelUpParticle;
+
     protected Sequence fireSequence;
 
     protected float fireTime = 0f;
+
+    private Dictionary<GridObject, float> objectsOnPath = new();
 
     void Start()
     {
@@ -168,13 +173,32 @@ public class Turret : MonoBehaviour
 
         // Debug.LogError("Call");
         // float fireRate = 1;
+        bool hasPoweredUp = false;
         float currentFireDelay = fireRate;
+
         foreach (GridObject item in gridsOnPath)
         {
             if (item.socket)
             {
-                currentFireDelay -= item.socket.ownMultiplier / 50f;
                 item.socket.PowerUp();
+
+                if (objectsOnPath.ContainsKey(item))
+                {
+                    if (objectsOnPath[item] != item.socket.ownMultiplier)
+                    {
+                        hasPoweredUp = true;
+                        currentFireDelay -= item.socket.ownMultiplier / 50f;
+                    }
+
+                    objectsOnPath[item] = item.socket.ownMultiplier;
+                }
+                else
+                {
+                    hasPoweredUp = true;
+                    objectsOnPath.Add(item, item.socket.ownMultiplier);
+                    currentFireDelay -= item.socket.ownMultiplier / 50f;
+                }
+
             }
         }
 
@@ -182,8 +206,10 @@ public class Turret : MonoBehaviour
 
         UpdateFireRateText();
 
-        // shooter.SetFireRate(fireRate);
-        // powerText.text = shooter.GetFireRate().ToString();
+        if (levelUpParticle != null && hasPoweredUp)
+        {
+            levelUpParticle.Play();
+        }
     }
 
     public void HideFireRateText()
