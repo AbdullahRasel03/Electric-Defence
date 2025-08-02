@@ -1,4 +1,3 @@
-using Obi;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
@@ -15,7 +14,6 @@ public class TowerHeroController : MonoBehaviour
     [SerializeField] private float speed = 10f;
     [SerializeField] private Animator animator;
 
-    [SerializeField] private ObiRope rope;
     [SerializeField] private GameObject electricityVisualPrefab;
     [SerializeField] private float timeToMoveElectrcity = 0.3f;
     [SerializeField] private Transform shootPoint;
@@ -45,55 +43,12 @@ public class TowerHeroController : MonoBehaviour
         if (fireCooldown <= 0f)
         {
             fireCooldown = 1f / fireRate;
-            StartCoroutine(FireSequence());
+
         }
     }
 
-    private IEnumerator FireSequence()
-    {
-        canFire = false;
-        isFiringSequenceActive = true;
+ 
 
-        // Electricity effect if available
-        if (rope != null && rope.solver != null && rope.activeParticleCount > 0 && electricityVisualPrefab != null)
-        {
-            yield return StartCoroutine(PlayElectricityEffect());
-        }
-
-        PlayFireAnimation();
-
-        isFiringSequenceActive = false;
-        canFire = true;
-    }
-
-    private IEnumerator PlayElectricityEffect()
-    {
-        float t = 0f;
-        var visual = Instantiate(electricityVisualPrefab, towerController.plug.transform.position, Quaternion.identity);
-        var solver = rope.solver;
-        var indices = rope.solverIndices;
-
-        while (t < 1f)
-        {
-            t += Time.deltaTime / timeToMoveElectrcity;
-            float fIndex = Mathf.Lerp(0, rope.activeParticleCount - 1, t);
-            int i = Mathf.FloorToInt(fIndex);
-            int next = Mathf.Min(i + 1, rope.activeParticleCount - 1);
-
-            int solverIndexA = indices[i];
-            int solverIndexB = indices[next];
-
-            Vector3 posA = solver.transform.TransformPoint(solver.positions[solverIndexA]);
-            Vector3 posB = solver.transform.TransformPoint(solver.positions[solverIndexB]);
-            visual.transform.position = Vector3.Lerp(posA, posB, fIndex - i);
-
-            yield return null;
-        }
-
-        var trail = visual.GetComponent<TrailRenderer>();
-        if (trail != null) trail.Clear();
-        Destroy(visual);
-    }
 
     public void Fire()
     {
