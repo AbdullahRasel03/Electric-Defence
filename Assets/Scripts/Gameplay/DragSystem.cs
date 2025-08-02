@@ -35,6 +35,7 @@ public class DragSystem : MonoBehaviour
 
     private void OnMouseDown()
     {
+        print("Dragging");
         initialPosition = transform.position;
         originalYPosition = initialPosition.y;
         StartDrag();
@@ -52,7 +53,7 @@ public class DragSystem : MonoBehaviour
 
         Vector3 mousePosition = GetMouseWorldPosition();
         dragOffset = mousePosition - transform.position;
-        print("Dragging");
+       
        if (objectType == DragObjectType.Socket)
         {
             Socket socket = GetComponent<Socket>();
