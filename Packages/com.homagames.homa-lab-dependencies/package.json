@@ -1,0 +1,16 @@
+{
+  "name": "com.homagames.homa-lab-dependencies",
+  "displayName": "Homa Lab Dependencies",
+  "author": "Homa Games",
+  "description": "Set of dependencies configured in Homa Lab manifest",
+  "version": "1.0.0",
+  "dependencies": {
+    "com.homagames.sdk-core": "4.4.4",
+    "com.homagames.attribution.adjust": "6.3.0",
+    "com.homagames.analytics.gameanalytics": "8.0.0",
+    "com.homagames.analytics.facebook": "17.0.3",
+    "com.homagames.analytics.homa-analytics": "1.7.5",
+    "com.homagames.debug-console": "4.0.1"
+  },
+  "manifestHash": "67e48450a5f7699"
+}

@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c0dcff90cd4f0b89b13cc05e4c369e, type: 3}
+  m_Name: LiveDebugSettings
+  m_EditorClassIdentifier: 
+  types: []
+  valueEditorMethods:
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: BoundsProvider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: LongProvider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: ButtonProvider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: DoubleProvider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: StringProvider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: FloatProvider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: Vector4Provider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: EnumProvider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: Vector3IntProvider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: Texture2DProvider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: Vector3Provider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: RectProvider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: Vector2IntProvider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: IntProvider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: BoolProvider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: Vector2Provider
+  - _assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.DefaultEditors, HomaGames.HomaConsole.LiveDebug,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    _methodName: ColorProvider

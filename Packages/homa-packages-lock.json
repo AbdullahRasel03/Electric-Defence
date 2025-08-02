@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "facebook-unity-sdk": {
+      "name": "facebook-unity-sdk",
+      "sourcePackageName": "com.homagames.analytics.facebook",
+      "projectRelativePath": "Packages/com.homagames.analytics.facebook/Dependencies/no-ugui-facebook-unity-sdk-17.0.1.unitypackage",
+      "files": [
+        "Assets/FacebookSDK"
+      ],
+      "filesToRemove": null,
+      "version": "17.0.1"
+    }
+  }
+}

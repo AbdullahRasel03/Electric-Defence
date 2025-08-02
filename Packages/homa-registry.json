@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "name": "Homa Games SDK",
+  "url": "https://npm.homa-cloud.com/unity-main",
+  "scopes": [
+    "com.homagames",
+    "com.google.external-dependency-manager",
+    "com.adjust.sdk",
+    "com.gameanalytics.sdk"
+  ]
+}
