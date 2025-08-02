@@ -27,20 +27,26 @@ MonoBehaviour:
   CustomArea: 
   gameKey:
   - 0d98a27df596a77d2b920f7b2816d133
+  - 
   secretKey:
   - 4f6d2fa238300420f1cd44773adb1b403f18624a
+  - 
   Build:
   - 0.0.1
+  - 0.1
   SelectedPlatformOrganization:
   - Big Bang Studio Ltd.
+  - 
   SelectedPlatformStudio:
   - Big Bang Studio Ltd.
+  - 
   SelectedPlatformGame:
   - Space Grid TD
-  SelectedPlatformGameID: 0ff30400
-  SelectedOrganization: 04000000
-  SelectedStudio: 01000000
-  SelectedGame: 01000000
+  - 
+  SelectedPlatformGameID: 0ff30400ffffffff
+  SelectedOrganization: 0400000000000000
+  SelectedStudio: 0100000000000000
+  SelectedGame: 0100000000000000
   NewVersion: 
   Changes: 
   SignUpOpen: 1
@@ -122,7 +128,7 @@ MonoBehaviour:
   ResourceItemTypes: []
   ResourceCurrencies: []
   LastCreatedGamePlatform: 0
-  Platforms: 0b000000
+  Platforms: 0b00000008000000
   CurrentInspectorState: 1
   ClosedHints: 
   DisplayHints: 0
@@ -150,7 +156,7 @@ MonoBehaviour:
   IncludeGooglePlay: 1
   FpsCriticalThreshold: 20
   FpsCirticalSubmitInterval: 1
-  PlatformFoldOut: 01
+  PlatformFoldOut: 0101
   CustomDimensions01FoldOut: 0
   CustomDimensions02FoldOut: 0
   CustomDimensions03FoldOut: 0
