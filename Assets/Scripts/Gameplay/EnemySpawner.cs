@@ -22,6 +22,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float minSpawnDelay = 1f;
     [SerializeField] private float maxSpawnDelay = 3f;
     [SerializeField] private int maxActiveEnemies = 20;
+    [SerializeField] private int minEnemyBatchSize = 5;
+    [SerializeField] private int maxEnemyBatchSize = 6;
     [SerializeField] private Camera topDownCam;
     [SerializeField] private Camera topDownNonPPCam;
     [SerializeField] private Camera tpCam;
@@ -29,6 +31,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject canvas;
     [SerializeField] private SocketManager socketManager;
     [SerializeField] private List<Turret> allTurrets;
+    [SerializeField] private EnemyConfig bossConfig;
+    [SerializeField] private int spawnBossAfterBatch = 3;
     
 
     [Header("Runtime Info")]
@@ -48,6 +52,8 @@ public class EnemySpawner : MonoBehaviour
     private int currentSpawnCount = 0;
     private bool isSpawning;
     private int currentSpawnPoint = 0;
+    private int currentBatchCount = 0;
+    private bool isBossSpawned = false;
 
     public static event Action OnSpawnStarted;
 
@@ -147,23 +153,37 @@ public class EnemySpawner : MonoBehaviour
     {
         if (currentSpawnCount >= maxActiveEnemies) return;
 
-        EnemyConfig config = GetRandomEnemyConfig();
-        Transform spawnPoint = GetRandomSpawnPoint();
-        Vector3 spawnOffset = new Vector3(0, 0, 35f);
+        int batchSize = currentBatchCount > spawnBossAfterBatch && !isBossSpawned? 3 : Random.Range(minEnemyBatchSize, maxEnemyBatchSize + 1);
 
-        GameObject enemyObj = ObjectPool.instance.GetObject(
-            config.prefab,
-            true,
-            spawnPoint.position + spawnOffset,
-            quaternion.identity
-        );
+        for (int i = 0; i < batchSize; i++)
+        {
+            EnemyConfig config = GetRandomEnemyConfig();
 
-        Enemy enemy = enemyObj.GetComponent<Enemy>();
-        enemy.ActivateEnemy(spawnPoint.position, quaternion.identity, config.health);
+            if (currentBatchCount > spawnBossAfterBatch && !isBossSpawned && i == 1)
+            {
+                config = bossConfig;
+                isBossSpawned = true;
+            }
+            
+            Transform spawnPoint = GetRandomSpawnPoint();
+            Vector3 spawnOffset = new Vector3(0, 0, 35f);
 
-        activeEnemies.Add(enemy);
+            GameObject enemyObj = ObjectPool.instance.GetObject(
+                config.prefab,
+                true,
+                spawnPoint.position + spawnOffset,
+                quaternion.identity
+            );
 
-        currentSpawnCount++;
+            Enemy enemy = enemyObj.GetComponent<Enemy>();
+            enemy.ActivateEnemy(spawnPoint.position + new Vector3(0, 0, Random.Range(-10, 10)), quaternion.identity, config.health);
+
+            activeEnemies.Add(enemy);
+
+            currentSpawnCount++;
+        }
+
+        currentBatchCount++;
     }
 
     private EnemyConfig GetRandomEnemyConfig()

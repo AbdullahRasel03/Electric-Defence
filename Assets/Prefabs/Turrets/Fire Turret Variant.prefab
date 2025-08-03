@@ -955,7 +955,7 @@ PrefabInstance:
     - target: {fileID: 8154962034931220629, guid: bd3111d7b003ed040b9e860c3572624c,
         type: 3}
       propertyPath: fireRate
-      value: 1
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 8154962034931220629, guid: bd3111d7b003ed040b9e860c3572624c,
         type: 3}
@@ -970,7 +970,7 @@ PrefabInstance:
     - target: {fileID: 8154962034931220629, guid: bd3111d7b003ed040b9e860c3572624c,
         type: 3}
       propertyPath: baseFireRate
-      value: 1
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 8154962034931220629, guid: bd3111d7b003ed040b9e860c3572624c,
         type: 3}
