@@ -47,6 +47,7 @@ public class EnemySpawner : MonoBehaviour
     private float currentTime;
     private int currentSpawnCount = 0;
     private bool isSpawning;
+    private int currentSpawnPoint = 0;
 
     public static event Action OnSpawnStarted;
 
@@ -186,7 +187,9 @@ public class EnemySpawner : MonoBehaviour
 
     private Transform GetRandomSpawnPoint()
     {
-        return spawnPoints[Random.Range(0, spawnPoints.Length)];
+        int spawnPointIndex = currentSpawnPoint;
+        currentSpawnPoint = (spawnPointIndex + 1) % spawnPoints.Length;
+        return spawnPoints[spawnPointIndex];
     }
 
     public void OnEnemyDefeated(Enemy enemy)
