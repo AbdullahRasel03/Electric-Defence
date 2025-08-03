@@ -18,9 +18,12 @@ public class EnemySpawner : MonoBehaviour
     [Header("Configuration")]
     [SerializeField] private EnemyConfig[] enemyConfigs;
     [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private float initialSpawnDelay = 2f;
     [SerializeField] private float minSpawnDelay = 1f;
     [SerializeField] private float maxSpawnDelay = 3f;
     [SerializeField] private int maxActiveEnemies = 20;
+    [SerializeField] private int minEnemyBatchSize = 5;
+    [SerializeField] private int maxEnemyBatchSize = 6;
     [SerializeField] private Camera topDownCam;
     [SerializeField] private Camera topDownNonPPCam;
     [SerializeField] private Camera tpCam;
@@ -28,6 +31,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject canvas;
     [SerializeField] private SocketManager socketManager;
     [SerializeField] private List<Turret> allTurrets;
+    [SerializeField] private EnemyConfig bossConfig;
+    [SerializeField] private int spawnBossAfterBatch = 3;
     
 
     [Header("Runtime Info")]
@@ -46,6 +51,9 @@ public class EnemySpawner : MonoBehaviour
     private float currentTime;
     private int currentSpawnCount = 0;
     private bool isSpawning;
+    private int currentSpawnPoint = 0;
+    private int currentBatchCount = 0;
+    private bool isBossSpawned = false;
 
     public static event Action OnSpawnStarted;
 
@@ -80,7 +88,8 @@ public class EnemySpawner : MonoBehaviour
         {
             StartSpawning();
         }
-        if (!isSpawning || activeEnemies.Count >= maxActiveEnemies) return;
+        // if (!isSpawning || activeEnemies.Count >= maxActiveEnemies) return;
+        if (!isSpawning) return;
 
         currentTime += Time.deltaTime;
 
@@ -104,7 +113,7 @@ public class EnemySpawner : MonoBehaviour
 
         canvas.SetActive(false);
         socketManager.ResetAllSockets();
-        nextSpawnTime = 3f;
+        nextSpawnTime = initialSpawnDelay;
         isSpawning = true;
         topDownNonPPCam.orthographic = false;
         uiCam.orthographic = false;
@@ -143,25 +152,46 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (currentSpawnCount >= maxActiveEnemies) return;
+        // if (currentSpawnCount >= maxActiveEnemies) return;
 
-        EnemyConfig config = GetRandomEnemyConfig();
-        Transform spawnPoint = GetRandomSpawnPoint();
-        Vector3 spawnOffset = new Vector3(0, 0, 35f);
+        int batchSize = currentBatchCount > spawnBossAfterBatch && !isBossSpawned? 3 : Random.Range(minEnemyBatchSize, maxEnemyBatchSize + 1);
 
-        GameObject enemyObj = ObjectPool.instance.GetObject(
-            config.prefab,
-            true,
-            spawnPoint.position + spawnOffset,
-            quaternion.identity
-        );
+        if (currentBatchCount > spawnBossAfterBatch && !isBossSpawned)
+        {
+            currentSpawnCount = 0;
+        }
 
-        Enemy enemy = enemyObj.GetComponent<Enemy>();
-        enemy.ActivateEnemy(spawnPoint.position, quaternion.identity, config.health);
+        for (int i = 0; i < batchSize; i++)
+        {
+            EnemyConfig config = GetRandomEnemyConfig();
+            Transform spawnPoint = GetRandomSpawnPoint();
 
-        activeEnemies.Add(enemy);
+            if (currentBatchCount > spawnBossAfterBatch && !isBossSpawned && i == 1)
+            {
+                config = bossConfig;
+                spawnPoint = spawnPoints[2];
+                isBossSpawned = true;
+            }
+            
+     
+            Vector3 spawnOffset = new Vector3(0, 0, 35f);
 
-        currentSpawnCount++;
+            GameObject enemyObj = ObjectPool.instance.GetObject(
+                config.prefab,
+                true,
+                spawnPoint.position + spawnOffset,
+                quaternion.identity
+            );
+
+            Enemy enemy = enemyObj.GetComponent<Enemy>();
+            enemy.ActivateEnemy(spawnPoint.position + new Vector3(0, 0, Random.Range(-10, 10)), quaternion.identity, config.health);
+
+            activeEnemies.Add(enemy);
+
+            currentSpawnCount++;
+        }
+
+        currentBatchCount++;
     }
 
     private EnemyConfig GetRandomEnemyConfig()
@@ -185,7 +215,9 @@ public class EnemySpawner : MonoBehaviour
 
     private Transform GetRandomSpawnPoint()
     {
-        return spawnPoints[Random.Range(0, spawnPoints.Length)];
+        int spawnPointIndex = currentSpawnPoint;
+        currentSpawnPoint = (spawnPointIndex + 1) % spawnPoints.Length;
+        return spawnPoints[spawnPointIndex];
     }
 
     public void OnEnemyDefeated(Enemy enemy)

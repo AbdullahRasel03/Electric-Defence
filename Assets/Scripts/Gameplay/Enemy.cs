@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Animator animator;
 
     [SerializeField] private List<ParticleSystem> warpTrail;
+    [SerializeField] private List<TrailRenderer> trails;
 
     #endregion
 
@@ -104,6 +105,7 @@ public class Enemy : MonoBehaviour
     /// <param name="rotation">World rotation to apply</param>
     public void ActivateEnemy(Vector3 position, Quaternion rotation, float _maxHealth)
     {
+        trails.ForEach(trail => {trail.emitting = false; trail.Clear();});
         _rigidbody.isKinematic = true;
         _rigidbody.useGravity = false;
         _rigidbody.linearVelocity = Vector3.zero;
@@ -114,6 +116,7 @@ public class Enemy : MonoBehaviour
             renderer.material = enemyMaterial;
         }
         warpTrail.ForEach(trail => trail.Play());
+        trails.ForEach((trail => trail.emitting = true));
         // maxHealth = _maxHealth;
         transform.rotation = rotation;
         AudioManager.CallPlaySFX(Sound.EnemyAppear);

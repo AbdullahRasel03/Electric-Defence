@@ -441,15 +441,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1232,8 +1234,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflectorActive: 0
   turretBody: {fileID: 7363283894273836073}
-  range: 70
-  rotationSpeed: 5
+  range: 100
+  rotationSpeed: 10
   fireRateText: {fileID: 5350889851612116966}
   gridsOnPath:
   - {fileID: 0}
@@ -1245,10 +1247,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  fireRate: 0.75
+  fireRate: 0.5
   isActive: 0
   towerGFX: {fileID: 0}
-  baseFireRate: 0.75
+  baseFireRate: 0.5
   sliderCanvas: {fileID: 1544027260264066795}
   fireRateSlider: {fileID: 4153343315812497104}
   levelUpParticle: {fileID: 4843327069506517714}
