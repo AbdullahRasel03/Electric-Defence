@@ -12,14 +12,11 @@ public class BottomHudController : MonoBehaviour
     [Space]
     // [SerializeField]
     // private BottomHudSection shopSection;
-    [SerializeField]
-    private BottomHudSection deckSection;
-    [SerializeField]
-    private BottomHudSection battleSection;
+    [SerializeField] private BottomHudSection deckSection;
+    [SerializeField] private BottomHudSection battleSection;
     // [SerializeField]
     // private BottomHudSection weaponSection;
-    [SerializeField]
-    private BottomHudSection skillSection;
+    [SerializeField] private BottomHudSection skillSection;
 
     private UI_VIEW currentSelectedView;
 
@@ -30,14 +27,16 @@ public class BottomHudController : MonoBehaviour
     // public static event Action OnShopSectionSelected;
 
     private float screenWidth = 1080f;
+    
+    public BottomHudSection DeckSection => deckSection;
 
 
 // #if UNITY_EDITOR
-//     void OnValidate()
-//     {
-//         UpdateSelectionImg();
-//     }
-// #endif
+    //     void OnValidate()
+    //     {
+    //         UpdateSelectionImg();
+    //     }
+    // #endif
 
 
     void Start()

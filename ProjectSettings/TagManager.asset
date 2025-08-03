@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - FX
   - Missile
   layers:
   - Default
@@ -21,11 +22,11 @@ TagManager:
   - Socket
   - Grid
   - NonPostProcess
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Tower
+  - Laser
+  - HitEffect
+  - Reflector
+  - WorldUI
   - 
   - 
   - 

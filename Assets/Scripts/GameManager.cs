@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     public int InitialSkillTokenAmount = 0;
 
     [SerializeReference] private MobileNotificationController mobileNotificationController;
+    [SerializeField] private List<TroopDataSO> allHeroData;
 
     private PreferenceData preferenceData;
     private EconomyData economyData;
@@ -20,6 +22,8 @@ public class GameManager : MonoBehaviour
     private WallSavedData wallSavedData;
 
     public bool isDebug = true;
+
+    public List<TroopDataSO> AllHeroData => allHeroData;
 
     private void Awake()
     {
@@ -121,6 +125,8 @@ public class GameManager : MonoBehaviour
             SaveLoadManager.SaveWallSavedData(wallSavedData);
         }
 
+        CheckAutoEquipHeroes();
+
 
     }
 
@@ -145,7 +151,7 @@ public class GameManager : MonoBehaviour
 
         AudioManager.GetInstance().SetBGMPermissionValue(isBgmOn);
         AudioManager.GetInstance().SetSFXPermissionValue(isSfxOn);
-        VibrationManager.instance.SetVibration(isVibrationOn);
+        // VibrationManager.instance.SetVibration(isVibrationOn);
         AudioManager.GetInstance().Init();
     }
 
@@ -176,6 +182,29 @@ public class GameManager : MonoBehaviour
         economyData.economyData[ECONOMY_TYPE.SKILL_TOKEN] += amount;
         SaveLoadManager.SaveEconomyData(economyData);
         UiManager.GetInstance().UpdateSkillTokenInUI();
+    }
+
+    public void AddHeroFragments(int troopId, int amount)
+    {
+        if (economyData.troopFragmentsData.ContainsKey(troopId))
+        {
+            economyData.troopFragmentsData[troopId] += amount;
+        }
+        else
+        {
+            economyData.troopFragmentsData[troopId] = amount;
+        }
+
+        SaveLoadManager.SaveEconomyData(economyData);
+    }
+
+    public int GetCurrentHeroFragments(int troopId)
+    {
+        if (economyData.troopFragmentsData.ContainsKey(troopId))
+        {
+            return economyData.troopFragmentsData[troopId];
+        }
+        return 0; // Default value if troopId not found
     }
 
 
@@ -245,6 +274,174 @@ public class GameManager : MonoBehaviour
         SaveLoadManager.SaveWallSavedData(wallSavedData);
     }
 
+    #endregion
+
+    #region Heros
+
+    public TroopDataSO GetHeroData(int troopId)
+    {
+        return allHeroData.Find(t => t.TroopId == troopId);
+    }
+
+    public int GetHeroIdFromType(TROOP_TYPE troopType)
+    {
+        TroopDataSO troopData = allHeroData.Find(t => t.TroopType == troopType);
+
+        if (troopData != null)
+        {
+            return troopData.TroopId;
+        }
+        return -1; // Troop not found
+    }
+
+    public List<TroopDataSO> GetUnlockedHeroes()
+    {
+        return allHeroData.Where(t => t.IsTroopUnlocked()).ToList();
+    }
+
+    public List<TroopDataSO> GetHeroesForTutorialLevel()
+    {
+        List<TroopDataSO> unlockedTroops = GetUnlockedHeroes();
+
+        unlockedTroops.Add(allHeroData.Find(t => t.TroopId == 0)); // Always add the first troop for tutorial
+
+        return unlockedTroops;
+    }
+
+    public List<TroopDataSO> GetRandomUnlockedHeroes(int count)
+    {
+        List<TroopDataSO> unlockedTroops = GetUnlockedHeroes();
+        List<TroopDataSO> randomTroops = new List<TroopDataSO>();
+        System.Random random = new System.Random();
+
+        if (unlockedTroops.Count >= count)
+        {
+            // Shuffle the unlocked troops list and take the first 'count' troops
+            for (int i = 0; i < unlockedTroops.Count; i++)
+            {
+                TroopDataSO temp = unlockedTroops[i];
+                int randomIndex = random.Next(i, unlockedTroops.Count);
+                unlockedTroops[i] = unlockedTroops[randomIndex];
+                unlockedTroops[randomIndex] = temp;
+            }
+
+            randomTroops = unlockedTroops.Take(count).ToList();
+        }
+
+        else
+        {
+            // Randomly add count number of troops (with possible duplicates)
+            for (int i = 0; i < count; i++)
+            {
+                TroopDataSO randomTroop = unlockedTroops[Random.Range(0, unlockedTroops.Count)];
+                randomTroops.Add(randomTroop);
+            }
+        }
+
+        return randomTroops;
+    }
+
+    public int GetHeroLevel(int troopId)
+    {
+        if (playerData.troopLevelData.ContainsKey(troopId))
+        {
+            return playerData.troopLevelData[troopId];
+        }
+
+        return 1; // Default level if not found
+    }
+
+    public void SetHeroLevel(int troopId, int level)
+    {
+        if (playerData.troopLevelData.ContainsKey(troopId))
+        {
+            playerData.troopLevelData[troopId] = level;
+        }
+        else
+        {
+            playerData.troopLevelData.Add(troopId, level);
+        }
+
+        SaveLoadManager.SavePlayerData(playerData);
+    }
+
+    public int GetHeroDeckSlotByTroopId(int troopId)
+    {
+        if (!playerData.troopDeckSlots.Contains(troopId))
+        {
+            return -1; // Troop not found in deck
+        }
+
+        for (int i = 0; i < Statics.maxTroopDeckSlots; i++)
+        {
+            if (playerData.troopDeckSlots[i] == troopId)
+            {
+                return i; // Return the slot index where the troop is found
+            }
+        }
+
+        return -1; // Troop not found in any slot
+    }
+
+    public int GetEmptyHeroDeckSlot()
+    {
+        for (int i = 0; i < Statics.maxTroopDeckSlots; i++)
+        {
+            if (playerData.troopDeckSlots[i] == -1)
+            {
+                return i;
+            }
+        }
+        return -1; // No empty slot found
+    }
+
+    public void SetHeroDeckSlot(int slotIndex, int troopId)
+    {
+        if (slotIndex < 0 || slotIndex >= Statics.maxTroopDeckSlots)
+        {
+            Debug.LogError("Invalid troop deck slot index: " + slotIndex);
+            return;
+        }
+        playerData.troopDeckSlots[slotIndex] = troopId;
+        SaveLoadManager.SavePlayerData(playerData);
+    }
+
+    public List<TroopDataSO> GetEquippedHeroes()
+    {
+        List<TroopDataSO> equippedTroops = new List<TroopDataSO>();
+
+        for (int i = 0; i < Statics.maxTroopDeckSlots; i++)
+        {
+            if (playerData.troopDeckSlots[i] != -1)
+            {
+                equippedTroops.Add(allHeroData.Where(t => t.TroopId == playerData.troopDeckSlots[i]).FirstOrDefault());
+            }
+
+            else
+            {
+                equippedTroops.Add(null);
+            }
+        }
+        return equippedTroops;
+    }
+
+    public void CheckAutoEquipHeroes()
+    {
+        for (int i = 0; i < Statics.maxTroopDeckSlots; i++)
+        {
+            if (playerData.troopDeckSlots[i] == -1)
+            {
+                foreach (TroopDataSO troopData in allHeroData)
+                {
+                    if (troopData.IsTroopUnlocked() && !playerData.troopDeckSlots.Contains(troopData.TroopId))
+                    {
+                        SetHeroDeckSlot(i, troopData.TroopId);
+                        break;
+                    }
+                }
+            }
+        }
+    }
     #endregion
 
     public void ScheduleNotification(string title, string message, int hour, int minute, int second)

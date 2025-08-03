@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -21,9 +22,11 @@ public class TowerController : MonoBehaviour
 
     public GridObject[] gridsOnPath;
     public TMP_Text powerText;
+
+    public Renderer towerGFX;
     private void Start()
     {
-        ActivateTower();
+       // ActivateTower();
     }
     private void Update()
     {
@@ -77,11 +80,29 @@ public class TowerController : MonoBehaviour
 
     public void ActivateTower()
     {
+
         isActive = true;
         shooter.enabled = true;
         powerText.text = shooter.GetFireRate().ToString();
+
+        if (towerGFX == null || towerGFX.material == null) return;
+
+        Material mat = towerGFX.materials[0];
+        Color currentEmission = mat.GetColor("_Emissive");
+        Color targetEmission = currentEmission + Color.cyan * 10f;
+        DOTween.To(() => currentEmission, x => {
+            currentEmission = x;
+            mat.SetColor("_Emissive", currentEmission);
+        }, targetEmission, 1f);
     }
 
+    public void ActivateTower(float fireRate)
+    {
+        isActive = true;
+        shooter.enabled = true;
+        shooter.SetFireRate(fireRate);
+        powerText.text = shooter.GetFireRate().ToString("0.0");
+    }
     public void DeactivateTower()
     {
         isActive = false;

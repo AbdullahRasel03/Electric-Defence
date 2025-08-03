@@ -96,7 +96,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RampTexture:
-        m_Texture: {fileID: 2800000, guid: c31d90d179b26c64296f6df002cf662d, type: 3}
+        m_Texture: {fileID: 2800000, guid: d9cc36e089010db4b8d2b465c2ac323a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UVNoiseTexture:
@@ -138,6 +138,7 @@ Material:
     - _Cutoff: 0.5
     - _DEPTHFADE: 1
     - _DepthFade: 0.88
+    - _DepthFadeDistance: 100
     - _DepthFadeMax: 0.115
     - _DepthFadeMin: 0
     - _DetailNormalMapScale: 1

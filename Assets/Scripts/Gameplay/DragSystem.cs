@@ -6,7 +6,8 @@ using UnityEngine;
 public enum DragObjectType
 {
     Plug,
-    Socket
+    Socket,
+    Reflector
 }
 
 [RequireComponent(typeof(Collider))]
@@ -34,6 +35,7 @@ public class DragSystem : MonoBehaviour
 
     private void OnMouseDown()
     {
+        print("Dragging");
         initialPosition = transform.position;
         originalYPosition = initialPosition.y;
         StartDrag();
@@ -51,21 +53,8 @@ public class DragSystem : MonoBehaviour
 
         Vector3 mousePosition = GetMouseWorldPosition();
         dragOffset = mousePosition - transform.position;
-
-        if (objectType == DragObjectType.Plug)
-        {
-            Plug plug = GetComponent<Plug>();
-            if (plug != null && plug.assignedGrid != null)
-            {
-                plug.assignedSocket.connectedPlug = null;
-                plug.assignedSocket = null;
-                // plug.assignedGrid.isOccupied = false;
-                // plug.assignedGrid.plug = null;
-                plug.assignedGrid = null;
-            }
-            plug.connectedTower.DeactivateTower();
-        }
-        else if (objectType == DragObjectType.Socket)
+       
+       if (objectType == DragObjectType.Socket)
         {
             Socket socket = GetComponent<Socket>();
 
@@ -176,18 +165,25 @@ public class DragSystem : MonoBehaviour
                 transform.position = initialPosition;
                 return;
             }
-
+            socket.transform.DOScale(Vector3.one * 1.2f, 0.15f);
             socket.socketManager.RemoveSocketFromSpwanedList(socket);
             socket.socketManager.activeGrids.Add(socket);
-           
+
             newPosition.y = 0;
+
+            // foreach (Transform chil in transform)
+            // {
+            //     chil.gameObject.layer = LayerMask.NameToLayer("Default");
+            // }
+
+            socket.MulTxt.layer = LayerMask.NameToLayer("UI");
+
             socket.transform.DOMove(newPosition + Vector3.forward * 0.3f, 0.25f).OnComplete(() =>
             {
                 socket.transform.DOMove(newPosition, 0.15f).OnComplete(() =>
                 {
                     foreach (var grid in socket.assignedGrids)
                     {
-                       
                         if (grid.gridManager != null)
                         {
                             grid.gridManager.CheckAllGridsPower();

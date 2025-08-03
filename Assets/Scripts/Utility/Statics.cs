@@ -14,6 +14,7 @@ public static class Statics
     public static int minWorldId = 1;
     public static int maxWorldId = 6;
     public static int maxTroopLevel = 10;
+    public static int maxTroopDeckSlots = 5;
 
     public static string FormatNumber(long num)
     {
@@ -65,8 +66,8 @@ public static class Statics
 public enum SCENE_NUM
 {
     LOADING_SCENE = 0,
-    MAIN_MENU = 1,
-    GAME_SCENE = 2
+    // MAIN_MENU = 1,
+    GAME_SCENE = 1
 }
 
 public enum SKILL_TREE_ATTRIBUTE_TYPE

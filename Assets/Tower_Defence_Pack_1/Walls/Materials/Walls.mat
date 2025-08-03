@@ -21,7 +21,6 @@ Material:
   - MATCAP_PERSPECTIVE
   - NORMAL_MAP
   - OUTLINE_PASS_DISABLED
-  - SHADOWS_ENABLED
   - SPECULAR_MAP
   - _DETAILBLEND_MULTIPLY
   - _DETAILUV_UV1
@@ -284,7 +283,7 @@ Material:
     - _ShadowOverlaySpeedU: 0.1
     - _ShadowOverlaySpeedV: 0.03
     - _ShadowOverlaySwayAmount: 0.01
-    - _ShadowsEnabled: 1
+    - _ShadowsEnabled: 0
     - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _SourceBlend: 1
@@ -333,7 +332,7 @@ Material:
     - _Color: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
     - _DetailColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 5.9921565, g: 5.5789056, b: 0, a: 1}
-    - _Emissive: {r: 0, g: 1.590209, b: 1.9766746, a: 1}
+    - _Emissive: {r: 0, g: 617.0384, b: 766.9961, a: 1}
     - _HeightColorsColor: {r: 1, g: 1, b: 1, a: 1}
     - _Layer1Color: {r: 1, g: 1, b: 1, a: 1}
     - _Layer2Color: {r: 1, g: 1, b: 1, a: 1}

@@ -148,7 +148,7 @@ public class SettingsPopup : PopupBase
     {
         AudioManager.CallPlaySFX(Sound.ButtonClick);
         SetView(false);
-        TransitionManager.GetInstance().ChangeLevel(SCENE_NUM.MAIN_MENU);
+        // TransitionManager.GetInstance().ChangeLevel(SCENE_NUM.MAIN_MENU);
     }
 
     public void OnSkipClicked()

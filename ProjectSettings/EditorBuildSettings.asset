@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScene.unity
     guid: 0a64e1ebc2c324bf4853b633ee1c8878
   - enabled: 1
-    path: Assets/Scenes/RaselTest2.unity
-    guid: d91f3a7ed8f314202b4ecf1f30196809
+    path: Assets/Scenes/Sci-fi Space Invator.unity
+    guid: 343165a4e2e479b4b97e39efabc447ea
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

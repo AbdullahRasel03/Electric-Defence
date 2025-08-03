@@ -1,63 +1,103 @@
-using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 
 public class CamController : MonoBehaviour
 {
     [Header("View Settings")]
-    [SerializeField] private float transitionDuration = 0f;
-    [SerializeField] private Ease transitionEase = Ease.Linear;
+    [SerializeField] private float transitionDuration = 1f;
+    [SerializeField] private Ease transitionEase = Ease.InOutSine;
 
     [Header("View Parents")]
     [SerializeField] private Transform fightViewParent;
     [SerializeField] private Transform shopViewParent;
 
     [Header("Camera Settings")]
-    [SerializeField] private Camera cam;
-    [SerializeField] private float fightFOV = 20f;
-    [SerializeField] private float shopFOV = 60f;
+    [SerializeField] private Camera cam, cam2;
 
     [Header("View Objects")]
     [SerializeField] private GameObject[] shopViewObjects;
 
-    private Tween moveTween, rotateTween, fovTween;
+    private Tween moveTween, rotateTween;
+
+    private void Start()
+    {
+        InitializeShopView();
+    }
+
+    private void InitializeShopView()
+    {
+        cam.orthographic = true;
+        cam.orthographicSize = 25;
+        cam2.orthographic = true;
+        cam2.orthographicSize = 25;
+
+        cam.transform.SetParent(shopViewParent);
+        cam.transform.localPosition = Vector3.zero;
+        cam.transform.localRotation = Quaternion.identity;
+
+        foreach (GameObject go in shopViewObjects)
+            go.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            SetFightView();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            SetShopView();
+        }
+    }
 
     public void SetFightView()
     {
-        KillTweens();
-        foreach (GameObject go in shopViewObjects) go.SetActive(false);
-        transform.SetParent(fightViewParent);
-        StartTransition(fightFOV);
+        // Change to perspective and set FOV instantly BEFORE re-parenting
+        cam.orthographic = false;
+        cam.fieldOfView = 55;
+        cam2.orthographic = false;
+        cam2.fieldOfView = 55;
+
+        foreach (GameObject go in shopViewObjects)
+            go.SetActive(false);
+
+        cam.transform.SetParent(fightViewParent);
+        SmoothTransitionToParent(30f);
     }
 
     public void SetShopView()
     {
-        KillTweens();
-        foreach (GameObject go in shopViewObjects) go.SetActive(true);
-        transform.SetParent(shopViewParent);
-        StartTransition(shopFOV);
+        // Change to orthographic BEFORE re-parenting
+        cam.orthographic = true;
+        cam.orthographicSize = 25;
+        cam2.orthographic = true;
+        cam2.orthographicSize = 25;
+
+        foreach (GameObject go in shopViewObjects)
+            go.SetActive(true);
+
+        cam.transform.SetParent(shopViewParent);
+        SmoothTransitionToParent(25f); // 25 is arbitrary here; no FOV in ortho, just size
     }
 
-    private void StartTransition(float targetFOV)
-    {
-        transform.localPosition = transform.localPosition; // Forces local space
-        transform.localRotation = transform.localRotation;
-
-        moveTween = transform.DOLocalMove(Vector3.zero, transitionDuration).SetEase(transitionEase).SetDelay(0.1f);
-        rotateTween = transform.DOLocalRotate(Vector3.zero, transitionDuration).SetEase(transitionEase);
-        fovTween = cam.DOFieldOfView(targetFOV, transitionDuration).SetEase(transitionEase);
-    }
-
-    private void KillTweens()
+    private void SmoothTransitionToParent(float targetFOV)
     {
         moveTween?.Kill();
         rotateTween?.Kill();
-        fovTween?.Kill();
-    }
 
-    public void ShakeCamera(float duration, float magnitude)
-    {
-        transform.DOShakePosition(duration, magnitude, vibrato: 10, randomness: 90, snapping: false, fadeOut: true)
-                 .SetRelative(true);
+        moveTween = cam.transform.DOLocalMove(Vector3.zero, transitionDuration).SetEase(transitionEase);
+        rotateTween = cam.transform.DOLocalRotate(Vector3.zero, transitionDuration).SetEase(transitionEase);
+
+        cam2.transform.DOLocalMove(Vector3.zero, transitionDuration).SetEase(transitionEase);
+        cam2.transform.DOLocalRotate(Vector3.zero, transitionDuration).SetEase(transitionEase);
+
+        if (!cam.orthographic)
+        {
+            // Only tween FOV if in perspective mode
+            cam.DOFieldOfView(targetFOV, transitionDuration).SetEase(transitionEase);
+            cam2.DOFieldOfView(targetFOV, transitionDuration).SetEase(transitionEase);
+        }
     }
 }

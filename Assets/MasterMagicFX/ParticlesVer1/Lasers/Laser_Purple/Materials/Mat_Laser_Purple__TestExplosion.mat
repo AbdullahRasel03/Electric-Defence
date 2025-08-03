@@ -179,6 +179,7 @@ Material:
     - _WARP: 0
     - _WarpIntensity: 0
     - _WarpScale: 1
+    - _XRMotionVectorsPass: 1
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
