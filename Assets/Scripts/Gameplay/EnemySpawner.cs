@@ -18,6 +18,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Configuration")]
     [SerializeField] private EnemyConfig[] enemyConfigs;
     [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private float initialSpawnDelay = 2f;
     [SerializeField] private float minSpawnDelay = 1f;
     [SerializeField] private float maxSpawnDelay = 3f;
     [SerializeField] private int maxActiveEnemies = 20;
@@ -104,7 +105,7 @@ public class EnemySpawner : MonoBehaviour
 
         canvas.SetActive(false);
         socketManager.ResetAllSockets();
-        nextSpawnTime = 3f;
+        nextSpawnTime = initialSpawnDelay;
         isSpawning = true;
         topDownNonPPCam.orthographic = false;
         uiCam.orthographic = false;
