@@ -35,12 +35,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1135430228276491931, guid: 8b91cef0e5b21a94cb12dd7789136d91,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: d9c3c119abc825747be2cba06fd988d4, type: 2}
     - target: {fileID: 1155000661076695185, guid: 8b91cef0e5b21a94cb12dd7789136d91,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: dab513c0d3f410040a6b0d6772969867, type: 2}
     - target: {fileID: 1470006480410312118, guid: 8b91cef0e5b21a94cb12dd7789136d91,
@@ -85,7 +85,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2660506288997558570, guid: 8b91cef0e5b21a94cb12dd7789136d91,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: d9c3c119abc825747be2cba06fd988d4, type: 2}
     - target: {fileID: 2898772895777518046, guid: 8b91cef0e5b21a94cb12dd7789136d91,
@@ -95,7 +95,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3598770295538967092, guid: 8b91cef0e5b21a94cb12dd7789136d91,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: dab513c0d3f410040a6b0d6772969867, type: 2}
     - target: {fileID: 3613667890751774442, guid: 8b91cef0e5b21a94cb12dd7789136d91,
@@ -125,7 +125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4541921840364599056, guid: 8b91cef0e5b21a94cb12dd7789136d91,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: dbec115b50aed5d4ba19f1df7e902f6b, type: 2}
     - target: {fileID: 4758462471227152518, guid: 8b91cef0e5b21a94cb12dd7789136d91,
