@@ -106,7 +106,7 @@ public class Enemy : MonoBehaviour
     {
         _rigidbody.isKinematic = true;
         _rigidbody.useGravity = false;
-        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.linearVelocity = Vector3.zero;
         _rigidbody.angularVelocity = Vector3.zero;
         // warpTrail.gameObject.SetActive(true);
         foreach (Renderer renderer in enemyMesh)
