@@ -28,8 +28,9 @@ Material:
   m_ValidKeywords:
   - _DEPTHFADE
   - _LUT
-  m_InvalidKeywords: []
-  m_LightmapFlags: 0
+  m_InvalidKeywords:
+  - _EMISSION
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2000
@@ -37,6 +38,7 @@ Material:
     RenderType: Opaque
   disabledShaderPasses:
   - SHADOWCASTER
+  - MOTIONVECTORS
   m_LockedProperties: _TextureSample0
   m_SavedProperties:
     serializedVersion: 3
@@ -188,6 +190,7 @@ Material:
     - _WARP: 0
     - _WarpIntensity: 0
     - _WarpScale: 1
+    - _XRMotionVectorsPass: 1
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0
@@ -210,6 +213,7 @@ Material:
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _WarpScroll: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &2238206687478615731
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -222,4 +226,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 7
+  version: 10

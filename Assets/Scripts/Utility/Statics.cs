@@ -14,6 +14,7 @@ public static class Statics
     public static int minWorldId = 1;
     public static int maxWorldId = 6;
     public static int maxTroopLevel = 10;
+    public static int maxTroopDeckSlots = 5;
 
     public static string FormatNumber(long num)
     {

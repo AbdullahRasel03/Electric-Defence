@@ -15,7 +15,6 @@ public class Plug : MonoBehaviour
     {
         assignedGrid = _assignedGrid;
         assignedSocket= _assignedSocket;
-        assignedSocket.connectedPlug = this;
         transform.DOLocalMove(Vector3.zero + Vector3.forward * 0.1f, 0.3f).OnComplete(() =>
         {
             transform.DOLocalMove(Vector3.zero - Vector3.forward * 0.02f, 0.2f).OnComplete(() =>

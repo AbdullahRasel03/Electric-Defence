@@ -21,7 +21,7 @@ public class SocketManager : MonoBehaviour
     [SerializeField] private List<Socket> spawnedNewSockets = new();
     [SerializeField] public List<Socket> activeGrids = new();
 
-    [SerializeField] private ParticleSystem mergeParticlesPrefab;
+    [SerializeField] private GameObject mergeParticlesPrefab;
     private SocketSpawner socketSpawner;
     [SerializeField] GridManager gridManager;
     private void Awake()
@@ -52,20 +52,38 @@ public class SocketManager : MonoBehaviour
 
     public void RefreshSockets()
     {
+        print("11111");
         StartCoroutine(RefreshSocketsRoutine());
     }
 
     private IEnumerator RefreshSocketsRoutine()
     {
-        foreach (Socket socket in spawnedNewSockets.ToArray())
+        float spacing = 1f; // or match spacing from SlideInSockets
+        float moveDuration = 0.3f;
+        float totalScrollDuration = socketSpawner.slideInDuration;
+
+        socketSpawner.ScrollBelt(totalScrollDuration);
+
+        for (int i = 0; i < spawnedNewSockets.Count; i++)
         {
-            ReturnSocketToPoolImmediately(socket);
+            Socket socket = spawnedNewSockets[i];
+            float offsetX = i * spacing;
+
+            socket.transform
+                .DOMoveX(socket.transform.position.x + 40f + offsetX, socketSpawner.slideInDuration)
+                .SetEase(Ease.Linear)
+                .OnComplete(() =>
+                {
+                    ReturnSocketToPoolImmediately(socket);
+                });
         }
 
         spawnedNewSockets.Clear();
+
+        yield return new WaitForSeconds(moveDuration + 0.05f);
         socketSpawner.SpawnNewSockets();
-        yield return null;
     }
+
 
     public void ReturnSocketToPoolImmediately(Socket socket)
     {
@@ -81,7 +99,8 @@ public class SocketManager : MonoBehaviour
         if (spawnedNewSockets.Contains(socket))
         {
             socket.transform.DOMoveX(socket.transform.position.x - 5f, 0.2f)
-                .OnComplete(() => {
+                .OnComplete(() =>
+                {
                     ReturnSocketToPoolImmediately(socket);
                 });
         }
@@ -99,12 +118,12 @@ public class SocketManager : MonoBehaviour
     {
         if (socketA == null || socketB == null)
             return false;
-        if (socketA.shapeType != socketB.shapeType)        
+        if (socketA.shapeType != socketB.shapeType)
             return false;
-        
+
         if (socketA.currentLevel != socketB.currentLevel)
             return false;
-        
+
         return true;
     }
 
@@ -119,29 +138,42 @@ public class SocketManager : MonoBehaviour
 
         RemoveSocketFromSpwanedList(socketA);
         RemoveSocketFromSpwanedList(socketB);
-        if (activeGrids.Contains(socketA)) { 
+        if (activeGrids.Contains(socketA))
+        {
             activeGrids.Remove(socketA);
         }
         StartCoroutine(MergeSocketsRoutine(socketA, socketB));
     }
-
+    public void TurnOffAllMultipliers()
+    {
+        Socket[] sockets = FindObjectsOfType<Socket>();
+        foreach (var item in sockets)
+        {
+            foreach (var multi in item.fireRateTexts)
+            {
+                multi.enabled = false;
+            }
+        }
+    }
     private IEnumerator MergeSocketsRoutine(Socket incomingSocket, Socket gridSocket)
     {
-
         incomingSocket.isMerging = true;
         gridSocket.isMerging = true;
 
+        // gridSocket.transform.localScale = Vector3.one;
         // Particle effect (optional)
         if (mergeParticlesPrefab)
         {
-            Instantiate(mergeParticlesPrefab, gridSocket.transform.position + Vector3.up * 0.1f, Quaternion.identity);
+        print("Particle");
+            GameObject mergeParticle = Instantiate(mergeParticlesPrefab, gridSocket.transform.position + Vector3.up * 0.5f, Quaternion.identity);
+            Destroy(mergeParticle, 2);
         }
 
         // Merge logic
         gridSocket.ownMultiplier *= 2f;
         gridSocket.currentLevel += 1;
-        gridSocket.UpdateColorAndTextByLevel();
-
+        gridSocket.UpdateFireRateDisplay();
+        gridSocket.Upgrade();
         ReturnSocketToPoolImmediately(incomingSocket);
 
         // Maintain Y position
@@ -170,8 +202,8 @@ public class SocketManager : MonoBehaviour
         gridSocket.isMerging = false;
         Destroy(incomingSocket.gameObject);
         gridManager.CheckAllGridsPower();
-        gridSocket.UpdateColorAndTextByLevel();
-         yield return null;
+        gridSocket.UpdateFireRateDisplay();
+        yield return null;
     }
 
 }

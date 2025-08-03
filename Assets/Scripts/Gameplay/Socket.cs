@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
+using MasterFX;
 
 public class Socket : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class Socket : MonoBehaviour
     public Transform cubesParent;
 
     [Header("Visuals")]
-    public Color[] levelColors;
+    public Renderer[] gfxs;
+    public GameObject multiText;
 
     [Header("Socket Configuration")]
     public LayerMask gridLayer;
@@ -22,22 +24,22 @@ public class Socket : MonoBehaviour
     public float actingMultiplier = 1f;
     public float pinMoveDuration = 0.3f;
     public Ease pinMoveEase = Ease.OutBack;
-    public Renderer glowGFX, coloredGFX;
-    public GameObject multiText;
+
     #endregion
 
     #region Runtime State
 
     public List<SocketCube> socketCubes = new();
-
     public bool isMerging;
     public bool hasPower;
     public List<GridObject> assignedGrids = new();
     public SocketManager socketManager;
-
     public TMP_Text[] fireRateTexts;
-    public Transform plugHolder;
-    public Plug connectedPlug;
+    public Transform plugHolder; // Optional: remove if not used elsewhere
+    public MLaser laser;
+    public GameObject MulTxt => multiText;
+    // public List<ParticleSystem> ConnectedParticles;
+
     #endregion
 
     #region Unity Lifecycle
@@ -45,54 +47,105 @@ public class Socket : MonoBehaviour
     private void Start()
     {
         InitializeSocket();
+        EnemySpawner.OnSpawnStarted += RotateMultiplier;
+    }
+
+    private void OnDestroy()
+    {
+        EnemySpawner.OnSpawnStarted -= RotateMultiplier;
+    }
+
+    private void RotateMultiplier()
+    {
+        if(multiText == null) return;
+        //multiText.transform.DOLocalRotateQuaternion(Quaternion.Euler(55f, 0f, 0f), 1.5f);
+        multiText.SetActive(false);
     }
 
     private void InitializeSocket()
     {
         AssignFireRateTexts();
-        UpdateColorAndTextByLevel();
+        UpdateFireRateDisplay();
     }
 
     public void AssignFireRateTexts()
     {
-       // fireRateTexts = cubesParent.GetComponentsInChildren<TMP_Text>();
+        // fireRateTexts = cubesParent.GetComponentsInChildren<TMP_Text>();
     }
 
     #endregion
 
     #region Power Handling
+
     public void PowerUp()
     {
-        if (glowGFX == null || glowGFX.material == null || hasPower) return;
-       // multiText.SetActive(false);
+        if (gfxs == null || gfxs.Length == 0 || hasPower) return;
+
         hasPower = true;
-        Material mat = glowGFX.material;
-        Color currentEmission = mat.GetColor("_Emissive");
-        Color targetEmission = currentEmission + Color.cyan * 10f;
-        DOTween.To(() => currentEmission, x => {
-            currentEmission = x;
-            mat.SetColor("_Emissive", currentEmission);
-        }, targetEmission, 1f);
+
+        foreach (var renderer in gfxs)
+        {
+            if (renderer.material.HasProperty("_Emissive"))
+            {
+                Color currentEmission = renderer.material.GetColor("_Emissive");
+                Color targetEmission = currentEmission + Color.cyan * 10f;
+
+                DOTween.To(() => currentEmission, x =>
+                {
+                    renderer.material.SetColor("_Emissive", x);
+                }, targetEmission, 1f).SetId(this);
+            }
+        }
+
+        if (laser != null)
+        {
+            laser.gameObject.SetActive(true);
+        }
+
+        // foreach (var particle in ConnectedParticles)
+        // {
+        //     if (particle != null)
+        //     {
+        //         particle.Play();
+        //     }
+        // }
+    }
+
+    public void PowerDown()
+    {
+        if (gfxs == null || gfxs.Length == 0 || !hasPower) return;
+
+        hasPower = false;
+
+        DOTween.Kill(this);
+
+        foreach (var renderer in gfxs)
+        {
+            if (renderer.material.HasProperty("_Emissive"))
+            {
+                Color currentEmission = renderer.material.GetColor("_Emissive");
+                Color targetEmission = currentEmission - Color.cyan * 10f;
+
+                DOTween.To(() => currentEmission, x =>
+                {
+                    renderer.material.SetColor("_Emissive", x);
+                }, targetEmission, 1f);
+            }
+        }
+
+        if (laser != null)
+        {
+            laser.gameObject.SetActive(false);
+        }
     }
 
     #endregion
 
-
     #region Visuals
 
-    public void UpdateColorAndTextByLevel()
+    public void UpdateFireRateDisplay()
     {
-        UpdateFireRateDisplay();
-
-        if (levelColors == null || levelColors.Length == 0) return;
-
-        Color colorToApply = levelColors[Mathf.Clamp(currentLevel, 0, levelColors.Length - 1)];
-        coloredGFX.material.color = colorToApply;
-    }
-
-    private void UpdateFireRateDisplay()
-    {
-        if (fireRateTexts == null) return;
+        if (fireRateTexts.Length <= 0) return;
 
         foreach (var item in fireRateTexts)
         {
@@ -101,6 +154,11 @@ public class Socket : MonoBehaviour
     }
 
     #endregion
+
+    public void Upgrade()
+    {
+        // laser.UpgradeLaser();
+    }
 
     #region Auto-Assignment (Editor-Only)
 
@@ -111,6 +169,7 @@ public class Socket : MonoBehaviour
 
     #endregion
 }
+
 [System.Serializable]
 public class SocketCube
 {
