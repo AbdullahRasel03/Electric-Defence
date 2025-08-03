@@ -23,7 +23,7 @@ public class LostPopup : PopupBase
                 }
             );
 
-        Time.timeScale = 0.25f;
+        Time.timeScale = 0.15f;
 
         DOVirtual.DelayedCall(0.25f, () =>
         {
@@ -32,5 +32,11 @@ public class LostPopup : PopupBase
                 restartButton.transform.DOScale(Vector3.one, 0.2f).SetUpdate(true).SetEase(Ease.OutBack);
             }
         });
+    }
+
+    public void RestartButtonPressed()
+    {
+        Time.timeScale = 1;
+        TransitionManager.GetInstance().ChangeLevel(SCENE_NUM.GAME_SCENE);
     }
 }

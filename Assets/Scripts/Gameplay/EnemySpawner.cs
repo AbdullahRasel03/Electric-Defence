@@ -88,7 +88,8 @@ public class EnemySpawner : MonoBehaviour
         {
             StartSpawning();
         }
-        if (!isSpawning || activeEnemies.Count >= maxActiveEnemies) return;
+        // if (!isSpawning || activeEnemies.Count >= maxActiveEnemies) return;
+        if (!isSpawning) return;
 
         currentTime += Time.deltaTime;
 
@@ -151,21 +152,28 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (currentSpawnCount >= maxActiveEnemies) return;
+        // if (currentSpawnCount >= maxActiveEnemies) return;
 
         int batchSize = currentBatchCount > spawnBossAfterBatch && !isBossSpawned? 3 : Random.Range(minEnemyBatchSize, maxEnemyBatchSize + 1);
+
+        if (currentBatchCount > spawnBossAfterBatch && !isBossSpawned)
+        {
+            currentSpawnCount = 0;
+        }
 
         for (int i = 0; i < batchSize; i++)
         {
             EnemyConfig config = GetRandomEnemyConfig();
+            Transform spawnPoint = GetRandomSpawnPoint();
 
             if (currentBatchCount > spawnBossAfterBatch && !isBossSpawned && i == 1)
             {
                 config = bossConfig;
+                spawnPoint = spawnPoints[2];
                 isBossSpawned = true;
             }
             
-            Transform spawnPoint = GetRandomSpawnPoint();
+     
             Vector3 spawnOffset = new Vector3(0, 0, 35f);
 
             GameObject enemyObj = ObjectPool.instance.GetObject(

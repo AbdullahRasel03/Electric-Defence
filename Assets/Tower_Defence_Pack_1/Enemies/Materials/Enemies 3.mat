@@ -117,7 +117,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: cfde07e16d0104b0aa940035ec08f8aa, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5f14b2bb335fe7f45a5f7eb09f0fb4fd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCapTex:
@@ -196,7 +196,7 @@ Material:
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BlendOp: 0
-    - _Brightness: 5
+    - _Brightness: 5.5
     - _BumpScale: 1
     - _CameraFadeEnd: 0
     - _CameraFadeStart: 0
@@ -348,7 +348,7 @@ Material:
     - _AnimeColor2: {r: 1.35, g: 1.35, b: 1.35, a: 1}
     - _AnimeColor3: {r: 2, g: 2, b: 2, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.5713763, g: 0.33107865, b: 0.754717, a: 1}
+    - _Color: {r: 0.6236305, g: 0.24350302, b: 0.9056604, a: 1}
     - _DetailColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 3.707, g: 1.7640208, b: 0, a: 1}
     - _Emissive: {r: 3.707, g: 1.7640208, b: 0, a: 1}

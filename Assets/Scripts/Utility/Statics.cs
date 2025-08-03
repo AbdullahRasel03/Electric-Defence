@@ -66,8 +66,8 @@ public static class Statics
 public enum SCENE_NUM
 {
     LOADING_SCENE = 0,
-    MAIN_MENU = 1,
-    GAME_SCENE = 2
+    // MAIN_MENU = 1,
+    GAME_SCENE = 1
 }
 
 public enum SKILL_TREE_ATTRIBUTE_TYPE
