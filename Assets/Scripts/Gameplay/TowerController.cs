@@ -1,3 +1,5 @@
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(TowerTargetingSystem))]
@@ -14,11 +16,18 @@ public class TowerController : MonoBehaviour
     [SerializeField] private float aimThreshold = 5f;
 
     private Enemy currentTarget;
-    public bool isActive = false;
+    public bool isActive = true;
     public Plug plug;
     private bool manualFireInput; // Track manual firing state
 
+    public GridObject[] gridsOnPath;
+    public TMP_Text powerText;
 
+    public Renderer towerGFX;
+    private void Start()
+    {
+       // ActivateTower();
+    }
     private void Update()
     {
         manualFireInput = Input.GetKey(KeyCode.Space);
@@ -71,13 +80,47 @@ public class TowerController : MonoBehaviour
 
     public void ActivateTower()
     {
+
         isActive = true;
         shooter.enabled = true;
+        powerText.text = shooter.GetFireRate().ToString();
+
+        if (towerGFX == null || towerGFX.material == null) return;
+
+        Material mat = towerGFX.materials[0];
+        Color currentEmission = mat.GetColor("_Emissive");
+        Color targetEmission = currentEmission + Color.cyan * 10f;
+        DOTween.To(() => currentEmission, x => {
+            currentEmission = x;
+            mat.SetColor("_Emissive", currentEmission);
+        }, targetEmission, 1f);
     }
 
+    public void ActivateTower(float fireRate)
+    {
+        isActive = true;
+        shooter.enabled = true;
+        shooter.SetFireRate(fireRate);
+        powerText.text = shooter.GetFireRate().ToString("0.0");
+    }
     public void DeactivateTower()
     {
         isActive = false;
         shooter.enabled = false;
+    }
+
+    public void CheckMultisOnPath()
+    {
+        float fireRate = 1;
+        foreach (GridObject item in gridsOnPath)
+        {
+            if (item.socket)
+            {
+                fireRate += item.socket.ownMultiplier;
+                item.socket.PowerUp();
+            }
+        }
+        shooter.SetFireRate(fireRate);
+        powerText.text = shooter.GetFireRate().ToString();
     }
 }

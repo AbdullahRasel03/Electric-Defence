@@ -82,4 +82,9 @@ public class PopupBase : MonoBehaviour, IOverlayUI
 
     protected virtual void OnPopupDisabled()
     { }
+
+    public void ButtonPressed(Transform button)
+    {
+        button.DOPunchScale(Vector3.one * 0.1f, 0.2f, 1, 0.5f);
+    }
 }

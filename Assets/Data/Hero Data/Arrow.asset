@@ -18,7 +18,7 @@ MonoBehaviour:
   _troopType: 2
   _troopName: Archer
   _troopDescription: 
-  _troopImg: {fileID: 0}
+  _troopImg: {fileID: 21300000, guid: 5433c0e8844864e408e5fff8d39f65f5, type: 3}
   _troopFragmentImg: {fileID: 21300000, guid: b20d4adfc15cfbf4e80e57ca46a097ad, type: 3}
   _maxHealth:
   - 100
@@ -30,4 +30,4 @@ MonoBehaviour:
   _attackDelay:
   - 1
   - 1.5
-  _upgradeCosts: 0000000000000000
+  _upgradeCosts: 0100000014000000
