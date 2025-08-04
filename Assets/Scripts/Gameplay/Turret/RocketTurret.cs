@@ -11,15 +11,6 @@ public class RocketTurret : Turret
     [SerializeField] private GameObject fireProjectilePrefab;
     [SerializeField] private float explosionDamageRadius = 5f;
 
-    private RocketProjectile rocketProjectile;
-
-    protected override void OnNewTargetSelected()
-    {
-        base.OnNewTargetSelected();
-        
-        rocketProjectile.ChangeTarget(currentTarget);
-    }
-
     protected override void Fire()
     {
         base.Fire();

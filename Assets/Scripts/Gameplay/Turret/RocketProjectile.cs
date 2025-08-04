@@ -19,20 +19,14 @@ public class RocketProjectile : Projectile
         explosionRadius = radius;
     }
 
-    // void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.GetComponent<Enemy>())
-    //     {
-    //         OnExplosionRequired();
-    //     }
-    // }
-
-    public void ChangeTarget(Enemy newTarget)
+    void OnTriggerEnter(Collider other)
     {
-        this.target = newTarget;
+        if (other.GetComponent<Enemy>())
+        {
+            OnExplosionRequired();
+        }
     }
 
-    
     void Update()
     {
         // if (target == null)
@@ -41,37 +35,37 @@ public class RocketProjectile : Projectile
         //     return;
         // }
         //
-        if (!target.IsActive)
-        {
-            OnExplosionRequired();
-            return;
-        }
+        // else if (!target.IsActive)
+        // {
+        //     ObjectPool.instance.ReturnToPool(gameObject);
+        //     return;
+        // }
 
         timeElapsed += Time.deltaTime;
 
-        Vector3 direction = (target.transform.position - transform.position).normalized;
-
-        // Calculate right vector for perpendicular zigzag
-        Vector3 perpendicular = Vector3.Cross(direction, Vector3.up).normalized;
-
-
+     
         float zigzag = Mathf.Sin(timeElapsed * frequency) * amplitude;
-        Vector3 offset = perpendicular * zigzag;
+        
+        Vector3 forwardMove = transform.forward * speed * Time.deltaTime;
+        
+        Vector3 offset = new Vector3(zigzag, 0f, 0f);
+        
+        transform.position += forwardMove + transform.TransformDirection(offset - new Vector3(0f, 0f, 0f));
 
+        // // Optional: Explosion or lifetime-based destruction
+        // lifeTime -= Time.deltaTime;
+        // if (lifeTime <= 0f)
+        // {
+        //     OnExplosionRequired(); // Your explosion method
+        //     ObjectPool.instance.ReturnToPool(gameObject); // Or Destroy(gameObject);
+        // }
 
-        Vector3 targetPosition = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition + offset, speed * Time.deltaTime);
-
-
-        transform.forward = Vector3.Lerp(transform.forward, direction, Time.deltaTime * 5f);
-
-        if (Vector3.Distance(transform.position, target.transform.position) <= hitThreshold)
+        if (transform.position.z >= 200f)
         {
-            OnExplosionRequired();
-
             ObjectPool.instance.ReturnToPool(gameObject);
         }
     }
+
     private void OnExplosionRequired()
     {
         AudioManager.CallPlaySFX(Sound.RocketExplosion);

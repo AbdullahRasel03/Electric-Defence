@@ -129,7 +129,7 @@ Material:
     - _BUILTIN_ZTest: 4
     - _BUILTIN_ZWrite: 0
     - _BUILTIN_ZWriteControl: 0
-    - _Blend: 0
+    - _Blend: 2
     - _BumpScale: 1
     - _CastShadows: 0
     - _Cull: 2
@@ -140,7 +140,7 @@ Material:
     - _DepthFadeMax: 0.209
     - _DepthFadeMin: 0
     - _DetailNormalMapScale: 1
-    - _DstBlend: 10
+    - _DstBlend: 1
     - _EDGEFADE: 0
     - _EdgeFade: 0.652
     - _EdgeFadeMax: 1

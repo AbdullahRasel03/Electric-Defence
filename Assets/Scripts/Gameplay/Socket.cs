@@ -81,6 +81,8 @@ public class Socket : MonoBehaviour
     {
         if (gfxs == null || gfxs.Length == 0 || hasPower) return;
 
+        AudioManager.CallPlaySFX(Sound.SocketPlaced);
+
         hasPower = true;
 
         foreach (var renderer in gfxs)

@@ -12,5 +12,6 @@ public enum Sound
     EnemyHit,
     RocketExplosion,
     EnemyDeath,
-    EnemyAppear
+    EnemyAppear,
+    SocketPlaced
 }
