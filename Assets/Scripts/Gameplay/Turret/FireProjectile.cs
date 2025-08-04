@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FireProjectile : Projectile
 {
+    
     void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Enemy>())
@@ -19,7 +20,7 @@ public class FireProjectile : Projectile
                 impact.Play();
 
                 // Apply damage to the enemy
-                enemy.TakeDamage(10); // Example damage value
+                enemy.TakeDamage(30); // Example damage value
 
                 // Destroy the projectile after impact
                 ObjectPool.instance.ReturnToPool(this.gameObject);

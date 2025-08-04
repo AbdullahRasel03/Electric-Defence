@@ -11,6 +11,15 @@ public class RocketTurret : Turret
     [SerializeField] private GameObject fireProjectilePrefab;
     [SerializeField] private float explosionDamageRadius = 5f;
 
+    private RocketProjectile rocketProjectile;
+
+    protected override void OnNewTargetSelected()
+    {
+        base.OnNewTargetSelected();
+        
+        rocketProjectile.ChangeTarget(currentTarget);
+    }
+
     protected override void Fire()
     {
         base.Fire();
@@ -43,10 +52,10 @@ public class RocketTurret : Turret
             projectile.GetComponent<RocketProjectile>().SetExplosionRadius(explosionDamageRadius);
         }
 
-        else
-        {
-            fireTime = 0f;
-            SetFireRateSlider(0f);
-        }
+        // else
+        // {
+        //     fireTime = 0f;
+        //     SetFireRateSlider(0f);
+        // }
     }
 }

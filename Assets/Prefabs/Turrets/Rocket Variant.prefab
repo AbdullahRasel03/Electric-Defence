@@ -761,7 +761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflectorActive: 0
   turretBody: {fileID: 1113616668531351643}
-  range: 90
+  range: 120
   rotationSpeed: 10
   fireRateText: {fileID: 7244149957304365966}
   gridsOnPath:
@@ -786,7 +786,7 @@ MonoBehaviour:
     type: 3}
   fireProjectilePrefab: {fileID: 3716577373055670218, guid: 41de23f12793e4a24a3c833ddfc53a89,
     type: 3}
-  explosionDamageRadius: 7
+  explosionDamageRadius: 3
 --- !u!1001 &1164674868211768808
 PrefabInstance:
   m_ObjectHideFlags: 0
