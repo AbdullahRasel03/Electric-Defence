@@ -16,13 +16,13 @@ MonoBehaviour:
   activatorMode: 0
   activatorSize: 100
   modules:
+  - assemblyQualifiedName: HomaGames.HomaConsole.SystemInfo.SystemInfoModule, HomaGames.HomaConsole.SystemInfo,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    enabled: 1
   - assemblyQualifiedName: HomaGames.HomaConsole.Logging.LogsModule, HomaGames.HomaConsole.Logging,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     enabled: 1
   - assemblyQualifiedName: HomaGames.HomaConsole.LiveDebug.LiveDebugModule, HomaGames.HomaConsole.LiveDebug,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    enabled: 1
-  - assemblyQualifiedName: HomaGames.HomaConsole.SystemInfo.SystemInfoModule, HomaGames.HomaConsole.SystemInfo,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     enabled: 1
   preloadedAssets: []
