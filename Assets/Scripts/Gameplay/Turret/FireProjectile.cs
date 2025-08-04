@@ -30,5 +30,10 @@ public class FireProjectile : Projectile
     void Update()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        
+        if (transform.position.z >= 200f)
+        {
+            ObjectPool.instance.ReturnToPool(gameObject);
+        }
     }
 }
