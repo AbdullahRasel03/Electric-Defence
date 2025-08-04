@@ -36,7 +36,7 @@ public class LaserEmitor : MonoBehaviour
                     if (socketTarget != null)
                     {
                         socketTarget.PowerUp();
-                        totalMultiplier += socketTarget.ownMultiplier; // 👈 accumulate
+                        totalMultiplier -= socketTarget.ownMultiplier/50; // 👈 accumulate
                     }
 
                     float distanceUsed = Vector3.Distance(currentOrigin, hit.point) + 0.01f;

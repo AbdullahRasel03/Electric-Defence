@@ -77,7 +77,7 @@ public class Socket : MonoBehaviour
 
     #region Power Handling
 
-    public void PowerUp()
+    public void PowerUp(int glowMatIndex = 0)
     {
         if (gfxs == null || gfxs.Length == 0 || hasPower) return;
 
@@ -85,14 +85,14 @@ public class Socket : MonoBehaviour
 
         foreach (var renderer in gfxs)
         {
-            if (renderer.material.HasProperty("_Emissive"))
+            if (renderer.materials[glowMatIndex].HasProperty("_Emissive"))
             {
                 Color currentEmission = renderer.material.GetColor("_Emissive");
                 Color targetEmission = currentEmission + Color.cyan * 10f;
 
                 DOTween.To(() => currentEmission, x =>
                 {
-                    renderer.material.SetColor("_Emissive", x);
+                    renderer.materials[glowMatIndex].SetColor("_Emissive", x);
                 }, targetEmission, 1f).SetId(this);
             }
         }
@@ -111,7 +111,7 @@ public class Socket : MonoBehaviour
         // }
     }
 
-    public void PowerDown()
+    public void PowerDown(int glowMatIndex = 0)
     {
         if (gfxs == null || gfxs.Length == 0 || !hasPower) return;
 
@@ -121,14 +121,14 @@ public class Socket : MonoBehaviour
 
         foreach (var renderer in gfxs)
         {
-            if (renderer.material.HasProperty("_Emissive"))
+            if (renderer.materials[glowMatIndex].HasProperty("_Emissive"))
             {
-                Color currentEmission = renderer.material.GetColor("_Emissive");
+                Color currentEmission = renderer.materials[glowMatIndex].GetColor("_Emissive");
                 Color targetEmission = currentEmission - Color.cyan * 10f;
 
                 DOTween.To(() => currentEmission, x =>
                 {
-                    renderer.material.SetColor("_Emissive", x);
+                    renderer.materials[glowMatIndex].SetColor("_Emissive", x);
                 }, targetEmission, 1f);
             }
         }

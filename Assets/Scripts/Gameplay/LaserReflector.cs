@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class LaserReflector : MonoBehaviour
 {
+    [SerializeField] int glowMatIndex;
     public MLaser laser;
     public Transform reflectDirection;
     public bool useCustomWorldDirection = false;
     public Vector3 direction1;
     public Vector3 direction2;
 
-    public float multiplier = 1f;
+   // public float multiplier = 1f;
     public float maxDistance = 15f;
     public int maxReflectionCount = 5;
     public float castOffset = 0.01f;
@@ -19,7 +20,6 @@ public class LaserReflector : MonoBehaviour
     [SerializeField] LayerMask reflectionLayer;
     [SerializeField] LayerMask towerLayer;
     [SerializeField] LayerMask socketLayer;
-
     Socket socket;
 
     private void Start()
@@ -27,7 +27,7 @@ public class LaserReflector : MonoBehaviour
         socket = GetComponent<Socket>();
     }
 
-    public void Reflect(Vector3 hitPoint, int depth = 0, float accumulatedMultiplier = 0f)
+    public void Reflect(Vector3 hitPoint, int depth = 0, float accumulatedMultiplier = 0)
     {
         if (laser == null || depth > maxReflectionCount)
             return;
@@ -38,11 +38,11 @@ public class LaserReflector : MonoBehaviour
 
         if (socket != null)
         {
-            socket.PowerUp();
-            total += socket.ownMultiplier;
+            socket.PowerUp(glowMatIndex);
+            total -= socket.ownMultiplier / 50;
         }
 
-        total += multiplier;
+       // total += multiplier;
 
         Vector3 incomingDir = (hitPoint - transform.position).normalized;
         Vector3 chosenDir;
@@ -81,7 +81,7 @@ public class LaserReflector : MonoBehaviour
                     if (socketHit != null)
                     {
                         socketHit.PowerUp();
-                        total += socketHit.ownMultiplier;
+                        total -= socketHit.ownMultiplier/50 ;
                     }
 
                     float distUsed = Vector3.Distance(currentOrigin, hit.point) + 0.01f;
@@ -131,7 +131,7 @@ public class LaserReflector : MonoBehaviour
             laser.gameObject.SetActive(false);
 
             if (socket != null)
-                socket.PowerDown();
+                socket.PowerDown(glowMatIndex);
         }
 
         isHitThisFrame = false;

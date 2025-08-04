@@ -53,7 +53,7 @@ public class Turret : MonoBehaviour
     {
         if (fireRateText != null)
         {
-            fireRateText.text = (1f / fireRate).ToString("F2") + "/s";
+            fireRateText.text = (1/fireRate).ToString("F2") + "/s";
         }
         // UpdateFireRateText("--");
     }
@@ -187,7 +187,7 @@ public class Turret : MonoBehaviour
                     if (objectsOnPath[item] != item.socket.ownMultiplier)
                     {
                         hasPoweredUp = true;
-                        currentFireDelay -= item.socket.ownMultiplier / 50f;
+                        currentFireDelay += item.socket.ownMultiplier / 50f;
                     }
 
                     objectsOnPath[item] = item.socket.ownMultiplier;
@@ -196,7 +196,7 @@ public class Turret : MonoBehaviour
                 {
                     hasPoweredUp = true;
                     objectsOnPath.Add(item, item.socket.ownMultiplier);
-                    currentFireDelay -= item.socket.ownMultiplier / 50f;
+                    currentFireDelay += item.socket.ownMultiplier / 50f;
                 }
 
             }
@@ -240,8 +240,8 @@ public class Turret : MonoBehaviour
             Activate();
         }
 
-        float newRate = baseFireRate * Mathf.Max(1f, totalMultiplier);
-        SetFireRate(newRate);
+     //   float newRate = baseFireRate * Mathf.Max(1f, totalMultiplier);
+        SetFireRate(totalMultiplier);
     }
 
     void LateUpdate()

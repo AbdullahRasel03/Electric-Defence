@@ -251,12 +251,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5fea2f8bb8edd4c999651aa5d299e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  glowMatIndex: 0
   laser: {fileID: 0}
   reflectDirection: {fileID: 0}
   useCustomWorldDirection: 1
   direction1: {x: 0, y: 0, z: 1}
   direction2: {x: -1, y: 0, z: 0}
-  multiplier: 1
   maxDistance: 15
   maxReflectionCount: 5
   castOffset: 0.01
@@ -458,12 +458,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5fea2f8bb8edd4c999651aa5d299e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  glowMatIndex: 0
   laser: {fileID: 0}
   reflectDirection: {fileID: 0}
   useCustomWorldDirection: 0
   direction1: {x: 1, y: 0, z: 0}
   direction2: {x: 0, y: 0, z: 1}
-  multiplier: 1
   maxDistance: 15
   maxReflectionCount: 5
   castOffset: 0.01
@@ -665,12 +665,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5fea2f8bb8edd4c999651aa5d299e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  glowMatIndex: 0
   laser: {fileID: 0}
   reflectDirection: {fileID: 0}
   useCustomWorldDirection: 1
   direction1: {x: 0, y: 0, z: -1}
   direction2: {x: -1, y: 0, z: 0}
-  multiplier: 1
   maxDistance: 15
   maxReflectionCount: 5
   castOffset: 0.01
@@ -1307,12 +1307,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5fea2f8bb8edd4c999651aa5d299e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  glowMatIndex: 0
   laser: {fileID: 0}
   reflectDirection: {fileID: 0}
   useCustomWorldDirection: 1
   direction1: {x: 0, y: 0, z: -1}
   direction2: {x: 1, y: 0, z: 0}
-  multiplier: 1
   maxDistance: 15
   maxReflectionCount: 5
   castOffset: 0.01
