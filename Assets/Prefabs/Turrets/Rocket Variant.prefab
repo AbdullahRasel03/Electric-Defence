@@ -773,10 +773,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  fireRate: 2
+  fireRate: 3
   isActive: 0
   towerGFX: {fileID: 0}
-  baseFireRate: 2
+  baseFireRate: 3
   sliderCanvas: {fileID: 4272563516033464434}
   fireRateSlider: {fileID: 1695023343843401801}
   levelUpParticle: {fileID: 44429960401454577}

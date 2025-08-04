@@ -805,7 +805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthText: {fileID: 3189322562113885842}
-  movementSpeed: 6.15
+  movementSpeed: 9.15
   enemyType: 0
   sinkDuration: 2
   sinkDepth: 2
