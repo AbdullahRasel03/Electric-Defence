@@ -76,7 +76,7 @@ public class RocketProjectile : Projectile
             Enemy enemy = collider.GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.TakeDamage(70); // Example damage value
+                enemy.TakeDamage(80); // Example damage value
             }
         }
 

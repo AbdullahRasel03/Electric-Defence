@@ -29,6 +29,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Camera tpCam;
     [SerializeField] private Camera uiCam;
     [SerializeField] private GameObject canvas;
+    [SerializeField] private GameObject tutorialHand;
     [SerializeField] private SocketManager socketManager;
     [SerializeField] private List<Turret> allTurrets;
     [SerializeField] private EnemyConfig bossConfig;
@@ -110,6 +111,7 @@ public class EnemySpawner : MonoBehaviour
             allTurrets.ForEach(x => x.Activate());
 
         distanceTextUI.gameObject.SetActive(true);
+        tutorialHand?.SetActive(false);
 
         canvas.SetActive(false);
         socketManager.ResetAllSockets();

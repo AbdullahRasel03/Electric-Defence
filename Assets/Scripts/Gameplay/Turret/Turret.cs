@@ -133,7 +133,7 @@ public class Turret : MonoBehaviour
             foreach (Enemy enemy in EnemyManager.Instance.ActiveEnemies)
             {
                 float dist = Vector3.Distance(transform.position, enemy.transform.position);
-                if (dist <= range && dist < closestDist)
+                if (dist <= range && dist < closestDist && enemy.IsActive)
                 {
                     closestDist = dist;
                     best = enemy;
@@ -141,7 +141,14 @@ public class Turret : MonoBehaviour
             }
             currentTarget = best;
             timer = refreshCooldown;
+            
+            OnNewTargetSelected();
         }
+    }
+
+    protected virtual void OnNewTargetSelected()
+    {
+        
     }
 
     protected void RotateYAxisToTarget()

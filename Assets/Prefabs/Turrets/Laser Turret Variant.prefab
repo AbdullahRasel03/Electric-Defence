@@ -1234,7 +1234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reflectorActive: 0
   turretBody: {fileID: 7363283894273836073}
-  range: 100
+  range: 110
   rotationSpeed: 10
   fireRateText: {fileID: 5350889851612116966}
   gridsOnPath:

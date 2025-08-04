@@ -15,7 +15,7 @@ public class LostPopup : PopupBase
 
         headerHolder.transform.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack).SetUpdate(true);
 
-        DOTween.To(() => redBgGroup.alpha, x => redBgGroup.alpha = x, 0, 0.25f).SetUpdate(true).OnComplete
+        DOTween.To(() => redBgGroup.alpha, x => redBgGroup.alpha = x, 1, 0.25f).SetUpdate(true).OnComplete
             (() =>
                 {
                     redBgGroup.blocksRaycasts = true;
@@ -25,7 +25,7 @@ public class LostPopup : PopupBase
 
         Time.timeScale = 0.15f;
 
-        DOVirtual.DelayedCall(0.25f, () =>
+        DOVirtual.DelayedCall(0.35f, () =>
         {
             if (restartButton != null)
             {

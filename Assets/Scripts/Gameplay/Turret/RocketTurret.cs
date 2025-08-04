@@ -43,10 +43,10 @@ public class RocketTurret : Turret
             projectile.GetComponent<RocketProjectile>().SetExplosionRadius(explosionDamageRadius);
         }
 
-        else
-        {
-            fireTime = 0f;
-            SetFireRateSlider(0f);
-        }
+        // else
+        // {
+        //     fireTime = 0f;
+        //     SetFireRateSlider(0f);
+        // }
     }
 }
