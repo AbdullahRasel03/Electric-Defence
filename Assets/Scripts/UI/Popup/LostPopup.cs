@@ -25,7 +25,7 @@ public class LostPopup : PopupBase
 
         Time.timeScale = 0.15f;
 
-        DOVirtual.DelayedCall(0.25f, () =>
+        DOVirtual.DelayedCall(0.35f, () =>
         {
             if (restartButton != null)
             {
