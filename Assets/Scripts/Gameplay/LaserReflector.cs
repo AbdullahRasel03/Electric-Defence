@@ -4,13 +4,16 @@ using UnityEngine;
 public class LaserReflector : MonoBehaviour
 {
     [SerializeField] int glowMatIndex;
-    public MLaser laser;
+    public MLaser laser; // Main visual laser
     public Transform reflectDirection;
     public bool useCustomWorldDirection = false;
     public Vector3 direction1;
     public Vector3 direction2;
 
-   // public float multiplier = 1f;
+    public bool isSplitter = false; // 👈 NEW: Splitter toggle
+    public MLaser splitLaserLeft;   // 👈 NEW: Visual for left split
+    public MLaser splitLaserRight;  // 👈 NEW: Visual for right split
+
     public float maxDistance = 15f;
     public int maxReflectionCount = 5;
     public float castOffset = 0.01f;
@@ -42,34 +45,41 @@ public class LaserReflector : MonoBehaviour
             total -= socket.ownMultiplier / 50;
         }
 
-       // total += multiplier;
-
-        Vector3 incomingDir = (hitPoint - transform.position).normalized;
-        Vector3 chosenDir;
-
-        if (Vector3.Dot(incomingDir, direction1.normalized) > 0.5f)
+        if (isSplitter)
         {
-            chosenDir = direction2.normalized;
-        }
-        else if (Vector3.Dot(incomingDir, direction2.normalized) > 0.5f)
-        {
-            chosenDir = direction1.normalized;
+            // Send in both directions
+            CastLaserDirection(direction1.normalized, hitPoint, depth, total, splitLaserLeft);
+            CastLaserDirection(-direction1.normalized, hitPoint, depth, total, splitLaserRight);
         }
         else
         {
-            chosenDir = transform.forward;
-        }
+            // Normal single reflection
+            Vector3 incomingDir = (hitPoint - transform.position).normalized;
+            Vector3 chosenDir;
 
+            if (Vector3.Dot(incomingDir, direction1.normalized) > 0.5f)
+                chosenDir = direction2.normalized;
+            else if (Vector3.Dot(incomingDir, direction2.normalized) > 0.5f)
+                chosenDir = direction1.normalized;
+            else
+                chosenDir = transform.forward;
+
+            CastLaserDirection(chosenDir, hitPoint, depth, total, laser);
+        }
+    }
+
+    private void CastLaserDirection(Vector3 dir, Vector3 startPoint, int depth, float multiplier, MLaser laserRef)
+    {
         Vector3 origin = transform.position + Vector3.up * 0.5f;
         Vector3 currentOrigin = origin;
-        Vector3 finalEndPoint = origin + chosenDir * maxDistance;
+        Vector3 finalEndPoint = origin + dir * maxDistance;
         float remainingDistance = maxDistance;
 
         int combinedMask = reflectionLayer | towerLayer | socketLayer;
 
         while (remainingDistance > 0f)
         {
-            Ray ray = new Ray(currentOrigin + chosenDir * castOffset, chosenDir);
+            Ray ray = new Ray(currentOrigin + dir * castOffset, dir);
 
             if (Physics.Raycast(ray, out RaycastHit hit, remainingDistance, combinedMask))
             {
@@ -81,23 +91,23 @@ public class LaserReflector : MonoBehaviour
                     if (socketHit != null)
                     {
                         socketHit.PowerUp();
-                        total -= socketHit.ownMultiplier/50 ;
+                        multiplier -= socketHit.ownMultiplier / 50;
                     }
 
                     float distUsed = Vector3.Distance(currentOrigin, hit.point) + 0.01f;
-                    currentOrigin = hit.point + chosenDir * 0.01f;
+                    currentOrigin = hit.point + dir * 0.01f;
                     remainingDistance -= distUsed;
                     continue;
                 }
 
                 if (((1 << hitLayer) & reflectionLayer) != 0)
                 {
-                    finalEndPoint = hit.point + chosenDir.normalized * 1f;
+                    finalEndPoint = hit.point + dir.normalized * 1f;
 
                     LaserReflector nextReflector = hit.collider.GetComponent<LaserReflector>();
                     if (nextReflector != null && nextReflector != this)
                     {
-                        nextReflector.Reflect(hit.point, depth + 1, total);
+                        nextReflector.Reflect(hit.point, depth + 1, multiplier);
                     }
                     break;
                 }
@@ -109,7 +119,7 @@ public class LaserReflector : MonoBehaviour
                     Turret turret = hit.collider.transform.parent.GetComponentInChildren<Turret>();
                     if (turret != null)
                     {
-                        turret.ReceivePower(total);
+                        turret.ReceivePower(multiplier);
                     }
                     break;
                 }
@@ -120,15 +130,20 @@ public class LaserReflector : MonoBehaviour
             }
         }
 
-        laser.SetLaser(origin, finalEndPoint);
-        laser.gameObject.SetActive(true);
+        if (laserRef != null)
+        {
+            laserRef.SetLaser(origin, finalEndPoint);
+            laserRef.gameObject.SetActive(true);
+        }
     }
 
     void LateUpdate()
     {
-        if (!isHitThisFrame && laser != null)
+        if (!isHitThisFrame)
         {
-            laser.gameObject.SetActive(false);
+            if (laser != null) laser.gameObject.SetActive(false);
+            if (splitLaserLeft != null) splitLaserLeft.gameObject.SetActive(false);
+            if (splitLaserRight != null) splitLaserRight.gameObject.SetActive(false);
 
             if (socket != null)
                 socket.PowerDown(glowMatIndex);

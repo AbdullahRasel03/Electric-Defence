@@ -130,6 +130,9 @@ MonoBehaviour:
   useCustomWorldDirection: 1
   direction1: {x: 0, y: 0, z: -1}
   direction2: {x: -1, y: 0, z: 0}
+  isSplitter: 0
+  splitLaserLeft: {fileID: 0}
+  splitLaserRight: {fileID: 0}
   maxDistance: 15
   maxReflectionCount: 5
   castOffset: 0.01
