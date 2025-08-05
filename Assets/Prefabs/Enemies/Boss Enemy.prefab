@@ -758,15 +758,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 445614, guid: cfb5214bbbff623469f862867b0c706c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 8
+      value: 9.5
       objectReference: {fileID: 0}
     - target: {fileID: 445614, guid: cfb5214bbbff623469f862867b0c706c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 8
+      value: 9.5
       objectReference: {fileID: 0}
     - target: {fileID: 445614, guid: cfb5214bbbff623469f862867b0c706c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 8
+      value: 9.5
       objectReference: {fileID: 0}
     - target: {fileID: 445614, guid: cfb5214bbbff623469f862867b0c706c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -782,11 +782,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 445614, guid: cfb5214bbbff623469f862867b0c706c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.99586856
       objectReference: {fileID: 0}
     - target: {fileID: 445614, guid: cfb5214bbbff623469f862867b0c706c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.09080635
       objectReference: {fileID: 0}
     - target: {fileID: 445614, guid: cfb5214bbbff623469f862867b0c706c, type: 3}
       propertyPath: m_LocalRotation.y
@@ -798,7 +798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 445614, guid: cfb5214bbbff623469f862867b0c706c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -10.42
       objectReference: {fileID: 0}
     - target: {fileID: 445614, guid: cfb5214bbbff623469f862867b0c706c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -907,14 +907,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1b15e4a89a88547bd63d38d3a042a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20000
+  maxHealth: 1000
   healthText: {fileID: 5549271839312454306}
-  movementSpeed: 8
+  movementSpeed: 4
   enemyType: 0
   sinkDuration: 2
   sinkDepth: 2
   damageParticlePrefab: {fileID: 145150, guid: 16d4b504584fb1d4784bc23462900274, type: 3}
-  deathParticlePrefab: {fileID: 3030505862732488420, guid: c17ae050383d94c17aaf727a09e284ea,
+  deathParticlePrefab: {fileID: 3030505862732488420, guid: 5fe49481bfb68490a96d633eed0b7aa5,
     type: 3}
   enemyMesh:
   - {fileID: 7974130592060966611}

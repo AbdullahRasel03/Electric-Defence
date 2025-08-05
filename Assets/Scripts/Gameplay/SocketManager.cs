@@ -52,7 +52,7 @@ public class SocketManager : MonoBehaviour
 
     public void RefreshSockets()
     {
-        print("11111");
+        // print("11111");
         StartCoroutine(RefreshSocketsRoutine());
     }
 
@@ -63,7 +63,8 @@ public class SocketManager : MonoBehaviour
         float totalScrollDuration = socketSpawner.slideInDuration;
 
         socketSpawner.ScrollBelt(totalScrollDuration);
-
+    
+        
         for (int i = 0; i < spawnedNewSockets.Count; i++)
         {
             Socket socket = spawnedNewSockets[i];
