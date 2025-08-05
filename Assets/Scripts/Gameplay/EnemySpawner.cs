@@ -99,7 +99,17 @@ public class EnemySpawner : MonoBehaviour
         {
             currentTime = 0f;
             SpawnEnemy();
-            SetNextSpawnTime();
+            
+            if(currentBatchCount > spawnBossAfterBatch && !isBossSpawned)
+            {
+                nextSpawnTime = 5f;
+            }
+            
+            else 
+            { 
+                SetNextSpawnTime();
+            }
+        
         }
     }
 
@@ -189,7 +199,7 @@ public class EnemySpawner : MonoBehaviour
             );
 
             Enemy enemy = enemyObj.GetComponent<Enemy>();
-            enemy.ActivateEnemy(spawnPos + new Vector3(0, 0, Random.Range(-10, 10)), config.prefab.transform.rotation, config.health);
+            enemy.ActivateEnemy(spawnPos + new Vector3(0, 0, Random.Range(-2, 2)), config.prefab.transform.rotation, config.health);
 
             activeEnemies.Add(enemy);
 
@@ -228,6 +238,9 @@ public class EnemySpawner : MonoBehaviour
     public void OnEnemyDefeated(Enemy enemy)
     {
         activeEnemies.Remove(enemy);
+        
+        Debug.LogError("Active Enemies Count: " + activeEnemies.Count);
+        Debug.LogError("Current Spawn Count: " + currentSpawnCount);
 
         if (currentSpawnCount >= maxActiveEnemies && activeEnemies.Count == 0)
         {
