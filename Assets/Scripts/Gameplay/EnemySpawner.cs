@@ -230,8 +230,7 @@ public class EnemySpawner : MonoBehaviour
         {
             isSpawning = false;
             distanceTextUI.StartTimer(false);
-            if(distanceTextUI.gameObject.activeInHierarchy)
-            distanceTextUI.gameObject.SetActive(false);
+            if(distanceTextUI != null)   if(distanceTextUI.gameObject.activeInHierarchy)distanceTextUI.gameObject.SetActive(false);
             victoryPopup.SetView(true);
         }
     }
