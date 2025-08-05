@@ -20,7 +20,7 @@ public class FireProjectile : Projectile
                 impact.Play();
 
                 // Apply damage to the enemy
-                enemy.TakeDamage(35); // Example damage value
+                enemy.TakeDamage(40); // Example damage value
 
                 // Destroy the projectile after impact
                 ObjectPool.instance.ReturnToPool(this.gameObject);
