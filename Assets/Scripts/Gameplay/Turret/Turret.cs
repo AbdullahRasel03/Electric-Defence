@@ -265,9 +265,20 @@ public class Turret : MonoBehaviour
 
     private void SetFireRate(float rate)
     {
-        fireRate = rate;
-        UpdateFireRateText();
+        // Check if there's an actual change
+        if (Mathf.Abs(fireRate - rate) > Mathf.Epsilon)
+        {
+            fireRate = rate;
+            UpdateFireRateText();
+
+            // Play level-up particle on change
+            if (levelUpParticle != null)
+            {
+                levelUpParticle.Play();
+            }
+        }
     }
+
 
     private void UpdateFireRateText(string text)
     {

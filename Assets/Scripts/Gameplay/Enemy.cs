@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using DG.Tweening;
 using System.Collections;
@@ -7,7 +7,6 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour
 {
-
     #region Settings
 
     [Header("Health Settings")]
@@ -58,11 +57,10 @@ public class Enemy : MonoBehaviour
 
     public bool IsActive => _currentState == EnemyState.Active;
     public EnemyType EnemyType => enemyType;
-
     public float Speed => movementSpeed;
 
-
     #endregion
+
 
     #region Events
 
@@ -98,36 +96,29 @@ public class Enemy : MonoBehaviour
 
     #region Public Methods
 
-    /// <summary>
-    /// Activates the enemy at the specified position and rotation
-    /// </summary>
-    /// <param name="position">World position to spawn</param>
-    /// <param name="rotation">World rotation to apply</param>
     public void ActivateEnemy(Vector3 position, Quaternion rotation, float _maxHealth)
     {
-        trails.ForEach(trail => {trail.emitting = false; trail.Clear();});
+        trails.ForEach(trail => { trail.emitting = false; trail.Clear(); });
         _rigidbody.isKinematic = true;
         _rigidbody.useGravity = false;
         _rigidbody.linearVelocity = Vector3.zero;
         _rigidbody.angularVelocity = Vector3.zero;
-        // warpTrail.gameObject.SetActive(true);
+
         foreach (Renderer renderer in enemyMesh)
         {
             renderer.material = enemyMaterial;
         }
         warpTrail.ForEach(trail => trail.Play());
-        trails.ForEach((trail => trail.emitting = true));
-        // maxHealth = _maxHealth;
+        trails.ForEach(trail => trail.emitting = true);
+
         transform.rotation = rotation;
         AudioManager.CallPlaySFX(Sound.EnemyAppear);
+
         transform.DOMove(position, 0.5f).SetEase(Ease.OutQuint)
             .OnComplete(() => StartCoroutine(TurnOffWarpTrail()));
-        // transform.SetPositionAndRotation(position, rotation);
+
         _currentHealth = maxHealth;
         _currentState = EnemyState.Active;
-
-        // Debug.LogError(_currentHealth);
-        // Debug.LogError(maxHealth);
 
         SetPhysicsEnabled(true);
         SetHealthTextEnabled(true);
@@ -209,7 +200,6 @@ public class Enemy : MonoBehaviour
     private void UpdateHealthUI()
     {
         if (healthText == null) return;
-
         healthText.text = $"{Mathf.Round(_currentHealth)}";
         healthText.transform.forward = Camera.main.transform.forward;
     }
@@ -235,8 +225,9 @@ public class Enemy : MonoBehaviour
     {
         OnEnemyDead?.Invoke(this);
         AudioManager.CallPlaySFX(Sound.EnemyDeath);
-        Camera.main.transform.DOShakePosition(0.5f, 0.25f, 7, 0.45f);
-        Camera.main.transform.DOPunchRotation(Vector3.forward * 0.25f, 0.5f, 7, 0.65f);
+
+        CamController.Instance.CameraShake();
+
         _currentState = EnemyState.Dying;
         SetHealthTextEnabled(false);
 
@@ -248,8 +239,7 @@ public class Enemy : MonoBehaviour
 
     private void PlayDeathAnimation()
     {
-        // if (animator)
-        //     animator.Play("Death");
+        // Optional death animation
     }
 
     private void SpawnDeathParticles()
@@ -270,7 +260,6 @@ public class Enemy : MonoBehaviour
     private void StartSinking()
     {
         _currentState = EnemyState.Sinking;
-        // SetPhysicsEnabled(false);
 
         _rigidbody.isKinematic = false;
         _rigidbody.useGravity = true;
@@ -281,10 +270,6 @@ public class Enemy : MonoBehaviour
         {
             CompleteDeathSequence();
         });
-
-        // _sinkTween = transform.DOMoveY(transform.position.y - sinkDepth, sinkDuration)
-        //     .SetEase(Ease.InQuad)
-        //     .OnComplete(CompleteDeathSequence);
     }
 
     private void CompleteDeathSequence()

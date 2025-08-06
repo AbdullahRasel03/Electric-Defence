@@ -71,6 +71,7 @@ public class GridObject : MonoBehaviour
                 GridObject grid = hit.collider.GetComponent<GridObject>();
                 if (grid != null)
                 {
+                 
                     if (!grid.isOccupied)
                     {
                         cubeGridMap[cube] = grid;
@@ -115,7 +116,7 @@ public class GridObject : MonoBehaviour
         Vector3 cubeWorldPos = firstCube.transform.position;
         Vector3 gridWorldPos = firstGrid.plugSocketHolder.position;
         Vector3 socketOffset = cubeWorldPos - socket.transform.position;
-
+       
         newSocketWorldPos = gridWorldPos - socketOffset;
 
         foreach (var pair in cubeGridMap)

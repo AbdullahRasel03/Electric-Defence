@@ -92,6 +92,6 @@ public class EnemyManager : MonoBehaviour
             }
         }
 
-        spawner.CleanupAllEnemies();
+       // spawner.CleanupAllEnemies();
     }
 }

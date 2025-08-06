@@ -81,7 +81,7 @@ public class Socket : MonoBehaviour
     {
         if (gfxs == null || gfxs.Length == 0 || hasPower) return;
 
-        AudioManager.CallPlaySFX(Sound.SocketPlaced);
+       // AudioManager.CallPlaySFX(Sound.SocketPlaced);
 
         hasPower = true;
 

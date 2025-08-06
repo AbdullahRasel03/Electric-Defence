@@ -186,6 +186,7 @@ public class DragSystem : MonoBehaviour
                     {
                         if (grid.gridManager != null)
                         {
+                            AudioManager.CallPlaySFX(Sound.SocketPlaced);
                             grid.gridManager.CheckAllGridsPower();
                             break;
                         }

@@ -193,9 +193,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2491081892354151404, guid: 3a446f39136d041f38ebd8feb8135ece,
         type: 3}
+      propertyPath: fireRate
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491081892354151404, guid: 3a446f39136d041f38ebd8feb8135ece,
+        type: 3}
       propertyPath: towerGFX
       value: 
       objectReference: {fileID: 580799101131873932}
+    - target: {fileID: 2491081892354151404, guid: 3a446f39136d041f38ebd8feb8135ece,
+        type: 3}
+      propertyPath: baseFireRate
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491081892354151404, guid: 3a446f39136d041f38ebd8feb8135ece,
+        type: 3}
+      propertyPath: reflectorActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3254866046156379174, guid: 3a446f39136d041f38ebd8feb8135ece,
         type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -292,6 +307,16 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: -457.3
       objectReference: {fileID: 0}
+    - target: {fileID: 8181675020504711270, guid: 3a446f39136d041f38ebd8feb8135ece,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8181675020504711270, guid: 3a446f39136d041f38ebd8feb8135ece,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.31
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -381,7 +406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6564270, guid: 41e696aac34d7f74ba86affb4d0b72b9, type: 3}
       propertyPath: m_Size.z
-      value: 2.2609181
+      value: 2.660918
       objectReference: {fileID: 0}
     - target: {fileID: 6564270, guid: 41e696aac34d7f74ba86affb4d0b72b9, type: 3}
       propertyPath: m_Center.x
@@ -389,7 +414,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6564270, guid: 41e696aac34d7f74ba86affb4d0b72b9, type: 3}
       propertyPath: m_Center.z
-      value: -0.23188654
+      value: -0.4318865
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -416,6 +441,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2590536640647757632}
     m_Modifications:
+    - target: {fileID: 1649039301556200358, guid: 45a031460dc174ac28186acf09d3ee3d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1649039301556200358, guid: 45a031460dc174ac28186acf09d3ee3d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.3099997
+      objectReference: {fileID: 0}
     - target: {fileID: 1977726546546265474, guid: 45a031460dc174ac28186acf09d3ee3d,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -452,6 +487,11 @@ PrefabInstance:
       propertyPath: towerGFX
       value: 
       objectReference: {fileID: 1512190363592657463}
+    - target: {fileID: 5491704003106758524, guid: 45a031460dc174ac28186acf09d3ee3d,
+        type: 3}
+      propertyPath: reflectorActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6495344295004377005, guid: 45a031460dc174ac28186acf09d3ee3d,
         type: 3}
       propertyPath: m_IsActive
@@ -627,7 +667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6564270, guid: 41e696aac34d7f74ba86affb4d0b72b9, type: 3}
       propertyPath: m_Size.z
-      value: 2.2609184
+      value: 2.6609182
       objectReference: {fileID: 0}
     - target: {fileID: 6564270, guid: 41e696aac34d7f74ba86affb4d0b72b9, type: 3}
       propertyPath: m_Center.x
@@ -635,7 +675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6564270, guid: 41e696aac34d7f74ba86affb4d0b72b9, type: 3}
       propertyPath: m_Center.z
-      value: -0.23188682
+      value: -0.4318868
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -732,7 +772,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6564270, guid: 41e696aac34d7f74ba86affb4d0b72b9, type: 3}
       propertyPath: m_Size.z
-      value: 2.2609184
+      value: 2.6609182
       objectReference: {fileID: 0}
     - target: {fileID: 6564270, guid: 41e696aac34d7f74ba86affb4d0b72b9, type: 3}
       propertyPath: m_Center.x
@@ -740,7 +780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6564270, guid: 41e696aac34d7f74ba86affb4d0b72b9, type: 3}
       propertyPath: m_Center.z
-      value: -0.23188682
+      value: -0.4318868
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -858,11 +898,36 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -2.469
       objectReference: {fileID: 0}
+    - target: {fileID: 4046723378650212302, guid: 0f2f2437df5c44a8db3f1d79690829d9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4046723378650212302, guid: 0f2f2437df5c44a8db3f1d79690829d9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.3099995
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061078761312820282, guid: 0f2f2437df5c44a8db3f1d79690829d9,
+        type: 3}
+      propertyPath: fireRate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4061078761312820282, guid: 0f2f2437df5c44a8db3f1d79690829d9,
         type: 3}
       propertyPath: towerGFX
       value: 
       objectReference: {fileID: 2588951749305198095}
+    - target: {fileID: 4061078761312820282, guid: 0f2f2437df5c44a8db3f1d79690829d9,
+        type: 3}
+      propertyPath: baseFireRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061078761312820282, guid: 0f2f2437df5c44a8db3f1d79690829d9,
+        type: 3}
+      propertyPath: reflectorActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5933036419822515963, guid: 0f2f2437df5c44a8db3f1d79690829d9,
         type: 3}
       propertyPath: m_AnchorMax.x

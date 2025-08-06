@@ -97,7 +97,7 @@ MonoBehaviour:
   connectableLayers:
     serializedVersion: 2
     m_Bits: 5120
-  ownMultiplier: 2
+  ownMultiplier: 0
   actingMultiplier: 0
   pinMoveDuration: 0.3
   pinMoveEase: 27
@@ -108,8 +108,7 @@ MonoBehaviour:
   hasPower: 0
   assignedGrids: []
   socketManager: {fileID: 0}
-  fireRateTexts:
-  - {fileID: 3652960866237835926}
+  fireRateTexts: []
   plugHolder: {fileID: 1570513965003418249}
   laser: {fileID: 5707740720829198086}
 --- !u!114 &3828924428658353430
@@ -134,7 +133,7 @@ MonoBehaviour:
   splitLaserLeft: {fileID: 0}
   splitLaserRight: {fileID: 0}
   maxDistance: 15
-  maxReflectionCount: 5
+  maxReflectionCount: 10
   castOffset: 0.01
   reflectionLayer:
     serializedVersion: 2
@@ -145,6 +144,9 @@ MonoBehaviour:
   socketLayer:
     serializedVersion: 2
     m_Bits: 4096
+  stopLayer:
+    serializedVersion: 2
+    m_Bits: 1048576
 --- !u!114 &1296750998800699312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,7 +296,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4456235149690182630
 RectTransform:
   m_ObjectHideFlags: 0

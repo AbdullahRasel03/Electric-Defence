@@ -282,7 +282,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnDestroy()
     {
-        CleanupAllEnemies();
+        //CleanupAllEnemies();
         Enemy.OnEnemyDead -= OnEnemyDefeated;
     }
 

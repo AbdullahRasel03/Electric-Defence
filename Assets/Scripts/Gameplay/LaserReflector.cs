@@ -4,15 +4,15 @@ using UnityEngine;
 public class LaserReflector : MonoBehaviour
 {
     [SerializeField] int glowMatIndex;
-    public MLaser laser; // Main visual laser
+    public MLaser laser;
     public Transform reflectDirection;
     public bool useCustomWorldDirection = false;
     public Vector3 direction1;
     public Vector3 direction2;
 
-    public bool isSplitter = false; // 👈 NEW: Splitter toggle
-    public MLaser splitLaserLeft;   // 👈 NEW: Visual for left split
-    public MLaser splitLaserRight;  // 👈 NEW: Visual for right split
+    public bool isSplitter = false;
+    public MLaser splitLaserLeft;
+    public MLaser splitLaserRight;
 
     public float maxDistance = 15f;
     public int maxReflectionCount = 5;
@@ -23,6 +23,8 @@ public class LaserReflector : MonoBehaviour
     [SerializeField] LayerMask reflectionLayer;
     [SerializeField] LayerMask towerLayer;
     [SerializeField] LayerMask socketLayer;
+    [SerializeField] LayerMask stopLayer; // ✅ NEW
+
     Socket socket;
 
     private void Start()
@@ -47,13 +49,11 @@ public class LaserReflector : MonoBehaviour
 
         if (isSplitter)
         {
-            // Send in both directions
             CastLaserDirection(direction1.normalized, hitPoint, depth, total, splitLaserLeft);
             CastLaserDirection(-direction1.normalized, hitPoint, depth, total, splitLaserRight);
         }
         else
         {
-            // Normal single reflection
             Vector3 incomingDir = (hitPoint - transform.position).normalized;
             Vector3 chosenDir;
 
@@ -75,7 +75,7 @@ public class LaserReflector : MonoBehaviour
         Vector3 finalEndPoint = origin + dir * maxDistance;
         float remainingDistance = maxDistance;
 
-        int combinedMask = reflectionLayer | towerLayer | socketLayer;
+        int combinedMask = reflectionLayer | towerLayer | socketLayer | stopLayer;
 
         while (remainingDistance > 0f)
         {
@@ -121,6 +121,13 @@ public class LaserReflector : MonoBehaviour
                     {
                         turret.ReceivePower(multiplier);
                     }
+                    break;
+                }
+
+                // ✅ Stop layer check
+                if (((1 << hitLayer) & stopLayer) != 0)
+                {
+                    finalEndPoint = hit.point;
                     break;
                 }
             }

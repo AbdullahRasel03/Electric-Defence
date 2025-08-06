@@ -803,9 +803,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1b15e4a89a88547bd63d38d3a042a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 350
   healthText: {fileID: 3189322562113885842}
-  movementSpeed: 3.65
+  movementSpeed: 6
   enemyType: 0
   sinkDuration: 2
   sinkDepth: 2
