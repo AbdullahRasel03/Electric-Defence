@@ -102,7 +102,7 @@ public class EnemySpawner : MonoBehaviour
             
             if(currentBatchCount > spawnBossAfterBatch && !isBossSpawned)
             {
-                nextSpawnTime = 5f;
+                nextSpawnTime = 2f;
             }
             
             else 
@@ -136,12 +136,12 @@ public class EnemySpawner : MonoBehaviour
 
         allTurrets.ForEach(turret => { turret.HideFireRateText(); turret.SetFireRateSlider(); });
 
-        topDownCam.transform.DOMove(tpCam.transform.position, 1.5f);
-        topDownCam.transform.DORotate(tpCam.transform.rotation.eulerAngles, 1.5f);
+        topDownCam.transform.DOMove(tpCam.transform.position, 0.5f);
+        topDownCam.transform.DORotate(tpCam.transform.rotation.eulerAngles, 0.5f);
 
-        DOTween.To(() => topDownCam.fieldOfView, x => topDownCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
-        DOTween.To(() => topDownNonPPCam.fieldOfView, x => topDownNonPPCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
-        DOTween.To(() => uiCam.fieldOfView, x => uiCam.fieldOfView = x, tpCam.fieldOfView, 1.5f);
+        DOTween.To(() => topDownCam.fieldOfView, x => topDownCam.fieldOfView = x, tpCam.fieldOfView, 0.5f);
+        DOTween.To(() => topDownNonPPCam.fieldOfView, x => topDownNonPPCam.fieldOfView = x, tpCam.fieldOfView, 0.5f);
+        DOTween.To(() => uiCam.fieldOfView, x => uiCam.fieldOfView = x, tpCam.fieldOfView, 0.5f);
 
         DOVirtual.DelayedCall(3.5f, () =>
         {
@@ -183,7 +183,7 @@ public class EnemySpawner : MonoBehaviour
                 config = bossConfig;
                 spawnPoint = spawnPoints[2];
                 isBossSpawned = true;
-                currentSpawnCount = maxActiveEnemies;
+                // currentSpawnCount = maxActiveEnemies;
             }
             
             Vector3 spawnPos = spawnPoint.position;

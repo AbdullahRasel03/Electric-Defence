@@ -90,7 +90,7 @@ public class Socket : MonoBehaviour
             if (renderer.material.HasProperty("_Emissive"))
             {
                 Color currentEmission = renderer.material.GetColor("_Emissive");
-                Color targetEmission = currentEmission + Color.cyan * 10f;
+                Color targetEmission = currentEmission + (Color.cyan * 10f);
 
                 DOTween.To(() => currentEmission, x =>
                 {

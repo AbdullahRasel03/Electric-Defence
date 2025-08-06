@@ -171,10 +171,10 @@ public class DragSystem : MonoBehaviour
 
             newPosition.y = 0;
 
-            // foreach (Transform chil in transform)
-            // {
-            //     chil.gameObject.layer = LayerMask.NameToLayer("Default");
-            // }
+            foreach (Transform chil in transform)
+            {
+                chil.gameObject.layer = LayerMask.NameToLayer("Default");
+            }
 
             socket.MulTxt.layer = LayerMask.NameToLayer("UI");
 
